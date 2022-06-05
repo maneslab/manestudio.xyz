@@ -1,0 +1,99 @@
+key,en,zh
+are you sure you want to delete this item?,are you sure you want to delete this item?,你确定要删除这个项目吗？
+can not less then {{count}} character,can not less then {{count}} character,不能少于{{count}}字符
+no more than {{count}} character,no more than {{count}} character,不能多于{{count}}个字符
+load more,load more,加载更多
+upload image,upload image,上传图片
+please select language,please select language,请选择语言
+language_warning_intro,language_warning_intro,语言_警告_介绍
+please select,please select,请选择
+please select token,please select token,请选择代币
+home,home,首页
+club is not exist,club is not exist,俱乐部不存在
+created at {{time}},created at {{time}},创建于{{时间}}。
+about,about,关于
+airdrop,airdrop,空投
+hot collections,hot collections,热门收藏
+setting,setting,设置
+management,management,管理
+submit,submit,提交
+amount,amount,数量
+action,action,操作
+wallet address,wallet address,钱包地址
+ETH wallet address,ETH wallet address,ETH钱包地址
+token,token,代币
+balance,balance,余额
+pay success,pay success,支付成功
+approve token,approve token,批准代币
+please select during time,please select during time,请选择时间
+to address,to address,地址
+password,password,密码
+creating proof data,creating proof data,创建证明数据
+waiting for calling metamask,waiting for calling metamask,等待调用metamask
+1 day,1 day,1天
+7 days,7 days,7天
+30 days,30 days,30天
+365 days,365 days,365天
+safebox balance,safebox balance,保险箱余额
+create safebox,create safebox,创建保险箱
+creating safebox,creating safebox,创建保险箱
+create safebox tx sent,create safebox tx sent,创建保险箱交易已发送
+waiting for the transaction to be executed,waiting for the transaction to be executed,等待交易的执行
+tx failed,tx failed,交易失败
+withdraw tx sent,withdraw tx sent,取款交易已发送
+withdraw from safebox,withdraw from safebox,从保险箱中提款
+approve tx sent,approve tx sent,批准交易已发送
+safebox is created,safebox is created,保险箱已创建
+withdraw,withdraw,取款
+my safebox,my safebox,我的保险箱
+deposit,deposit,存款
+depositing,depositing,存款
+deposit tx sent,deposit tx sent,存款Tx已发送
+deposit successful,deposit successful,存款成功
+input kw for filter,input kw for filter,输入kw作为过滤器
+add token,add token,添加令牌
+create safebox successful,create safebox successful,创建保险箱成功
+deposit token,deposit token,存款令牌
+deposit success,deposit success,存款成功
+calling metamask,calling metamask,呼叫元任务
+approve successful,approve successful,批准成功
+deposit error,deposit error,存款错误
+wallet is not connected,wallet is not connected,钱包未连接
+set password,set password,设置密码
+reseting password,reseting password,重置密码
+reset password tx sent,reset password tx sent,重置密码 Tx已发送
+reset password successful,reset password successful,重置密码成功
+input which safebox you wanna helper to reset password,input which safebox you wanna helper to reset password,输入你想帮助重置密码的安全盒
+send reset passwor request,send reset passwor request,发送重置密码请求
+sending reset password request,sending reset password request,发送重置密码请求
+remove,remove,删除
+add wallet,add wallet,添加钱包
+social recovery has been set up,social recovery has been set up,已经设置了社交恢复
+allowed wallet,allowed wallet,允许的钱包
+signed wallet,signed wallet,已签名的钱包
+reset socail recovery wallets,reset socail recovery wallets,重置socail recovery钱包
+require wallet number,require wallet number,需要钱包数量
+how many wallet signatures are required to recovery password,how many wallet signatures are required to recovery password,恢复密码需要多少个钱包签名
+create social recovery,create social recovery,创建社交恢复
+requires {count} wallet signatures to reset password,requires {count} wallet signatures to reset password,需要{count}个钱包签名来重置密码
+signed wallet count : {count},signed wallet count : {count},签名的钱包数量 : {count}
+creating socail recovery,creating socail recovery,创建socail恢复
+create socail recovery tx sent,create socail recovery tx sent,创建socail恢复系统的tx已发送
+create socail recovery successful,create socail recovery successful,创建社交恢复成功
+withdraw error,withdraw error,提款错误
+withdrawing,withdrawing,提款
+withdraw successful,withdraw successful,提款成功
+set up social recovery,set up social recovery,建立社交恢复
+helping others with social recovery,helping others with social recovery,帮助他人进行社交恢复
+Protect your assets with Zero Knowledge Proof,Protect your assets with Zero Knowledge Proof,用零知识证明来保护你的资产
+protect your assets,protect your assets,保护你的资产
+"use Zero Knowledge proof for protect your asset , the hacker cannot take your asset even he has your private key","use Zero Knowledge proof for protect your asset , the hacker cannot take your asset even he has your private key","使用 ""零知识证明 ""来保护你的资产，即使黑客拥有你的私钥也无法夺走你的资产。"
+socail recover,socail recover,社交恢复
+you can set up multiple wallet addresses that you can use to recover your password in case you forget it,you can set up multiple wallet addresses that you can use to recover your password in case you forget it,你可以设置多个钱包地址，当你忘记密码时，你可以用它来恢复你的密码。
+open source,open source,开放源代码
+"use smart contracts and fully open source, because the source code is simple and easy to understand","use smart contracts and fully open source, because the source code is simple and easy to understand",使用智能合约并完全开放源代码，因为源代码简单易懂。
+Did you hear about our,Did you hear about our,你是否听说过我们的
+Developer said,Developer said,开发者说
+"Use smart contracts and fully open source, because the source code is simple and easy to understand, so there is no need to worry about security vulnerabilities","Use smart contracts and fully open source, because the source code is simple and easy to understand, so there is no need to worry about security vulnerabilities",使用智能合约并完全开放源代码，因为源代码简单易懂，所以不用担心安全漏洞问题
+"Using ZK technology, open source contracts, is a very important way for WEB3 to be open and transparent to help others solve their asset security problems","Using ZK technology, open source contracts, is a very important way for WEB3 to be open and transparent to help others solve their asset security problems",使用ZK技术，开源合约，是WEB3公开透明的一个非常重要的方式，可以帮助别人解决资产安全问题
+reset password,reset password,重置密码
