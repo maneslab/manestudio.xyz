@@ -6,7 +6,7 @@ import {HYDRATE} from 'next-redux-wrapper';
 import {createLogger} from 'redux-logger'
 import {createWrapper} from 'next-redux-wrapper';
 import Immutable from 'immutable';
-import {getConfig} from 'helper/config'
+import config from 'helper/config'
 
 import reducer from './reducer.js';
 
@@ -69,7 +69,7 @@ export const makeStore = context => initStore();
 // export const wrapper = createWrapper(makeStore, {debug: true});
 export const wrapper = createWrapper(makeStore
     , {
-        debug: getConfig("DEBUG") ,
+        debug: config.get("DEBUG") ,
         serializeState: state => state.toJS(),
         deserializeState: state => Immutable.fromJS(state),
     }

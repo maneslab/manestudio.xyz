@@ -1,8 +1,8 @@
-import {getConfig} from 'helper/config'
+// import {getConfig} from 'helper/config'
 import {httpRequestAwait} from 'helper/http'
 import {removeValueEmpty} from 'helper/common';
 // import {formatPairList} from 'helper/dataapi'
-
+import config from 'helper/config';
 import { normalize } from 'normalizr';
 import { userSchema} from 'redux/schema/index';
 
@@ -16,7 +16,7 @@ export const initPage = async (pagename,data,dispatch = null,cookies = null) => 
     // console.log('debug008,准备开始init_page',pagename,data);
     
     let data_api = null;
-    let url_base = getConfig('API');
+    let url_base = config.get('API');
 
     switch(pagename) {
         case 'login_user':

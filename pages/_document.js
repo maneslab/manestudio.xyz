@@ -1,10 +1,10 @@
 import Document, { Head, Main, NextScript, Html} from 'next/document';
 
-import {getConfig} from 'helper/config'
+import config from 'helper/config'
 
 export default class extends Document {
   render() {
-    let GA_TRACKING_ID = getConfig('GA_TRACKING_ID');
+    let GA_TRACKING_ID = config.get('GA_TRACKING_ID');
     
     /*              <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:site" content="@closeskycom" />

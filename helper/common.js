@@ -1,14 +1,14 @@
 import md5 from 'blueimp-md5'
 import Immutable from "immutable";
-import {getConfig} from 'helper/config'
+import config from 'helper/config';
 
 export function getUrl(url) {
-    let base_url = getConfig('WEBSITE');
+    let base_url = config.get('WEBSITE');
     return base_url+url
 }
 
 export function getApiUrl(url) {
-    let base_url = getConfig('API');
+    let base_url = config.get('API');
     return base_url+url
 }
 

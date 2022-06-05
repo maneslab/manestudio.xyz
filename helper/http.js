@@ -1,15 +1,14 @@
-import getConfig from 'next/config'
 import { getJwtToken } from 'helper/cookie'
 import queryString from 'query-string'
 import {urlStringify} from 'helper/common'
 import message from 'components/common/message'
-import {UserException,UnloginException} from 'helper/exception'
+import {UnloginException} from 'helper/exception'
 
-const { publicRuntimeConfig } = getConfig()
+import config from 'helper/config';
 
-// console.log('debug,publicRuntimeConfig',publicRuntimeConfig);
+console.log('process.env',process.env)
 
-let api_url_base = publicRuntimeConfig['env']['API'];
+let api_url_base = config.get('API');
 
 function catchApiError(result) {
     console.log('catchApiError',result)

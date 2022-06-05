@@ -4,7 +4,7 @@ import autobind from 'autobind-decorator'
 
 // import * as gtag from 'helper/gtag'
 import Router from 'next/router'
-import {getConfig} from 'helper/config'
+import config from 'helper/config'
 
 //rainbowkit开始
 import '@rainbow-me/rainbowkit/styles.css';
@@ -19,7 +19,7 @@ import {
 import { chain, createClient, WagmiProvider } from 'wagmi';
 import merge from 'lodash.merge';
 
-const env = getConfig('ENV')
+const env = config.get('ENV')
 
 let allow_nets = [];
 if (env == 'production') {
@@ -136,7 +136,7 @@ MyApp.getInitialProps = async (appContext) => {
     const appProps = await App.getInitialProps(appContext);
 
     ///关于中国地区的关停
-    if (getConfig('FORBIDDEN_CHINA')) {
+    if (config.get('FORBIDDEN_CHINA')) {
         if (req && req.headers['cf-ipcountry'] == 'CN') {
             appProps['errorCode'] = 403;
             appProps['errorMessage'] = '由于你所在的地区限制，禁止访问';

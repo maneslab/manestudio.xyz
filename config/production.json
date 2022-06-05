@@ -1,0 +1,17 @@
+{
+
+    "ENV"               : "local",
+    
+    "DEBUG"             : false,
+
+    "WEBSITE"           : "http://127.0.0.1:3000",
+    
+    "API"               : "http://127.0.0.1:3000",
+
+    "LOGO"              : "test",
+    
+    "GA_TRACKING_ID"    : "",
+
+    "ETHERSCAN_BASE"    : "https://testnet.bscscan.com"
+
+}

@@ -4,16 +4,11 @@ import {wrapper} from 'redux/store';
 import { connect } from "react-redux";
 import PageWrapper from 'components/pagewrapper'
 
-
 import Head from 'next/head'
-
 import { withRouter } from 'next/router'
-
-
 import {withTranslate} from 'hocs/index'
-import {KeyIcon,DatabaseIcon} from '@heroicons/react/outline'
-import {ShieldCheckIcon} from '@heroicons/react/outline'
-import {StarIcon} from '@heroicons/react/solid'
+import config from 'helper/config';
+
 
 @withTranslate
 @withRouter
@@ -27,6 +22,10 @@ class Home extends React.Component {
 
     render() {
         const {t} = this.props.i18n;
+
+        config.has('ENV');
+        // let env =config.get('ENV');
+        // console.log('publicRuntimeConfig',publicRuntimeConfig)
 
         return <PageWrapper>
             <Head>

@@ -7,49 +7,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 console.log('当前运行的环境',process.env.ENV)
 
-let getConfig = (env) => {
-    let c2;
-    switch(env) {
-        case 'dev':
-            c2 = require('./config/dev.js');
-            break;
-        case 'production':
-            c2 = require('./config/production.js');
-            break;
-        default:
-            c2 = {}
-    }
-    return c2;
-}
-
-let getGlobalConfig = (env) => {
-    let basic_config;
-    switch(env) {
-        case 'dev':
-            basic_config = require('./config/dev.js');
-            break;
-        case 'production':
-            basic_config = require('./config/production.js');
-            break;
-        default:
-            console.log('运行到不能理解的环境',env,site_name);
-            break;
-    }
-
-    let site_config = getConfig(env);
-
-    let env_config = Object.assign(basic_config,site_config);
-
-    return {
-        'publicRuntimeConfig'  : {
-            'env' : env_config
-        }
-    }
-}
-
-let global_config = getGlobalConfig(process.env.ENV);
-
-
 let config = {
     reactStrictMode: true,
     
@@ -87,5 +44,5 @@ let config = {
 }
 
 module.exports = withBundleAnalyzer(
-    nextTranslate(Object.assign(config,global_config))
+    nextTranslate(config)
 )
