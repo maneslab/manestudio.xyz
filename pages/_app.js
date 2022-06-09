@@ -1,4 +1,4 @@
-import {wrapper} from '../redux/store';
+import {wrapper} from 'redux/store';
 import App from "next/app";
 import autobind from 'autobind-decorator'
 
@@ -50,14 +50,21 @@ const wagmiClient = createClient({
 
 const myTheme = merge(darkTheme(), {
     colors: {
-        accentColor: '#333',
-        connectButtonBackground : '#fff',
-        connectButtonInnerBackground :'#333',
+        accentColor: '#f64c71',
+        connectButtonBackground : '#f64c71',
+        connectButtonInnerBackground :'#f64c71',
         actionButtonSecondaryBackground  : 'black',
-        connectButtonText : '#3b82f6'
+        connectButtonText : '#fff'
     },
     shadows : {
         connectButton : '0px 2px 2px rgba(0, 0, 0, 0.1)'
+    },
+    radii : {
+        actionButton: 'none',
+        connectButton: 'none',
+        menuButton: 'none',
+        modal: 'none',
+        modalMobile: 'none',
     }
   });
 
@@ -111,7 +118,7 @@ class MyApp extends App {
     render() {
         const {Component, pageProps} = this.props;
 
-        const isServer = (typeof window === 'undefined');
+        // const isServer = (typeof window === 'undefined');
 
         return <WagmiProvider client={wagmiClient}>
             <RainbowKitProvider chains={chains} theme={myTheme}>
@@ -129,10 +136,8 @@ class MyApp extends App {
 
 MyApp.getInitialProps = async (appContext) => {
 
-    // console.log('appContext',appContext)
     const {req} = appContext;
 
-    // calls page's `getInitialProps` and fills `appProps.pageProps`
     const appProps = await App.getInitialProps(appContext);
 
     ///关于中国地区的关停
@@ -143,12 +148,6 @@ MyApp.getInitialProps = async (appContext) => {
         }
     }
 
-    // console.log('unlogin',getConfig('FORBIDDEN_UNLOGIN'));
-    // if (getConfig('FORBIDDEN_UNLOGIN')) {
-    //     if (!isUnloginAllowedPage(appContext.router.route)) {
-    //         appProps['errorCode'] = 401;
-    //     }
-    // }
 
     return {
         ...appProps

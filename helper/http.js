@@ -6,12 +6,10 @@ import {UnloginException} from 'helper/exception'
 
 import config from 'helper/config';
 
-console.log('process.env',process.env)
 
 let api_url_base = config.get('API');
 
 function catchApiError(result) {
-    console.log('catchApiError',result)
     let msg_type = typeof result.message;
 
     if (msg_type == 'string') {
@@ -27,9 +25,9 @@ function catchApiError(result) {
 function getApiUrl(url) {
     if (url.indexOf('/') == 0) {
         // console.log('publicRuntimeConfig',publicRuntimeConfig);
-       return publicRuntimeConfig['env']['API']+url;
+        return config.get('API') + url;
     }else {
-      return url;
+        return url;
     }
 }
 

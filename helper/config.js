@@ -11,6 +11,7 @@ class Config {
 
     loadConfig(env) {
         let cfg = {};
+
         switch(env) {
             case 'production':
                 cfg = Object.assign(default_config,production_config);
@@ -24,6 +25,7 @@ class Config {
                 cfg = Object.assign(default_config,develop_config);
                 break;
         }
+
         return cfg;
     }
     

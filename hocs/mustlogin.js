@@ -23,7 +23,7 @@ export default function withMustLogin(WrappedComponent) {
             }else {
                 return <PageWrapper>
                     <div className='my-12'>
-                        <div className='font-bold text-3xl text-center'>{t('login required to access')}</div>
+                        <div className='font-bold text-xl text-center text-white mb-4'>{t('login required to access')}</div>
                         <div className='flex justify-center my-8'>
                             <button className='btn btn-primary btn-lg' onClick={this.props.setGlobalModal.bind({},'connect')}>{t('connect wallet')}</button>
                         </div>

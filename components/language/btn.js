@@ -8,6 +8,7 @@ import {withTranslate} from 'hocs/index'
 import {setCache} from 'helper/local'
 
 import setLanguage from 'next-translate/setLanguage'
+import { ChevronDownIcon } from '@heroicons/react/solid';
 
 @withTranslate
 class LanguageBtn extends React.Component {
@@ -115,8 +116,8 @@ class LanguageBtn extends React.Component {
 
         // console.log('debug-lang',lang,country);
 
-        let content = <div className="block-menu shadow-xl w-48">
-            <ul className='overflow-y-auto w-full bg-white py-2'>
+        let content = <div className="block-menu w-48">
+            <ul className='overflow-y-auto w-full py-2'>
                 {
                     default_langs.map(one=>{
                         let country = this.transferLanguageToCountry(one).toLowerCase();
@@ -137,14 +138,15 @@ class LanguageBtn extends React.Component {
             </ul>
         </div>
         return (
-            <div>
+            <>
             <Dropdown visible={visible} overlay={content} 
                 trigger="click"
                 placement="bottomLeft" onVisibleChange={this.toggleVisible} >
-                <Button className={classNames('btn-with-arrow jd-select-arrow mr-4',{"press-down":visible})}>
+                <Button className={classNames('btn btn-secondary mr-4',{"press-down":visible})}>
                     <div className="flex items-center text-sm">
                     <span className="md:mr-2">{this.getFlagIcon(country)}</span>
                     <span className='hidden md:block'>{this.transferLanguageToFullName(lang)}</span>
+                    <span><ChevronDownIcon className='icon-sm ml-2' /></span>
                     </div>
                 </Button>
             </Dropdown>
@@ -153,7 +155,7 @@ class LanguageBtn extends React.Component {
                 ? <div className='mask-bg' onClick={this.toggleVisible}></div>
                 : null
             }
-            </div>
+            </   >
         );
     }
 }

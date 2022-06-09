@@ -9,61 +9,17 @@ module.exports = {
       current: 'currentColor',
       black: '#000',
       white: '#fff',
-      primaryblue : '#00A0E4',
+
+      primary : "#f64c71",
+      secondary : "#955e84",
+      accent    : "#2b2b9a",
+      neutral   : "#1E1C22",
+      
       gray: colors.gray,
       red: colors.red,
       yellow: colors.amber,
       green: colors.green,
-      indigo : colors.indigo,
       blue : colors.blue,
-      orange: {
-        '50':  '#fdfdea',
-        '100': '#fdf6b2',
-        '200': '#fce96a',
-        '300': '#faca15',
-        '400': '#e3a008',
-        '500': '#c27803',
-        '600': '#9f580a',
-        '700': '#8e4b10',
-        '800': '#723b13',
-        '900': '#633112',
-      },
-      indigo: {
-        '50':  '#fafbfa',
-        '100': '#f3f1f6',
-        '200': '#e6d9ec',
-        '300': '#cab3d5',
-        '400': '#b087b6',
-        '500': '#956399',
-        '600': '#79477a',
-        '700': '#5a3b5d',
-        '800': '#3d243d',
-        '900': '#231623',
-      },
-      navy: {
-        '50':  '#f3f8f9',
-        '100': '#daf1fa',
-        '200': '#afe0f5',
-        '300': '#7cc2e7',
-        '400': '#479ed3',
-        '500': '#357dc0',
-        '600': '#2d62a9',
-        '700': '#254a87',
-        '800': '#1b3260',
-        '900': '#101f3f',
-      },
-      cerise: {
-        '50':  '#fdfcfb',
-        '100': '#faeff2',
-        '200': '#f6cbe6',
-        '300': '#ec9ecb',
-        '400': '#ea6fac',
-        '500': '#df4b91',
-        '600': '#c93270',
-        '700': '#a22652',
-        '800': '#771b35',
-        '900': '#49111c',
-      },
     },
     boxShadow : {
       'DEFAULT' : '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
@@ -132,20 +88,47 @@ module.exports = {
       display: ['dark']
     },
   },
+  daisyui: {
+    themes: [
+      {
+        mytheme: {
+                  
+          "primary": "#f64c71",
+                  
+          "secondary": "#955e84",
+                  
+          "accent": "#2b2b9a",
+                  
+          "neutral": "#1E1C22",
+                  
+          "base-100": "#E6EBF4",
+                  
+          "info": "#1AB6EA",
+                  
+          "success": "#0D6D34",
+                  
+          "warning": "#E89211",
+                  
+          "error": "#E9537E",
+
+          "--rounded-box": "0rem", // border radius rounded-box utility class, used in card and other large boxes
+          "--rounded-btn": "0rem", // border radius rounded-btn utility class, used in buttons and similar element
+          "--rounded-badge": "0rem", // border radius rounded-badge utility class, used in badges and similar
+          "--animation-btn": "0.25s", // duration of animation when you click on button
+          "--animation-input": "0.2s", // duration of animation for inputs like checkbox, toggle, radio, etc
+          "--btn-text-case": "uppercase", // set default text transform for buttons
+          "--btn-focus-scale": "0.95", // scale transform of button when you focus on it
+          "--border-btn": "1px", // border width of buttons
+          "--tab-border": "1px", // border width of tabs
+          "--tab-radius": "0rem", // border radius of tabs
+
+        },
+      },
+    ],
+  },
+
   plugins: [
     require('@tailwindcss/typography'),
+    require("daisyui")
   ],
 }
-
-/*    boxShadow: {
-      sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-      DEFAULT: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
-      md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-      lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-      xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-      '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-      '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
-      inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
-      none: 'none',
-      dark: '0 10px 15px -3px rgba(255, 255, 255, 0.1), 0 4px 6px -2px rgba(255, 255, 255, 0.05)',
-    },*/

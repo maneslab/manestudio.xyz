@@ -4,7 +4,8 @@ import { combineReducers } from 'redux-immutable';
 import {mergeDeepOverwriteLists} from 'helper/immutable';
 
 import { reducer as setting } from './reducer/setting.js'
-import { reducer as safebox } from './reducer/safebox.js'
+import { reducer as user } from './reducer/user.js'
+import { reducer as club } from './reducer/club.js'
 
 import {createAction} from 'helper/common'
 
@@ -38,7 +39,8 @@ function entities(state = Immutable.fromJS({}), action) {
 const allReducer = combineReducers({
     entities,
     setting,
-    safebox,
+    user,
+    club
 })
 
 function crossSliceReducer(state, action) {

@@ -7,6 +7,8 @@ export function getUrl(url) {
     return base_url+url
 }
 
+export const isServer = (typeof window === 'undefined');
+
 export function getApiUrl(url) {
     let base_url = config.get('API');
     return base_url+url
@@ -235,4 +237,14 @@ export const isUnloginAllowedPage = function (route) {
             || route == '/user/register'
             || route == '/user/reset_password'
             || route == '/user/forget')
+}
+
+import {getConfig} from 'helper/config'
+
+export const getItemImage = function (item,width = 500) {
+    if (!item.get('local_path')) {
+        return item.get('http_image_url');
+    }
+    let api = getConfig('API');
+    return api + '/v1/item/image?contract_address=' + item.get('contract_address') + '&token_id=' + item.get('token_id') + '&width=' + width;
 }

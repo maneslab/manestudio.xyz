@@ -14,7 +14,7 @@ export default class extends Document {
           <meta property="og:description" content="CloseSky is a nft market with only 1% commission" />
           <meta property="og:image" content="https://www.closesky.io/img/bannerio.png" />      */
     return (
-      <Html>
+      <Html data-theme="dark">
         <Head>
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           <script

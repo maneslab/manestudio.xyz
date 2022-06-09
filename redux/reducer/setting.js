@@ -1,18 +1,13 @@
-import {HYDRATE} from 'next-redux-wrapper';
 import Immutable from "immutable";
 
-import {setJwtToken} from 'helper/cookie';
+import {LOGIN_SUCCESS,LOGOUT_SUCCESS,LOAD_LOGIN_USER_SUCCESS} from 'redux/reducer/user'
 import {createAction} from 'helper/common'
 import {httpRequest} from 'helper/http'
-import {getConfig} from 'helper/config'
-import {getCache} from 'helper/local'
-import Cookies from 'universal-cookie';
 
-import {userSchema,noteSchema} from 'redux/schema/index';
+import {userSchema} from 'redux/schema/index';
 import { normalize, schema } from 'normalizr';
 
 
-// import {LOAD_TOKEN_PAIR_INFO_SUCCESS} from 'redux/reducer/token_pair_info'
 
 export const INIT_LOGIN_USER = 'INIT_LOGIN_USER'
 export const initLoginUser = createAction('INIT_LOGIN_USER');
@@ -50,17 +45,6 @@ export const setSlider = createAction('SET_SLIDER');
 export const SET_LANGUAGE = 'SET_LANGUAGE'
 export const setLanguage = createAction('SET_LANGUAGE');
 
-// export const WALLET_LOGIN = 'WALLET_LOGIN'
-// export const walletLogin = createAction('WALLET_LOGIN');
-
-export const WALLET_LOGOUT = 'WALLET_LOGOUT'
-export const walletLogout = createAction('WALLET_LOGOUT');
-
-export const WALLET_CONNECT = 'WALLET_CONNECT'
-export const walletConnect = createAction('WALLET_CONNECT');
-
-// export const WALLET_ACCOUNT_CHANGE = 'WALLET_ACCOUNT_CHANGE'
-// export const walletAccountChange = createAction('WALLET_ACCOUNT_CHANGE');
 
 export const loginSuccess = createAction('LOGIN_SUCCESS');
 export const mergeEntities = createAction('MERGE_ENTITES');
@@ -149,8 +133,10 @@ export function loadStatus() {
 
 
 export function reducer(state = Immutable.fromJS({
+    'active_club_id'        : null,
     'language'              : 'en',
     'global_modal'          : null,
+    'login_user'            : null,
     'is_initing'            : false,
     'is_inited'             : false,
     'slider'                : true,
@@ -169,6 +155,9 @@ export function reducer(state = Immutable.fromJS({
             .setIn(['is_initing'],false)
             .setIn(['is_inited'],true)
             .set('login_user',action.payload.response.result.login_user)
+
+        case LOAD_LOGIN_USER_SUCCESS:
+            return state.set('login_user',action.payload.response.result.login_user)
 
         case INIT_APP_FAILED:
             return state.setIn(['is_initing'],false)
@@ -196,19 +185,28 @@ export function reducer(state = Immutable.fromJS({
 
         case TOGGLE_SETTING:
             var v = state.getIn([action.payload.name]);
-            ///如果是展开chat_box则把数字归零
-            // if (action.payload.name == 'is_show_chat_box' && !v) {
-            //     state = state.set('unread_chat_message',0);
-            // }
             return state.setIn([action.payload.name],!v);
 
-            case SET_LANGUAGE:
+        case SET_LANGUAGE:
             return state.setIn(['language'],action.payload.toLowerCase());
 
         case SET_GLOBAL_MODAL:
             return state.setIn(['global_modal'],action.payload);
 
-            case BEFORE_INIT:
+        case LOGIN_SUCCESS:
+            if (action.payload && action.payload.response && action.payload.response.result) {
+                return state.setIn(['login_user'],action.payload.response.result).setIn(['global_modal'],null);
+            }else {
+                return state;
+            }
+
+        case INIT_LOGIN_USER:
+            return state.setIn(['login_user'],action.payload.result);
+
+        case LOGOUT_SUCCESS:
+            return state.setIn(['login_user'],null);
+
+        case BEFORE_INIT:
             return state.setIn(['is_inited'],false)
                 .setIn(['is_initing'],true);
 

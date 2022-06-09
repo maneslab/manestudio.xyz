@@ -1,10 +1,11 @@
 
 import { Field } from 'formik';
-
+import classnames from 'classnames'
 import Input from 'components/form/input'
 
-const CommonField = ({ name, label, placeholder,notice, ...props }) => {
-    return <div className="form-control">
+const CommonField = ({ name, label, placeholder,notice, className , ...props }) => {
+
+    return <div className={classnames("form-control",className)} >
         {
             (label)
             ?   <label className="label">

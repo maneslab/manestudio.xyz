@@ -9,9 +9,13 @@ import { withRouter } from 'next/router'
 import {withTranslate} from 'hocs/index'
 import config from 'helper/config';
 
+import PersonalSign from 'components/wallet/personal_sign'
+import { getUnixtime } from 'helper/time';
+import withWallet from 'hocs/wallet';
+import MustLoginWrapper from 'components/must_login';
 
 @withTranslate
-@withRouter
+@withWallet
 class Home extends React.Component {
 
     constructor(props) {
@@ -22,19 +26,32 @@ class Home extends React.Component {
 
     render() {
         const {t} = this.props.i18n;
+        const {wallet} = this.props;
 
-        config.has('ENV');
-        // let env =config.get('ENV');
-        // console.log('publicRuntimeConfig',publicRuntimeConfig)
+        let wallet_address = '';
+        if (wallet) {
+            wallet_address = wallet.address;
+        }
+        let msgstr = JSON.stringify({
+            'action_name' : 'login',
+            'site'        : 'manestudio',
+            'create_time' : getUnixtime(),
+            'wallet_address' : wallet_address
+        });
+        console.log('msgstr',msgstr);
 
         return <PageWrapper>
             <Head>
                 <title>ManeStudio</title>
             </Head>
+            <MustLoginWrapper>
             <div className="">
-               <div>TEST</div>
+
+
+                <button class="btn">Button</button>
 
             </div>
+            </MustLoginWrapper>
     </PageWrapper>
     }
 
