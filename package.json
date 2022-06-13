@@ -17,6 +17,7 @@
     "@heroicons/react": "^1.0.4",
     "@metamask/detect-provider": "^1.2.0",
     "@next/bundle-analyzer": "^12.0.7",
+    "@nextdotid/sdk": "^0.0.0-20220526073205-0d2f74b",
     "@rainbow-me/rainbowkit": "^0.1.2",
     "@svgr/webpack": "^5.5.0",
     "@tailwindcss/typography": "^0.5.2",
@@ -32,6 +33,7 @@
     "dayjs": "^1.10.7",
     "detect-browser-language": "^0.0.2",
     "eip55": "^2.1.0",
+    "ethereumjs-util": "^7.1.5",
     "ethers": "^5.6.7",
     "formik": "^2.2.9",
     "fs": "^0.0.1-security",
@@ -86,9 +88,11 @@
     "snarkjs": "^0.4.16",
     "super-tiny-icons": "^0.4.0",
     "tailwindcss": "^3.0.5",
+    "unfetch": "^4.2.0",
     "universal-cookie": "^4.0.4",
     "use-image": "^1.0.8",
     "wagmi": "^0.4.2",
+    "wallet.ts": "^1.0.1",
     "yup": "^0.32.11"
   },
   "devDependencies": {

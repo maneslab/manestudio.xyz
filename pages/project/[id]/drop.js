@@ -6,6 +6,7 @@ import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
 
 import PageWrapper from 'components/pagewrapper'
+import ClubHeader from 'components/club/header'
 
 import withMustLogin from 'hocs/mustlogin';
 import withTranslate from 'hocs/translate';
@@ -15,15 +16,12 @@ import * as Yup from 'yup';
 import {updateClub} from 'redux/reducer/club'
 
 import RoadmapUpdate from 'components/roadmap/update'
-
-import PrefixInput from 'components/form/prefix_input';
-
-import Input from 'components/form/field'
-import Button from 'components/common/button'
-import Textarea from 'components/form/textarea'
+import GalleryUpdate from 'components/gallery/update'
+import CreatorUpdate from 'components/creator/update'
 
 import ClubUpdate from 'components/club/update'
 import withClubView from 'hocs/clubview'
+
 
 @withTranslate
 @withMustLogin
@@ -48,7 +46,7 @@ class ClubDropSetting extends React.Component {
     render() {
         const {t} = this.props.i18n;
         const {is_adding,is_init} = this.state;
-        const {club} = this.props;
+        const {club,club_id} = this.props;
 
 
         let init_data ={
@@ -65,21 +63,30 @@ class ClubDropSetting extends React.Component {
             <Head>
                 <title>{'Drop details'}</title>
             </Head>
-            <div className="max-w-screen-xl mx-auto">
+            <div>
+                <ClubHeader club_id={club_id}/>
+                <div className="max-w-screen-xl mx-auto">
 
 
-                <div className='flex justify-between items-center mb-8'>
-                    <h1 className='h1 text-white'>{t('drop details')}</h1>
-                    <button className='btn btn-primary' onClick={this.toggleCreateModal}>
-                        {t('add project')}
-                    </button>
-                </div>
+                    <div className='flex justify-between items-center mb-8 text-black'>
+                        <h1 className='h1'>{t('drop details')}</h1>
+                        <button className='btn btn-primary' onClick={this.toggleCreateModal}>
+                            {t('add project')}
+                        </button>
+                    </div>
+                    
 
-                <ClubUpdate club={club} updateClub={this.props.updateClub}/>
 
-                <RoadmapUpdate club={club} updateClub={this.props.updateClub}/>
+                    <ClubUpdate club={club} updateClub={this.props.updateClub}/>
 
-            </div> 
+                    <GalleryUpdate club={club} />
+
+                    <CreatorUpdate club={club} />
+
+                    <RoadmapUpdate club={club} />
+
+                </div> 
+            </div>
     </PageWrapper>
     }
     

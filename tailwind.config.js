@@ -10,10 +10,11 @@ module.exports = {
       black: '#000',
       white: '#fff',
 
-      primary : "#f64c71",
+      primary   : "#0042EC",
       secondary : "#955e84",
-      accent    : "#2b2b9a",
+      accent    : "#555",
       neutral   : "#1E1C22",
+      pink      : "#f64c71",
       
       gray: colors.gray,
       red: colors.red,
@@ -93,11 +94,11 @@ module.exports = {
       {
         mytheme: {
                   
-          "primary": "#f64c71",
+          "primary": "#0042EC",
                   
           "secondary": "#955e84",
                   
-          "accent": "#2b2b9a",
+          "accent": "#555",
                   
           "neutral": "#1E1C22",
                   

@@ -51,13 +51,13 @@ const wagmiClient = createClient({
 const myTheme = merge(darkTheme(), {
     colors: {
         accentColor: '#f64c71',
-        connectButtonBackground : '#f64c71',
-        connectButtonInnerBackground :'#f64c71',
+        connectButtonBackground : 'transparent;',
+        connectButtonInnerBackground :'transparent;',
         actionButtonSecondaryBackground  : 'black',
-        connectButtonText : '#fff'
+        connectButtonText : '#000'
     },
     shadows : {
-        connectButton : '0px 2px 2px rgba(0, 0, 0, 0.1)'
+        connectButton : 'none'
     },
     radii : {
         actionButton: 'none',

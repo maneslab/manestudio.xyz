@@ -1,5 +1,5 @@
 
-import { Field } from 'formik';
+import { Field,ErrorMessage } from 'formik';
 import classnames from 'classnames'
 import Input from 'components/form/input'
 
@@ -20,14 +20,12 @@ const CommonField = ({ name, label, placeholder,notice, className , ...props }) 
                meta,
             }) => {
                 let show_error = meta.touched && meta.error;
-                {/* console.log('show_error',show_error,meta) */}
+                {/* console.log('show_error',meta) */}
                 return <div  className="form-input-wapper">
                 <Input placeholder={placeholder} has_error={show_error} value={value} onChange={(e)=>setFieldValue(name,e.target.value)} onBlur={(e)=>setFieldTouched(name,true)} {...props}/>
-                {
-                    (show_error)
-                    ? <div className="input-error-msg">{meta.error}</div>
-                    : null
-                }
+                <div className='input-error-msg'>
+                    <ErrorMessage name={name} />
+                </div>
                 {
                     (notice)
                     ? <div className="text-base text-gray-600 pt-1">{notice}</div>

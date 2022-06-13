@@ -140,8 +140,6 @@ export function loadClubList(condition) {
 
 
 
-
-
 //添加
 export const BEFORE_ADD_CLUB  = 'BEFORE_ADD_CLUB'
 export const ADD_CLUB_SUCCESS = 'ADD_CLUB_SUCCESS'
@@ -316,15 +314,74 @@ export function initClub(club_id,response) {
 }
 
 
+
+//载入
+export const BEFORE_LOAD_CLUB_KEY  = 'BEFORE_LOAD_CLUB_KEY'
+export const LOAD_CLUB_KEY_SUCCESS = 'LOAD_CLUB_KEY_SUCCESS'
+export const LOAD_CLUB_KEY_FAILURE = 'LOAD_CLUB_KEY_FAILURE'
+
+export function loadClubKey(club_id) {
+    return {
+        // 要在之前和之后发送的 action types
+        types: ['BEFORE_LOAD_CLUB_KEY', 'LOAD_CLUB_KEY_SUCCESS', 'LOAD_CLUB_KEY_FAILURE'],
+        // 检查缓存 (可选):
+        shouldCallAPI:  (state) => !state.getIn(['club','key',club_id,'is_fetching']),
+        // 进行取：
+        callAPI: () => {
+            return httpRequest({
+                'url'    : '/v1/club/key',
+                'method' : 'GET', 
+                'data'   : {
+                    id : club_id
+                }
+            })
+        },
+        // data_format : (data) => normalize(data.data, clubSchema),
+
+        show_status : {
+            'loading'   :    false,
+            'success'   :    false,
+            'error'     :    false
+        },
+        payload: {
+            'club_id' : club_id,
+        }
+    };
+}
+
+
+
 export function reducer(state = Immutable.fromJS({
     'joined_list' : {},
     'map_name' : {},
     'map_id'   : {},
     'is_updating' : {},
     'my_list' : {},
-    'map': {}
+    'map'   : {},
+    'key'   : {}
 }), action) {
     switch (action.type) {
+
+        case BEFORE_LOAD_CLUB_KEY:
+            if (!state.getIn(['key',action.payload.club_id])) {
+                state = state.setIn(['key',action.payload.club_id,'data'],Immutable.Map({
+                    'private_key' : '',
+                    'public_key'  : ''
+                }));
+            }
+            return state
+            .setIn(['key',action.payload.club_id,'is_fetching'],true)
+            .setIn(['key',action.payload.club_id,'is_fetched'],false)
+
+        case LOAD_CLUB_KEY_SUCCESS:
+            return state.setIn(['key',action.payload.club_id,'is_fetching'],false)
+            .setIn(['key',action.payload.club_id,'is_fetched'],true)
+            .setIn(['key',action.payload.club_id,'data'],Immutable.Map(action.payload.response.data))
+
+        case LOAD_CLUB_KEY_FAILURE:
+            return state.setIn(['key',action.payload.club_id,'is_fetching'],false)
+            .setIn(['key',action.payload.club_id,'is_fetched'],false)
+
 
         case LOGOUT_SUCCESS:
             return state.setIn(['joined_list','is_fetching'],false)

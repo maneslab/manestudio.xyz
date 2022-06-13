@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Dialog from 'rc-dialog';
-import {XIcon} from '@heroicons/react/outline'
+// import {XIcon} from '@heroicons/react/outline'
+import CloseIcon from 'public/img/icons/close.svg'
 
 export default function Modal({title,loading,className,closeIcon,...props}) {
 
@@ -9,7 +10,7 @@ export default function Modal({title,loading,className,closeIcon,...props}) {
   if (closeIcon === false) {
       closeIconComponent = null
   }else {
-      closeIconComponent = <XIcon className="w-5 h-5" />
+      closeIconComponent = <CloseIcon className="w-4 h-4" />
   }        
 
   return (

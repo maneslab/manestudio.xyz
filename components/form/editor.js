@@ -116,7 +116,7 @@ export default class Editor extends React.Component {
                         {label}
                     </span>
                 </label>
-                <div className="bg-white text-black">
+                <div className="bg-white text-black input-base">
                 <BraftEditor
                     contentStyle={{height: 'auto', minHeight: 200}}
                     contentClassName="prose max-w-full"

@@ -12,6 +12,8 @@
     
     "GA_TRACKING_ID"    : "",
 
-    "ETHERSCAN_BASE"    : "https://testnet.bscscan.com"
+    "ETHERSCAN_BASE"    : "https://testnet.bscscan.com",
+
+    "NEXTID_ENV"        : "develop"
 
 }

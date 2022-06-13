@@ -9,20 +9,23 @@ import withTranslate from 'hocs/translate';
 import { Formik, Form,FieldArray } from 'formik';
 import * as Yup from 'yup';
 
-import RoadmapEditorOne from 'components/roadmap/editor_one'
+import GalleryOne from 'components/gallery/one'
+import Upload from 'components/common/upload'
 
 import { PlusIcon } from '@heroicons/react/outline';
 
-import {saveRoadmapList,loadRoadmapList} from 'redux/reducer/roadmap'
+import {saveGalleryList,loadGalleryList} from 'redux/reducer/gallery'
 import {DndContext,closestCenter,DragOverlay} from '@dnd-kit/core';
 import {SortableContext} from '@dnd-kit/sortable';
 import { denormalize } from 'normalizr';
-import {roadmapListSchema} from 'redux/schema/index'
+import {galleryListSchema} from 'redux/schema/index'
 import { defaultListData } from 'helper/common';
+import {uploadRequest} from 'helper/http'
+
 
 @withTranslate
 @withMustLogin
-class RoadmapUpdate extends React.Component {
+class GalleryUpdate extends React.Component {
 
     constructor(props) {
         super(props)
@@ -38,25 +41,25 @@ class RoadmapUpdate extends React.Component {
 
     componentDidMount() {
         if (this.props.club_id) {
-            this.props.loadRoadmapList({
+            this.props.loadGalleryList({
                 'club_id'   :   this.props.club_id
             });
         }
-        if (this.props.roadmaps && this.props.roadmaps.count() > 0) {
-            this.setForm(this.props.roadmaps)
+        if (this.props.gallery && this.props.gallery.count() > 0) {
+            this.setForm(this.props.gallery)
         }
         // 
     }
 
     componentDidUpdate(prevProps,prevState) {
         if (this.props.club_id && this.props.club_id != prevProps.club_id) {
-            this.props.loadRoadmapList({
+            this.props.loadGalleryList({
                 'club_id'   :   this.props.club_id
             });
         }
 
-        if (this.props.roadmaps && !this.props.roadmaps.equals(prevProps.roadmaps)) {
-            this.setForm(this.props.roadmaps)
+        if (this.props.gallery && !this.props.gallery.equals(prevProps.gallery)) {
+            this.setForm(this.props.gallery)
         }
     }
 
@@ -67,9 +70,24 @@ class RoadmapUpdate extends React.Component {
     }
 
     @autobind
-    setForm(roadmaps) {
+    setForm(gallery) {
+        console.log('debug06,gallery',gallery.toJS())
+        
+        let gallery_list = gallery.toJS();
+
+        let value_list = [];
+        gallery_list.map(one=>{
+            value_list.push({
+                'img_id' : one.img_id,
+                'id'     : one.id,
+                'image_urls' : one.img.image_urls
+            })
+        })
+
+        console.log('debug06,value_list',value_list)
+
         this.formRef.current.setValues({
-            'roadmaps' : roadmaps.toJS()
+            'gallery' : value_list
         })
     }
 
@@ -97,9 +115,14 @@ class RoadmapUpdate extends React.Component {
             'is_updating' : true
         })
         
-        await this.props.saveRoadmapList({
+        let img_ids = [];
+        values.gallery.map(one=>{
+            img_ids.push(one.img_id);
+        })
+
+        await this.props.saveGalleryList({
             club_id : this.props.club.get('id'),
-            json_data : JSON.stringify(values['roadmaps'])
+            img_ids : img_ids.join(',')
         });
 
         this.setState({
@@ -125,8 +148,8 @@ class RoadmapUpdate extends React.Component {
             let begin_index = Number(active.id)
             let end_index = Number(over.id)
 
-            let values = Array.from(this.formRef.current.values.roadmaps);
-            let item = this.formRef.current.values.roadmaps[begin_index];
+            let values = Array.from(this.formRef.current.values.gallery);
+            let item = this.formRef.current.values.gallery[begin_index];
             console.log('debug04,开始前',values)
 
             values.splice(begin_index, 1);
@@ -136,7 +159,7 @@ class RoadmapUpdate extends React.Component {
     
             console.log('debug04,结束以后',values)
             this.formRef.current.setValues({
-                'roadmaps' : values
+                'gallery' : values
             })
     
         }
@@ -147,11 +170,16 @@ class RoadmapUpdate extends React.Component {
     }
 
     @autobind
-    addRoadmapOne(arrayHelpers) {
-        let rl = this.formRef.current.values.roadmaps.length
+    handleUpload(arrayHelpers,image) {
+        console.log('image',image)
+        let rl = this.formRef.current.values.gallery.length
         let uid =new Date().getTime();
 
-        arrayHelpers.push({ time_point: '', title: '' , detail: '' , id : uid});
+        arrayHelpers.push({ 
+            image_urls: image.data.image_urls , 
+            img_id : image.data.img_id,
+            id     : uid
+        });
         this.setState({
             'open_index' : rl
         })
@@ -163,11 +191,11 @@ class RoadmapUpdate extends React.Component {
         const {club} = this.props;
 
         let init_data ={
-            'roadmaps' :  [],
+            'gallery' :  [],
         }
 
         const formSchema = Yup.object().shape({
-            roadmaps      :  Yup.array()
+            gallery      :  Yup.array()
             .of(Yup.object().shape({
                 time_point  :  Yup.string().max(32),
                 title       :  Yup.string().max(128),
@@ -175,9 +203,17 @@ class RoadmapUpdate extends React.Component {
             }))
         });
 
+        const uploadProps = uploadRequest({
+            showUploadList : false,
+            multiple: false,
+            action: '/v1/upload/img?template=gallery',
+            name : 'file',
+            listType : 'picture',
+            accept : '.jpg,.jpeg,.png,.gif',
+        })
 
         return  <div>
-            <div className='block-title'>{t('roadmap')}</div>
+            <div className='block-title'>{t('gallery')}</div>
             <Formik
                 innerRef={this.formRef}
                 initialValues={init_data}
@@ -195,46 +231,44 @@ class RoadmapUpdate extends React.Component {
                             <div className='form-box-one'>
 
                             <FieldArray
-                                name="roadmaps"
+                                name="gallery"
                                 render={arrayHelpers => (
                                     <div>
+                                    <div className='grid grid-cols-4 gap-4 mb-4'>
                                         <DndContext
                                             onDragStart={this.handleDragStart}
                                             onDragEnd={this.handleDragEnd}
                                             // collisionDetection={closestCenter}
                                         >
-                                            <SortableContext items={Object.keys(values.roadmaps)}>
-                                                {values.roadmaps.map((one,index) => <RoadmapEditorOne 
+                                            <SortableContext items={Object.keys(values.gallery)}>
+                                                {values.gallery.map((one,index) => <GalleryOne 
                                                     remove={arrayHelpers.remove}
                                                     key={one.id} 
                                                     id={index}
-                                                    errors={errors['roadmaps'] ? errors['roadmaps'][index] : null}
+                                                    errors={errors['gallery'] ? errors['gallery'][index] : null}
                                                     draging_index={draging_index}
                                                     open_index={open_index} 
                                                     toggleOpen={this.toggleOpen}
-                                                    roadmap={one}
+                                                    img={one}
                                                 />)}
                                             </SortableContext>
-
-                             
                                         </DndContext>
-
-                                        <div className='flex justify-between items-center'>
-                                            <button
-                                            type="button"
-                                            className='btn'
-                                            onClick={this.addRoadmapOne.bind({},arrayHelpers)}
-                                            >
-                                                <PlusIcon className='w-4' /> {t('add roadmap')}
-                                            </button>
-                                            <button
-                                            type="submit"
-                                            className='btn btn-outline'
-                                            >
-                                                {t('save')}
-                                            </button>
-                                            
-                                        </div>
+                                    </div>
+                                    <div className='flex justify-between items-center'>
+                                        <Upload uploadProps={uploadProps} afterSuccess={this.handleUpload.bind({},arrayHelpers)}>  
+                                                <button type="button" className='btn'>
+                                                    <PlusIcon className='w-4 mr-2' /> {t('add image')}
+                                                </button>
+                                        </Upload>
+                                        
+                                        <button
+                                        type="submit"
+                                        className='btn btn-outline'
+                                        >
+                                            {t('save')}
+                                        </button>
+                                        
+                                    </div>
                                     </div>
                                     )}
 
@@ -269,29 +303,29 @@ class RoadmapUpdate extends React.Component {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadRoadmapList : (data) => {
-           return dispatch(loadRoadmapList(data))
+        loadGalleryList : (data) => {
+           return dispatch(loadGalleryList(data))
         },
-        saveRoadmapList : (data) => {
-            return dispatch(saveRoadmapList(data))
+        saveGalleryList : (data) => {
+            return dispatch(saveGalleryList(data))
         }
     }
 }
 function mapStateToProps(state,ownProps) {
 
     let club_id = ownProps.club.get('id');
-    let list_data = state.getIn(['roadmap','list',club_id]);
+    let list_data = state.getIn(['gallery','list',club_id]);
 
     if (!list_data) {
         list_data = defaultListData
     }
-    let roadmaps = denormalize(list_data.get('list'),roadmapListSchema,state.get('entities'));
+    let gallery = denormalize(list_data.get('list'),galleryListSchema,state.get('entities'));
 
     return {
-        roadmaps : roadmaps,
+        gallery : gallery,
         list_data : list_data,
         club_id   : club_id
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(RoadmapUpdate)
+export default connect(mapStateToProps,mapDispatchToProps)(GalleryUpdate)

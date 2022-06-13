@@ -1,9 +1,9 @@
 import React from 'react';
 import autobind from 'autobind-decorator'
 
-import {PhotographIcon,XCircleIcon} from '@heroicons/react/outline'
-
-import {uploadRequest} from 'helper/http'
+import {XCircleIcon} from '@heroicons/react/outline'
+//PhotographIcon
+// import {uploadRequest} from 'helper/http'
 import Upload from 'rc-upload'
 
 import message from 'components/common/message'
@@ -113,8 +113,8 @@ export default class UploadComponent extends React.Component {
                 // console.log('beforeUpload', file);
             },
             onStart: file => {
-                setBeginUpload(file);
                 console.log('onStart', file.name);
+                setBeginUpload(file);
             },
             onSuccess(response) {
                 // setUploadFinish();
@@ -149,7 +149,6 @@ export default class UploadComponent extends React.Component {
                 </div> 
                 : this.props.children
             }
-            
         </Upload>
     }
 }

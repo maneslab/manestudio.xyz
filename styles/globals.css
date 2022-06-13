@@ -89,7 +89,7 @@
 
 
 body {
-    background-color: #2b2b9a;
+    color :#000;
 }
 
 .icon-xs {
@@ -107,6 +107,13 @@ body {
 
 .h1 {
     @apply font-bold text-4xl font-bold capitalize;
+}
+
+.label {
+    @apply px-0;
+}
+.label-text {
+    @apply font-bold text-base;
 }
 
 /*message*/
@@ -232,7 +239,7 @@ body {
 
 
 .input-with-prefix {
-    @apply font-ubuntu flex items-center px-4 py-2 text-sm text-gray-800 border focus:ring-2 border-gray-300 text-gray-800 bg-white dark:border-gray-600 dark:text-white dark:bg-gray-800 focus:ring-yellow-100 dark:focus:ring-gray-500;
+    @apply font-ubuntu flex items-center px-4 py-2 text-sm text-gray-800 border focus:ring-2 border-2 border-black text-gray-800 bg-white dark:border-gray-600 dark:text-white dark:bg-gray-800 focus:ring-yellow-100 dark:focus:ring-gray-500;
 }
 .input-with-prefix .input-inner {
     @apply ml-2 bg-transparent flex-grow;
@@ -279,12 +286,17 @@ body {
 .btn {
     @apply min-h-8 h-10;
 }
-  
-
-.jd-select {
-    @apply border p-0 flex justify-between items-center pl-2 pr-6 rounded cursor-pointer max-w-full input-bordered;
+.btn-primary {
+    @apply border-2 border-black;
 }
-.jd-select-arrow {
+.btn-outline {
+    @apply border-2;
+}
+
+.select-box {
+    @apply input-base p-0 flex justify-between items-center pl-2 pr-6 cursor-pointer max-w-full;
+}
+.select-arrow {
     @apply appearance-none bg-no-repeat;
     background-image: linear-gradient(
 45deg,transparent 50%,currentColor 0),linear-gradient(
@@ -326,7 +338,7 @@ input{outline:none;}
     @apply text-black font-ubuntu text-base font-bold text-base dark:text-white;
 }
 .rc-dialog-close {
-    @apply opacity-100 py-0.5 dark:text-white;
+    @apply opacity-100  dark:text-white right-8 top-9;
 }
 .rc-dialog-content {
     @apply rounded-none bg-white dark:bg-black;
@@ -338,7 +350,7 @@ input{outline:none;}
 
 /*main*/
 .logo {
-    @apply font-black text-xl mr-4 text-white;
+    @apply font-black text-xl mr-4 text-black;
 }
 .main-menu {
     @apply flex justify-start items-center space-x-4;
@@ -350,8 +362,16 @@ input{outline:none;}
     @apply w-6;
 }
 
+.input-base {
+    @apply border-black border-2;
+}
+.form-block-base {
+    @apply border-black border-2;
+}
+
+
 .input-box {
-    @apply font-ubuntu px-4 py-2 text-sm w-full border focus:ring-2 text-black ;
+    @apply font-ubuntu px-4 py-2 text-sm w-full border focus:ring-2 text-black input-base;
 }
 .input-box.yellow {
     @apply bg-yellow-200 border border-yellow-300 text-black dark:bg-yellow-900 dark:border-yellow-700 text-black dark:text-white; 
@@ -363,6 +383,10 @@ input{outline:none;}
 .input-box.yellow.input-error {
     @apply border-red-500;
 }
+.input-box.input-error {
+    @apply border-red-500;
+}
+
 .input-error-msg {
     @apply text-red-500 text-sm px-0 py-1;
 }
@@ -372,21 +396,31 @@ input{outline:none;}
     @apply grid grid-cols-2 gap-4;
 }
 .project-type-select .select-one {
-    @apply border-2 border-gray-500 cursor-pointer;
+    @apply border-2 border-black cursor-pointer;
 }
 .project-type-select .select-one h3 {
-    @apply bg-primary px-4 py-2 text-base text-white;
+    @apply bg-white text-black px-4 py-2 text-base border-b-2 border-black flex justify-between;
 }
+.project-type-select .select-one h3 .icon {
+    @apply w-5;
+}
+
 .project-type-select .select-one.active {
-    @apply border-2 border-primary;
+    @apply border-2 border-pink;
+}
+.project-type-select .select-one.active h3{
+    @apply border-pink bg-pink text-white;
 }
 
 .form-control {
     @apply mb-2;
 }
 
-.rc-dialog-body h2 {
-    @apply font-bold capitalize;
+.rc-dialog-body {
+    @apply p-8;
+}
+.rc-dialog-body .modal-title {
+    @apply font-bold text-xl text-left mb-4 capitalize;
 }
 
 .block-wapper-one {
@@ -397,7 +431,7 @@ input{outline:none;}
 }
 
 .block-intro {
-    @apply text-white;
+    @apply text-black;
 }
 .block-intro h3 {
     @apply capitalize font-bold text-lg mb-2;
@@ -406,15 +440,46 @@ input{outline:none;}
     @apply opacity-70;
 }
 
+.block-title {
+    @apply font-bold text-2xl mb-2 text-black;
+}
 
 .form-box-one {
-    @apply border border-black bg-[#0042ec] p-4 text-white;
+    @apply bg-[#fff] p-8 text-white;
 }
 .form-box-one .label-text {
-    @apply text-white;
+    @apply text-gray-700;
+}
+
+.block-menu2 {
+    @apply border-2 border-black;
 }
 
 /*bf*/
 .bf-link {
     @apply text-blue-500 hover:underline;
+}
+
+.gallery-image-one {
+    @apply  bg-[#fff] z-10 form-block-base relative;
+}
+.gallery-image-one .tools {
+    @apply hidden items-center w-full h-full absolute left-0 top-0 items-center justify-center;
+}
+.gallery-image-one .hover-bg {
+    @apply hidden w-full h-full absolute left-0 top-0 bg-black opacity-25;
+}
+.gallery-image-one:hover .hover-bg {
+    @apply block;
+}
+.gallery-image-one:hover .tools {
+    @apply flex;
+}
+
+
+.club-header-menu a {
+    @apply py-2;
+}
+.club-header-menu .active{
+    @apply border-b-2 border-primary;
 }

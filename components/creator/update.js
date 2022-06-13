@@ -9,20 +9,23 @@ import withTranslate from 'hocs/translate';
 import { Formik, Form,FieldArray } from 'formik';
 import * as Yup from 'yup';
 
-import RoadmapEditorOne from 'components/roadmap/editor_one'
+import CreatorEditorOne from 'components/creator/editor_one'
+
 
 import { PlusIcon } from '@heroicons/react/outline';
 
-import {saveRoadmapList,loadRoadmapList} from 'redux/reducer/roadmap'
+import {saveCreatorList,loadCreatorList} from 'redux/reducer/creator'
 import {DndContext,closestCenter,DragOverlay} from '@dnd-kit/core';
 import {SortableContext} from '@dnd-kit/sortable';
 import { denormalize } from 'normalizr';
-import {roadmapListSchema} from 'redux/schema/index'
+import {creatorListSchema} from 'redux/schema/index'
 import { defaultListData } from 'helper/common';
+import {url} from 'helper/regex'
+
 
 @withTranslate
 @withMustLogin
-class RoadmapUpdate extends React.Component {
+class CreatorUpdate extends React.Component {
 
     constructor(props) {
         super(props)
@@ -38,25 +41,25 @@ class RoadmapUpdate extends React.Component {
 
     componentDidMount() {
         if (this.props.club_id) {
-            this.props.loadRoadmapList({
+            this.props.loadCreatorList({
                 'club_id'   :   this.props.club_id
             });
         }
-        if (this.props.roadmaps && this.props.roadmaps.count() > 0) {
-            this.setForm(this.props.roadmaps)
+        if (this.props.creators && this.props.creators.count() > 0) {
+            this.setForm(this.props.creators)
         }
         // 
     }
 
     componentDidUpdate(prevProps,prevState) {
         if (this.props.club_id && this.props.club_id != prevProps.club_id) {
-            this.props.loadRoadmapList({
+            this.props.loadCreatorList({
                 'club_id'   :   this.props.club_id
             });
         }
 
-        if (this.props.roadmaps && !this.props.roadmaps.equals(prevProps.roadmaps)) {
-            this.setForm(this.props.roadmaps)
+        if (this.props.creators && !this.props.creators.equals(prevProps.creators)) {
+            this.setForm(this.props.creators)
         }
     }
 
@@ -67,9 +70,9 @@ class RoadmapUpdate extends React.Component {
     }
 
     @autobind
-    setForm(roadmaps) {
+    setForm(creators) {
         this.formRef.current.setValues({
-            'roadmaps' : roadmaps.toJS()
+            'creators' : creators.toJS()
         })
     }
 
@@ -97,9 +100,9 @@ class RoadmapUpdate extends React.Component {
             'is_updating' : true
         })
         
-        await this.props.saveRoadmapList({
+        await this.props.saveCreatorList({
             club_id : this.props.club.get('id'),
-            json_data : JSON.stringify(values['roadmaps'])
+            json_data : JSON.stringify(values['creators'])
         });
 
         this.setState({
@@ -125,8 +128,8 @@ class RoadmapUpdate extends React.Component {
             let begin_index = Number(active.id)
             let end_index = Number(over.id)
 
-            let values = Array.from(this.formRef.current.values.roadmaps);
-            let item = this.formRef.current.values.roadmaps[begin_index];
+            let values = Array.from(this.formRef.current.values.creators);
+            let item = this.formRef.current.values.creators[begin_index];
             console.log('debug04,开始前',values)
 
             values.splice(begin_index, 1);
@@ -136,7 +139,7 @@ class RoadmapUpdate extends React.Component {
     
             console.log('debug04,结束以后',values)
             this.formRef.current.setValues({
-                'roadmaps' : values
+                'creators' : values
             })
     
         }
@@ -147,13 +150,41 @@ class RoadmapUpdate extends React.Component {
     }
 
     @autobind
-    addRoadmapOne(arrayHelpers) {
-        let rl = this.formRef.current.values.roadmaps.length
+    addCreatorOne(arrayHelpers) {
+        let rl = this.formRef.current.values.creators.length
         let uid =new Date().getTime();
 
-        arrayHelpers.push({ time_point: '', title: '' , detail: '' , id : uid});
+        arrayHelpers.push({  
+            id : uid ,
+            name    :  '',
+            title   :  '',
+            bio     :  '',
+            email   :   '',
+            link    :   '',
+            discord :   '',
+            twitter_id      :  '',
+            instagram_id    :  '',
+        });
         this.setState({
             'open_index' : rl
+        })
+    }
+
+    @autobind
+    updateCreatorImage(index,data) {
+        if (!this.formRef.current.values.creators || !this.formRef.current.values.creators[index]) {
+            return false;
+        }
+
+        console.log('debug06,data',data,index)
+        let creators = this.formRef.current.values.creators;
+        creators[index]['img'] = data['data'];
+        creators[index]['img_id'] = data['data']['img_id'];
+
+        console.log('debug06,creators',creators)
+
+        this.formRef.current.setValues({
+            creators : creators
         })
     }
 
@@ -163,21 +194,27 @@ class RoadmapUpdate extends React.Component {
         const {club} = this.props;
 
         let init_data ={
-            'roadmaps' :  [],
+            'creators' :  [],
         }
 
         const formSchema = Yup.object().shape({
-            roadmaps      :  Yup.array()
+            creators      :  Yup.array()
             .of(Yup.object().shape({
-                time_point  :  Yup.string().max(32),
-                title       :  Yup.string().max(128),
-                detail      :  Yup.string().max(1024),
+                name    :  Yup.string().max(32),
+                title   :  Yup.string().max(64),
+                bio     :  Yup.string().max(1024),
+                email   :  Yup.string().email().max(1024),
+                link    :  Yup.string().matches(url,'must be url').max(1024),
+                discord :  Yup.string().max(128),
+                twitter_id      :  Yup.string().max(128),
+                instagram_id    :  Yup.string().max(128),
             }))
         });
 
 
+
         return  <div>
-            <div className='block-title'>{t('roadmap')}</div>
+            <div className='block-title'>{t('creator')}</div>
             <Formik
                 innerRef={this.formRef}
                 initialValues={init_data}
@@ -195,7 +232,7 @@ class RoadmapUpdate extends React.Component {
                             <div className='form-box-one'>
 
                             <FieldArray
-                                name="roadmaps"
+                                name="creators"
                                 render={arrayHelpers => (
                                     <div>
                                         <DndContext
@@ -203,16 +240,18 @@ class RoadmapUpdate extends React.Component {
                                             onDragEnd={this.handleDragEnd}
                                             // collisionDetection={closestCenter}
                                         >
-                                            <SortableContext items={Object.keys(values.roadmaps)}>
-                                                {values.roadmaps.map((one,index) => <RoadmapEditorOne 
+                                            <SortableContext items={Object.keys(values.creators)}>
+                                                {values.creators.map((one,index) => <CreatorEditorOne 
                                                     remove={arrayHelpers.remove}
                                                     key={one.id} 
                                                     id={index}
-                                                    errors={errors['roadmaps'] ? errors['roadmaps'][index] : null}
+                                                    club={club}
+                                                    errors={errors['creators'] ? errors['creators'][index] : null}
                                                     draging_index={draging_index}
                                                     open_index={open_index} 
                                                     toggleOpen={this.toggleOpen}
-                                                    roadmap={one}
+                                                    updateCreatorImage={this.updateCreatorImage}
+                                                    creator={one}
                                                 />)}
                                             </SortableContext>
 
@@ -223,9 +262,9 @@ class RoadmapUpdate extends React.Component {
                                             <button
                                             type="button"
                                             className='btn'
-                                            onClick={this.addRoadmapOne.bind({},arrayHelpers)}
+                                            onClick={this.addCreatorOne.bind({},arrayHelpers)}
                                             >
-                                                <PlusIcon className='w-4' /> {t('add roadmap')}
+                                                <PlusIcon className='w-4' /> {t('add creator')}
                                             </button>
                                             <button
                                             type="submit"
@@ -269,29 +308,29 @@ class RoadmapUpdate extends React.Component {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadRoadmapList : (data) => {
-           return dispatch(loadRoadmapList(data))
+        loadCreatorList : (data) => {
+           return dispatch(loadCreatorList(data))
         },
-        saveRoadmapList : (data) => {
-            return dispatch(saveRoadmapList(data))
+        saveCreatorList : (data) => {
+            return dispatch(saveCreatorList(data))
         }
     }
 }
 function mapStateToProps(state,ownProps) {
 
     let club_id = ownProps.club.get('id');
-    let list_data = state.getIn(['roadmap','list',club_id]);
+    let list_data = state.getIn(['creator','list',club_id]);
 
     if (!list_data) {
         list_data = defaultListData
     }
-    let roadmaps = denormalize(list_data.get('list'),roadmapListSchema,state.get('entities'));
+    let creators = denormalize(list_data.get('list'),creatorListSchema,state.get('entities'));
 
     return {
-        roadmaps : roadmaps,
+        creators : creators,
         list_data : list_data,
         club_id   : club_id
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(RoadmapUpdate)
+export default connect(mapStateToProps,mapDispatchToProps)(CreatorUpdate)

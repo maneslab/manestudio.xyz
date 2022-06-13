@@ -4,6 +4,8 @@ import { Field } from 'formik';
 import classNames from 'classnames';
 import {withTranslate} from 'hocs/index'
 import {t} from 'helper/translate'
+import EmptyCircleIcon from 'public/img/icons/empty_circle.svg';
+import CheckCircleIcon from 'public/img/icons/check_circle.svg';
 
 @withTranslate
 class ProjectTypeSelect extends React.Component {
@@ -38,7 +40,15 @@ class ProjectTypeSelect extends React.Component {
                         <div className={classNames("select-one",{"active":(value == 'normal')})} onClick={()=>{
                                 setFieldValue(name,'normal');
                             }}>
-                                <h3>{t('Batch Upload Artworks')}</h3>
+                                <h3>
+                                    <span>{t('Batch Upload Artworks')}</span>
+                                    {
+                                        (value == 'normal')
+                                        ?  <CheckCircleIcon className='icon'/>
+                                        :  <EmptyCircleIcon className='icon'/>
+                                    }
+                                   
+                                </h3>
                                 <div className='p-4 text-sm'>
                                     <div className='mb-2'>
                                         {t('Batch upload already finished artworks, add properties manually')}
@@ -51,7 +61,14 @@ class ProjectTypeSelect extends React.Component {
                             <div className={classNames("select-one",{"active":(value == 'use_generator')})} onClick={()=>{
                                 setFieldValue(name,'use_generator');
                             }}>
-                                <h3>{t('Create Generative Collection')}</h3>
+                                <h3>
+                                    <span>{t('Create Generative Collection')}</span>
+                                    {
+                                        (value == 'use_generator')
+                                        ?  <CheckCircleIcon className='icon'/>
+                                        :  <EmptyCircleIcon className='icon'/>
+                                    }
+                                </h3>
                                 <div className='p-4 text-sm'>
                                     <div className='mb-2'>
                                         {t('The smart tool by ManeSTUDIO allows artists to create their own collections by simply uploading traits in different layers. ')}

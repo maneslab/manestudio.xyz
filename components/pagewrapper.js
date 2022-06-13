@@ -68,7 +68,8 @@ class PageWrapper extends React.Component {
 
                     <div className="h-screen w-screen overflow-y-scroll flex flex-col justify-between">
 
-                        <div className="flex justify-between py-8 h-24 w-full max-w-screen-xl mx-auto">
+                        <div className='bg-white text-black mb-8'>
+                        <div className="flex justify-between py-8 h-24 w-full max-w-screen-xl mx-auto ">
 
                             <div className='flex justify-start'>
 
@@ -86,6 +87,7 @@ class PageWrapper extends React.Component {
                                 
 
                             </div>
+                            
 
                             <div className='flex justify-end items-center'>
 
@@ -94,23 +96,20 @@ class PageWrapper extends React.Component {
                                 <ConnectButton showBalance={false} accountStatus="address" chainStatus="icon"/>
                             </div>
 
+                        </div>
+                        </div>
 
-
-                            </div>
-                                    
-
-                            <div className="flex-grow">
                                 
-                                <div className={"jd-drawer-content pb-0"}>
-                                    {this.props.children}
-                                </div>
+
+                        <div className="flex-grow">
+                            
+                            <div className={"jd-drawer-content pb-0"}>
+                                {this.props.children}
                             </div>
+                        </div>
                             
 
                     </div>
-
-
-
 
 
                 </div>

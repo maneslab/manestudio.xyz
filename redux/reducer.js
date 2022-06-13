@@ -6,6 +6,9 @@ import {mergeDeepOverwriteLists} from 'helper/immutable';
 import { reducer as setting } from './reducer/setting.js'
 import { reducer as user } from './reducer/user.js'
 import { reducer as club } from './reducer/club.js'
+import { reducer as roadmap } from './reducer/roadmap.js'
+import { reducer as gallery } from './reducer/gallery.js'
+import { reducer as creator } from './reducer/creator.js'
 
 import {createAction} from 'helper/common'
 
@@ -40,7 +43,10 @@ const allReducer = combineReducers({
     entities,
     setting,
     user,
-    club
+    club,
+    roadmap,
+    gallery,
+    creator
 })
 
 function crossSliceReducer(state, action) {

@@ -24,7 +24,6 @@ function catchApiError(result) {
 
 function getApiUrl(url) {
     if (url.indexOf('/') == 0) {
-        // console.log('publicRuntimeConfig',publicRuntimeConfig);
         return config.get('API') + url;
     }else {
         return url;
@@ -57,7 +56,7 @@ function uploadRequest(upload_config) {
     }
 
     if (upload_config.action.indexOf('/') == 0) {
-       upload_config.action = publicRuntimeConfig['env']['API']+upload_config.action;
+       upload_config.action = getApiUrl(upload_config.action);
     }
 
     const upload_props = {

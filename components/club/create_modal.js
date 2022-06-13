@@ -18,6 +18,7 @@ import { withRouter } from 'next/router';
 import withWallet from 'hocs/wallet';
 import autobind from 'autobind-decorator';
 
+
 @withRouter
 @withWallet
 @withTranslate
@@ -88,7 +89,7 @@ class ClubCreateModal extends React.Component {
                     footer={null}
                     onClose={this.props.closeModal}>
 
-                    <h2 className='h2 text-center mb-4'>{t('create project')}</h2>
+                    <h2 className='modal-title'>{t('create project')}</h2>
                   
                     <div>
 
@@ -102,7 +103,7 @@ class ClubCreateModal extends React.Component {
                             <Form className="w-full">
                             
 
-                            <div className="p-4">
+                            <div className="p-0">
 
                                 <Input name="name" label={t("project name")} placeholder={t("any name you want")} />
 
