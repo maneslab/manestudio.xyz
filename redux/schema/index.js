@@ -1,6 +1,15 @@
 import { normalize, schema } from 'normalizr';
 
+const proofSchema =  new schema.Entity('proof',{
+},{ 
+    idAttribute: (value) => `${value.platform}-${value.identity}` 
+ });
+const proofListSchema =  new schema.Array(proofSchema);
 
+const personSchema = new schema.Entity('person',{
+    proofs : proofListSchema
+},{ idAttribute: 'persona' });
+const personListSchema =  new schema.Array(personSchema);
 
 const userSchema =  new schema.Entity('user',{
 },{ idAttribute: 'user_id' });
@@ -34,18 +43,25 @@ const creatorListSchema =  new schema.Array(creatorSchema);
 
 module.exports = {
     
-    userSchema : userSchema,
-    userListSchema : userListSchema,
+    userSchema,
+    userListSchema,
 
-    clubSchema : clubSchema,
-    clubListSchema : clubListSchema,
+    clubSchema,
+    clubListSchema,
 
-    roadmapSchema : roadmapSchema,
-    roadmapListSchema : roadmapListSchema,
+    roadmapSchema,
+    roadmapListSchema,
 
-    gallerySchema : gallerySchema,
-    galleryListSchema : galleryListSchema,
+    gallerySchema,
+    galleryListSchema,
 
-    creatorSchema : creatorSchema,
-    creatorListSchema : creatorListSchema,
+    creatorSchema,
+    creatorListSchema,
+
+    personSchema,
+    personListSchema,
+
+    proofSchema,
+    proofListSchema
+
 }

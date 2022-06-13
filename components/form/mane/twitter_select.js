@@ -335,10 +335,13 @@ function mapStateToProps(state,ownProps) {
         console.log('debug07,key_data_no_exist');
     }
 
-    let twitter = null;
-    let is_fetching = null;
-    if (address) {
-        let list_data_one = state.getIn(['nextid','proof_list',address])
+    let person_list = null;
+    let is_fetching_proof = null;
+    if (key_data && key_data.get('public_key')) {
+
+        let public_key = key_data.get('public_key');
+
+        let list_data_one = state.getIn(['nextid','proof_list',public_key])
         if (!list_data_one) {
             list_data_one = defaultListData
         }
@@ -348,26 +351,25 @@ function mapStateToProps(state,ownProps) {
         if (list_data_one.get('result')) {
             person_list = denormalize(list_data_one.get('result'),personListSchema,state.get('entities'))
     
-            // console.log('person_list',person_list.toJS());
-            person_list.map(one=>{
-                // console.log('person_list_one',one.toJS());
-                if (one.get('proofs')) {
-                    one.get('proofs').map(proof_one=>{
-                        if (proof_one.get('platform') == 'twitter')
-                        // console.log('proof_one',proof_one.toJS())
-                        twitter = proof_one;
-                    })
-                }
-            })
+            // // console.log('person_list',person_list.toJS());
+            // person_list.map(one=>{
+            //     // console.log('person_list_one',one.toJS());
+            //     if (one.get('proofs')) {
+            //         one.get('proofs').map(proof_one=>{
+            //             if (proof_one.get('platform') == 'twitter')
+            //             // console.log('proof_one',proof_one.toJS())
+            //             twitter = proof_one;
+            //         })
+            //     }
+            // })
         }
 
-        is_fetching = list_data_one.get('is_fetching');
+        is_fetching_proof = list_data_one.get('is_fetching');
     }
 
     return {
-        // twitter         : twitter,
-        // is_fetching     : is_fetching,
-        // owner           : address
+        is_fetching_proof   : is_fetching_proof,
+        person_list         : person_list
     }
 }
 
