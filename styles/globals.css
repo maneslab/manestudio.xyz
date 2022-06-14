@@ -147,6 +147,49 @@ body {
     @apply flex justify-start w-auto items-center;
 }
 
+.loading-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 5px;
+    width: 80px;
+    border-radius: 3px;
+    overflow: hidden;
+    transform: translate3d(0, 0, 0);
+  }
+  
+  .loading-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: 0.1;
+  }
+  
+  .loading-container::after {
+    content: '';
+    height: 100%;
+    width: 100%;
+    border-radius: 3px;
+    animation: raceBy 1.4s ease-in-out infinite;
+    transform: translateX(-100%);
+    background-color: black;
+  }
+  
+  @keyframes raceBy {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  
+
 .fadeIn {
   -webkit-animation: fadeIn 0.2s 0.2s forwards;
   animation: fadeIn 0.2s 0.2s forwards; 
@@ -239,13 +282,16 @@ body {
 
 
 .input-with-prefix {
-    @apply font-ubuntu flex items-center px-4 py-2 text-sm text-gray-800 border focus:ring-2 border-2 border-black text-gray-800 bg-white dark:border-gray-600 dark:text-white dark:bg-gray-800 focus:ring-yellow-100 dark:focus:ring-gray-500;
+    @apply font-ubuntu flex items-center text-sm text-gray-800 border focus:ring-2 border-2 border-black text-gray-800 bg-white dark:border-gray-600 dark:text-white dark:bg-gray-800 focus:ring-yellow-100 dark:focus:ring-gray-500 ;
 }
 .input-with-prefix .input-inner {
-    @apply ml-2 bg-transparent flex-grow;
+    @apply ml-2 bg-transparent flex-grow px-2 py-2 ;
 }
 .input-with-prefix .prefix {
-    @apply text-gray-500;
+    @apply text-gray-500 px-4 py-2 bg-black text-white;
+}
+.input-with-prefix.has-error {
+    @apply border-red-500;
 }
 
 .select-li {
@@ -438,6 +484,9 @@ input{outline:none;}
 }
 .block-intro .ct {
     @apply opacity-70;
+}
+.block-intro p {
+    @apply mb-2;
 }
 
 .block-title {

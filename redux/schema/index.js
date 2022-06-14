@@ -41,6 +41,11 @@ const creatorSchema =  new schema.Entity('creator',{
 const creatorListSchema =  new schema.Array(creatorSchema);
 
 
+
+const clubSocialSchema =  new schema.Entity('club_social',{
+},{ idAttribute: 'id' });
+const clubSocialListSchema =  new schema.Array(clubSocialSchema);
+
 module.exports = {
     
     userSchema,
@@ -62,6 +67,9 @@ module.exports = {
     personListSchema,
 
     proofSchema,
-    proofListSchema
+    proofListSchema,
+
+    clubSocialSchema,
+    clubSocialListSchema
 
 }

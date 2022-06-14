@@ -1,5 +1,7 @@
 import React from 'react';
 
+import autobind from 'autobind-decorator';
+
 import Button from 'components/common/button'
 import PrefixInput from 'components/form/prefix_input'
 import notification from 'components/common/notification'
@@ -17,10 +19,7 @@ import NextId from 'helper/nextid'
 
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import autobind from 'autobind-decorator';
-
-import {createKeyPiar} from 'helper/nextid/keypair'
-
+import { httpRequest } from 'helper/http';
 
 @withTranslate
 class TwitterForm extends React.Component {
@@ -64,7 +63,7 @@ class TwitterForm extends React.Component {
         })
 
         // let public_key = persona.publicKey.toString('hex');
-        let public_key = persona.public_key;
+        let public_key = persona.get('public_key');
         console.log('bindingTwitter:public_key',public_key)
 
         let nextid = new NextId();
@@ -77,28 +76,26 @@ class TwitterForm extends React.Component {
         console.log('bindingTwitter:result',result)
 
         ///需要一次账户签名，来确认是没问题的
-        console.log('bindingTwitter:persona.private_key',persona.private_key)
+        console.log('bindingTwitter:persona.private_key',persona.get('private_key'))
 
-        let person_sign = await sign(result.sign_payload, persona.private_key,true)
+        let person_sign = await sign(result.sign_payload, persona.get('private_key'),true)
 
         this.setState({
             'is_validating_twitter' : false,
-            'step'          : 'validate',
             'payload'       : result,
             'identity'      : values.account_name,
             'person_sign'   : person_sign
         })
 
+        this.props.handleStepChange('validate');
     }
 
     async validateTwitter(values) {
         const {t} = this.props.i18n;
-        const {address,persona} = this.props;
+        const {persona,club_id} = this.props;
         const {identity,payload} = this.state;
 
        
-        
-        console.log('now login wallet:' + address);
         console.log('validateTwitter:' , values);
 
         this.setState({
@@ -113,16 +110,32 @@ class TwitterForm extends React.Component {
             result2 = await nextid.proof_create({
                 'platform'      : 'twitter',
                 'identity'      : identity,
-                'public_key'    : persona.public_key,
+                'public_key'    : persona.get('public_key'),
                 'proof_location': values.tweet_id,
                 'uuid'          : payload.uuid,
                 'created_at'    : payload.created_at,
             });
+
+            
+            ///完成以后发起一个请求把这个用户记录下来
+            await httpRequest({
+                'url' : '/v1/club/social/save',
+                'method' : 'POST',
+                'data'  : {
+                    'platform'      : 'twitter',
+                    'identity'      : identity,
+                    'club_id'       : club_id
+                }
+            })
+
             this.setState({
                 'is_validating_tweet'  : false,
-                'step'      :   'success'
             })
-    
+
+            this.props.handleStepChange('success');
+
+            this.props.refreshList();
+
         }catch(e) {
             notification.error({
                 'message'     : t('bind error'),
@@ -131,7 +144,6 @@ class TwitterForm extends React.Component {
             this.setState({
                 'is_validating_tweet'  : false,
             })
-    
         }
 
     }
@@ -145,7 +157,8 @@ class TwitterForm extends React.Component {
  
     render() {
         const {t} = this.props.i18n;
-        const {step,payload,person_sign,show_validate_form} = this.state;
+        const {step} = this.props;
+        const {payload,person_sign,show_validate_form} = this.state;
 
         if (step == 'validate') {
 
@@ -217,7 +230,7 @@ class TwitterForm extends React.Component {
                     
                     <Form className="w-full">
                     
-                    <div className="p-4 md:p-6">
+                    <div className="">
                         <PrefixInput prefix={"@"} name="account_name" label={t("twitter account name")} placeholder={t("account name without @")} />
 
                         <div className='border-t border-gray-300 my-4' />

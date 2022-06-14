@@ -9,6 +9,7 @@ import { reducer as club } from './reducer/club.js'
 import { reducer as roadmap } from './reducer/roadmap.js'
 import { reducer as gallery } from './reducer/gallery.js'
 import { reducer as creator } from './reducer/creator.js'
+import { reducer as club_social } from './reducer/club_social.js'
 
 import {createAction} from 'helper/common'
 
@@ -46,7 +47,8 @@ const allReducer = combineReducers({
     club,
     roadmap,
     gallery,
-    creator
+    creator,
+    club_social
 })
 
 function crossSliceReducer(state, action) {
