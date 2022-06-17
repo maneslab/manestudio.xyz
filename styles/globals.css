@@ -136,16 +136,26 @@ body {
     min-width: 240px;
 }
 
-.block-message {
-    @apply dark:text-white;
-}
+
 .block-message > div {
     @apply flex justify-center flex-col w-full;
 }
-
-.de-alert {
-    @apply flex justify-start w-auto items-center;
+.block-message .rc-notification-notice-content {
+    @apply p-0 border-0; 
 }
+.alert {
+    @apply py-2 px-4 rounded-none;
+}
+.alert.alert-error {
+    @apply bg-[#FCE2E2] text-[#F53535];
+}
+.alert.alert-success {
+    @apply bg-[#D9F9D4] text-[#28D30D];
+}
+.alert.alert-warning {
+    @apply bg-[#DAE5FC] text-[#5387F6];
+}
+
 
 .loading-container {
     position: relative;
@@ -396,7 +406,7 @@ input{outline:none;}
 
 /*main*/
 .logo {
-    @apply font-black text-xl mr-4 text-black;
+    @apply font-black text-xl mr-4 text-black flex items-center;
 }
 .main-menu {
     @apply flex justify-start items-center space-x-4;
@@ -531,4 +541,11 @@ input{outline:none;}
 }
 .club-header-menu .active{
     @apply border-b-2 border-primary;
+}
+
+.probability_wapper .prefix{
+    @apply w-32 overflow-hidden;
+}
+.probability_wapper .prefix.end{
+    @apply w-auto;
 }

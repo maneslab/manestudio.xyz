@@ -16,7 +16,6 @@ export default class UploadComponent extends React.Component {
         this.state = {
             'is_begin_upload' : false,
             'upload_progress' : 0,
-            'file'            : null,
         }
         this.uploadRef = React.createRef();
     }
@@ -26,7 +25,6 @@ export default class UploadComponent extends React.Component {
         this.setState({
             'is_begin_upload' : true,
             'upload_progress' : 0,
-            'file'            : file
         })
     } 
 
@@ -51,7 +49,6 @@ export default class UploadComponent extends React.Component {
         this.setState({
             'upload_progress' : 0,
             'is_begin_upload' : false,
-            'file'            : null,
         })
     }
 
@@ -63,15 +60,19 @@ export default class UploadComponent extends React.Component {
     }
 
     @autobind
-    uploadSuccess(response) {
-        const {file} = this.state;
+    uploadSuccess(response,file) {
 
         if (typeof this.props.afterSuccess == 'function') {
             this.props.afterSuccess(response,file);
         }
 
-        this.reset()
+        console.log('debug07,response',response)
+        console.log('debug07,file',file)
+        console.log('debug07,file.name',file.name)
+
         message.success(`${file.name} file uploaded successfully`);
+
+        this.reset()
     }
 
 
@@ -110,17 +111,20 @@ export default class UploadComponent extends React.Component {
 
         const newUploadProps = Object.assign(uploadProps,{
             beforeUpload(file) {
-                // console.log('beforeUpload', file);
+                console.log('debug07,->准备上传文件', file.name);
             },
             onStart: file => {
-                console.log('onStart', file.name);
+                console.log('debug07,->开始上传', file.name);
                 setBeginUpload(file);
             },
-            onSuccess(response) {
+            onSuccess(response,file) {
+                console.log('debug07,->上传成功', response,file);
                 // setUploadFinish();
-                uploadSuccess(response)
+                uploadSuccess(response,file)
             },
             onProgress(step, file) {
+                console.log('debug07,->上传进度',step,file);
+
                 setProgress(file,Math.round(step.percent));
             },
             onError(err,body) {

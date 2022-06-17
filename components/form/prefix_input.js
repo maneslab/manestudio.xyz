@@ -3,7 +3,7 @@ import { Field } from 'formik';
 import classNames from 'classnames'
 import Input from 'components/form/input'
 
-const PrefixInput = ({ name, label, placeholder,notice,prefix,at_end,className, ...props }) => {
+const PrefixInput = ({ name, label, placeholder,notice,prefix,endfix,className, ...props }) => {
     return <div className="form-control">
         {
             (label)
@@ -22,14 +22,14 @@ const PrefixInput = ({ name, label, placeholder,notice,prefix,at_end,className, 
                 return <div>
                 <div className={classNames("input-with-prefix",className,{"has-error":show_error})}>
                 {
-                    (!at_end)
+                    (prefix)
                     ? <div className='prefix'>{prefix}</div>
                     : null
                 }
                 <Input placeholder={placeholder} value={value} className="input-inner" onChange={(e)=>setFieldValue(name,e.target.value)} onBlur={(e)=>setFieldTouched(name,true)} {...props}/>
                 {
-                    (at_end)
-                    ? <div className='prefix'>{prefix}</div>
+                    (endfix)
+                    ? <div className='prefix end'>{endfix}</div>
                     : null
                 }
                 </div>

@@ -10,7 +10,6 @@ please select,please select,请选择
 please select token,please select token,请选择代币
 home,home,首页
 club is not exist,club is not exist,俱乐部不存在
-created at {{time}},created at {{time}},创建于{{时间}}。
 about,about,关于
 airdrop,airdrop,空投
 hot collections,hot collections,热门收藏
@@ -43,9 +42,7 @@ tx failed,tx failed,交易失败
 withdraw tx sent,withdraw tx sent,取款交易已发送
 withdraw from safebox,withdraw from safebox,从保险箱中提款
 approve tx sent,approve tx sent,批准交易已发送
-safebox is created,safebox is created,保险箱已创建
 withdraw,withdraw,取款
-my safebox,my safebox,我的保险箱
 deposit,deposit,存款
 depositing,depositing,存款
 deposit tx sent,deposit tx sent,存款Tx已发送
@@ -83,17 +80,78 @@ create socail recovery successful,create socail recovery successful,创建社交
 withdraw error,withdraw error,提款错误
 withdrawing,withdrawing,提款
 withdraw successful,withdraw successful,提款成功
-set up social recovery,set up social recovery,建立社交恢复
-helping others with social recovery,helping others with social recovery,帮助他人进行社交恢复
-Protect your assets with Zero Knowledge Proof,Protect your assets with Zero Knowledge Proof,用零知识证明来保护你的资产
-protect your assets,protect your assets,保护你的资产
-"use Zero Knowledge proof for protect your asset , the hacker cannot take your asset even he has your private key","use Zero Knowledge proof for protect your asset , the hacker cannot take your asset even he has your private key","使用 ""零知识证明 ""来保护你的资产，即使黑客拥有你的私钥也无法夺走你的资产。"
-socail recover,socail recover,社交恢复
-you can set up multiple wallet addresses that you can use to recover your password in case you forget it,you can set up multiple wallet addresses that you can use to recover your password in case you forget it,你可以设置多个钱包地址，当你忘记密码时，你可以用它来恢复你的密码。
-open source,open source,开放源代码
-"use smart contracts and fully open source, because the source code is simple and easy to understand","use smart contracts and fully open source, because the source code is simple and easy to understand",使用智能合约并完全开放源代码，因为源代码简单易懂。
-Did you hear about our,Did you hear about our,你是否听说过我们的
-Developer said,Developer said,开发者说
-"Use smart contracts and fully open source, because the source code is simple and easy to understand, so there is no need to worry about security vulnerabilities","Use smart contracts and fully open source, because the source code is simple and easy to understand, so there is no need to worry about security vulnerabilities",使用智能合约并完全开放源代码，因为源代码简单易懂，所以不用担心安全漏洞问题
-"Using ZK technology, open source contracts, is a very important way for WEB3 to be open and transparent to help others solve their asset security problems","Using ZK technology, open source contracts, is a very important way for WEB3 to be open and transparent to help others solve their asset security problems",使用ZK技术，开源合约，是WEB3公开透明的一个非常重要的方式，可以帮助别人解决资产安全问题
 reset password,reset password,重置密码
+set club profile,set club profile,
+link discord group,link discord group,
+publish my membership NFT,publish my membership NFT,
+share link and earn money,share link and earn money,
+create project,create project,
+project name,project name,
+any name you want,any name you want,
+project type,project type,
+back to projects,back to projects,
+upload,upload,
+generate,generate,
+contract,contract,
+metadata,metadata,
+drop,drop,
+I have not created any project yet,I have not created any project yet,
+creating a community is the first step to riches,creating a community is the first step to riches,
+add club,add club,
+select club,select club,
+Help & Document,Help & Document,
+Links,Links,
+mint,mint,
+transfer,transfer,
+discord,discord,
+action log,action log,
+member,member,
+drop details,drop details,
+"Add the general title of the your collection drop, write some description and tell us the story behind your artworks.","Add the general title of the your collection drop, write some description and tell us the story behind your artworks.",
+description,description,
+link to the drop page,link to the drop page,
+save,save,
+not set,not set,
+avatar,avatar,
+name,name,
+title,title,
+bio,bio,
+link,link,
+time_point and title cannot be empty,time_point and title cannot be empty,
+creator,creator,
+add creator,add creator,
+gallery,gallery,
+add image,add image,
+binded,binded,
+if you wanna unbind twitter account please click unbind,if you wanna unbind twitter account please click unbind,
+unbind twitter,unbind twitter,
+bind twitter,bind twitter,
+After binding you can display your twitter name under your nft,After binding you can display your twitter name under your nft,
+send tweet,send tweet,
+bind twitter success,bind twitter success,
+tweet_id,tweet_id,
+tweet number id,tweet number id,
+twitter account name,twitter account name,
+account name without @,account name without @,
+bind error,bind error,
+validate wallet,validate wallet,
+confirm unbind twitter,confirm unbind twitter,
+unbind twitter success,unbind twitter success,
+time point,time point,
+detail,detail,
+roadmap,roadmap,
+add roadmap,add roadmap,
+add project,add project,
+Batch Upload Artworks,Batch Upload Artworks,
+"Batch upload already finished artworks, add properties manually","Batch upload already finished artworks, add properties manually",
+"Recommened for artists who want to create a collection of small amount, like 1-100","Recommened for artists who want to create a collection of small amount, like 1-100",
+Create Generative Collection,Create Generative Collection,
+The smart tool by ManeSTUDIO allows artists to create their own collections by simply uploading traits in different layers.,The smart tool by ManeSTUDIO allows artists to create their own collections by simply uploading traits in different layers.,
+You can easily tweak the rarity of each trait with the built-in editor.,You can easily tweak the rarity of each trait with the built-in editor.,
+twitter,twitter,
+generate groups,generate groups,
+group,group,
+add group,add group,
+about group,about group,
+"By adding groups, you are able to create sub-collections that use their own designed traits. For example, for a PFP collection, if the character are shaped differently, the position of their eyes and mouths must be designed accordingly with different scales and positions. Therefore, you can create groups for each of the base characters.","By adding groups, you are able to create sub-collections that use their own designed traits. For example, for a PFP collection, if the character are shaped differently, the position of their eyes and mouths must be designed accordingly with different scales and positions. Therefore, you can create groups for each of the base characters.",
+"If you want to bring some 1/1s to your collection, you can add them in step “Metadata” later.","If you want to bring some 1/1s to your collection, you can add them in step “Metadata” later.",

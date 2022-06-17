@@ -261,14 +261,14 @@ class CreatorUpdate extends React.Component {
                                         <div className='flex justify-between items-center'>
                                             <button
                                             type="button"
-                                            className='btn'
+                                            className='btn btn-outline'
                                             onClick={this.addCreatorOne.bind({},arrayHelpers)}
                                             >
-                                                <PlusIcon className='w-4' /> {t('add creator')}
+                                                <PlusIcon className='w-4 mr-2' /> {t('add creator')}
                                             </button>
                                             <button
                                             type="submit"
-                                            className='btn btn-outline'
+                                            className='btn btn-primary'
                                             >
                                                 {t('save')}
                                             </button>

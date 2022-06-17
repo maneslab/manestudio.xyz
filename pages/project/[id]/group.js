@@ -15,12 +15,11 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import {updateClub} from 'redux/reducer/club'
 
-import RoadmapUpdate from 'components/roadmap/update'
-import GalleryUpdate from 'components/gallery/update'
-import CreatorUpdate from 'components/creator/update'
+import CreateGroupModal from 'components/image/group/create_modal'
+import GroupList from 'components/image/group/list'
 
-import ClubUpdate from 'components/club/update'
 import withClubView from 'hocs/clubview'
+import { PlusIcon } from '@heroicons/react/solid';
 
 
 @withTranslate
@@ -33,6 +32,7 @@ class GenerateGroupView extends React.Component {
         this.state = {
             show_create_modal : false
         }
+        this.listRef = React.createRef();
     }
 
 
@@ -43,21 +43,18 @@ class GenerateGroupView extends React.Component {
         })
     }
 
+    @autobind
+    refreshList() {
+        if (this.listRef.current) {
+            this.listRef.current.refresh();
+        }
+    }
+
     render() {
         const {t} = this.props.i18n;
         const {is_adding,is_init} = this.state;
-        const {club,club_id} = this.props;
+        const {list_count,club_id} = this.props;
 
-
-        let init_data ={
-            'name' : '',
-            'project_type' : 'use_generator'
-        }
-
-        const formSchema = Yup.object().shape({
-            name      : Yup.string().required(),
-            project_type : Yup.string().required(),
-        });
 
         return <PageWrapper>
             <Head>
@@ -72,15 +69,18 @@ class GenerateGroupView extends React.Component {
                         <div className='flex justify-between items-center mb-8 text-black'>
                             <h1 className='h1'>{t('group')}</h1>
                             <button className='btn btn-primary' onClick={this.toggleCreateModal}>
+                                <PlusIcon className='icon-xs mr-2'/>
                                 {t('add group')}
                             </button>
                         </div>
+
+                        <GroupList club_id={this.props.club_id} ref={this.listRef}/>
 
                     </div>
 
                     <div className='col-span-3'>
                         <div className='block-intro'>
-                            <h3>About Group</h3>
+                            <h3>{t('about group')}</h3>
                             <div className='ct'>
                             <p>
                                 {t('By adding groups, you are able to create sub-collections that use their own designed traits. For example, for a PFP collection, if the character are shaped differently, the position of their eyes and mouths must be designed accordingly with different scales and positions. Therefore, you can create groups for each of the base characters.')}
@@ -92,6 +92,7 @@ class GenerateGroupView extends React.Component {
                         </div>
                     </div>
                     
+                    <CreateGroupModal refreshList={this.refreshList} club_id={this.props.club_id} list_count={list_count} visible={this.state.show_create_modal} closeModal={this.toggleCreateModal}/>
 
                 </div> 
             </div>
@@ -112,8 +113,14 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 function mapStateToProps(state,ownProps) {
-   return {
-   }
+    let list_data = state.getIn(['image_group','list',ownProps.club_id,'list']) ? state.getIn(['image_group','list',ownProps.club_id,'list']) : null;
+    let list_count = 0;
+    if (list_data) {
+        list_count = list_data.count();
+    }
+    return {
+        list_count : list_count
+    }
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(GenerateGroupView)

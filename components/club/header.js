@@ -15,7 +15,7 @@ export default function ClubHeader({
         <div className='flex justify-between mx-auto max-w-screen-xl items-center'>
             <div>
                 <Link href="/project/list"><a className='btn btn-outline'>
-                    <ArrowLeftIcon className='icon-sm mr-2'/>
+                    <ArrowLeftIcon className='icon-xs mr-2'/>
                     {t('back to projects')}
                 </a></Link>
             </div>

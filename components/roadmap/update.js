@@ -176,6 +176,7 @@ class RoadmapUpdate extends React.Component {
         });
 
 
+
         return  <div>
             <div className='block-title'>{t('roadmap')}</div>
             <Formik
@@ -188,7 +189,6 @@ class RoadmapUpdate extends React.Component {
                     values,
                     errors, 
                     touched }) => {
-
                     return (<Form>
                     <div className='block-wapper-one mb-4'>
                         <div className='l'>
@@ -201,7 +201,6 @@ class RoadmapUpdate extends React.Component {
                                         <DndContext
                                             onDragStart={this.handleDragStart}
                                             onDragEnd={this.handleDragEnd}
-                                            // collisionDetection={closestCenter}
                                         >
                                             <SortableContext items={Object.keys(values.roadmaps)}>
                                                 {values.roadmaps.map((one,index) => <RoadmapEditorOne 
@@ -222,14 +221,14 @@ class RoadmapUpdate extends React.Component {
                                         <div className='flex justify-between items-center'>
                                             <button
                                             type="button"
-                                            className='btn'
+                                            className='btn btn-outline'
                                             onClick={this.addRoadmapOne.bind({},arrayHelpers)}
                                             >
-                                                <PlusIcon className='w-4' /> {t('add roadmap')}
+                                                <PlusIcon className='w-4 mr-2' /> {t('add roadmap')}
                                             </button>
                                             <button
                                             type="submit"
-                                            className='btn btn-outline'
+                                            className='btn btn-primary'
                                             >
                                                 {t('save')}
                                             </button>

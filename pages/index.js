@@ -48,8 +48,6 @@ class Home extends React.Component {
             <div className="">
 
 
-                <button class="btn">Button</button>
-
             </div>
             </MustLoginWrapper>
     </PageWrapper>

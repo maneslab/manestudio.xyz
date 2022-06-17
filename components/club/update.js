@@ -128,7 +128,7 @@ class ClubUpdate extends React.Component {
                             <PrefixInput name="unique_name" label={t("link to the drop page")} placeholder={"customize-your-link-here"} prefix={"https://www.manespace.com/"} />
                             <div className='border-t border-gray-300 my-4'></div>
                             <div className='flex justify-end'>
-                            <Button loading={is_updating} className="btn btn-outline" type="submit">{t("save")}</Button>
+                            <Button loading={is_updating} className="btn btn-primary" type="submit">{t("save")}</Button>
                             </div>
                         </div>
                     </div>

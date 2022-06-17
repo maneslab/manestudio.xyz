@@ -9,8 +9,9 @@ import NavLink from 'components/common/navlink'
 import Head from 'next/head'
 import Link from 'next/link'
 import Logo from 'public/img/logo.svg'
+import WggLogo from 'public/img/wgg_logo.svg'
 
-import { MenuIcon} from '@heroicons/react/outline'
+// import { MenuIcon} from '@heroicons/react/outline'
 
 import { denormalize } from 'normalizr';
 import { userSchema } from 'redux/schema/index'
@@ -62,7 +63,7 @@ class PageWrapper extends React.Component {
             <div className="fullpage-container">
                 <Head>
                     <title>{config.get('NAME')}</title>
-                    <link href="/img/icons/favicon.png" rel="icon" type="image/x-icon" />
+                    <link href="/img/favicon.png" rel="icon" type="image/x-icon" />
                 </Head>
                 <div>
 
@@ -75,7 +76,7 @@ class PageWrapper extends React.Component {
 
                                 <Link href="/">
                                     <a className="logo">
-                                     ManeStudio
+                                        <Logo className="h-5"/>
                                     </a>
                                 </Link>
 

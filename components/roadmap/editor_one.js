@@ -19,10 +19,13 @@ export default function SortableItem({roadmap,open_index,id,toggleOpen,remove,dr
         transform,
         transition,
     } = useSortable({id: String(id)});
+
       
     let is_show = (open_index == id);
     let is_draging = (draging_index == id);
     let is_empty = (!roadmap['milestone'] && !roadmap['time_point']);
+
+
 
     const {t} = useTranslation('common');
 

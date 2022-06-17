@@ -4,6 +4,7 @@ const percentDecimal = function(num , dec = 2) {
     return (100 * num).toFixed(dec);
 }
 
+
 const autoDecimal = function(num) {
     num = Number(num);
     let foramt_num;

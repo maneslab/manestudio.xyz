@@ -1,10 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { connect } from "react-redux";
 
 import Modal from 'components/common/modal'
 import Button from 'components/common/button'
 import Input from 'components/form/field'
+import PrefixInput from 'components/form/prefix_input'
+import FormObserver from 'components/form/observer';
+
 import ProjectTypeSelect from 'components/form/mane/project_type_select'
 
 import { Formik, Form } from 'formik';
@@ -28,6 +32,7 @@ class ClubCreateModal extends React.Component {
         super(props)
         this.state = {
             is_adding : false,
+            project_type : 'use_generator'
         }
     }
 
@@ -59,10 +64,18 @@ class ClubCreateModal extends React.Component {
             })
         })
     }
+
+    @autobind
+    formChange(values) {
+        console.log('formChange',values)
+        this.setState({
+            'project_type' : values.project_type
+        })
+    }
     
 
     render() {
-        const {page,is_adding} = this.state;
+        const {project_type,is_adding} = this.state;
         const {visible,deposit_data} = this.props;
         const {t} = this.props.i18n;
 
@@ -74,13 +87,27 @@ class ClubCreateModal extends React.Component {
 
         let init_data ={
             'name' : '',
-            'project_type' : 'use_generator'
+            'project_type' : 'use_generator',
+            'height' : 1200,
+            'width'  : 1200
         }
 
-        const formSchema = Yup.object().shape({
-            name      : Yup.string().required(),
-            project_type : Yup.string().required(),
-        });
+        let formSchema;
+        if (project_type == 'use_generator') {
+            formSchema = Yup.object().shape({
+                name      : Yup.string().required(),
+                project_type : Yup.string().required(),
+                width       :  Yup.number().min(512).max(2048).required(),
+                height      :  Yup.number().min(512).max(2048).required(),
+            });
+        }else {
+            formSchema = Yup.object().shape({
+                name      : Yup.string().required(),
+                project_type : Yup.string().required(),
+            });
+        }
+
+        
 
         return  <Modal
                     width={650}
@@ -102,12 +129,22 @@ class ClubCreateModal extends React.Component {
                             
                             <Form className="w-full">
                             
+                            <FormObserver onChange={this.formChange}/>
 
                             <div className="p-0">
 
                                 <Input name="name" label={t("project name")} placeholder={t("any name you want")} />
 
                                 <ProjectTypeSelect name="project_type" label={t("project type")} />
+
+                                {
+                                    (this.state.project_type == 'use_generator')
+                                    ? <div className='grid grid-cols-2 gap-4'>
+                                        <PrefixInput name="width" label={t("width")} placeholder={t("width")} endfix={'px'} />
+                                        <PrefixInput name="height" label={t("height")} placeholder={t("height")} endfix={'px'} />
+                                    </div>
+                                    : null
+                                }
 
                                 <div className='border-t border-gray-300 my-4' />
 
@@ -130,7 +167,11 @@ class ClubCreateModal extends React.Component {
 
     
 }
-
+ClubCreateModal.propTypes = {
+    visible     : PropTypes.bool,
+    closeModal  : PropTypes.func,
+};
+  
 
 function mapStateToProps(state,ownProps) {
     

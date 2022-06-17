@@ -46,6 +46,21 @@ const clubSocialSchema =  new schema.Entity('club_social',{
 },{ idAttribute: 'id' });
 const clubSocialListSchema =  new schema.Array(clubSocialSchema);
 
+
+const imageGroupSchema =  new schema.Entity('image_group',{
+},{ idAttribute: 'id' });
+const imageGroupListSchema =  new schema.Array(imageGroupSchema);
+
+
+const imageLayerSchema =  new schema.Entity('image_layer',{
+},{ idAttribute: 'id' });
+const imageLayerListSchema =  new schema.Array(imageLayerSchema);
+
+
+const imageTraitSchema =  new schema.Entity('image_trait',{
+},{ idAttribute: 'id' });
+const imageTraitListSchema =  new schema.Array(imageTraitSchema);
+
 module.exports = {
     
     userSchema,
@@ -70,6 +85,15 @@ module.exports = {
     proofListSchema,
 
     clubSocialSchema,
-    clubSocialListSchema
+    clubSocialListSchema,
+
+    imageGroupSchema,
+    imageGroupListSchema,
+
+    imageLayerSchema,
+    imageLayerListSchema,
+
+    imageTraitSchema,
+    imageTraitListSchema
 
 }

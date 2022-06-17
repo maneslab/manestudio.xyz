@@ -10,6 +10,7 @@ import { Formik, Form,FieldArray } from 'formik';
 import * as Yup from 'yup';
 
 import GalleryOne from 'components/gallery/one'
+import {uploadRequest} from 'helper/http'
 import Upload from 'components/common/upload'
 
 import { PlusIcon } from '@heroicons/react/outline';
@@ -20,7 +21,6 @@ import {SortableContext} from '@dnd-kit/sortable';
 import { denormalize } from 'normalizr';
 import {galleryListSchema} from 'redux/schema/index'
 import { defaultListData } from 'helper/common';
-import {uploadRequest} from 'helper/http'
 
 
 @withTranslate
@@ -256,14 +256,14 @@ class GalleryUpdate extends React.Component {
                                     </div>
                                     <div className='flex justify-between items-center'>
                                         <Upload uploadProps={uploadProps} afterSuccess={this.handleUpload.bind({},arrayHelpers)}>  
-                                                <button type="button" className='btn'>
+                                                <button type="button" className='btn btn-outline'>
                                                     <PlusIcon className='w-4 mr-2' /> {t('add image')}
                                                 </button>
                                         </Upload>
                                         
                                         <button
                                         type="submit"
-                                        className='btn btn-outline'
+                                        className='btn btn-primary'
                                         >
                                             {t('save')}
                                         </button>

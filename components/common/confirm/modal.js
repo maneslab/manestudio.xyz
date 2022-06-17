@@ -2,16 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { confirmable } from 'react-confirm';
 import Modal from 'components/common/modal'; 
-// import useTranslation from 'next-translate/useTranslation'
+import CloseIcon from 'public/img/icons/close.svg'
 
-const YourDialog = ({show, proceed, confirmation, options}) => {
-    // let {t} = useTranslation("common")
+const YourDialog = ({show, proceed, confirmation, closeIcon, options}) => {
+    let closeIconComponent;
+    if (closeIcon === false) {
+        closeIconComponent = null
+    }else {
+        closeIconComponent = <CloseIcon className="w-4 h-4" />
+    }        
+  
     return <Modal title={null} 
         visible={show} 
         maskClosable={false}
-        closeIcon={false}
+        closeIcon={closeIconComponent}
         onClose={() => proceed(false)} >
-        <div className="mb-2 font-ubuntu py-4 px-4 font-bold text-base text-gray-700 ">
+        <div className="mb-8 font-bold capitalize text-base text-gray-700 ">
             {confirmation}
         </div>
         <div className="flex justify-end items-center space-x-2">

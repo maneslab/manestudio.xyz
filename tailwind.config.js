@@ -108,7 +108,7 @@ module.exports = {
                   
           "success": "#0D6D34",
                   
-          "warning": "#E89211",
+          "warning": "#fbbd23",
                   
           "error": "#E9537E",
 

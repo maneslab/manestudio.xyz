@@ -49,12 +49,12 @@ class Config {
             throw new Error("Calling config.get with null or undefined argument");
         }
 
-        console.log('this.cfg',this.cfg);
-        console.log('property',property);
+        // console.log('this.cfg',this.cfg);
+        // console.log('property',property);
+        // console.log('value',value);
 
         let value = this.getValue(this.cfg, property);
 
-        console.log('value',value);
 
         if (value === undefined) {
             throw new Error('Configuration property "' + property + '" is not defined');
