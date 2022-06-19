@@ -549,3 +549,20 @@ input{outline:none;}
 .probability_wapper .prefix.end{
     @apply w-auto;
 }
+.probability_wapper .input-inner{
+    @apply w-16
+}
+
+.trait-image .dropdown {
+    @apply hidden;
+}
+.trait-image:hover .dropdown {
+    @apply block;
+}
+
+.trait-name .edit-icon{
+    @apply hidden;
+}
+.trait-name:hover .edit-icon{
+    @apply block;
+}

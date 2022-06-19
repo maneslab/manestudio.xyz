@@ -22,6 +22,10 @@ import LayerList from 'components/image/layer/list'
 
 import withClubView from 'hocs/clubview'
 import { ChevronLeftIcon, PlusIcon } from '@heroicons/react/solid';
+import {setActiveClub} from 'redux/reducer/setting'
+
+import { denormalize } from 'normalizr';
+import { clubSchema } from 'redux/schema/index'
 
 
 @withTranslate
@@ -37,6 +41,15 @@ class GenerateGroupView extends React.Component {
         this.listRef = React.createRef();
     }
 
+    componentDidMount() {
+        this.props.setActiveClub(this.props.club_id)
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.club_id != prevProps.club_id) {
+            this.props.setActiveClub(this.props.club_id);
+        }
+    }
 
     @autobind
     toggleCreateModal() {
@@ -54,9 +67,7 @@ class GenerateGroupView extends React.Component {
 
     render() {
         const {t} = this.props.i18n;
-        const {is_adding,is_init} = this.state;
         const {list_count,group_id,club_id} = this.props;
-
 
         return <PageWrapper>
             <Head>
@@ -83,7 +94,7 @@ class GenerateGroupView extends React.Component {
                             </button>
                         </div>
 
-                        <LayerList group_id={this.props.group_id} ref={this.listRef}/>
+                        <LayerList group_id={this.props.group_id} ref={this.listRef} />
 
                     </div>
 
@@ -100,15 +111,8 @@ class GenerateGroupView extends React.Component {
                             </div>
                         </div>
 
-                        <div>
-                            <button className='btn btn-default' onClick={()=>message.loading('loading')}>Loading</button>
-                            <button className='btn btn-default' onClick={()=>message.success('创建项目成功')}>成功提示</button>
-                            <button className='btn btn-default' onClick={()=>message.error('创建项目失败:高度不能为空')}>失败提示</button>
-                        </div>
                     </div>
 
-
-                    
                     <CreateLayerModal refreshList={this.refreshList} 
                         group_id={group_id} 
                         list_count={list_count} 
@@ -132,17 +136,12 @@ GenerateGroupView.getInitialProps =  wrapper.getInitialPageProps((store) => asyn
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        setActiveClub : (id) => {
+            return dispatch(setActiveClub(id))
+        }
     }
 }
 function mapStateToProps(state,ownProps) {
-    let list_data = state.getIn(['image_group','list',ownProps.club_id,'list']) ? state.getIn(['image_group','list',ownProps.club_id,'list']) : null;
-    let list_count = 0;
-    if (list_data) {
-        list_count = list_data.count();
-    }
-    return {
-        list_count : list_count
-    }
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(GenerateGroupView)

@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Link from 'next/link'
+// import Link from 'next/link'
 import {withTranslate} from 'hocs/index'
 import {confirm} from 'components/common/confirm/index'
 
-import {DotsVerticalIcon,PhotographIcon,TrashIcon,PencilIcon} from '@heroicons/react/outline'
+import {DotsVerticalIcon,PencilIcon,TrashIcon,CheckIcon,XIcon,AdjustmentsIcon} from '@heroicons/react/outline'
 import autobind from 'autobind-decorator';
-import {percentDecimal} from 'helper/number'
+// import {percentDecimal} from 'helper/number'
 import { t } from 'helper/translate';
 
 @withTranslate
@@ -16,13 +16,16 @@ class TraitOne extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            'edit_mode' : false,
+            'name'      : ''
         }
         this.deleteTrait = ::this.deleteTrait;
     }
 
     componentDidMount() {
         this.setState({
-            'generate_number' : this.props.trait.get('generate_number')
+            'generate_number' : this.props.trait.get('generate_number'),
+            'name'            : this.props.trait.get('name')
         });
     }
 
@@ -35,6 +38,23 @@ class TraitOne extends React.Component {
     @autobind
     selectItem() {
 
+    }
+
+    @autobind
+    toggleEditMode() {
+        this.setState({
+            'edit_mode' : !this.state.edit_mode
+        })
+    }
+
+    @autobind
+    saveTrait() {
+
+        this.setState({
+            'edit_mode' : !this.state.edit_mode
+        })
+
+        this.props.handleUpdate(this.props.trait.get('id'),{'name':this.state.name});
     }
 
     async deleteTrait() {
@@ -52,54 +72,59 @@ class TraitOne extends React.Component {
     }
 
     @autobind
-    handleValueChange(e) {
-        console.log('debug07,e',e.target.value)
-        const { trait } = this.props;
+    handleNameChange(e) {
+        // console.log('debug07,e',e.target.value)
+        // const { trait } = this.props;
 
         this.setState({
-            'generate_number' : e.target.value
+            'name' : e.target.value
         })
 
-        this.props.handleUpdate(trait.get('id'),{'generate_number':e.target.value});
+        // this.props.handleUpdate(trait.get('id'),{'generate_number':e.target.value});
     }
 
     render() {
 
         const { trait } = this.props;
-        const { open } = this.state;
+        const { edit_mode } = this.state;
 
         console.log('trait',trait.toJS())
 
         return <div className="mb-4 bg-white">
             <div className="">
-                <div className=''>
+                <div className='relative trait-image'>
                     <img src={trait.getIn(['upload_img','image_urls','url'])} />
-                </div>
-                <div onClick={this.selectItem} className="flex-grow flex justify-between p-2">
-                    <div className='flex justify-center flex-col'>
-                        <div className='text-sm text-black capitalize'>{
-                            (trait.get('name')) ? trait.get('name') : '(no name)'
-                        }</div>
-                        <div className='text-xs text-blue-400'>
-                            15%
-                        </div>
-                    </div>
-                    <div class="dropdown dropdown-right">
-                        <label tabindex="0" class="btn m-1 px-2 bg-gray-100 border-none text-gray-800 hover:bg-gray-200">
+                    <div class="dropdown dropdown-right absolute right-1 top-1">
+                        <label tabindex="0" class="btn m-1 px-2 bg-transparent border-none text-gray-600 hover:text-black hover:bg-transparent">
                             <DotsVerticalIcon className='icon-sm'/>
                         </label>
                         <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white rounded-box w-52 capitalize">
                             <li><a onClick={this.deleteTrait}><TrashIcon className='icon-sm'/>delete</a></li>
-                            <li><a onClick={this.props.handleEdit.bind({},trait)}><PencilIcon className='icon-sm'/>edit</a></li>
-                            <li className='hidden'>
-                                <div className='py-2 px-2 bg-white border-t border-gray-200 flex-col w-full'>
-                                    <h4 className='text-sm text-gray-500 flex justify-start'>{t('occurrence probability')}</h4>
-                                    <input type="range" min="0" max="1000" value={this.state.generate_number} class="range" onChange={this.handleValueChange}/>
-                                </div>
-                            </li>
+                            <li><a onClick={this.props.handleEditProbability}><AdjustmentsIcon className='icon-sm'/>rarity</a></li>
                         </ul>
-                        
                     </div>
+                </div>
+                <div onClick={this.selectItem} className="flex-grow flex justify-between p-2">
+                    <div className='flex justify-center flex-col'>
+                        {
+                            (edit_mode) 
+                            ? <div className='h-8 flex items-center'>
+                                <input className='input input-bordered input-xs w-full max-w-xs mr-2' value={this.state.name} onChange={this.handleNameChange}/>
+                                <a onClick={this.saveTrait} className="cursor-pointer mr-1"><CheckIcon className='icon-xs'/></a>
+                                <a onClick={this.toggleEditMode} className="cursor-pointer"><XIcon className='icon-xs'/></a>
+                            </div>
+                            : <div className='text-sm h-8 text-black flex justify-start items-center cursor-pointer trait-name' onClick={this.toggleEditMode}>
+                                {
+                                    (trait.get('name')) ? trait.get('name') : '(no name)'
+                                }
+                                <PencilIcon className='icon-xs ml-2 text-gray-400 edit-icon'/>
+                            </div>
+                        }
+                        <div className='text-xs text-blue-400'>
+                            15%
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

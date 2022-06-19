@@ -33,7 +33,7 @@ export function loadTraitList(condition) {
         },
 
         data_format : (result) => {
-            var output = normalize(result.data.data, imageTraitListSchema)
+            var output = normalize(result.data, imageTraitListSchema)
             return output
         },
 
@@ -119,7 +119,7 @@ export function updateTrait(trait_id,data) {
 
         show_status : {
             'loading'   :    false,
-            'success'   :    false,
+            'success'   :    'save success',
             'error'     :    true
         },
         payload: {
@@ -258,6 +258,36 @@ export function initTrait(trait_id,response) {
             response        : response
         }
     }
+}
+
+//添加
+export const BEFORE_UPDATE_TRAIT_PROBABILITY  = 'BEFORE_UPDATE_TRAIT_PROBABILITY'
+export const UPDATE_TRAIT_PROBABILITY_SUCCESS = 'UPDATE_TRAIT_PROBABILITY_SUCCESS'
+export const UPDATE_TRAIT_PROBABILITY_FAILURE = 'UPDATE_TRAIT_PROBABILITY_FAILURE'
+
+export function updateTraitProbability(data) {
+    return {
+        // 要在之前和之后发送的 action types
+        types: ['BEFORE_UPDATE_TRAIT_PROBABILITY', 'UPDATE_TRAIT_PROBABILITY_SUCCESS', 'UPDATE_TRAIT_PROBABILITY_FAILURE'],
+        // 检查缓存 (可选):
+        // 进行取：
+        callAPI: () => {
+            return httpRequest({
+                'url'    : '/v1/image/trait/update_probability',
+                'method' : 'POST', 
+                'data'   : data
+            })
+        },
+        data_format : (data) => normalize(data.data, imageTraitListSchema),
+
+        show_status : {
+            'loading'   :    false,
+            'success'   :    false,
+            'error'     :    true
+        },
+        payload: {
+        }
+    };
 }
 
 

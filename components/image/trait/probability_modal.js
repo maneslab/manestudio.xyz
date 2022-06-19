@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import classNames from 'classnames';
 import autobind from 'autobind-decorator';
 
 import Modal from 'components/common/modal'
 import Button from 'components/common/button'
-
 
 import PrefixInput from 'components/form/prefix_input'
 
@@ -18,13 +17,15 @@ import { PieChart } from 'react-minimal-pie-chart';
 import {percentDecimal} from 'helper/number'
 
 @withTranslate
-class GroupProbabilityModal extends React.Component {
+class TraitProbabilityModal extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
             is_adding : false,
             chart_map : [],
+            hover_index  : null,
+            select_index : null
         }
         this.formRef = React.createRef()
     }
@@ -89,7 +90,7 @@ class GroupProbabilityModal extends React.Component {
         });
 
         var that = this;
-        this.props.updateGroupProbability(data_map).then(data=>{
+        this.props.updateTraitProbability(data_map).then(data=>{
             console.log('result',data);
             if (data.status == 'success') {
                 that.setState({
@@ -122,9 +123,13 @@ class GroupProbabilityModal extends React.Component {
         const {list_rows} = this.props;
         let {chart_map} = this.state;
 
+        console.log('debug-chart:list_rows',list_rows);
+
         let generate_number_map = [];
 
-        let color_map = this.getRomdonColor(list_rows.length);
+        let color_map = this.getRomdonColor(list_rows.count());
+
+        console.log('debug-chart:color_map',color_map);
 
         let total_number = 0;
         list_rows.map(one=>{
@@ -134,7 +139,7 @@ class GroupProbabilityModal extends React.Component {
         let i = 0;
         list_rows.map(one=>{
             generate_number_map.push({
-                'name'            : one.get('name'),
+                'image_url'       : one.getIn(['upload_img','image_urls','url']),
                 'id'              : one.get('id'),
                 'probability'     : percentDecimal(one.get('generate_number') / total_number)
             })
@@ -142,7 +147,7 @@ class GroupProbabilityModal extends React.Component {
                 chart_map[i]['value'] = one.get('generate_number');
             }else {
                 chart_map.push({
-                    'title'     : one.get('name'),
+                    'image_url' : one.getIn(['upload_img','image_urls','url']),
                     'value'     : one.get('generate_number'),
                     'color'     : color_map[i]
                 })
@@ -150,6 +155,8 @@ class GroupProbabilityModal extends React.Component {
 
             i += 1;
         })
+
+        console.log('debug-chart:chart_map',chart_map);
 
         let init_data = {
             'generate_number_map' : generate_number_map
@@ -194,7 +201,7 @@ class GroupProbabilityModal extends React.Component {
     
 
     render() {
-        const {is_adding,chart_map} = this.state;
+        const {is_adding,chart_map,select_index,hover_index} = this.state;
         const {list_rows,visible} = this.props;
         const {t} = this.props.i18n;
 
@@ -213,6 +220,8 @@ class GroupProbabilityModal extends React.Component {
             })).required(),
         });
         const shiftSize = 7;
+
+        console.log('chart_map',chart_map);
 
         return  <Modal
                     width={650}
@@ -241,7 +250,27 @@ class GroupProbabilityModal extends React.Component {
                                 <PieChart
                                     data={chart_map}
                                     radius={PieChart.defaultProps.radius - shiftSize}
-                                    segmentsShift={(index) => (index === 0 ? shiftSize : 0.5)}
+                                    // segmentsShift={(index) => (index === 0 ? shiftSize : 0.5)}
+                                    segmentsStyle={{ transition: 'stroke .3s', cursor: 'pointer' }}
+                                    segmentsShift={(index) => (index === select_index ? 6 : 1)}
+                                    onClick={(event, index) => {
+                                        // action('CLICK')(event, index);
+                                        console.log('CLICK', { event, index });
+                                        this.setState({
+                                            select_index : (index == select_index) ? undefined : index
+                                        })
+                                    }}
+                                    onMouseOver={(_, index) => {
+                                        this.setState({
+                                            'hover_index' : index
+                                        })
+                                    }}
+                                    onMouseOut={() => {
+                                        this.setState({
+                                            'hover_index' : undefined
+                                        })
+                                    }}
+
 
                                     label={({ dataEntry }) => dataEntry.percentage.toFixed(2) + '%'}
                                     labelStyle={(index) => ({
@@ -251,26 +280,24 @@ class GroupProbabilityModal extends React.Component {
                                     })}
                                 />
 
-                                <div className='mt-4 flex justify-start flex-wrap'>
-                                    {Object.keys(chart_map).map(k=>{
-                                        return <div key={k} className="flex items-center justify-start mx-4">
-                                            <div className={'w-3 h-3 block rounded-full mr-2'} style={{'backgroundColor':chart_map[k]['color']}}>
-                                                
-                                            </div>
-                                            {chart_map[k]['title']}
-                                        </div>
-                                    })}
-                                </div>
+
                                 </div>
 
                                 <div className='font-bold text-base capitalize mb-4 text-center'>
                                     {t('rarity')}
                                 </div>
 
-                                <div className='probability_wapper'>
+                                <div className='probability_wapper grid grid-cols-4 gap-4'>
 
                                 {values.generate_number_map.map((one,index) =>  <div key={one['id']}>
-                                    <PrefixInput prefix={one['name']} endfix={'%'} name={'generate_number_map.'+index+'.probability'} placeholder={t("probability")} />
+                                    <div className={classNames('mb-2 border border-gray-300',{'border-black':(index == select_index)})} onClick={()=>{
+                                        this.setState({
+                                            select_index : (index == select_index) ? undefined : index
+                                        })
+                                    }}>
+                                        <img src={one.image_url} />
+                                    </div>
+                                    <PrefixInput endfix={'%'} name={'generate_number_map.'+index+'.probability'} placeholder={t("probability")} />
                                 </div>)}
 
                                 </div>
@@ -279,7 +306,7 @@ class GroupProbabilityModal extends React.Component {
                                 <div className='border-t border-gray-300 my-4' />
 
                                 <div className="form-submit flex justify-end mt-4">
-                                    <Button loading={is_adding} className="btn btn-primary" type="submit">{t("update group")}</Button>
+                                    <Button loading={is_adding} className="btn btn-primary" type="submit">{t("update trait")}</Button>
                                 </div>
 
                             </div>
@@ -298,12 +325,12 @@ class GroupProbabilityModal extends React.Component {
     
 }
 
-GroupProbabilityModal.propTypes = {
+TraitProbabilityModal.propTypes = {
     visible     : PropTypes.bool.isRequired,
     closeModal  : PropTypes.func.isRequired,
 };
   
 
-module.exports = GroupProbabilityModal
+module.exports = TraitProbabilityModal
 
 

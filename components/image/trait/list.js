@@ -11,13 +11,14 @@ import Empty from 'components/common/empty'
 import TraitOne  from 'components/image/trait/one'
 import {uploadRequest} from 'helper/http'
 import Upload from 'components/common/upload'
-
+import ProbabilityModal from 'components/image/trait/probability_modal'
 
 import {removeValueEmpty} from 'helper/common'
 
 import {withPageList} from 'hocs/index'
+import withActiveClub from 'hocs/active_club'
 
-import {loadTraitList,deleteTrait,updateTrait,addTrait} from 'redux/reducer/image/trait'
+import {loadTraitList,deleteTrait,updateTrait,addTrait,updateTraitProbability} from 'redux/reducer/image/trait'
 import {imageTraitListSchema} from 'redux/schema/index'
 import {withTranslate} from 'hocs/index'
 import {PuzzleIcon} from '@heroicons/react/outline'
@@ -29,13 +30,14 @@ import Button from 'components/common/button';
 
 
 @withTranslate
+@withActiveClub
 class TraitList extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
             edit_item : null,
-            probability_modal : false
+            probability_modal : false,
         }
         this.wapperRef = React.createRef();
         this.handleUpload = ::this.handleUpload
@@ -58,12 +60,12 @@ class TraitList extends React.Component {
         })
     }
 
-    // @autobind
-    // toggleProbabilityModal() {
-    //     this.setState({
-    //         'probability_modal' : !this.state.probability_modal
-    //     })
-    // }
+    @autobind
+    toggleProbabilityModal() {
+        this.setState({
+            'probability_modal' : !this.state.probability_modal
+        })
+    }
 
     async handleUpload(data) {
         console.log('debug04,data',data)
@@ -77,16 +79,22 @@ class TraitList extends React.Component {
 
     render() {
 
-        let {list_data_one,list_rows,grid_span} = this.props;
+        let {list_data_one,list_rows,active_club} = this.props;
         // let {show_create_modal} = this.state;
         const {t} = this.props.i18n;
 
         let is_empty = (list_data_one.get('is_fetched') && list_rows.count() == 0)
 
+        let upload_url = '';
+        if (active_club) {
+            upload_url = '/v1/upload/img?width='+active_club.get('width')+'&height='+active_club.get('height');
+        }
+
+
         const uploadProps = uploadRequest({
             showUploadList : true,
             multiple: true,
-            action: '/v1/upload/img?template=gallery',
+            action: upload_url,
             name : 'file',
             listType : 'picture',
             accept : '.jpg,.jpeg,.png,.gif',
@@ -142,6 +150,10 @@ class TraitList extends React.Component {
             
 
             <div>
+            <ProbabilityModal list_rows={list_rows} 
+                updateTraitProbability={this.props.updateTraitProbability}
+                visible={this.state.probability_modal} 
+                closeModal={this.toggleProbabilityModal} />
             </div>
         </div>;
 
@@ -175,6 +187,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         updateTrait : (trait_id,data) => {
             return dispatch(updateTrait(trait_id,data))
+        },
+        updateTraitProbability : (data) => {
+            return dispatch(updateTraitProbability(data))
         },
         addTrait : (data) => {
             return dispatch(addTrait(data))

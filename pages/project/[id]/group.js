@@ -22,6 +22,10 @@ import withClubView from 'hocs/clubview'
 import { PlusIcon } from '@heroicons/react/solid';
 
 
+import {uploadRequest} from 'helper/http'
+import Upload from 'components/common/upload'
+
+
 @withTranslate
 @withMustLogin
 @withClubView
@@ -55,6 +59,14 @@ class GenerateGroupView extends React.Component {
         const {is_adding,is_init} = this.state;
         const {list_count,club_id} = this.props;
 
+        const uploadProps = uploadRequest({
+            showUploadList : true,
+            multiple: true,
+            action: '/v1/upload/img?template=gallery',
+            name : 'file',
+            listType : 'picture',
+            accept : '.jpg,.jpeg,.png,.gif',
+        })
 
         return <PageWrapper>
             <Head>
@@ -62,6 +74,16 @@ class GenerateGroupView extends React.Component {
             </Head>
             <div>
                 <ClubHeader club_id={club_id}/>
+
+                <div className="max-w-screen-xl mx-auto flex justify-center pb-8 mb-8">
+                <ul class="steps w-1/2">
+                    <li class="step step-primary">Setting</li>
+                    <li class="step step-primary">Generate</li>
+                    <li class="step">Metadata</li>
+                </ul>
+
+                </div>
+                
                 <div className="max-w-screen-xl mx-auto grid grid-cols-8 gap-16">
 
                     <div className='col-span-5'>
@@ -87,6 +109,36 @@ class GenerateGroupView extends React.Component {
                             </p>
                             <p>
                                 {t('If you want to bring some 1/1s to your collection, you can add them in step “Metadata” later.')}
+                            </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div className='col-span-5'>
+
+                        <div className='flex justify-between items-center mb-8 text-black'>
+                            <h1 className='h1'>{t('spcail NFT')}</h1>
+
+                            <Upload uploadProps={uploadProps} afterSuccess={this.handleUpload}>  
+                            <button className='btn btn-primary'>
+                                <PlusIcon className='icon-xs mr-2'/>
+                                {t('add spcail NFT')}
+                            </button>
+                            </Upload>
+                           
+                        </div>
+
+                        <GroupList club_id={this.props.club_id} ref={this.listRef}/>
+
+                    </div>
+
+                    <div className='col-span-3'>
+                        <div className='block-intro'>
+                            <h3>{t('about spcail NFT')}</h3>
+                            <div className='ct'>
+                            <p>
+                                {t('Special NFT is a hidden section of the NFT series, each with a special a picture, and will only appear once')}
                             </p>
                             </div>
                         </div>

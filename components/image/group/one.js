@@ -104,7 +104,7 @@ class GroupOne extends React.Component {
                             <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white rounded-box w-52 capitalize">
                                 <li><a onClick={this.deleteGroup}><TrashIcon className='icon-sm'/>delete</a></li>
                                 <li><a onClick={this.props.handleEdit.bind({},group)}><PencilIcon className='icon-sm'/>edit</a></li>
-                                <li><a onClick={this.props.handleEditProbability}><AdjustmentsIcon className='icon-sm'/>probability</a></li>
+                                <li><a onClick={this.props.handleEditProbability}><AdjustmentsIcon className='icon-sm'/>rarity</a></li>
                                 <li className='hidden'>
                                     <div className='py-2 px-2 bg-white border-t border-gray-200 flex-col w-full'>
                                         <h4 className='text-sm text-gray-500 flex justify-start'>{t('occurrence probability')}</h4>
@@ -112,7 +112,6 @@ class GroupOne extends React.Component {
                                     </div>
                                 </li>
                             </ul>
-                           
                         </div>
                     </div>
                 </div>
