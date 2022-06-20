@@ -41,7 +41,7 @@ class ClubList extends React.Component {
             <div className="max-w-screen-xl grid grid-cols-3 gap-4 mx-auto">
                 <div className="col-span-2">
                     <div className='flex justify-between items-center mb-8'>
-                        <h1 className='h1 text-white'>My project</h1>
+                        <h1 className="h1">{t('my projects')}</h1>
                         <button className='btn btn-primary' onClick={this.toggleCreateModal}>
                             {t('add project')}
                         </button>

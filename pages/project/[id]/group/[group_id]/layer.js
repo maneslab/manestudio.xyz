@@ -7,11 +7,11 @@ import Link from 'next/link'
 
 import PageWrapper from 'components/pagewrapper'
 import ClubHeader from 'components/club/header'
+import ClubStep from 'components/club/step'
 
 import withMustLogin from 'hocs/mustlogin';
 import withTranslate from 'hocs/translate';
 import withSetActiveClub from 'hocs/set_active_club'
-
 
 
 import CreateLayerModal from 'components/image/layer/create_modal'
@@ -58,7 +58,9 @@ class GenerateGroupView extends React.Component {
                 <title>{t('generate groups')}</title>
             </Head>
             <div>
-                <ClubHeader club_id={club_id}/>
+                <ClubHeader club_id={club_id}  title={t('generate nft')}/>
+                <ClubStep club_id={club_id} active={1}/>
+
                 <div className="max-w-screen-xl mx-auto grid grid-cols-8 gap-16">
 
                     <div className='col-span-5'>
@@ -74,7 +76,7 @@ class GenerateGroupView extends React.Component {
 
                         <div className='flex justify-between items-center mb-8 text-black'>
                             <h1 className='h1'>{t('layer')}</h1>
-                            <button className='btn btn-primary' onClick={this.toggleCreateModal}>
+                            <button className='btn btn-default' onClick={this.toggleCreateModal}>
                                 <PlusIcon className='icon-xs mr-2'/>
                                 {t('add layer')}
                             </button>

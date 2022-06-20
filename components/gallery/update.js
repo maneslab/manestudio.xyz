@@ -263,7 +263,7 @@ class GalleryUpdate extends React.Component {
                                         
                                         <button
                                         type="submit"
-                                        className='btn btn-primary'
+                                        className='btn btn-default'
                                         >
                                             {t('save')}
                                         </button>

@@ -89,10 +89,10 @@ class GenerateGroupView extends React.Component {
 
         return <PageWrapper>
             <Head>
-                <title>{t('generate groups')}</title>
+                <title>{t('generate nft')}</title>
             </Head>
             <div>
-                <ClubHeader club_id={club_id}/>
+                <ClubHeader club_id={club_id} title={t('generate nft')}/>
 
                 <ClubStep club_id={club_id} active={1}/>
                 
@@ -101,8 +101,8 @@ class GenerateGroupView extends React.Component {
                     <div className='col-span-5'>
 
                         <div className='flex justify-between items-center mb-8 text-black'>
-                            <h1 className='h1'>{t('group')}</h1>
-                            <button className='btn btn-primary' onClick={this.toggleCreateModal}>
+                            <h2 className='h2'>{t('group')}</h2>
+                            <button className='btn btn-default' onClick={this.toggleCreateModal}>
                                 <PlusIcon className='icon-xs mr-2'/>
                                 {t('add group')}
                             </button>
@@ -130,10 +130,10 @@ class GenerateGroupView extends React.Component {
                     <div className='col-span-5'>
 
                         <div className='flex justify-between items-center mb-8 text-black'>
-                            <h1 className='h1'>{t('spcail NFT')}</h1>
+                            <h2 className='h2'>{t('spcail NFT')}</h2>
 
                             <Upload uploadProps={uploadProps} afterSuccess={this.handleUpload}>  
-                            <button className='btn btn-primary'>
+                            <button className='btn btn-default'>
                                 <PlusIcon className='icon-xs mr-2'/>
                                 {t('add spcail NFT')}
                             </button>

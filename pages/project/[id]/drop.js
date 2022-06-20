@@ -64,15 +64,12 @@ class ClubDropSetting extends React.Component {
                 <title>{'Drop details'}</title>
             </Head>
             <div>
-                <ClubHeader club_id={club_id}/>
+                <ClubHeader club_id={club_id}  title={t('mint page')}/>
                 <div className="max-w-screen-xl mx-auto">
 
 
-                    <div className='flex justify-between items-center mb-8 text-black'>
-                        <h1 className='h1'>{t('drop details')}</h1>
-                        <button className='btn btn-primary' onClick={this.toggleCreateModal}>
-                            {t('add project')}
-                        </button>
+                    <div className='flex justify-between items-center mb-4 text-black'>
+                        <h2 className='h2'>{t('setting')}</h2>
                     </div>
                     
 
@@ -85,6 +82,15 @@ class ClubDropSetting extends React.Component {
 
                     <RoadmapUpdate club={club} />
 
+                    <div className='fixed bottom-0 left-0 w-full py-4 bg-white border-t border-gray-300' style={{'zIndex':9999}}>
+                        <div className='max-w-screen-xl mx-auto flex justify-between items-center'>
+                            <div className='flex items-center'>
+                                <input type="checkbox" class="toggle mr-4" checked />
+                                <span>发布给所有用户</span>
+                            </div>
+                            <a className='btn btn-primary'>{t('preview')}</a>
+                        </div>
+                    </div>
                 </div> 
             </div>
     </PageWrapper>

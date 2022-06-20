@@ -81,8 +81,7 @@ class PageWrapper extends React.Component {
                                 </Link>
 
                                 <div className='main-menu'>
-                                   
-
+                                    <Link href="/project/list"><a className='font-bold capitalize ml-2'>projects</a></Link>
                                 </div>
 
                                 

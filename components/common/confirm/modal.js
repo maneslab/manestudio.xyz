@@ -4,7 +4,7 @@ import { confirmable } from 'react-confirm';
 import Modal from 'components/common/modal'; 
 import CloseIcon from 'public/img/icons/close.svg'
 
-const YourDialog = ({show, proceed, confirmation, closeIcon, options}) => {
+const YourDialog = ({show, proceed, confirmation, title, closeIcon, options}) => {
     let closeIconComponent;
     if (closeIcon === false) {
         closeIconComponent = null
@@ -17,9 +17,21 @@ const YourDialog = ({show, proceed, confirmation, closeIcon, options}) => {
         maskClosable={false}
         closeIcon={closeIconComponent}
         onClose={() => proceed(false)} >
-        <div className="mb-8 font-bold capitalize text-base text-gray-700 ">
-            {confirmation}
-        </div>
+        {
+            (confirmation && !title)
+            ? <div className="font-bold capitalize text-gray-700 border-b border-gray-200 pb-4 mb-4 text-2xl">
+                {confirmation}
+            </div>
+            : <div>
+                <div className="font-bold capitalize text-gray-700 border-b border-gray-200 pb-4 mb-4 text-2xl">
+                    {title}
+                </div>
+                <div className='mb-8 text-gray-800'>
+                    {confirmation}
+                </div>
+            </div>
+        }
+        
         <div className="flex justify-end items-center space-x-2">
             <button className="btn btn-default" onClick={() => proceed(false)}>cancel</button>
             <button className="btn btn-primary" onClick={() => proceed(true)}>OK</button>

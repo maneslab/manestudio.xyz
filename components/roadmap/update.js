@@ -228,7 +228,7 @@ class RoadmapUpdate extends React.Component {
                                             </button>
                                             <button
                                             type="submit"
-                                            className='btn btn-primary'
+                                            className='btn btn-default'
                                             >
                                                 {t('save')}
                                             </button>
