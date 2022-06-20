@@ -21,7 +21,7 @@ export default function ClubHeader({
             </div>
             <div>
                 <div className='space-x-4 club-header-menu flex justify-end'>
-                    <NavLink href={base_url+'/generate'}><div className="capitalize cursor-pointer hover:text-gray-500">{t('generate NFT')}</div></NavLink>
+                    <NavLink href={base_url+'/group'}><div className="capitalize cursor-pointer hover:text-gray-500">{t('generate NFT')}</div></NavLink>
                     <NavLink href={base_url+'/contract'}><div className="capitalize cursor-pointer hover:text-gray-500">{t('contract')}</div></NavLink>
                     <NavLink href={base_url+'/drop'}><div className="capitalize cursor-pointer hover:text-gray-500">{t('mint page')}</div></NavLink>
                 </div>

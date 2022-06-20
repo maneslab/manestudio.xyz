@@ -67,7 +67,7 @@ class TraitOne extends React.Component {
         })) {
             const {trait} = this.props;
             await this.props.handleDelete(trait.get('id'));
-            this.props.refreshList();
+            // this.props.refreshList();
         }
     }
 
@@ -88,11 +88,13 @@ class TraitOne extends React.Component {
         const { trait } = this.props;
         const { edit_mode } = this.state;
 
-        console.log('trait',trait.toJS())
+        if (trait.get('delete_time')) {
+            return null;
+        }
 
         return <div className="mb-4 bg-white">
             <div className="">
-                <div className='relative trait-image'>
+                <div className='relative trait-image asset-bg'>
                     <img src={trait.getIn(['upload_img','image_urls','url'])} />
                     <div class="dropdown dropdown-right absolute right-1 top-1">
                         <label tabindex="0" class="btn m-1 px-2 bg-transparent border-none text-gray-600 hover:text-black hover:bg-transparent">

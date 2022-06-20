@@ -3,34 +3,28 @@ import React from 'react';
 import {wrapper} from 'redux/store';
 import Head from 'next/head'
 import autobind from 'autobind-decorator'
-import {connect} from 'react-redux'
+import Link from 'next/link'
 
 import PageWrapper from 'components/pagewrapper'
 import ClubHeader from 'components/club/header'
 
 import withMustLogin from 'hocs/mustlogin';
 import withTranslate from 'hocs/translate';
+import withSetActiveClub from 'hocs/set_active_club'
 
-import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
-import {updateClub} from 'redux/reducer/club'
 
-import message from 'components/common/message'
 
 import CreateLayerModal from 'components/image/layer/create_modal'
 import LayerList from 'components/image/layer/list'
 
 import withClubView from 'hocs/clubview'
 import { ChevronLeftIcon, PlusIcon } from '@heroicons/react/solid';
-import {setActiveClub} from 'redux/reducer/setting'
-
-import { denormalize } from 'normalizr';
-import { clubSchema } from 'redux/schema/index'
 
 
 @withTranslate
 @withMustLogin
 @withClubView
+@withSetActiveClub
 class GenerateGroupView extends React.Component {
 
     constructor(props) {
@@ -39,16 +33,6 @@ class GenerateGroupView extends React.Component {
             show_create_modal : false
         }
         this.listRef = React.createRef();
-    }
-
-    componentDidMount() {
-        this.props.setActiveClub(this.props.club_id)
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.club_id != prevProps.club_id) {
-            this.props.setActiveClub(this.props.club_id);
-        }
     }
 
     @autobind
@@ -80,10 +64,12 @@ class GenerateGroupView extends React.Component {
                     <div className='col-span-5'>
 
                         <div className='pb-4 mb-4 border-b border-gray-300'>
+                            <Link href={"/project/"+club_id+"/group"}>
                             <a className='flex justify-start items-center capitalize cursor-pointer'>
                                 <ChevronLeftIcon className='icon-sm'/>
                                 {t('back')}
                             </a>
+                            </Link>
                         </div>
 
                         <div className='flex justify-between items-center mb-8 text-black'>
@@ -134,14 +120,6 @@ GenerateGroupView.getInitialProps =  wrapper.getInitialPageProps((store) => asyn
 });
 
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        setActiveClub : (id) => {
-            return dispatch(setActiveClub(id))
-        }
-    }
-}
-function mapStateToProps(state,ownProps) {
-}
 
-export default connect(mapStateToProps,mapDispatchToProps)(GenerateGroupView)
+
+export default GenerateGroupView

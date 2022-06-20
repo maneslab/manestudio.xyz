@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from 'next/link'
+// import Link from 'next/link'
 import autobind from 'autobind-decorator'
 
 import { connect } from "react-redux";
@@ -14,6 +14,7 @@ import Upload from 'components/common/upload'
 import ProbabilityModal from 'components/image/trait/probability_modal'
 
 import {removeValueEmpty} from 'helper/common'
+import {getUploadImageUrl} from 'helper/http'
 
 import {withPageList} from 'hocs/index'
 import withActiveClub from 'hocs/active_club'
@@ -26,7 +27,7 @@ import {PuzzleIcon} from '@heroicons/react/outline'
 import {defaultListData} from 'helper/common'
 
 import { PlusIcon } from '@heroicons/react/solid';
-import Button from 'components/common/button';
+// import Button from 'components/common/button';
 
 
 @withTranslate
@@ -68,13 +69,13 @@ class TraitList extends React.Component {
     }
 
     async handleUpload(data) {
-        console.log('debug04,data',data)
+        // console.log('debug04,data',data)
         await this.props.addTrait({
             img_id : data.data.img_id,
             layer_id : this.props.layer_id
         })
 
-        this.props.refresh();
+        // this.props.refresh();
     }
 
     render() {
@@ -85,16 +86,11 @@ class TraitList extends React.Component {
 
         let is_empty = (list_data_one.get('is_fetched') && list_rows.count() == 0)
 
-        let upload_url = '';
-        if (active_club) {
-            upload_url = '/v1/upload/img?width='+active_club.get('width')+'&height='+active_club.get('height');
-        }
-
 
         const uploadProps = uploadRequest({
             showUploadList : true,
             multiple: true,
-            action: upload_url,
+            action: getUploadImageUrl(active_club),
             name : 'file',
             listType : 'picture',
             accept : '.jpg,.jpeg,.png,.gif',

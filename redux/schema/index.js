@@ -48,18 +48,26 @@ const clubSocialListSchema =  new schema.Array(clubSocialSchema);
 
 
 const imageGroupSchema =  new schema.Entity('image_group',{
+    club :clubSchema
 },{ idAttribute: 'id' });
 const imageGroupListSchema =  new schema.Array(imageGroupSchema);
 
 
 const imageLayerSchema =  new schema.Entity('image_layer',{
+    group : imageGroupSchema
 },{ idAttribute: 'id' });
 const imageLayerListSchema =  new schema.Array(imageLayerSchema);
 
 
 const imageTraitSchema =  new schema.Entity('image_trait',{
+    layer : imageLayerSchema
 },{ idAttribute: 'id' });
 const imageTraitListSchema =  new schema.Array(imageTraitSchema);
+
+
+const imageSpecialSchema =  new schema.Entity('image_special',{
+},{ idAttribute: 'id' });
+const imageSpecialListSchema =  new schema.Array(imageSpecialSchema);
 
 module.exports = {
     
@@ -94,6 +102,9 @@ module.exports = {
     imageLayerListSchema,
 
     imageTraitSchema,
-    imageTraitListSchema
+    imageTraitListSchema,
+
+    imageSpecialSchema,
+    imageSpecialListSchema
 
 }

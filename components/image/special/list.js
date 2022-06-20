@@ -8,16 +8,15 @@ import { denormalize } from 'normalizr';
 
 import Loading from 'components/common/loading'
 import Empty from 'components/common/empty'
-import GroupOne  from 'components/image/group/one'
-import UpdateModal  from 'components/image/group/update_modal'
-import ProbabilityModal from 'components/image/group/probability_modal'
+import SpecialOne  from 'components/image/special/one'
+import UpdateModal  from 'components/image/special/update_modal'
 
 import {removeValueEmpty} from 'helper/common'
 
 import {withPageList} from 'hocs/index'
 
-import {loadGroupList,deleteGroup,updateGroup,updateGroupProbability} from 'redux/reducer/image/group'
-import {imageGroupListSchema} from 'redux/schema/index'
+import {loadSpecialList,deleteSpecial,updateSpecial,updateSpecialProbability} from 'redux/reducer/image/special'
+import {imageSpecialListSchema} from 'redux/schema/index'
 import {withTranslate} from 'hocs/index'
 import {PhotographIcon} from '@heroicons/react/outline'
 
@@ -27,16 +26,19 @@ import message from 'components/common/message'
 
 
 @withTranslate
-class GroupList extends React.Component {
+class ImageSpecialList extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
             edit_item : null,
-            probability_modal : false
         }
         this.wapperRef = React.createRef();
     }
+
+    componentDidMount() {
+    }
+
 
     @autobind
     edit(item) {
@@ -72,7 +74,6 @@ class GroupList extends React.Component {
             total_number += Number(one.get('generate_number'))
         })
 
-
         return <div>
             {
                 (list_data_one.get('is_fetching'))
@@ -83,7 +84,7 @@ class GroupList extends React.Component {
             {
                 (is_empty)
                 ? <div className='py-12 max-w-screen-md mx-auto bg-white my-0 text-center'>
-                    <Empty text={t('no group yet')} icon={<PhotographIcon className='icon-base'/>}/>
+                    <Empty text={t('no special NFT yet')} icon={<PhotographIcon className='icon-base'/>}/>
                 </div>
                 : <div className={"grid grid-cols-3 gap-4"}>
 
@@ -92,12 +93,12 @@ class GroupList extends React.Component {
                         ? <>
                             {
                                 list_rows.map((one)=>{
-                                    return <GroupOne 
-                                        group={one} 
+                                    return <SpecialOne 
+                                        special={one} 
                                         total_number={total_number}
                                         refreshList={this.props.refresh}
-                                        handleDelete={this.props.deleteGroup}
-                                        handleUpdate={this.props.updateGroup}
+                                        handleDelete={this.props.deleteSpecial}
+                                        handleUpdate={this.props.updateSpecial}
                                         handleEditProbability={this.toggleProbabilityModal}
                                         handleEdit={this.edit}
                                         key={one.get('id')} />
@@ -111,26 +112,20 @@ class GroupList extends React.Component {
             
             <UpdateModal item={this.state.edit_item} closeModal={this.closeEditModal}/>
 
-            <ProbabilityModal list_rows={list_rows} 
-                updateGroupProbability={this.props.updateGroupProbability}
-                visible={this.state.probability_modal} closeModal={this.toggleProbabilityModal} />
 
             <div>
             </div>
         </div>;
 
     }
-
-
-
     
 }
 
 function mapStateToProps(state,ownProps) {
     
     let club_id = ownProps.club_id;
-    let list_data_one = state.getIn(['image_group','list',club_id]) ? state.getIn(['image_group','list',club_id]) : defaultListData
-    let list_rows = denormalize(list_data_one.get('list'),imageGroupListSchema,state.get('entities'));
+    let list_data_one = state.getIn(['image_special','list',club_id]) ? state.getIn(['image_special','list',club_id]) : defaultListData
+    let list_rows = denormalize(list_data_one.get('list'),imageSpecialListSchema,state.get('entities'));
 
     return {
         entities        : state.getIn(['entities']),
@@ -142,16 +137,16 @@ function mapStateToProps(state,ownProps) {
 const mapDispatchToProps = (dispatch) => {
     return {
         loadList   : (cond) => {
-            return dispatch(loadGroupList(cond))
+            return dispatch(loadSpecialList(cond))
         },
-        deleteGroup : (group_id) => {
-            return dispatch(deleteGroup(group_id))
+        deleteSpecial : (special_id) => {
+            return dispatch(deleteSpecial(special_id))
         },
-        updateGroup : (group_id,data) => {
-            return dispatch(updateGroup(group_id,data))
+        updateSpecial : (special_id,data) => {
+            return dispatch(updateSpecial(special_id,data))
         },
-        updateGroupProbability  : (data) => {
-            return dispatch(updateGroupProbability(data))
+        updateSpecialProbability  : (data) => {
+            return dispatch(updateSpecialProbability(data))
         },
     }
 }
@@ -162,9 +157,9 @@ const formatData = (props) => {
     return result;
 }
 
-GroupList.propTypes = {
+ImageSpecialList.propTypes = {
     club_id     : PropTypes.number
 };
   
-module.exports = connect(mapStateToProps,mapDispatchToProps,null, {forwardRef: true})(withPageList(GroupList,{'formatData':formatData}))
+module.exports = connect(mapStateToProps,mapDispatchToProps,null, {forwardRef: true})(withPageList(ImageSpecialList,{'formatData':formatData}))
 

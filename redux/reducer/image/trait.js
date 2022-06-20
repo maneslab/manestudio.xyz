@@ -58,7 +58,7 @@ export const ADD_TRAIT_FAILURE = 'ADD_TRAIT_FAILURE'
 
 export function addTrait(data) {
     // var hash = getHashByData(data)
-    console.log('addTrait',data)
+    // console.log('addTrait',data)
     return {
         // 要在之前和之后发送的 action types
         types: ['BEFORE_ADD_TRAIT', 'ADD_TRAIT_SUCCESS', 'ADD_TRAIT_FAILURE'],
@@ -86,6 +86,7 @@ export function addTrait(data) {
             'error'     :    true
         },
         payload: {
+            ...data
         }
     };
 }
@@ -235,7 +236,7 @@ export function deleteTrait(trait_id) {
                 }
             })
         },
-        // data_format : (data) => normalize(data, imageTraitSchema),
+        data_format : (data) => normalize(data.data, imageTraitSchema),
 
         show_status : {
             'loading'   :    true,
@@ -309,6 +310,15 @@ export function reducer(state = Immutable.fromJS({
             return state.setIn(['is_adding'],true)
 
         case ADD_TRAIT_SUCCESS:
+            return state.setIn(['is_adding'],false)
+                .updateIn(['list',action.payload.layer_id,'list'],list=>{
+                    if (!list.includes(action.payload.response.result)){
+                        return list.unshift(action.payload.response.result)
+                    }else {
+                        return list;
+                    }
+                })
+
         case ADD_TRAIT_FAILURE:
             return state.setIn(['is_adding'],false)
 
@@ -358,11 +368,11 @@ export function reducer(state = Immutable.fromJS({
             .setIn(['list',action.payload.layer_id,'is_fetched'],false)
 
         case BEFORE_DELETE_TRAIT:
-            return state.setIn([action.trait_id,'is_deleting'],true)
+            return state.setIn([action.payload.trait_id,'is_deleting'],true)
 
         case DELETE_TRAIT_SUCCESS:
         case DELETE_TRAIT_FAILURE:
-            return state.setIn([action.trait_id,'is_deleting'],false)
+            return state.setIn([action.payload.trait_id,'is_deleting'],false)
 
 
         default:

@@ -21,6 +21,13 @@ function catchApiError(result) {
     }
 }
 
+function getUploadImageUrl(club) {
+    let upload_url = '';
+    if (club) {
+        upload_url = '/v1/upload/img?width='+club.get('width')+'&height='+club.get('height');
+    }
+    return upload_url
+}
 
 function getApiUrl(url) {
     if (url.indexOf('/') == 0) {
@@ -197,5 +204,6 @@ module.exports = {
     // fetchGetPromise     : fetchGetPromise,
     // httpRequestAwait    : httpRequestAwait,
     uploadRequest       : uploadRequest,
-    catchApiError       : catchApiError
+    catchApiError       : catchApiError,
+    getUploadImageUrl   : getUploadImageUrl
 }

@@ -6,6 +6,7 @@ import { getHashByData,removeValueEmpty} from 'helper/common'
 import { imageLayerListSchema , imageLayerSchema } from 'redux/schema/index'
 
 
+
 export const BEFORE_LOAD_LAYER_LIST = 'BEFORE_LOAD_LAYER_LIST'
 export const LOAD_LAYER_LIST_SUCCESS = 'LOAD_LAYER_LIST_SUCCESS'
 export const LOAD_LAYER_LIST_FAILURE = 'LOAD_LAYER_LIST_FAILURE'
@@ -335,6 +336,7 @@ export function reducer(state = Immutable.fromJS({
         case DELETE_LAYER_SUCCESS:
         case DELETE_LAYER_FAILURE:
             return state.setIn([action.layer_id,'is_deleting'],false)
+
 
 
         default:

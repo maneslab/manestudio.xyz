@@ -54,7 +54,7 @@ export default function LayerOne({handleDelete,handleEdit,layer,draging_index,re
             <div onClick={setOpen.bind({},!open)} className="flex-grow cursor-pointer">
                 <h2 className='font-bold text-black capitalize'>{layer.get('name')}</h2>
                 <div className='text-blue-400 text-sm'>
-                    20 traits
+                    {layer.get('trait_count')} traits
                 </div>
             </div>
             

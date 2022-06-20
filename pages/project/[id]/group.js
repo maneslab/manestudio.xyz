@@ -7,28 +7,34 @@ import {connect} from 'react-redux'
 
 import PageWrapper from 'components/pagewrapper'
 import ClubHeader from 'components/club/header'
+import ClubStep from 'components/club/step'
 
 import withMustLogin from 'hocs/mustlogin';
 import withTranslate from 'hocs/translate';
+import withSetActiveClub from 'hocs/set_active_club'
+import withActiveClub from 'hocs/active_club'
 
-import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
-import {updateClub} from 'redux/reducer/club'
+// import { Formik, Form } from 'formik';
+// import * as Yup from 'yup';
+// import {updateClub} from 'redux/reducer/club'
 
 import CreateGroupModal from 'components/image/group/create_modal'
 import GroupList from 'components/image/group/list'
+import ImageSpecialList from 'components/image/special/list'
 
 import withClubView from 'hocs/clubview'
 import { PlusIcon } from '@heroicons/react/solid';
 
-
-import {uploadRequest} from 'helper/http'
+import {uploadRequest,getUploadImageUrl} from 'helper/http'
 import Upload from 'components/common/upload'
+import { addSpecial } from 'redux/reducer/image/special';
 
 
 @withTranslate
 @withMustLogin
 @withClubView
+@withActiveClub
+@withSetActiveClub
 class GenerateGroupView extends React.Component {
 
     constructor(props) {
@@ -36,6 +42,7 @@ class GenerateGroupView extends React.Component {
         this.state = {
             show_create_modal : false
         }
+        this.handleUpload = ::this.handleUpload
         this.listRef = React.createRef();
     }
 
@@ -54,15 +61,27 @@ class GenerateGroupView extends React.Component {
         }
     }
 
+    async handleUpload(data) {
+        console.log('debug04,data',data)
+        await this.props.addSpecial({
+            img_id : data.data.img_id,
+            club_id : this.props.club_id
+        })
+
+        this.listRef.current.refresh();
+    }
+
+
     render() {
         const {t} = this.props.i18n;
         const {is_adding,is_init} = this.state;
-        const {list_count,club_id} = this.props;
+        const {list_count,club_id,active_club} = this.props;
+
 
         const uploadProps = uploadRequest({
             showUploadList : true,
             multiple: true,
-            action: '/v1/upload/img?template=gallery',
+            action: getUploadImageUrl(active_club),
             name : 'file',
             listType : 'picture',
             accept : '.jpg,.jpeg,.png,.gif',
@@ -75,14 +94,7 @@ class GenerateGroupView extends React.Component {
             <div>
                 <ClubHeader club_id={club_id}/>
 
-                <div className="max-w-screen-xl mx-auto flex justify-center pb-8 mb-8">
-                <ul class="steps w-1/2">
-                    <li class="step step-primary">Setting</li>
-                    <li class="step step-primary">Generate</li>
-                    <li class="step">Metadata</li>
-                </ul>
-
-                </div>
+                <ClubStep club_id={club_id} active={1}/>
                 
                 <div className="max-w-screen-xl mx-auto grid grid-cols-8 gap-16">
 
@@ -129,7 +141,7 @@ class GenerateGroupView extends React.Component {
                            
                         </div>
 
-                        <GroupList club_id={this.props.club_id} ref={this.listRef}/>
+                        <ImageSpecialList club_id={this.props.club_id} ref={this.listRef}/>
 
                     </div>
 
@@ -162,6 +174,9 @@ GenerateGroupView.getInitialProps =  wrapper.getInitialPageProps((store) => asyn
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        addSpecial : (data) => {
+            return dispatch(addSpecial(data))
+        }
     }
 }
 function mapStateToProps(state,ownProps) {
