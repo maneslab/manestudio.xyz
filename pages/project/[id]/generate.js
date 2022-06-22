@@ -41,7 +41,8 @@ class GenerateGroupView extends React.Component {
             is_fetching : false,
             is_fetched  : false,
             merged_traits : [],
-            generates : []
+            generates : [],
+            merged_traits: {}
         }
         this.loadGenerateList = ::this.loadGenerateList
         this.listRef = React.createRef();
@@ -93,12 +94,23 @@ class GenerateGroupView extends React.Component {
 
     render() {
         const {t} = this.props.i18n;
-        const {is_fetching,is_fetched,generates} = this.state;
+        const {is_fetching,is_fetched,generates,merged_traits} = this.state;
         const {club_id,entities} = this.props;
 
-        console.log('debug08,is_fetched',is_fetched)
-        console.log('debug08,list',list)
+        console.log('debug08,merged_traits',merged_traits)
 
+        /* Object.keys(merged_traits).map(k=>{
+            return <div>
+                <div>{merged_traits[k]}</div>
+                <div>{
+                    Object.keys(merged_traits[k]).map(k2=>{
+                        return <div>
+                        {k2}
+                        </div>
+                    })
+                }</div>
+            </div>
+        }) */
         return <PageWrapper>
             <Head>
                 <title>{t('generate nft')}</title>
@@ -108,8 +120,26 @@ class GenerateGroupView extends React.Component {
 
                 <ClubStep club_id={club_id} active={2}/>
                 
-                <div className="max-w-screen-xl mx-auto">
+                <div className="max-w-screen-xl mx-auto grid grid-cols-4 gap-8">
 
+                    <div className="col-span-1">
+                    {
+                        Object.keys(merged_traits).map(k=>{
+                            return <div className='border border-black mb-4'>
+                                <div className='bg-black text-white py-2 px-4'>{k}</div>
+                                <div className='px-4 py-2 max-h-36 overflow-y-scroll'>
+                                    {
+                                        Object.keys(merged_traits[k]).map(k2=>{
+                                            return <div className='flex justify-start items-center font-bold text-ubuntu'><input type="checkbox" checked="checked" class="checkbox mr-2" />{k2}</div>
+                                        })
+                                    }
+                                </div>
+                            </div>
+                        })
+                    }
+                    </div>
+
+                    <div className="col-span-3">
 
                         <div className='flex justify-between items-center mb-8 text-black'>
                             <h1 className='h1'>{t('generate NFT')}</h1>
@@ -156,7 +186,7 @@ class GenerateGroupView extends React.Component {
 
 
                         </div>
-
+                    </div>
                 </div> 
             </div>
     </PageWrapper>

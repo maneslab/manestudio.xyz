@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import { denormalize } from 'normalizr';
 import { userSchema } from 'redux/schema/index'
-import {setGlobalModal} from 'redux/reducer/setting'
+import WalletLogin from 'components/wallet/login'
 
 export default function withMustLogin(WrappedComponent) {
 
@@ -25,7 +25,7 @@ export default function withMustLogin(WrappedComponent) {
                     <div className='my-12'>
                         <div className='font-bold text-xl text-center text-white mb-4'>{t('login required to access')}</div>
                         <div className='flex justify-center my-8'>
-                            <button className='btn btn-primary btn-lg' onClick={this.props.setGlobalModal.bind({},'connect')}>{t('connect wallet')}</button>
+                        <WalletLogin />
                         </div>
                     </div>
                 </PageWrapper>
@@ -38,9 +38,7 @@ export default function withMustLogin(WrappedComponent) {
 
     const mapDispatchToProps = (dispatch) => {
         return {
-            setGlobalModal : (data) => {
-                return dispatch(setGlobalModal(data))
-            }
+
         }
     }
     function mapStateToProps(state,ownProps) {
