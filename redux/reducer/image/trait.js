@@ -261,6 +261,19 @@ export function initTrait(trait_id,response) {
     }
 }
 
+export function initTraitList(trait_list) {
+
+    console.log('debug07,initTraitList，',trait_list);
+    let response = normalize(trait_list, imageTraitListSchema)
+
+    console.log('debug07,response',response);
+
+    return {
+        type             : 'MERGE_ENTITES',
+        payload : response.entities
+    }
+}
+
 //添加
 export const BEFORE_UPDATE_TRAIT_PROBABILITY  = 'BEFORE_UPDATE_TRAIT_PROBABILITY'
 export const UPDATE_TRAIT_PROBABILITY_SUCCESS = 'UPDATE_TRAIT_PROBABILITY_SUCCESS'
@@ -299,6 +312,7 @@ export function reducer(state = Immutable.fromJS({
     'map'   : {},
 }), action) {
     switch (action.type) {
+
 
         case BEFORE_SORT_TRAIT:
             return state.setIn(['list',action.payload.layer_id,'list'],Immutable.List(action.payload.data))

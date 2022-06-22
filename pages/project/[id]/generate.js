@@ -9,19 +9,24 @@ import PageWrapper from 'components/pagewrapper'
 import ClubHeader from 'components/club/header'
 import ClubStep from 'components/club/step'
 import GenerateFrom from 'components/image/generate/form';
+import Loading from 'components/common/loading'
 
 import withMustLogin from 'hocs/mustlogin';
 import withTranslate from 'hocs/translate';
 import withSetActiveClub from 'hocs/set_active_club'
 import withActiveClub from 'hocs/active_club'
 
-import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
+import {httpRequest} from 'helper/http';
+
+import {initTraitList} from 'redux/reducer/image/trait'
 
 import withClubView from 'hocs/clubview'
 import Button from 'components/common/button'
 import PrefixInput from 'components/form/prefix_input'
-
+import { list } from 'react-immutable-proptypes';
+import { denormalize } from 'normalizr';
+import {imageTraitListSchema} from 'redux/schema/index'
+import Image2 from 'components/image/generate/image2'
 
 @withTranslate
 @withMustLogin
@@ -33,15 +38,42 @@ class GenerateGroupView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            show_create_modal : false
+            is_fetching : false,
+            is_fetched  : false,
+            merged_traits : [],
+            generates : []
         }
-        this.handleUpload = ::this.handleUpload
+        this.loadGenerateList = ::this.loadGenerateList
         this.listRef = React.createRef();
     }
 
-    @autobind
-    loadGenerateList() {
+    componentDidMount() {
+        this.loadGenerateList(this.props.club_id)
+    }
+
+    
+    async loadGenerateList(club_id) {
+        this.setState({
+            'is_fetching' :  true
+        })
         
+        let result = await httpRequest({
+            'url' : '/v1/image/generate/list_complex',
+            'method' : 'GET',
+            'data'  : {
+                'club_id'      : club_id,
+            }
+        })
+        console.log('debug08,result',result);
+
+        this.props.initTraitList(result.data.traits)
+
+        this.setState({
+            'is_fetching' : false,
+            'is_fetched'  : true,
+            'generates'   : result.data.generates,
+            'merged_traits' : result.data.merged_traits
+        })
     }
 
     @autobind
@@ -58,32 +90,14 @@ class GenerateGroupView extends React.Component {
         }
     }
 
-    async handleUpload(data) {
-        console.log('debug04,data',data)
-        await this.props.addSpecial({
-            img_id : data.data.img_id,
-            club_id : this.props.club_id
-        })
-
-        this.listRef.current.refresh();
-    }
-
 
     render() {
         const {t} = this.props.i18n;
-        const {is_adding,is_init} = this.state;
-        const {club_id,active_club} = this.props;
+        const {is_fetching,is_fetched,generates} = this.state;
+        const {club_id,entities} = this.props;
 
-
-        let init_data ={
-            'collection_size' : 5000,
-        }
-
-        let formSchema = Yup.object().shape({
-            collection_size      : Yup.number().required(),
-        });
-
-        
+        console.log('debug08,is_fetched',is_fetched)
+        console.log('debug08,list',list)
 
         return <PageWrapper>
             <Head>
@@ -98,9 +112,45 @@ class GenerateGroupView extends React.Component {
 
 
                         <div className='flex justify-between items-center mb-8 text-black'>
-                            <h1 className='h1'>{t('generate')}</h1>
-                            <GenerateFrom />
+                            <h1 className='h1'>{t('generate NFT')}</h1>
+                            {
+                                (generates.length > 0)
+                                ? <GenerateFrom club_id={club_id} />
+                                : null
+                            }
                         </div>
+
+                        {
+                            (is_fetching)
+                            ? <div className='pt-24 flex justify-center'>
+                                <Loading />
+                            </div>
+                            : null
+                        }
+
+                        {
+                            (is_fetched && generates.length == 0)
+                            ? <div className='py-24'>
+                                <div className='flex justify-center capitalize font-bold text-xl mb-8'>{t('no item')}</div>
+                                <div className='flex justify-center'>
+                                    <GenerateFrom club_id={club_id} />
+                                </div>
+                            </div>
+                            : null
+                        }
+                        {
+                            (is_fetched && generates.length > 0)
+                            ? <div className="grid grid-cols-6 gap-4">
+                                {
+                                    (generates.map(one=>{
+                                        let traits = denormalize(one.trait_ids,imageTraitListSchema,entities);
+                                        return <Image2 trait_list={traits} key={one.id} />
+                                            
+                                    }))
+                                }
+                            </div>
+                            : null
+                        }
 
                         <div className='grid grid-cols-8 gap-16'>
 
@@ -123,10 +173,14 @@ GenerateGroupView.getInitialProps =  wrapper.getInitialPageProps((store) => asyn
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        initTraitList : (data) => {
+            return dispatch(initTraitList(data))
+        }
     }
 }
 function mapStateToProps(state,ownProps) {
     return {
+        'entities' : state.get('entities')
     }
 }
 

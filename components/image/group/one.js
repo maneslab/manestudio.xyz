@@ -80,11 +80,13 @@ class GroupOne extends React.Component {
                 <Link href={"/project/"+group.get('club_id')+"/group/"+group.get('id')+"/layer"}>
                 <div className="w-full border-b border-gray-200 cursor-pointer">
                     {
-                        (!group.get('image'))
+                        (!group.get('image_url'))
                         ? <div className='bg-white text-gray-500 flex justify-center items-center w-full aspect-square'>
                             <PhotographIcon className='icon-base text-gray-300'/>
                         </div>
-                        : null
+                        : <div className='aspect-square bg-white'>
+                            <img src={group.get('image_url')} />
+                        </div>
                     }
                 </div>
                 

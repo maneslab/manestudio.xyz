@@ -20,7 +20,8 @@ import {withPageList} from 'hocs/index'
 import withActiveClub from 'hocs/active_club'
 
 import {loadTraitList,deleteTrait,updateTrait,addTrait,updateTraitProbability} from 'redux/reducer/image/trait'
-import {imageTraitListSchema} from 'redux/schema/index'
+import {imageTraitListSchema,imageLayerSchema} from 'redux/schema/index'
+import {setActiveTraitId} from 'redux/reducer/setting'
 import {withTranslate} from 'hocs/index'
 import {PuzzleIcon} from '@heroicons/react/outline'
 
@@ -80,7 +81,7 @@ class TraitList extends React.Component {
 
     render() {
 
-        let {list_data_one,list_rows,active_club} = this.props;
+        let {list_data_one,list_rows,active_club,active_trait_id,layer_id,group_id} = this.props;
         // let {show_create_modal} = this.state;
         const {t} = this.props.i18n;
 
@@ -115,14 +116,18 @@ class TraitList extends React.Component {
                         ? <>
                             {
                                 list_rows.map((one)=>{
-                                    console.log('debug08,one',one)
                                     return <TraitOne 
                                         trait={one} 
+                                        is_selected={(active_trait_id == one.get('id'))}
+                                        handleSelectTrait={this.props.handleSelectTrait}
                                         refreshList={this.props.refresh}
                                         handleDelete={this.props.deleteTrait}
                                         handleUpdate={this.props.updateTrait}
                                         handleEditProbability={this.toggleProbabilityModal}
                                         handleEdit={this.edit}
+                                        group_id={group_id}
+                                        layer_id={layer_id}
+                                        setActiveTraitId={this.props.setActiveTraitId}
                                         key={one.get('id')} />
                                 })
                             }
@@ -166,10 +171,16 @@ function mapStateToProps(state,ownProps) {
     let list_data_one = state.getIn(['image_trait','list',layer_id]) ? state.getIn(['image_trait','list',layer_id]) : defaultListData
     let list_rows = denormalize(list_data_one.get('list'),imageTraitListSchema,state.get('entities'));
 
+    let layer = denormalize(layer_id,imageLayerSchema,state.get('entities'));
+    let active_trait_id = state.getIn(['setting','active_trait',layer.get('group_id'),layer_id]);
+    console.log('active_trait_id',active_trait_id)
+
     return {
         entities        : state.getIn(['entities']),
         list_rows       : list_rows,
-        list_data_one   : list_data_one
+        list_data_one   : list_data_one,
+        active_trait_id : active_trait_id,
+        group_id        : layer.get('group_id')
     }
 }
 
@@ -189,6 +200,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         addTrait : (data) => {
             return dispatch(addTrait(data))
+        },
+        setActiveTraitId : (data) => {
+            return dispatch(setActiveTraitId(data))
         }
     }
 }

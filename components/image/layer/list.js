@@ -34,9 +34,7 @@ class LayerList extends React.Component {
             edit_item : null,
             draging_index : null
         }
-        this.wapperRef = React.createRef();
     }
-
 
     @autobind
     edit(item) {
@@ -94,13 +92,13 @@ class LayerList extends React.Component {
 
     render() {
 
+
         let {list_data_one,list_rows,id_list} = this.props;
         const {draging_index} = this.state;
         const {t} = this.props.i18n;
 
         let is_empty = (list_data_one.get('is_fetched') && list_rows.count() == 0)
 
-        // console.log('id_list',id_list)
         return <div>
             {
                 (list_data_one.get('is_fetching'))
@@ -121,7 +119,6 @@ class LayerList extends React.Component {
                             onDragEnd={this.handleDragEnd}
                         >
                             <SortableContext items={Object.keys(id_list)}>
-                           
                             {
                                 list_rows.map((one,index)=>{
                                     return <LayerOne 
@@ -191,6 +188,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 const formatData = (props) => {
+    console.log('debug030,props',props);
     let result = removeValueEmpty({
         group_id        : props.group_id,
     })
@@ -201,5 +199,5 @@ LayerList.propTypes = {
     group_id     : PropTypes.number
 };
   
-module.exports = connect(mapStateToProps,mapDispatchToProps,null, {forwardRef: true})(withPageList(LayerList,{'formatData':formatData}))
+module.exports = connect(mapStateToProps,mapDispatchToProps)(withPageList(LayerList,{'formatData':formatData}))
 

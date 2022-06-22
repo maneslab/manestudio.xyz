@@ -19,11 +19,11 @@ const YourDialog = ({show, proceed, confirmation, title, closeIcon, options}) =>
         onClose={() => proceed(false)} >
         {
             (confirmation && !title)
-            ? <div className="font-bold capitalize text-gray-700 border-b border-gray-200 pb-4 mb-4 text-2xl">
+            ? <div className="font-bold capitalize text-gray-700 border-b border-gray-200 pb-4 mb-4 text-xl">
                 {confirmation}
             </div>
             : <div>
-                <div className="font-bold capitalize text-gray-700 border-b border-gray-200 pb-4 mb-4 text-2xl">
+                <div className="font-bold capitalize text-gray-700 border-b border-gray-200 pb-4 mb-4 text-xl">
                     {title}
                 </div>
                 <div className='mb-8 text-gray-800'>

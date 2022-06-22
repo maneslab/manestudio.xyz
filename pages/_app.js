@@ -50,7 +50,7 @@ const wagmiClient = createClient({
 
 const myTheme = merge(darkTheme(), {
     colors: {
-        accentColor: '#f64c71',
+        accentColor: 'transparent',
         connectButtonBackground : 'transparent;',
         connectButtonInnerBackground :'transparent;',
         actionButtonSecondaryBackground  : 'black',

@@ -147,7 +147,7 @@ class LanguageBtn extends React.Component {
                 <Button className={classNames('mr-4 py-1 px-2')}>
                     <div className="flex items-center text-sm">
                     <span className="md:mr-2">{this.getFlagIcon(country)}</span>
-                    <span className='hidden md:block font-bold text-base'>{this.transferLanguageToFullName(lang)}</span>
+                    <span className='hidden md:block font-bold text-base uppercase'>{lang}</span>
                     <span><ChevronDownIcon className='icon-sm ml-2' /></span>
                     </div>
                 </Button>

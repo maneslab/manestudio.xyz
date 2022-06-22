@@ -4,12 +4,13 @@ import autobind from 'autobind-decorator'
 
 import classNames from 'classnames';
 import LanguageBtn from 'components/language/btn'
-import NavLink from 'components/common/navlink'
+// import NavLink from 'components/common/navlink'
 
 import Head from 'next/head'
 import Link from 'next/link'
 import Logo from 'public/img/logo.svg'
-import WggLogo from 'public/img/wgg_logo.svg'
+import ConnectWalletButton from 'components/wallet/connect_button'
+// import WggLogo from 'public/img/wgg_logo.svg'
 
 // import { MenuIcon} from '@heroicons/react/outline'
 
@@ -18,7 +19,7 @@ import { userSchema } from 'redux/schema/index'
 import { initApp,setSlider,setGlobalModal } from 'redux/reducer/setting'
 import {withTranslate} from 'hocs/index'
 
-import { HomeIcon,PlusCircleIcon , CashIcon , CogIcon,InboxInIcon} from '@heroicons/react/outline';
+// import { HomeIcon,PlusCircleIcon , CashIcon , CogIcon,InboxInIcon} from '@heroicons/react/outline';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import config from 'helper/config'
 
@@ -54,13 +55,16 @@ class PageWrapper extends React.Component {
     render() {
 
         const {t} = this.props.i18n;
+        const {theme,wapperClassName} = this.props;
 
         /*<div onClick={this.toggleSider} className="md:hidden py-4 mr-2">
             <MenuIcon className='icon-sm text-gray-800 dark:text-gray-200'/>
         </div>*/
+        //<ConnectButton showBalance={false} accountStatus="address" chainStatus="icon"/>
+
 
         return (
-            <div className="fullpage-container">
+            <div className={classNames("fullpage-container",{"blue":(theme == 'blue')})}>
                 <Head>
                     <title>{config.get('NAME')}</title>
                     <link href="/img/favicon.png" rel="icon" type="image/x-icon" />
@@ -69,7 +73,7 @@ class PageWrapper extends React.Component {
 
                     <div className="h-screen w-screen overflow-y-scroll flex flex-col justify-between">
 
-                        <div className='bg-white text-black mb-8'>
+                        <div className='header-bg text-black mb-8'>
                         <div className="flex justify-between py-8 h-24 w-full max-w-screen-xl mx-auto ">
 
                             <div className='flex justify-start'>
@@ -80,8 +84,8 @@ class PageWrapper extends React.Component {
                                     </a>
                                 </Link>
 
-                                <div className='main-menu'>
-                                    <Link href="/project/list"><a className='font-bold capitalize ml-2'>projects</a></Link>
+                                <div className='main-menu ml-4'>
+                                    <Link href="/project/list"><a className='font-bold capitalize ml-2'>{t('projects')}</a></Link>
                                 </div>
 
                                 
@@ -92,20 +96,15 @@ class PageWrapper extends React.Component {
                             <div className='flex justify-end items-center'>
 
                                 <LanguageBtn />
-                                
-                                <ConnectButton showBalance={false} accountStatus="address" chainStatus="icon"/>
+
+                                <ConnectWalletButton />
                             </div>
 
                         </div>
                         </div>
 
-                                
-
-                        <div className="flex-grow">
-                            
-                            <div className={"jd-drawer-content pb-0"}>
-                                {this.props.children}
-                            </div>
+                        <div className={(wapperClassName) ? wapperClassName : "flex-grow"}>
+                            {this.props.children}
                         </div>
                             
 

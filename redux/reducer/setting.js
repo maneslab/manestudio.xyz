@@ -18,6 +18,9 @@ export const setGlobalModal = createAction('SET_GLOBAL_MODAL');
 export const SET_ACTIVE_CLUB_ID = 'SET_ACTIVE_CLUB_ID'
 export const setActiveClub = createAction('SET_ACTIVE_CLUB_ID');
 
+export const SET_ACTIVE_TRAIT_ID = 'SET_ACTIVE_TRAIT_ID'
+export const setActiveTraitId = createAction('SET_ACTIVE_TRAIT_ID');
+
 
 export const SET_SETTING = 'SET_SETTING'
 export const setSetting = (payload) => {
@@ -140,9 +143,13 @@ export function reducer(state = Immutable.fromJS({
     'is_initing'            : false,
     'is_inited'             : false,
     'slider'                : true,
+    'active_trait'          : {}
 }), action) {
 
     switch (action.type) {
+
+        case SET_ACTIVE_TRAIT_ID:
+            return state.setIn(['active_trait',action.payload.group_id,action.payload.layer_id],action.payload.trait_id);
 
         case SET_ACTIVE_CLUB_ID:
             return state.setIn(['active_club_id'],action.payload);

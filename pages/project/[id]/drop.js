@@ -31,9 +31,25 @@ class ClubDropSetting extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            is_adding : false,
+            is_public : false
         }
     }
+
+    componentDidMount() {
+        if (this.props.club) {
+            this.setState({
+                'is_public' : Number(this.props.club.get('is_public'))
+            })
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.club && !this.props.club.equals(prevProps.club)) {
+            this.setState({
+                'is_public' : Number(this.props.club.get('is_public'))
+            })
+        }
+    } 
 
 
     @autobind
@@ -43,9 +59,19 @@ class ClubDropSetting extends React.Component {
         })
     }
 
+    @autobind
+    onPublicChange(e) {
+        this.setState({
+            'is_public' :  e.target.checked
+        })
+        this.props.updateClub(this.props.club_id,{
+            'is_public': e.target.checked ? 1: 0
+        })
+    }
+
     render() {
         const {t} = this.props.i18n;
-        const {is_adding,is_init} = this.state;
+        const {is_public} = this.state;
         const {club,club_id} = this.props;
 
 
@@ -65,7 +91,7 @@ class ClubDropSetting extends React.Component {
             </Head>
             <div>
                 <ClubHeader club_id={club_id}  title={t('mint page')}/>
-                <div className="max-w-screen-xl mx-auto">
+                <div className="max-w-screen-xl mx-auto pb-32">
 
 
                     <div className='flex justify-between items-center mb-4 text-black'>
@@ -85,8 +111,11 @@ class ClubDropSetting extends React.Component {
                     <div className='fixed bottom-0 left-0 w-full py-4 bg-white border-t border-gray-300' style={{'zIndex':9999}}>
                         <div className='max-w-screen-xl mx-auto flex justify-between items-center'>
                             <div className='flex items-center'>
-                                <input type="checkbox" class="toggle mr-4" checked />
-                                <span>发布给所有用户</span>
+                                <input type="checkbox" class="toggle mr-4" checked={this.state.is_public} onChange={this.onPublicChange}/>
+                                <div>
+                                    <div className="capitalize">{t('set public')}</div>
+                                    <div className='text-sm text-gray-400'>{t('set-public-intro')}</div>
+                                </div>
                             </div>
                             <a className='btn btn-primary'>{t('preview')}</a>
                         </div>

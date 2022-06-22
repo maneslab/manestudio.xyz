@@ -80,8 +80,6 @@ class Siderbar extends React.Component {
                     </a>
                     </NavLink>
 
-
-
                 </div>
 
                 

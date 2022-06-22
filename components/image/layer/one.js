@@ -15,7 +15,6 @@ import TraitList from 'components/image/trait/list'
 
 export default function LayerOne({handleDelete,handleEdit,layer,draging_index,refreshList,id}) {
 
-
     const {
         attributes,
         listeners,
@@ -45,6 +44,7 @@ export default function LayerOne({handleDelete,handleEdit,layer,draging_index,re
         transform: CSS.Translate.toString(transform),
         transition,
     };
+
 
 
     return <div className={classNames('border-2 border-black mb-4 z-10',{"shadow-xl relative":is_draging})} style={style} ref={setNodeRef}>

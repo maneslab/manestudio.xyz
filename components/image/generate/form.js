@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types'
 import withTranslate from 'hocs/translate';
 
 import { Formik, Form } from 'formik';
@@ -9,6 +9,7 @@ import Button from 'components/common/button'
 import PrefixInput from 'components/form/prefix_input'
 import {confirm} from 'components/common/confirm/index'
 
+import {httpRequest} from 'helper/http';
 
 @withTranslate
 class GenerateFrom extends React.Component {
@@ -19,17 +20,44 @@ class GenerateFrom extends React.Component {
         }
         this.listRef = React.createRef();
         this.submitForm = ::this.submitForm
+        this.generateNFT = ::this.generateNFT
     }
 
-    async submitForm() {
+    async submitForm(values) {
         const {t} = this.props.i18n;
-
         if (await confirm({
             title : t('Generate NFT'),
             confirmation: t('are you sure you want to regenerate NFT images?')
         })) {
+            this.generateNFT(values.collection_size)
         }
     }
+
+    
+    async generateNFT(collection_size) {
+        
+        const {club_id} = this.props;
+
+        this.setState({
+            'is_fetching' :  true
+        })
+        
+        let result = await httpRequest({
+            'url' : '/v1/image/generate/generate_all',
+            'method' : 'POST',
+            'data'  : {
+                'club_id'      : club_id,
+                'max_number'   : collection_size
+            }
+        })
+        console.log('debug08,result',result);
+
+        this.setState({
+            'is_fetching' : false,
+            'is_fetched'  : true
+        })
+    }
+
 
     render() {
         const {t} = this.props.i18n;
@@ -64,5 +92,9 @@ class GenerateFrom extends React.Component {
     }
     
 }
+
+GenerateFrom.propTypes = {
+    club_id           : PropTypes.number.isRequired,
+};
 
 export default GenerateFrom

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import classNames from 'classnames'
 // import Link from 'next/link'
 import {withTranslate} from 'hocs/index'
 import {confirm} from 'components/common/confirm/index'
@@ -85,28 +85,33 @@ class TraitOne extends React.Component {
 
     render() {
 
-        const { trait } = this.props;
+        const { trait,is_selected,group_id,layer_id,trait_id } = this.props;
         const { edit_mode } = this.state;
+        const {t} = this.props.i18n;
 
         if (trait.get('delete_time')) {
             return null;
         }
 
-        return <div className="mb-4 bg-white">
+        return <div className={classNames("mb-4 bg-white border-2",{"border-black":is_selected})}>
             <div className="">
                 <div className='relative trait-image asset-bg'>
-                    <img src={trait.getIn(['upload_img','image_urls','url'])} />
+                    <img src={trait.getIn(['img','image_urls','url'])} className="cursor-pointer" onClick={this.props.setActiveTraitId.bind({},{
+                        'group_id' : group_id,
+                        'layer_id' : layer_id,
+                        'trait_id' : (is_selected) ? null : trait.get('id')
+                    })} />
                     <div class="dropdown dropdown-right absolute right-1 top-1">
                         <label tabindex="0" class="btn m-1 px-2 bg-transparent border-none text-gray-600 hover:text-black hover:bg-transparent">
                             <DotsVerticalIcon className='icon-sm'/>
                         </label>
                         <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white rounded-box w-52 capitalize">
-                            <li><a onClick={this.deleteTrait}><TrashIcon className='icon-sm'/>delete</a></li>
-                            <li><a onClick={this.props.handleEditProbability}><AdjustmentsIcon className='icon-sm'/>rarity</a></li>
+                            <li><a onClick={this.deleteTrait}><TrashIcon className='icon-sm'/>{t('delete')}</a></li>
+                            <li><a onClick={this.props.handleEditProbability}><AdjustmentsIcon className='icon-sm'/>{t('rarity')}</a></li>
                         </ul>
                     </div>
                 </div>
-                <div onClick={this.selectItem} className="flex-grow flex justify-between p-2">
+                <div className="flex-grow flex justify-between p-2">
                     <div className='flex justify-center flex-col'>
                         {
                             (edit_mode) 
@@ -141,6 +146,7 @@ TraitOne.propTypes = {
     handleDelete    : PropTypes.func.isRequired,
     handleEdit      : PropTypes.func.isRequired,
     handleEditProbability : PropTypes.func.isRequired,
+    setActiveTraitId : PropTypes.func.isRequired,
     refreshList     : PropTypes.func.isRequired,
     total_number    : PropTypes.number.isRequired,
 };

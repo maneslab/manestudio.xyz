@@ -313,13 +313,13 @@ body {
     @apply mr-2;
 }
 .block-menu {
-    @apply overflow-hidden bg-gray-600 shadow-xl ;  
+    @apply overflow-hidden bg-white shadow-xl border border-gray-300 ;  
 }
 .block-menu ul {
-    @apply bg-gray-600;
+    @apply bg-white;
 }
 .block-menu li .select-li {
-    @apply bg-gray-600 text-white cursor-pointer hover:bg-gray-700 hover:text-white px-4;
+    @apply bg-white text-black cursor-pointer hover:bg-gray-100  px-4;
 }
 .preview-wapper {
     height: calc(100vh - theme('height.48'));
@@ -344,9 +344,13 @@ body {
 .btn {
     @apply min-h-8 h-10;
 }
-.btn-primary {
+.btn-primary,
+.btn-secondary,
+.btn-secondary:hover,
+.btn-primary:hover {
     @apply border-2 border-black;
 }
+
 .btn-outline {
     @apply border-2;
 }
@@ -610,12 +614,38 @@ input{outline:none;}
     background-position: 0 0, 8px 8px;
 }
 .club-nav-tabs {
-    @apply border-b-2 border-gray-200 space-x-4;
+    @apply border-b-2 border-gray-200 space-x-8;
 }
 .club-nav-tabs .tab{
-    @apply font-bold text-base h-10;
+    @apply font-bold text-base h-10 px-0;
 }
 .club-nav-tabs .tab-active {
     @apply border-primary border-b-2 px-0 relative;
     bottom:-2px;  
+}
+
+.header-bg {
+    @apply bg-white;
+}
+.fullpage-container.blue {
+    @apply bg-[#2e2c9b];
+}
+.fullpage-container.blue .header-bg{
+    @apply bg-[#2e2c9b] text-white;
+}
+.fullpage-container.blue .btn-outline
+{
+    @apply border-white text-white;
+}
+.fullpage-container.blue .logo {
+    @apply text-white;
+}
+.fullpage-container.blue .ju367vfd {
+    @apply text-white;
+}
+.landingpage {
+    @apply h-full;
+    background: url('/img/landingpage/banner2.png') no-repeat;
+    background-position: bottom -240px right -240px;
+    background-size: 80% 80%;
 }

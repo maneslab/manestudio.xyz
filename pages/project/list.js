@@ -9,7 +9,6 @@ import PageWrapper from 'components/pagewrapper'
 import MyClubList from 'components/club/mylist'
 import withMustLogin from 'hocs/mustlogin';
 import withTranslate from 'hocs/translate';
-// import { t } from 'helper/translate';
 import CreateModal from 'components/club/create_modal'
 
 @withTranslate

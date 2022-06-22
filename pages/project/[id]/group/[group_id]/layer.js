@@ -8,6 +8,7 @@ import Link from 'next/link'
 import PageWrapper from 'components/pagewrapper'
 import ClubHeader from 'components/club/header'
 import ClubStep from 'components/club/step'
+import GenerateImage from 'components/image/generate/image'
 
 import withMustLogin from 'hocs/mustlogin';
 import withTranslate from 'hocs/translate';
@@ -30,7 +31,8 @@ class GenerateGroupView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            show_create_modal : false
+            show_create_modal   : false,
+            select_traits       : {}
         }
         this.listRef = React.createRef();
     }
@@ -49,9 +51,19 @@ class GenerateGroupView extends React.Component {
         }
     }
 
+    @autobind
+    selectTrait(layer_id,trait_id) {
+        let {select_traits} = this.state;
+        select_traits[layer_id] = trait_id;
+        this.setState({
+            select_traits
+        })
+    }
+
     render() {
         const {t} = this.props.i18n;
         const {list_count,group_id,club_id} = this.props;
+
 
         return <PageWrapper>
             <Head>
@@ -59,7 +71,7 @@ class GenerateGroupView extends React.Component {
             </Head>
             <div>
                 <ClubHeader club_id={club_id}  title={t('generate nft')}/>
-                <ClubStep club_id={club_id} active={1}/>
+                <ClubStep club_id={club_id} active={1}  />
 
                 <div className="max-w-screen-xl mx-auto grid grid-cols-8 gap-16">
 
@@ -74,19 +86,25 @@ class GenerateGroupView extends React.Component {
                             </Link>
                         </div>
 
-                        <div className='flex justify-between items-center mb-8 text-black'>
-                            <h1 className='h1'>{t('layer')}</h1>
+                        <div className='flex justify-between items-center mb-4 text-black'>
+                            <h2 className='h2'>{t('layer')}</h2>
                             <button className='btn btn-default' onClick={this.toggleCreateModal}>
                                 <PlusIcon className='icon-xs mr-2'/>
                                 {t('add layer')}
                             </button>
                         </div>
 
-                        <LayerList group_id={this.props.group_id} ref={this.listRef} />
+                        <LayerList 
+                            group_id={this.props.group_id} 
+                            ref={this.listRef} 
+                            />
 
                     </div>
 
                     <div className='col-span-3'>
+
+                        <GenerateImage group_id={group_id} />
+
                         <div className='block-intro'>
                             <h3>{t('about group')}</h3>
                             <div className='ct'>

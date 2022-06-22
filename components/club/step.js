@@ -21,16 +21,16 @@ class ClubStep extends React.Component {
 
     render() {
 
-        const { active,club_id } = this.props;
+        const { active,club_id,select_traits } = this.props;
         const {t} = this.props.i18n;
 
 
         return <div className='bg-white  pt-0 pb-6 -mt-8 mb-8 '>
             <div className="max-w-screen-xl mx-auto flex justify-between ">
                 <Steps active={active}>
-                    <Step href={this.getUrl(club_id,1)}>{t('setting')}</Step>
-                    <Step href={this.getUrl(club_id,2)}>{t('generate')}</Step>
-                    <Step>{t('metadata')}</Step>
+                    <Step href={this.getUrl(club_id,1)} key={1}>{t('setting')}</Step>
+                    <Step href={this.getUrl(club_id,2)} key={2}>{t('generate NFT')}</Step>
+                    <Step key={3}>metadata</Step>
                 </Steps>
                 <div>
                     <Link href={this.getUrl(club_id,active+1)}>
