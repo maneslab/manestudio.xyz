@@ -69,6 +69,10 @@ const imageSpecialSchema =  new schema.Entity('image_special',{
 },{ idAttribute: 'id' });
 const imageSpecialListSchema =  new schema.Array(imageSpecialSchema);
 
+const imageGenerateSchema =  new schema.Entity('image_generate',{
+},{ idAttribute: 'id' });
+const imageGenerateListSchema =  new schema.Array(imageGenerateSchema);
+
 module.exports = {
     
     userSchema,

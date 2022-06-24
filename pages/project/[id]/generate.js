@@ -4,6 +4,7 @@ import {wrapper} from 'redux/store';
 import Head from 'next/head'
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
+import Immutable from 'immutable';
 
 import PageWrapper from 'components/pagewrapper'
 import ClubHeader from 'components/club/header'
@@ -15,6 +16,7 @@ import withMustLogin from 'hocs/mustlogin';
 import withTranslate from 'hocs/translate';
 import withSetActiveClub from 'hocs/set_active_club'
 import withActiveClub from 'hocs/active_club'
+import ImageModal from 'components/image/generate/image_modal'
 
 import {httpRequest} from 'helper/http';
 
@@ -23,10 +25,13 @@ import {initTraitList} from 'redux/reducer/image/trait'
 import withClubView from 'hocs/clubview'
 import Button from 'components/common/button'
 import PrefixInput from 'components/form/prefix_input'
-import { list } from 'react-immutable-proptypes';
+// import { list } from 'react-immutable-proptypes';
 import { denormalize } from 'normalizr';
 import {imageTraitListSchema} from 'redux/schema/index'
+//normalize
 import Image2 from 'components/image/generate/image2'
+
+import {imageGenerateListSchema} from 'redux/schema/index'
 
 @withTranslate
 @withMustLogin
@@ -42,18 +47,29 @@ class GenerateGroupView extends React.Component {
             is_fetched  : false,
             merged_traits : [],
             generates : [],
-            merged_traits: {}
+            merged_traits: {},
+            filter : [],
+            filter_trait_ids : Immutable.List([]),
+            preview_id : null,
+            preview_index : null
         }
         this.loadGenerateList = ::this.loadGenerateList
         this.listRef = React.createRef();
     }
 
     componentDidMount() {
-        this.loadGenerateList(this.props.club_id)
+        this.loadGenerateList(this.props.club_id,this.state.filter_trait_ids)
+    }
+
+    componentDidUpdate(prevProps,prevState) {
+        if (!this.state.filter_trait_ids.equals(prevState.filter_trait_ids)) {
+            console.log('发现了不相等');
+            this.loadGenerateList(this.props.club_id,this.state.filter_trait_ids)
+        }
     }
 
     
-    async loadGenerateList(club_id) {
+    async loadGenerateList(club_id,filter_trait_ids) {
         this.setState({
             'is_fetching' :  true
         })
@@ -63,6 +79,7 @@ class GenerateGroupView extends React.Component {
             'method' : 'GET',
             'data'  : {
                 'club_id'      : club_id,
+                'traid_ids'    : filter_trait_ids.toJS().join('_')
             }
         })
         console.log('debug08,result',result);
@@ -91,10 +108,48 @@ class GenerateGroupView extends React.Component {
         }
     }
 
+    @autobind
+    filterOnChange(e) {
+        // console.log('filter-change-e',e.target.value)
+        // console.log('filter-change',e.target.checked)
+        let {filter_trait_ids} = this.state;
+        let {value,checked} = e.target;
+        if (checked) {
+            if (!filter_trait_ids.includes(value)) {
+                filter_trait_ids = filter_trait_ids.push(value)
+            }
+        }else {
+            filter_trait_ids = filter_trait_ids.filter(one=>one!=value);
+        }
+        this.setState({
+            'filter_trait_ids' : filter_trait_ids
+        })
+    }
+
+    @autobind
+    setPreview(id,index) {
+       this.setState({'preview_id':id,'preview_index':index})
+    }
+
+    @autobind
+    handleChangeImage(index,data){
+
+
+        console.log('handleChangeImage-before',index,data);
+
+        const {generates} = this.state;
+        generates[index] = data;
+
+        console.log('handleChangeImage-after',generates);
+
+        this.setState({
+            'generates' : generates
+        })
+    }
 
     render() {
         const {t} = this.props.i18n;
-        const {is_fetching,is_fetched,generates,merged_traits} = this.state;
+        const {is_fetching,is_fetched,generates,merged_traits,preview_id,preview_index} = this.state;
         const {club_id,entities} = this.props;
 
         console.log('debug08,merged_traits',merged_traits)
@@ -119,18 +174,35 @@ class GenerateGroupView extends React.Component {
                 <ClubHeader club_id={club_id} title={t('generate nft')}/>
 
                 <ClubStep club_id={club_id} active={2}/>
+
+                <div className='flex justify-between items-center mb-8 text-black max-w-screen-xl mx-auto'>
+                    <h1 className='h1'>{t('generate NFT')}</h1>
+                    {
+                        (generates.length > 0)
+                        ? <GenerateFrom club_id={club_id} />
+                        : null
+                    }
+                </div>
                 
                 <div className="max-w-screen-xl mx-auto grid grid-cols-4 gap-8">
 
                     <div className="col-span-1">
                     {
                         Object.keys(merged_traits).map(k=>{
-                            return <div className='border border-black mb-4'>
-                                <div className='bg-black text-white py-2 px-4'>{k}</div>
+                            return <div className=' mb-4 bg-white'>
+                                <div className='bg-white text-black py-2 px-4 font-bold border-b border-gray-200'>{k}</div>
                                 <div className='px-4 py-2 max-h-36 overflow-y-scroll'>
                                     {
                                         Object.keys(merged_traits[k]).map(k2=>{
-                                            return <div className='flex justify-start items-center font-bold text-ubuntu'><input type="checkbox" checked="checked" class="checkbox mr-2" />{k2}</div>
+                                            return <div className='flex justify-between items-center text-ubuntu my-2 font-sm items-center'>
+                                                <div className='flex justify-start items-center text-xs'>
+                                                    <input type="checkbox" onChange={this.filterOnChange} value={merged_traits[k][k2]['trait_ids']} class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-2" />
+                                                    {k2}
+                                                </div>
+                                                <div className='text-xs text-gray-500'>
+                                                    {merged_traits[k][k2]['count']}
+                                                </div>
+                                            </div>
                                         })
                                     }
                                 </div>
@@ -141,14 +213,7 @@ class GenerateGroupView extends React.Component {
 
                     <div className="col-span-3">
 
-                        <div className='flex justify-between items-center mb-8 text-black'>
-                            <h1 className='h1'>{t('generate NFT')}</h1>
-                            {
-                                (generates.length > 0)
-                                ? <GenerateFrom club_id={club_id} />
-                                : null
-                            }
-                        </div>
+                       
 
                         {
                             (is_fetching)
@@ -172,10 +237,12 @@ class GenerateGroupView extends React.Component {
                             (is_fetched && generates.length > 0)
                             ? <div className="grid grid-cols-6 gap-4">
                                 {
-                                    (generates.map(one=>{
-                                        let traits = denormalize(one.trait_ids,imageTraitListSchema,entities);
-                                        return <Image2 trait_list={traits} key={one.id} />
-                                            
+                                    (generates.map((one,index)=>{
+                                        let traits = denormalize(one.trait_ids_array,imageTraitListSchema,entities);
+                                        return <div key={one.id} className="bg-white text-sm text-gray-600">
+                                            <Image2 trait_list={traits} index={index} id={one.id}  handlePreview={this.setPreview}/>
+                                            <div className='p-2'>#{one.temp_id}</div>
+                                        </div>
                                     }))
                                 }
                             </div>
@@ -188,6 +255,7 @@ class GenerateGroupView extends React.Component {
                         </div>
                     </div>
                 </div> 
+                <ImageModal visible={(preview_id)?true:false} id={preview_id} index={preview_index} closeModal={this.setPreview.bind({},null)} handleChangeImage={this.handleChangeImage}/>
             </div>
     </PageWrapper>
     }
