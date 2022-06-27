@@ -499,10 +499,10 @@ input{outline:none;}
     @apply capitalize font-bold text-lg mb-2;
 }
 .block-intro .ct {
-    @apply opacity-70;
+    @apply text-sm text-gray-600;
 }
 .block-intro p {
-    @apply mb-2;
+    @apply mb-2 ;
 }
 
 .block-title {
@@ -648,4 +648,49 @@ input{outline:none;}
     background: url('/img/landingpage/banner2.png') no-repeat;
     background-position: bottom -240px right -240px;
     background-size: 80% 80%;
+}
+
+
+.block-left-menu ul li a {
+    @apply flex justify-start items-center capitalize text-lg my-2 text-gray-400 cursor-pointer hover:text-black; 
+}
+.block-left-menu ul li a .icon-base {
+    @apply mr-2 text-gray-400;
+}
+
+.block-left-menu ul li a.active {
+    @apply text-black;
+}
+
+.block-left-menu ul li a:hover .icon-base,
+.block-left-menu ul li a.active .icon-base {
+    @apply text-black;
+}
+.contract-form {
+    @apply mb-12;
+}
+.contract-form h2 {
+    @apply font-bold text-lg capitalize mb-2;
+}
+.contract-form .ct {
+    @apply bg-white p-6;
+}
+.contract-form .intro {
+    @apply text-sm text-gray-600;
+}
+.contract-form .intro p {
+    @apply mb-2;
+}
+
+select {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+    appearance: none;
+}
+
+.select-one {
+    @apply pl-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
 }

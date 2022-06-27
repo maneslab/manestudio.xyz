@@ -111,16 +111,15 @@ class ImageModal extends React.Component {
 
             {
                 (is_fetched)
-                ?<div className='flex justify-start'>
+                ?   <div>
+                <div className='flex justify-start'>
                     <div className='w-96 mr-8'>
                         <GenerateImage trait_list={Immutable.fromJS(trait_stat)} is_fetching={is_fetching}/>
-                        <div>
-                            <a className='btn btn-primary btn-block mt-4' target="_blank" href={generate.image_url}>{t('download')}</a>
-                        </div>
+
                     </div>
                     <div className='flex-grow'>
                         
-                        <h2 className='modal-title'>{t('preview')} # {generate.temp_id}</h2>
+                        <h2 className='modal-title border-b border-gray-200 pb-4'>{t('preview')} # {generate.temp_id}</h2>
 
                         <h3 className='mb-2 text-sm'>{t('properties')}</h3>
                         <div className='grid grid-cols-3 gap-2'>
@@ -141,10 +140,19 @@ class ImageModal extends React.Component {
                                 })
                             }
                         </div>
-                        <div className='mt-4 border-t border-gray-200 pt-4'>
-                            <Button className="btn btn-ghost" loading={is_fetching} onClick={this.regenerate}>{t('regenarate')}</Button>
+
+                    </div>
+                </div>
+                <div className='flex justify-start'>
+                    <div className='w-96 mr-8'>
+                        <a className='btn btn-outline btn-block mt-4' target="_blank" href={generate.image_url}>{t('download')}</a>
+                    </div>
+                    <div className='flex-grow'>
+                        <div className='pt-4 flex justify-end'>
+                            <Button className="btn btn-primary" loading={is_fetching} onClick={this.regenerate}>{t('regenarate')}</Button>
                         </div>
                     </div>
+                </div>
                 </div>
                 : null
             }

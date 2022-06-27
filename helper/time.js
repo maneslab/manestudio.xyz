@@ -1,5 +1,6 @@
 
 import dayjs from 'dayjs'
+import { t } from './translate'
 const relativeTime = require('dayjs/plugin/relativeTime')
 require('dayjs/locale/zh-cn')
 
@@ -61,4 +62,14 @@ export const showTimeLeft = (unixtime) => {
 
 export function getUnixtime() {
     return Math.floor(Date.now() / 1000)
+}
+
+export function getDayBeginUnixtime(value) {
+    // console.log('tm.from',value);
+    let tm = new Date(value*1000);
+    // console.log('tm.toLocaleDateString',tm.toLocaleDateString());
+    // console.log('tm.month',tm.getMonth());
+    // console.log('tm.day',tm.getDay());
+    tm.setHours(0,0,0,0);
+    return Math.floor(tm.getTime() / 1000);
 }

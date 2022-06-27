@@ -2,38 +2,38 @@ import React from 'react';
 import autobind from 'autobind-decorator';
 import classNames from 'classnames';
 import { Field } from 'formik';
-
 import Dropdown from 'rc-dropdown';
 
-import {ChevronDownIcon} from '@heroicons/react/outline'
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
+// import { date } from 'yup';
+import withDropdown  from 'hocs/dropdown';
+import {withTranslate} from 'hocs/index'
+import { format,getUnixTime,fromUnixTime } from 'date-fns';
 
+import TimeSelect from 'components/common/time_select';
+import { CalendarIcon } from '@heroicons/react/outline';
+
+@withDropdown
+@withTranslate
 class ExpiretimeSelect extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            'dropdown_visible' : false,
+            select_date : null,
+            select_hour : null,
+            select_minute : null
         }
     }   
 
-    @autobind
-    toggleVisible() {
-        this.setState({ dropdown_visible : !this.state.dropdown_visible });
-    }
+    confirm() {
 
-    getName(day) {
-        if (day == 1) {
-            return '1 day';
-        }else {
-            return day + " days";
-        }
     }
 
     render() {
-        const {dropdown_visible} = this.state;
-        const {label,name} = this.props;
-
-        let days = [1,3,7,30];
+        const {label,name,dropdown_visible} = this.props;
+        const {t} = this.props.i18n;
 
         return  <div className="form-control">
         {
@@ -50,30 +50,33 @@ class ExpiretimeSelect extends React.Component {
                meta,
             }) => {
                 let show_error = meta.touched && meta.error;
+                const select_date = fromUnixTime(value);
+
+                let menu = <TimeSelect value={value} onChange={setFieldValue.bind({},name)} toggleDropdown={this.props.toggleDropdown}/>
                 return <div>
-                <Dropdown overlay={<div className="bg-white shadow-lg rounded-lg overflow-hidden border bg-yellow-100 border-yellow-300">
-                    <ul className="overflow-y-scroll">
-                        {
-                            days.map(one=>{
-                                return <li key={one} className="select-one" onClick={()=>{
-                                    setFieldValue(name,one);
-                                    this.toggleVisible();
-                                }}>{this.getName(one)}</li>
-                            })
-                        }
-                    </ul>
-                </div>} visible={dropdown_visible}>
-                    <div onClick={()=>{
-                        this.setState({'dropdown_visible':!dropdown_visible});
-                    }} className={classNames("input-box yellow flex justify-between items-center h-10 cursor-pointer",{"placeholder":!value},{"input-error":show_error})} >
-                        {
-                            (!value)
-                            ? "please select the expire time"
-                            : this.getName(value)
-                        }
-                        <ChevronDownIcon className="w-4"/>
+                    <div >
+
+                        <Dropdown
+                            overlay={menu} visible={dropdown_visible}
+                        >
+                            <div onClick={this.props.toggleDropdown} className="border-2 border-black flex justify-start cursor-pointer">
+                            {
+                                (select_date)
+                                ? <span className="text-sm flex items-center px-4 py-2">
+                                    <div className="">
+                                        {format(select_date,'yyyy-MM-dd HH:mm')}
+                                        <span className='text-gray-400 ml-4'>{format(select_date,'zzzz')}</span>
+                                    </div>
+                                </span>
+                                : <span className="text-sm text-gray-400">{t('please select date')}</span>
+                            }
+                            <span className='bg-black text-white p-2 px-4'><CalendarIcon className='icon-sm'/></span>
+                            </div>
+                        </Dropdown>
+
+
                     </div>
-                </Dropdown>
+
                 {
                     (show_error)
                     ? <div className="input-error-msg">{meta.error}</div>

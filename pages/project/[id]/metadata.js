@@ -168,94 +168,17 @@ class GenerateGroupView extends React.Component {
         }) */
         return <PageWrapper>
             <Head>
-                <title>{t('generate nft')}</title>
+                <title>{t('metadata')}</title>
             </Head>
             <div>
-                <ClubHeader club_id={club_id} title={t('generate nft')}/>
+                <ClubHeader club_id={club_id} title={'metadata'}/>
 
-                <ClubStep club_id={club_id} active={2}/>
+                <ClubStep club_id={club_id} active={3}/>
 
-                <div className='flex justify-between items-center mb-8 text-black max-w-screen-xl mx-auto'>
-                    <h1 className='h1'>{t('generate NFT')}</h1>
-                    {
-                        (generates.length > 0)
-                        ? <GenerateFrom club_id={club_id} />
-                        : null
-                    }
-                </div>
-                
                 <div className="max-w-screen-xl mx-auto grid grid-cols-4 gap-8">
 
-                    <div className="col-span-1">
-                    {
-                        Object.keys(merged_traits).map(k=>{
-                            return <div className=' mb-4 bg-white'>
-                                <div className='bg-white text-black py-2 px-4 font-bold border-b border-gray-200'>{k}</div>
-                                <div className='px-4 py-2 max-h-36 overflow-y-scroll'>
-                                    {
-                                        Object.keys(merged_traits[k]).map(k2=>{
-                                            return <div className='flex justify-between items-center text-ubuntu my-2 font-sm items-center'>
-                                                <div className='flex justify-start items-center text-xs'>
-                                                    <input type="checkbox" onChange={this.filterOnChange} value={merged_traits[k][k2]['trait_ids']} class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-2" />
-                                                    {k2}
-                                                </div>
-                                                <div className='text-xs text-gray-500'>
-                                                    {merged_traits[k][k2]['count']}
-                                                </div>
-                                            </div>
-                                        })
-                                    }
-                                </div>
-                            </div>
-                        })
-                    }
-                    </div>
 
-                    <div className="col-span-3">
-
-                       
-
-                        {
-                            (is_fetching)
-                            ? <div className='pt-24 flex justify-center'>
-                                <Loading />
-                            </div>
-                            : null
-                        }
-
-                        {
-                            (is_fetched && generates.length == 0)
-                            ? <div className='py-24'>
-                                <div className='flex justify-center capitalize font-bold text-xl mb-8'>{t('no item')}</div>
-                                <div className='flex justify-center'>
-                                    <GenerateFrom club_id={club_id} />
-                                </div>
-                            </div>
-                            : null
-                        }
-                        {
-                            (is_fetched && generates.length > 0)
-                            ? <div className="grid grid-cols-6 gap-4">
-                                {
-                                    (generates.map((one,index)=>{
-                                        let traits = denormalize(one.trait_ids_array,imageTraitListSchema,entities);
-                                        return <div key={one.id} className="bg-white text-sm text-gray-600">
-                                            <Image2 trait_list={traits} index={index} id={one.id}  handlePreview={this.setPreview}/>
-                                            <div className='p-2'>#{one.temp_id}</div>
-                                        </div>
-                                    }))
-                                }
-                            </div>
-                            : null
-                        }
-
-                        <div className='grid grid-cols-8 gap-16'>
-
-
-                        </div>
-                    </div>
                 </div> 
-                <ImageModal visible={(preview_id)?true:false} id={preview_id} index={preview_index} closeModal={this.setPreview.bind({},null)} handleChangeImage={this.handleChangeImage}/>
             </div>
     </PageWrapper>
     }

@@ -33,9 +33,13 @@ class ClubStep extends React.Component {
                     <Step key={3}>metadata</Step>
                 </Steps>
                 <div>
-                    <Link href={this.getUrl(club_id,active+1)}>
-                    <button className='btn btn-primary'>{t('next')}</button>
-                    </Link>
+                    {
+                        (active < 3)
+                        ?   <Link href={this.getUrl(club_id,active+1)}>
+                            <button className='btn btn-primary'>{t('next')}</button>
+                        </Link>
+                        : null
+                    }
                 </div>
             </div>
         </div>

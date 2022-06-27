@@ -14,6 +14,7 @@ import { reducer as image_group } from './reducer/image/group.js'
 import { reducer as image_layer } from './reducer/image/layer.js'
 import { reducer as image_trait } from './reducer/image/trait.js'
 import { reducer as image_special } from './reducer/image/special.js'
+import { reducer as contract } from './reducer/contract.js'
 
 import {createAction} from 'helper/common'
 
@@ -56,7 +57,8 @@ const allReducer = combineReducers({
     image_group,
     image_layer,
     image_trait,
-    image_special
+    image_special,
+    contract
 })
 
 function crossSliceReducer(state, action) {

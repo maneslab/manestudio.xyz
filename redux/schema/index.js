@@ -73,6 +73,15 @@ const imageGenerateSchema =  new schema.Entity('image_generate',{
 },{ idAttribute: 'id' });
 const imageGenerateListSchema =  new schema.Array(imageGenerateSchema);
 
+
+const contractRefundSchema =  new schema.Entity('contract_refund',{
+},{ idAttribute: 'id' });
+const contractRefundListSchema =  new schema.Array(contractRefundSchema);
+
+const contractSchema =  new schema.Entity('contract',{
+    refund : contractRefundListSchema
+},{ idAttribute: 'id' });
+
 module.exports = {
     
     userSchema,
@@ -109,6 +118,9 @@ module.exports = {
     imageTraitListSchema,
 
     imageSpecialSchema,
-    imageSpecialListSchema
+    imageSpecialListSchema,
+
+    contractRefundListSchema,
+    contractSchema,
 
 }
