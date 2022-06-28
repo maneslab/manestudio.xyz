@@ -1,10 +1,10 @@
 import React from 'react';
 import autobind from 'autobind-decorator'
 // import Button from 'components/common/button'
-import Upload from 'components/common/upload'
 import Avatar from 'components/avatar/one'
 import NftAvatar from 'components/avatar/nft';
 
+import Upload from 'components/common/upload'
 import {uploadRequest} from 'helper/http'
 import {withTranslate} from 'hocs/index'
 

@@ -131,11 +131,11 @@ export default class UploadComponent extends React.Component {
                 uploadError(err,body);
             },
         })
-
+//w-64 
         return <Upload ref={this.uploadRef} {...newUploadProps}>
             {
                 (is_begin_upload)
-                ? <div className='w-64 flex justify-between items-center'>
+                ? <div className='flex justify-between items-center'>
                     <div className='flex-grow mr-4'>
                         <div className="flex justify-between mb-1 items-center">
                             <span className="text-base font-medium text-blue-700 dark:text-white text-xs h-4 w-24 text-ellipsis overflow-hidden">{file?file.name:"uploading"}</span>

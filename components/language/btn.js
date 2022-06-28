@@ -157,7 +157,7 @@ class LanguageBtn extends React.Component {
                 ? <div className='mask-bg' onClick={this.toggleVisible}></div>
                 : null
             }
-            </   >
+            </>
         );
     }
 }

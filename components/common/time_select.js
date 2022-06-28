@@ -162,7 +162,7 @@ class TimeSelect extends React.Component {
         // }
         console.log('debug04,hour,minute',hour,minute);
 
-        return <div className="block-menu  flex justify-start">
+        return <div className="w-96">
             <div className='bg-white p-4 shadow-xl border border-gray-200 '>
                 <div className='flex justify-center'>
                 <DayPicker 

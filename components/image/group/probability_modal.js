@@ -16,6 +16,7 @@ import {withTranslate} from 'hocs/index'
 
 import { PieChart } from 'react-minimal-pie-chart';
 import {percentDecimal} from 'helper/number'
+import { getColorList } from 'helper/color';
 
 @withTranslate
 class GroupProbabilityModal extends React.Component {
@@ -41,7 +42,7 @@ class GroupProbabilityModal extends React.Component {
 
     @autobind
     submitForm(values) {
-        console.log('debug03,values',values)
+        // console.log('debug03,values',values)
 
         ///如果最后一个没有填，或是0，那么最后一个自动填进去
         ///如果最后一个填了，但是不是0，则每一个按照全部的计算一下
@@ -82,7 +83,7 @@ class GroupProbabilityModal extends React.Component {
             })
         }
 
-        console.log('debug03,data_map',data_map)
+        // console.log('debug03,data_map',data_map)
 
         this.setState({
             'is_adding' : true
@@ -90,7 +91,7 @@ class GroupProbabilityModal extends React.Component {
 
         var that = this;
         this.props.updateGroupProbability(data_map).then(data=>{
-            console.log('result',data);
+            // console.log('result',data);
             if (data.status == 'success') {
                 that.setState({
                     'is_adding' : false
@@ -124,7 +125,7 @@ class GroupProbabilityModal extends React.Component {
 
         let generate_number_map = [];
 
-        let color_map = this.getRomdonColor(list_rows.length);
+        let color_map = getColorList(list_rows.length);
 
         let total_number = 0;
         list_rows.map(one=>{
@@ -155,43 +156,13 @@ class GroupProbabilityModal extends React.Component {
             'generate_number_map' : generate_number_map
         }
 
-        console.log('this.formRef.current',this.formRef.current,init_data);
+        // console.log('this.formRef.current',this.formRef.current,init_data);
         this.formRef.current.setValues(init_data);
 
         this.setState({
             chart_map : chart_map
         })
     }
-
-    getRandomInt(max) {
-        return Math.floor(Math.random() * max);
-    }
-
-    getRomdonColor(count = 3) {
-        let color_map = ['#a3a3a3','#f87171','#fb923c','#fbbf24','#a3e635','#4ade80','#34d399','#2dd4bf','#22d3ee','#38bdf8','#60a5fa','#818cf8','#a78bfa','#c084fc','#e879f9','#f472b6','#fb7185'];
-        let color_length = color_map.length;
-
-        if (color_length < count) {
-            return color_map;
-        }
-
-        let list_map = [];
-        while(list_map.length < count) {
-            let index = this.getRandomInt(color_length);
-            while (!list_map.includes(index)) {
-                list_map.push(index);
-            }
-        }
-        
-        let return_color_map = [];
-        list_map.map(one=>{
-            return_color_map.push(color_map[one]);
-        })
-
-        return return_color_map;
-        
-    }
-    
 
     render() {
         const {is_adding,chart_map} = this.state;

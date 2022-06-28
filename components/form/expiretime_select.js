@@ -1,12 +1,8 @@
 import React from 'react';
-import autobind from 'autobind-decorator';
-import classNames from 'classnames';
 import { Field } from 'formik';
 import Dropdown from 'rc-dropdown';
 
-import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
-// import { date } from 'yup';
 import withDropdown  from 'hocs/dropdown';
 import {withTranslate} from 'hocs/index'
 import { format,getUnixTime,fromUnixTime } from 'date-fns';
@@ -59,10 +55,10 @@ class ExpiretimeSelect extends React.Component {
                         <Dropdown
                             overlay={menu} visible={dropdown_visible}
                         >
-                            <div onClick={this.props.toggleDropdown} className="border-2 border-black flex justify-start cursor-pointer">
+                            <div onClick={this.props.toggleDropdown} className="flex justify-start cursor-pointer">
                             {
                                 (select_date)
-                                ? <span className="text-sm flex items-center px-4 py-2">
+                                ? <span className="text-sm flex items-center px-4 py-2 border-2 border-black">
                                     <div className="">
                                         {format(select_date,'yyyy-MM-dd HH:mm')}
                                         <span className='text-gray-400 ml-4'>{format(select_date,'zzzz')}</span>

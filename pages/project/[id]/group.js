@@ -44,6 +44,7 @@ class GenerateGroupView extends React.Component {
         }
         this.handleUpload = ::this.handleUpload
         this.listRef = React.createRef();
+        this.spListRef = React.createRef();
     }
 
 
@@ -68,7 +69,7 @@ class GenerateGroupView extends React.Component {
             club_id : this.props.club_id
         })
 
-        this.listRef.current.refresh();
+        this.spListRef.current.refresh();
     }
 
 
@@ -141,7 +142,7 @@ class GenerateGroupView extends React.Component {
                            
                         </div>
 
-                        <ImageSpecialList club_id={this.props.club_id} ref={this.listRef}/>
+                        <ImageSpecialList club_id={this.props.club_id} ref={this.spListRef}/>
 
                     </div>
 

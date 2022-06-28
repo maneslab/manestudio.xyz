@@ -30,8 +30,8 @@ import { denormalize } from 'normalizr';
 import {imageTraitListSchema} from 'redux/schema/index'
 //normalize
 import Image2 from 'components/image/generate/image2'
-
-import {imageGenerateListSchema} from 'redux/schema/index'
+import {percentDecimal} from 'helper/number'
+// import {imageGenerateListSchema} from 'redux/schema/index'
 
 @withTranslate
 @withMustLogin
@@ -51,7 +51,8 @@ class GenerateGroupView extends React.Component {
             filter : [],
             filter_trait_ids : Immutable.List([]),
             preview_id : null,
-            preview_index : null
+            preview_index : null,
+            uniqueness : 0
         }
         this.loadGenerateList = ::this.loadGenerateList
         this.listRef = React.createRef();
@@ -90,7 +91,8 @@ class GenerateGroupView extends React.Component {
             'is_fetching' : false,
             'is_fetched'  : true,
             'generates'   : result.data.generates,
-            'merged_traits' : result.data.merged_traits
+            'merged_traits' : result.data.merged_traits,
+            'uniqueness'  : result.data.uniqueness
         })
     }
 
@@ -149,10 +151,10 @@ class GenerateGroupView extends React.Component {
 
     render() {
         const {t} = this.props.i18n;
-        const {is_fetching,is_fetched,generates,merged_traits,preview_id,preview_index} = this.state;
+        const {is_fetching,is_fetched,generates,merged_traits,preview_id,preview_index,uniqueness} = this.state;
         const {club_id,entities} = this.props;
 
-        console.log('debug08,merged_traits',merged_traits)
+        // console.log('debug08,merged_traits',merged_traits)
 
         /* Object.keys(merged_traits).map(k=>{
             return <div>
@@ -177,6 +179,9 @@ class GenerateGroupView extends React.Component {
 
                 <div className='flex justify-between items-center mb-8 text-black max-w-screen-xl mx-auto'>
                     <h1 className='h1'>{t('generate NFT')}</h1>
+
+   
+
                     {
                         (generates.length > 0)
                         ? <GenerateFrom club_id={club_id} />
@@ -187,6 +192,12 @@ class GenerateGroupView extends React.Component {
                 <div className="max-w-screen-xl mx-auto grid grid-cols-4 gap-8">
 
                     <div className="col-span-1">
+
+                    <div class="bg-white flex justify-between items-center p-4 mb-4 text-sm">
+                        <div class="text-black">{t('unique ratio')}</div>
+                        <div class="text-blue-400 font-bold">{percentDecimal(uniqueness)}%</div>
+                    </div>
+
                     {
                         Object.keys(merged_traits).map(k=>{
                             return <div className=' mb-4 bg-white'>
@@ -196,7 +207,7 @@ class GenerateGroupView extends React.Component {
                                         Object.keys(merged_traits[k]).map(k2=>{
                                             return <div className='flex justify-between items-center text-ubuntu my-2 font-sm items-center'>
                                                 <div className='flex justify-start items-center text-xs'>
-                                                    <input type="checkbox" onChange={this.filterOnChange} value={merged_traits[k][k2]['trait_ids']} class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-2" />
+                                                    <input type="checkbox" onChange={this.filterOnChange} value={merged_traits[k][k2]['trait_ids']} class="checkbox-input mr-2" />
                                                     {k2}
                                                 </div>
                                                 <div className='text-xs text-gray-500'>
@@ -217,7 +228,7 @@ class GenerateGroupView extends React.Component {
 
                         {
                             (is_fetching)
-                            ? <div className='pt-24 flex justify-center'>
+                            ? <div className='py-24 flex justify-center'>
                                 <Loading />
                             </div>
                             : null

@@ -15,6 +15,7 @@ import {withTranslate} from 'hocs/index'
 
 import { PieChart } from 'react-minimal-pie-chart';
 import {percentDecimal} from 'helper/number'
+import {getColorList} from 'helper/color'
 
 @withTranslate
 class TraitProbabilityModal extends React.Component {
@@ -42,7 +43,7 @@ class TraitProbabilityModal extends React.Component {
 
     @autobind
     submitForm(values) {
-        console.log('debug03,values',values)
+        // console.log('debug03,values',values)
 
         ///如果最后一个没有填，或是0，那么最后一个自动填进去
         ///如果最后一个填了，但是不是0，则每一个按照全部的计算一下
@@ -83,7 +84,7 @@ class TraitProbabilityModal extends React.Component {
             })
         }
 
-        console.log('debug03,data_map',data_map)
+        // console.log('debug03,data_map',data_map)
 
         this.setState({
             'is_adding' : true
@@ -91,7 +92,7 @@ class TraitProbabilityModal extends React.Component {
 
         var that = this;
         this.props.updateTraitProbability(data_map).then(data=>{
-            console.log('result',data);
+            // console.log('result',data);
             if (data.status == 'success') {
                 that.setState({
                     'is_adding' : false
@@ -123,13 +124,13 @@ class TraitProbabilityModal extends React.Component {
         const {list_rows} = this.props;
         let {chart_map} = this.state;
 
-        console.log('debug-chart:list_rows',list_rows);
+        // console.log('debug-chart:list_rows',list_rows);
 
         let generate_number_map = [];
 
-        let color_map = this.getRomdonColor(list_rows.count());
+        let color_map = getColorList(list_rows.count());
 
-        console.log('debug-chart:color_map',color_map);
+        // console.log('debug-chart:color_map',color_map);
 
         let total_number = 0;
         list_rows.map(one=>{
@@ -139,7 +140,7 @@ class TraitProbabilityModal extends React.Component {
         let i = 0;
         list_rows.map(one=>{
             generate_number_map.push({
-                'image_url'       : one.getIn(['upload_img','image_urls','url']),
+                'image_url'       : one.getIn(['img','image_urls','url']),
                 'id'              : one.get('id'),
                 'probability'     : percentDecimal(one.get('generate_number') / total_number)
             })
@@ -147,7 +148,7 @@ class TraitProbabilityModal extends React.Component {
                 chart_map[i]['value'] = one.get('generate_number');
             }else {
                 chart_map.push({
-                    'image_url' : one.getIn(['upload_img','image_urls','url']),
+                    'image_url' : one.getIn(['img','image_urls','url']),
                     'value'     : one.get('generate_number'),
                     'color'     : color_map[i]
                 })
@@ -156,49 +157,19 @@ class TraitProbabilityModal extends React.Component {
             i += 1;
         })
 
-        console.log('debug-chart:chart_map',chart_map);
+        // console.log('debug-chart:chart_map',chart_map);
 
         let init_data = {
             'generate_number_map' : generate_number_map
         }
 
-        console.log('this.formRef.current',this.formRef.current,init_data);
+        // console.log('this.formRef.current',this.formRef.current,init_data);
         this.formRef.current.setValues(init_data);
 
         this.setState({
             chart_map : chart_map
         })
     }
-
-    getRandomInt(max) {
-        return Math.floor(Math.random() * max);
-    }
-
-    getRomdonColor(count = 3) {
-        let color_map = ['#a3a3a3','#f87171','#fb923c','#fbbf24','#a3e635','#4ade80','#34d399','#2dd4bf','#22d3ee','#38bdf8','#60a5fa','#818cf8','#a78bfa','#c084fc','#e879f9','#f472b6','#fb7185'];
-        let color_length = color_map.length;
-
-        if (color_length < count) {
-            return color_map;
-        }
-
-        let list_map = [];
-        while(list_map.length < count) {
-            let index = this.getRandomInt(color_length);
-            while (!list_map.includes(index)) {
-                list_map.push(index);
-            }
-        }
-        
-        let return_color_map = [];
-        list_map.map(one=>{
-            return_color_map.push(color_map[one]);
-        })
-
-        return return_color_map;
-        
-    }
-    
 
     render() {
         const {is_adding,chart_map,select_index,hover_index} = this.state;
@@ -221,7 +192,7 @@ class TraitProbabilityModal extends React.Component {
         });
         const shiftSize = 7;
 
-        console.log('chart_map',chart_map);
+        // console.log('chart_map',chart_map);
 
         return  <Modal
                     width={650}

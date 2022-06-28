@@ -25,6 +25,12 @@ class GenerateImage extends React.Component {
         this.fetchTraits();
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.select_traits && !this.props.select_traits.equals(prevProps.select_traits)){
+            this.fetchTraits();
+        }
+    }
+
     async fetchTraits(){
 
         const {select_traits,group_id} = this.props;
@@ -70,7 +76,7 @@ class GenerateImage extends React.Component {
                 <h2 className='h2'>{t('preview')}</h2>
                 <button className='btn btn-default' onClick={this.fetchTraits} disabled={is_fetching}> 
                     <RefreshIcon className={classNames('h-4 w-4 mr-2',{'animate-spin':is_fetching})}/>
-                    {t('refresh')}
+                    {t('random')}
                 </button>
             </div>
             <div className='relative aspect-square mt-4'>
