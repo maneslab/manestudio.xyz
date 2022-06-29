@@ -26,9 +26,10 @@ class TraitProbabilityModal extends React.Component {
             is_adding : false,
             chart_map : [],
             hover_index  : null,
-            select_index : null
+            select_index : null,
         }
         this.formRef = React.createRef()
+
     }
 
     // componentDidMount() {

@@ -2,36 +2,26 @@ import React from 'react';
 
 import {wrapper} from 'redux/store';
 import Head from 'next/head'
-import autobind from 'autobind-decorator'
-import {connect} from 'react-redux'
-import Immutable from 'immutable';
+import autobind from 'autobind-decorator';
 
 import PageWrapper from 'components/pagewrapper'
 import ClubHeader from 'components/club/header'
 import ClubStep from 'components/club/step'
-import GenerateFrom from 'components/image/generate/form';
 import Loading from 'components/common/loading'
+import SpecialNftMetadataList from 'components/image/special/metadata'
 
 import withMustLogin from 'hocs/mustlogin';
 import withTranslate from 'hocs/translate';
 import withSetActiveClub from 'hocs/set_active_club'
 import withActiveClub from 'hocs/active_club'
-import ImageModal from 'components/image/generate/image_modal'
 
 import {httpRequest} from 'helper/http';
 
-import {initTraitList} from 'redux/reducer/image/trait'
 
 import withClubView from 'hocs/clubview'
-import Button from 'components/common/button'
-import PrefixInput from 'components/form/prefix_input'
-// import { list } from 'react-immutable-proptypes';
-import { denormalize } from 'normalizr';
-import {imageTraitListSchema} from 'redux/schema/index'
-//normalize
-import Image2 from 'components/image/generate/image2'
+import {percentDecimal} from 'helper/number'
 
-import {imageGenerateListSchema} from 'redux/schema/index'
+import { ChevronDownIcon,ChevronUpIcon } from '@heroicons/react/outline';
 
 @withTranslate
 @withMustLogin
@@ -45,127 +35,43 @@ class GenerateGroupView extends React.Component {
         this.state = {
             is_fetching : false,
             is_fetched  : false,
-            merged_traits : [],
-            generates : [],
-            merged_traits: {},
-            filter : [],
-            filter_trait_ids : Immutable.List([]),
-            preview_id : null,
-            preview_index : null
+            data : {},
         }
-        this.loadGenerateList = ::this.loadGenerateList
+        this.loadMetadata = ::this.loadMetadata
         this.listRef = React.createRef();
     }
 
     componentDidMount() {
-        this.loadGenerateList(this.props.club_id,this.state.filter_trait_ids)
+        this.loadMetadata(this.props.club_id)
     }
 
-    componentDidUpdate(prevProps,prevState) {
-        if (!this.state.filter_trait_ids.equals(prevState.filter_trait_ids)) {
-            console.log('发现了不相等');
-            this.loadGenerateList(this.props.club_id,this.state.filter_trait_ids)
-        }
-    }
-
-    
-    async loadGenerateList(club_id,filter_trait_ids) {
+    async loadMetadata(club_id) {
         this.setState({
             'is_fetching' :  true
         })
         
         let result = await httpRequest({
-            'url' : '/v1/image/generate/list_complex',
+            'url' : '/v1/image/trait/metadata',
             'method' : 'GET',
             'data'  : {
                 'club_id'      : club_id,
-                'trait_ids'    : filter_trait_ids.toJS().join('_')
             }
         })
         console.log('debug08,result',result);
 
-        this.props.initTraitList(result.data.traits)
-
         this.setState({
             'is_fetching' : false,
             'is_fetched'  : true,
-            'generates'   : result.data.generates,
-            'merged_traits' : result.data.merged_traits
-        })
-    }
-
-    @autobind
-    toggleCreateModal() {
-        this.setState({
-            show_create_modal : !this.state.show_create_modal
-        })
-    }
-
-    @autobind
-    refreshList() {
-        if (this.listRef.current) {
-            this.listRef.current.refresh();
-        }
-    }
-
-    @autobind
-    filterOnChange(e) {
-        // console.log('filter-change-e',e.target.value)
-        // console.log('filter-change',e.target.checked)
-        let {filter_trait_ids} = this.state;
-        let {value,checked} = e.target;
-        if (checked) {
-            if (!filter_trait_ids.includes(value)) {
-                filter_trait_ids = filter_trait_ids.push(value)
-            }
-        }else {
-            filter_trait_ids = filter_trait_ids.filter(one=>one!=value);
-        }
-        this.setState({
-            'filter_trait_ids' : filter_trait_ids
-        })
-    }
-
-    @autobind
-    setPreview(id,index) {
-       this.setState({'preview_id':id,'preview_index':index})
-    }
-
-    @autobind
-    handleChangeImage(index,data){
-
-
-        console.log('handleChangeImage-before',index,data);
-
-        const {generates} = this.state;
-        generates[index] = data;
-
-        console.log('handleChangeImage-after',generates);
-
-        this.setState({
-            'generates' : generates
+            'data'   : result.data,
         })
     }
 
     render() {
         const {t} = this.props.i18n;
-        const {is_fetching,is_fetched,generates,merged_traits,preview_id,preview_index} = this.state;
-        const {club_id,entities} = this.props;
+        const {is_fetching,is_fetched,data} = this.state;
+        const {club_id} = this.props;
 
-        console.log('debug08,merged_traits',merged_traits)
 
-        /* Object.keys(merged_traits).map(k=>{
-            return <div>
-                <div>{merged_traits[k]}</div>
-                <div>{
-                    Object.keys(merged_traits[k]).map(k2=>{
-                        return <div>
-                        {k2}
-                        </div>
-                    })
-                }</div>
-            </div>
-        }) */
         return <PageWrapper>
             <Head>
                 <title>{t('metadata')}</title>
@@ -175,14 +81,77 @@ class GenerateGroupView extends React.Component {
 
                 <ClubStep club_id={club_id} active={3}/>
 
-                <div className="max-w-screen-xl mx-auto grid grid-cols-4 gap-8">
-
-
+                <div className="max-w-screen-xl mx-auto">
+                    {
+                        is_fetching ? <Loading/> : null
+                    }
+                    {
+                        is_fetched ? <div>
+                            {
+                                Object.keys(data).map(k=>{
+                                    return <MetadataOne one={data[k]} name={k}  key={k} />
+                                })
+                            }
+                        </div>
+                        : null
+                    }
+                    <SpecialNftMetadataList club_id={this.props.club_id}/>
+                    
                 </div> 
             </div>
     </PageWrapper>
     }
     
+}
+
+class MetadataOne extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            'is_open' : true
+        }
+    }
+
+    @autobind
+    toggleOpen() {
+        this.setState({
+            'is_open' : !this.state.is_open
+        })
+    }
+
+    render() {
+        const {one,name} = this.props;
+        const {is_open} = this.state;
+        return <div className="bg-white max-w-screen-lg mx-auto mb-4">
+            <div className='font-bold text-base px-4 py-4 border-b border-gray-300 cursor-pointer flex justify-between items-center' onClick={this.toggleOpen}>
+                <span>{name}</span>
+                {
+                    (is_open)
+                    ? <ChevronUpIcon className='icon-sm text-gray-400'/>
+                    : <ChevronDownIcon className='icon-sm text-gray-400'/>
+                }
+
+            </div>
+            {
+                (this.state.is_open)
+                ?   <div className='py-2'>
+                    {
+                        Object.keys(one).map(k2=>{
+                            return <div className='flex justify-between py-2 px-4 hover:bg-gray-100'>
+                                <div>{k2}</div>
+                                <div className='flex justify-end items-center text-sm'>
+                                    <div className='mr-4'>({one[k2]['count']})</div>
+                                    <div>{percentDecimal(one[k2]['ratio'])}%</div>
+                                </div>
+                            </div>
+                        })
+                    }
+                </div>
+                : null
+            }
+
+        </div>
+    }
 }
 
 GenerateGroupView.getInitialProps =  wrapper.getInitialPageProps((store) => async ({pathname, req, res,query}) => {
@@ -192,17 +161,4 @@ GenerateGroupView.getInitialProps =  wrapper.getInitialPageProps((store) => asyn
 });
 
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        initTraitList : (data) => {
-            return dispatch(initTraitList(data))
-        }
-    }
-}
-function mapStateToProps(state,ownProps) {
-    return {
-        'entities' : state.get('entities')
-    }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(GenerateGroupView)
+export default GenerateGroupView

@@ -101,6 +101,7 @@ class ImageModal extends React.Component {
         }
         console.log('data',data)
         const {trait_stat,generate} = data;
+//                        <a className='btn btn-outline btn-block mt-4' target="_blank" href={generate.image_url}>{t('download')}</a>
 
         return  <Modal
             width={900}
@@ -117,42 +118,39 @@ class ImageModal extends React.Component {
                         <GenerateImage trait_list={Immutable.fromJS(trait_stat)} is_fetching={is_fetching}/>
 
                     </div>
-                    <div className='flex-grow'>
+                    <div className='flex-grow flex flex-col justify-between'>
                         
-                        <h2 className='modal-title border-b border-gray-200 pb-4'>{t('preview')} # {generate.temp_id}</h2>
+                        <div>
+                            <h2 className='modal-title border-b border-gray-200 pb-4'>{t('preview')} # {generate.temp_id}</h2>
 
-                        <h3 className='mb-2 text-sm'>{t('properties')}</h3>
-                        <div className='grid grid-cols-3 gap-2'>
-                            {
-                                Object.keys(trait_stat).map(k=>{
-                                    return <div className='border border-gray-200 p-2 text-center'>
-                                        <div className='text-gray-500 text-sm font-ubuntu'>{trait_stat[k]['layer']['name']}</div>
-                                        <div className="text-black font-bold font-ubuntu">{trait_stat[k]['name']}</div>
-                                        <div className='text-xs text-gray-500'>
-                                            {percentDecimal(trait_stat[k]['prob'])}%
-                                            have this
+                            <h3 className='mb-2 text-sm'>{t('properties')}</h3>
+                            <div className='grid grid-cols-3 gap-2'>
+                                {
+                                    Object.keys(trait_stat).map(k=>{
+                                        return <div className='border border-gray-200 p-2 text-center'>
+                                            <div className='text-gray-500 text-sm font-ubuntu'>{trait_stat[k]['layer']['name']}</div>
+                                            <div className="text-black font-bold font-ubuntu">{trait_stat[k]['name']}</div>
+                                            <div className='text-xs text-gray-500'>
+                                                {percentDecimal(trait_stat[k]['prob'])}%
+                                                have this
+                                            </div>
+                                            <div className='text-xs text-gray-500'>
+                                                <span className='mr-1'>{trait_stat[k]['occurence_count']}</span>
+                                                total
+                                            </div>
                                         </div>
-                                        <div className='text-xs text-gray-500'>
-                                            <span className='mr-1'>{trait_stat[k]['occurence_count']}</span>
-                                            total
-                                        </div>
-                                    </div>
-                                })
-                            }
+                                    })
+                                }
+                            </div>
                         </div>
 
-                    </div>
-                </div>
-                <div className='flex justify-start'>
-                    <div className='w-96 mr-8'>
-                        <a className='btn btn-outline btn-block mt-4' target="_blank" href={generate.image_url}>{t('download')}</a>
-                    </div>
-                    <div className='flex-grow'>
                         <div className='pt-4 flex justify-end'>
                             <Button className="btn btn-primary" loading={is_fetching} onClick={this.regenerate}>{t('regenarate')}</Button>
                         </div>
+
                     </div>
                 </div>
+
                 </div>
                 : null
             }

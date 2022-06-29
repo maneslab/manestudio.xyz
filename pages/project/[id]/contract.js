@@ -53,7 +53,7 @@ class GenerateGroupView extends React.Component {
             is_fetching : false,
             is_fetched  : false,
             is_saveing  : false,
-            show_upload_modal : false
+            show_upload_modal : false,
         }
         // this.loadGenerateList = ::this.loadGenerateList
         this.formRef = React.createRef();
@@ -89,27 +89,23 @@ class GenerateGroupView extends React.Component {
 
     @autobind
     setForm(contract) {
-        console.log('debug06,contract',contract.toJS())
-
         let contract_data = this.formatContractData(contract);
-
         this.formRef.current.setValues(contract_data)
     }
 
     @autobind
     formatContractData(contract) {
+
+        let refund = contract.get('refund');
         let contract_data = contract.toJS();
+
 
         let number_map = ['pb_enable','wl_enable','delay_reveal_enable','refund_enable'];
 
         number_map.map(one=>{
             contract_data[one] = Number(contract_data[one])
         })
-
-        if (typeof contract_data['refund'] == 'string') {
-            contract_data['refund'] = JSON.parse(contract_data['refund'])
-        }
-
+        
         return contract_data;
     }
 
@@ -160,16 +156,16 @@ class GenerateGroupView extends React.Component {
         })
         this.props.saveContract(values);
 
-
         this.setState({
             'is_saving' : false
         })
     }
 
     @autobind
-    fetchAsc2Mark(imgdata) {
+    fetchAsc2Mark(imgdata,setFieldValue) {
         console.log('debugasc.imgdata',imgdata);
 
+        let that = this;
         httpRequest({
             url: '/v1/upload/ascii',
             method : 'GET',
@@ -178,6 +174,7 @@ class GenerateGroupView extends React.Component {
             }
         }).then(result=>{
             console.log('result',result);
+            setFieldValue('asc2mark',result.data)
         })
     }
  
@@ -256,28 +253,10 @@ class GenerateGroupView extends React.Component {
                                 <li>
                                     <a>
                                         <DocumentTextIcon className='icon-base' />
-                                        {t('default setting')}
+                                        {t('setting')}
                                     </a>
                                 </li>
-                                <li>
-                                    <a>
-                                        <BeakerIcon className='icon-base' />
-                                        {t('refundable')}
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a>
-                                        <TableIcon className='icon-base' />
-                                        {t('whitelist')}
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                                        <TicketIcon className='icon-base' />
-                                        {t('public sale')}
-                                    </a>
-                                </li>
+                               
                             </ul>
                             <div className='divider' />
                             <h3 className='font-bold capitalize mb-4'>{t('deploy')}</h3>
@@ -345,24 +324,49 @@ class GenerateGroupView extends React.Component {
                                         <div className="col-span-6">
                                             <div className='ct'>
 
-                                                <label class="label"><span class="label-text">ASCII art text generator</span></label>
+                                                <div className='grid grid-cols-2 gap-4 mb-4'>
+                                                    <div>
+                                                        <label class="label"><span class="label-text">ASCII art {t('text generator')}</span></label>
 
-                                                <div className='flex justify-between items-center mb-8'>
-                                                    <div className='flex-grow mr-8 items-center'>
-                                                        <input className='input-box' name="ascii_text" label={t("ASCII art text generator")} placeholder={"any text"} />
+                                                        <div className='flex justify-between items-center mb-4'>
+                                                            <div className='flex-grow mr-2 items-center'>
+                                                                <input className='input-box' name="ascii_text" label={t("ASCII art text generator")} placeholder={"any text"} />
+                                                            </div>
+                                                            <a className='btn btn-default'>LFG!</a>
+                                                        </div>
                                                     </div>
-                                                    <a className='btn btn-primary'>LFG!</a>
+                                                    <div className=''>
+                                                        <label class="label"><span class="label-text">ASCII art {t('image generator')}</span></label>
+                                                        <div className='flex justify-between'>
+                                                            <Upload uploadProps={uploadProps} afterSuccess={(asc_result)=>{
+                                                                this.fetchAsc2Mark(asc_result,setFieldValue);
+                                                            }}>  
+                                                                <button type="button" className='btn w-full'>
+                                                                    <PlusIcon className='w-4 mr-2' /> {t('upload image')}
+                                                                </button>
+                                                            </Upload>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                                 
-                                                <label class="label"><span class="label-text">ASCII art image generator</span></label>
-                                                <div className='flex justify-between'>
-                                                    <Upload uploadProps={uploadProps} afterSuccess={this.fetchAsc2Mark}>  
-                                                        <button type="button" className='btn w-full'>
-                                                            <PlusIcon className='w-4 mr-2' /> {t('upload image')}
-                                                        </button>
-                                                    </Upload>
-                                                </div>
+                                                {
+                                                    (values.asc2mark) 
+                                                    ? <div className=''>
+                                                        <div className='flex justify-between items-center mb-2'>
+                                                            <label class="label"><span class="label-text">ASCII mark {t('preview')}</span></label>
+                                                            <a className='btn btn-outline btn-xs' onClick={()=>setFieldValue('asc2mark','')}>{t('remove')}</a>
+                                                        </div>
+                                                        <div className='border-2 border-black p-4'>
+                                                            <pre className='text-xs leading-4'>
+                                                                {values.asc2mark}
+                                                            </pre>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    : null
+                                                }
+                                                
 
                                             </div>
                                         </div>
@@ -579,9 +583,9 @@ class GenerateGroupView extends React.Component {
                                                                     <div>jpg / png / gif / mp4</div>
                                                                 </div>
                                                             }
-                                                            <button className='btn btn-default ml-4' onClick={this.toggleModal.bind({},'show_upload_modal')} >
+                                                            <a className='btn btn-default ml-4' onClick={this.toggleModal.bind({},'show_upload_modal')}>
                                                                 <PlusIcon className='w-4 mr-2' /> {t('add pre-reveal placeholder')}
-                                                            </button>
+                                                            </a>
                                                         </div>
                                                     </div>
                                                     <ExpiretimeSelect label={t('auto reveal at')} name={'reveal_time'}  />

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Steps,Step} from 'components/common/step/index'
-import {withTranslate,withMustLogin} from 'hocs/index'
+import {withTranslate} from 'hocs/index'
 import Link from 'next/link'
 
 @withTranslate
@@ -14,6 +14,10 @@ class ClubStep extends React.Component {
                 return base+'/group';
             case 2:
                 return base+ '/generate';
+            case 3:
+                return base+ '/metadata';
+            case 4:
+                return base+ '/reserve';
             default:
                 return ''
         }
@@ -21,7 +25,7 @@ class ClubStep extends React.Component {
 
     render() {
 
-        const { active,club_id,select_traits } = this.props;
+        const { active,club_id } = this.props;
         const {t} = this.props.i18n;
 
 
@@ -30,11 +34,12 @@ class ClubStep extends React.Component {
                 <Steps active={active}>
                     <Step href={this.getUrl(club_id,1)} key={1}>{t('setting')}</Step>
                     <Step href={this.getUrl(club_id,2)} key={2}>{t('generate NFT')}</Step>
-                    <Step key={3}>metadata</Step>
+                    <Step href={this.getUrl(club_id,3)} key={3}>metadata</Step>
+                    <Step key={4}>reserve</Step>
                 </Steps>
                 <div>
                     {
-                        (active < 3)
+                        (active < 4)
                         ?   <Link href={this.getUrl(club_id,active+1)}>
                             <button className='btn btn-primary'>{t('next')}</button>
                         </Link>
