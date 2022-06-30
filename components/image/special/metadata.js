@@ -46,7 +46,7 @@ class ImageSpecialList extends React.Component {
 
     render() {
 
-        let {list_data_one,list_rows,grid_span} = this.props;
+        let {list_data_one,list_rows,total_count} = this.props;
         let {is_open} = this.state;
         const {t} = this.props.i18n;
 
@@ -56,6 +56,7 @@ class ImageSpecialList extends React.Component {
         list_rows.map(one=>{
             total_number += Number(one.get('generate_number'))
         })
+
 
         return <div className='bg-white max-w-screen-lg mx-auto mb-4'>
             <div className='font-bold text-base px-4 py-4 border-b border-gray-300 cursor-pointer flex justify-between items-center' onClick={this.toggleOpen}>
@@ -90,6 +91,7 @@ class ImageSpecialList extends React.Component {
                                         list_rows.map((one)=>{
                                             return <SpecialTwo
                                                 special={one} 
+                                                total_count={total_count}
                                                 refreshList={this.props.refresh}
                                                 handleUpdate={this.props.updateSpecial}
                                                 handleEdit={this.edit}

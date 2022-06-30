@@ -4,14 +4,12 @@ import {wrapper} from 'redux/store';
 import Head from 'next/head'
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
-import Immutable from 'immutable';
+// import Immutable from 'immutable';
 
 import PageWrapper from 'components/pagewrapper'
 import ClubHeader from 'components/club/header'
-// import Loading from 'components/common/loading'
 import Input from 'components/form/field'
 import Button from 'components/common/button'
-// import Modal from 'components/common/modal'
 
 import withMustLogin from 'hocs/mustlogin';
 import withTranslate from 'hocs/translate';
@@ -19,9 +17,9 @@ import withSetActiveClub from 'hocs/set_active_club'
 import withActiveClub from 'hocs/active_club'
 
 import {loadContract,saveContract} from 'redux/reducer/contract'
-import FormObserver from 'components/form/observer'
 import FormSwitch from 'components/form/switch';
 import RefundableOne from 'components/contract/refund_one'
+import RevenueShareOne from 'components/contract/revenue_one'
 import ExpiretimeSelect from 'components/form/expiretime_select';
 import BluechipSelect from 'components/form/mane/bluechip_select';
 import WhitelistUpload from 'components/form/mane/upload_whitelist_csv';
@@ -29,7 +27,7 @@ import UploadPlaceholderModal from 'components/contract/placeholder_modal';
 
 import withClubView from 'hocs/clubview'
 
-import { BeakerIcon, DocumentTextIcon, TableIcon, TicketIcon,PlusIcon, UploadIcon, InformationCircleIcon,  } from '@heroicons/react/outline'
+import { BeakerIcon, DocumentTextIcon, PlusIcon, UploadIcon, InformationCircleIcon,  } from '@heroicons/react/outline'
 import {t} from 'helper/translate'
 
 import { Formik, Form, FieldArray,Field } from 'formik';
@@ -45,7 +43,7 @@ import {contractSchema} from 'redux/schema/index'
 @withClubView
 @withActiveClub
 @withSetActiveClub
-class GenerateGroupView extends React.Component {
+class ContractView extends React.Component {
 
     constructor(props) {
         super(props)
@@ -54,6 +52,7 @@ class GenerateGroupView extends React.Component {
             is_fetched  : false,
             is_saveing  : false,
             show_upload_modal : false,
+            asc2text : ''
         }
         // this.loadGenerateList = ::this.loadGenerateList
         this.formRef = React.createRef();
@@ -89,7 +88,11 @@ class GenerateGroupView extends React.Component {
 
     @autobind
     setForm(contract) {
+
+        // console.log('debug10,contract->',contract.toJS());
         let contract_data = this.formatContractData(contract);
+
+        // console.log('debug10,contract_data->',contract_data);
         this.formRef.current.setValues(contract_data)
     }
 
@@ -99,13 +102,14 @@ class GenerateGroupView extends React.Component {
         let refund = contract.get('refund');
         let contract_data = contract.toJS();
 
-
         let number_map = ['pb_enable','wl_enable','delay_reveal_enable','refund_enable'];
 
         number_map.map(one=>{
             contract_data[one] = Number(contract_data[one])
         })
         
+        // console.log('debug10,formatContractData',contract_data);
+
         return contract_data;
     }
 
@@ -114,6 +118,13 @@ class GenerateGroupView extends React.Component {
         let rl = this.formRef.current.values.refund.length
         let uid =new Date().getTime();
         arrayHelpers.push({ end_time: '', refund_rate: '' ,id : uid});
+    }
+
+    @autobind
+    addShareOne(arrayHelpers) {
+        let rl = this.formRef.current.values.revenue_share.length
+        let uid =new Date().getTime();
+        arrayHelpers.push({ address: '', rate: '' ,id : uid});
     }
 
     @autobind
@@ -131,6 +142,9 @@ class GenerateGroupView extends React.Component {
         //整理refund数据
         values.refund = JSON.stringify(values.refund);
 
+        //整理revenue_share数据
+        values.revenue_share = JSON.stringify(values.revenue_share);
+
         //清理为0的字段
         if (values.placeholder_img_id == 0) {
             delete values.placeholder_img_id
@@ -146,15 +160,15 @@ class GenerateGroupView extends React.Component {
     async submitForm(values) {
         console.log('submitForm',values)
 
-
         ///清理数据结构
-        let format_data = this.formatData(values)
+        let values_deepclone = JSON.parse(JSON.stringify(values))
 
+        let format_data = this.formatData(values_deepclone)
 
         this.setState({
             'is_saving' : true
         })
-        this.props.saveContract(values);
+        this.props.saveContract(format_data);
 
         this.setState({
             'is_saving' : false
@@ -162,18 +176,36 @@ class GenerateGroupView extends React.Component {
     }
 
     @autobind
-    fetchAsc2Mark(imgdata,setFieldValue) {
-        console.log('debugasc.imgdata',imgdata);
+    fetchAsc2MarkFromText(text,setFieldValue) {
 
         let that = this;
         httpRequest({
             url: '/v1/upload/ascii',
             method : 'GET',
             data  : {
-                id : imgdata.data.img_id
+                text : text,
+                cols : 43
             }
         }).then(result=>{
             console.log('result',result);
+            setFieldValue('asc2mark',result.data)
+        })
+    }
+
+    @autobind
+    fetchAsc2Mark(imgdata,setFieldValue) {
+        // console.log('debugasc.imgdata',imgdata);
+
+        let that = this;
+        httpRequest({
+            url: '/v1/upload/ascii',
+            method : 'GET',
+            data  : {
+                id : imgdata.data.img_id,
+                cols : 43
+            }
+        }).then(result=>{
+            // console.log('result',result);
             setFieldValue('asc2mark',result.data)
         })
     }
@@ -182,23 +214,6 @@ class GenerateGroupView extends React.Component {
         // const {t} = this.props.i18n;
         const {is_fetching,is_fetched,generates,merged_traits,preview_id,preview_index} = this.state;
         const {club_id,club,contract} = this.props;
-
-        // console.log('debug08,merged_traits',merged_traits)
-
-        /* Object.keys(merged_traits).map(k=>{
-            return <div>
-                <div>{merged_traits[k]}</div>
-                <div>{
-                    Object.keys(merged_traits[k]).map(k2=>{
-                        return <div>
-                        {k2}
-                        </div>
-                    })
-                }</div>
-            </div>
-        }) */
-        //<FormObserver onChange={this.formChange}/>
-
 
         let init_data = {
             asc2mark: "",
@@ -222,7 +237,9 @@ class GenerateGroupView extends React.Component {
             wl_max_supply: 0,
             wl_per_address: 0,
             wl_price: "0",
-            wl_start_time: 0
+            wl_start_time: 0,
+            max_supply : 0,
+            revenue_share : []
         }
         let formSchema = Yup.object().shape({
             name      : Yup.string().required(),
@@ -295,7 +312,7 @@ class GenerateGroupView extends React.Component {
                                 
                                 <Form className="w-full">
                                 
-                                <FormObserver />
+                                {console.log('form.value',values)}
 
                                 <div className='contract-form'>
                                     <h2 className='mb-2'>{t('contract basics')}</h2>
@@ -306,7 +323,7 @@ class GenerateGroupView extends React.Component {
                                                 <Input name="symbol" label={"symbol"} placeholder={"E.g. WGG"} />
                                                 <div className='grid grid-cols-2 gap-4'>
                                                     <Input name="type" label={t("type")} value={"ERC-721A"} readOnly={true} placeholder={"E.g. weirdo ghost gang"} />
-                                                    <Input name="max_token_supply" label={"max token supply"} value={5000} readOnly={true} />
+                                                    <Input name="max_supply" label={"max token supply"} readOnly={true} disabled />
                                                 </div>
                                             </div>
                                         </div>
@@ -330,9 +347,13 @@ class GenerateGroupView extends React.Component {
 
                                                         <div className='flex justify-between items-center mb-4'>
                                                             <div className='flex-grow mr-2 items-center'>
-                                                                <input className='input-box' name="ascii_text" label={t("ASCII art text generator")} placeholder={"any text"} />
+                                                                <input className='input-box' value={this.state.asc2text} onChange={(e)=>{this.setState({
+                                                                    asc2text: e.target.value
+                                                                })}} label={t("ASCII art text generator")} placeholder={"any text"} />
                                                             </div>
-                                                            <a className='btn btn-default'>LFG!</a>
+                                                            <a className='btn btn-default' onClick={()=>{
+                                                                this.fetchAsc2MarkFromText(this.state.asc2text,setFieldValue)
+                                                            }}>LFG!</a>
                                                         </div>
                                                     </div>
                                                     <div className=''>
@@ -417,7 +438,7 @@ class GenerateGroupView extends React.Component {
                                                             (values.refund_enable) 
                                                             ? <div>
                                                                 {
-                                                                    console.log('debug:show_values',values,values.refund)
+                                                                    console.log('debug10->refund',values.refund)
                                                                 }
                                                                 {values.refund.map((one,index) => <RefundableOne 
                                                                     remove={arrayHelpers.remove}
@@ -597,12 +618,88 @@ class GenerateGroupView extends React.Component {
                                             }
                                             
                                         </div>
+                                        
                                         <div className="col-span-3 intro">
                                             <p>{t('ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.')}</p>
                                         </div>
                                     </div>
+
+                                    
                                 </div>
 
+                                <FieldArray
+                                    name="revenue_share"
+                                    render={arrayHelpers => (
+
+                                        <div className='contract-form'>
+                                            <div className='grid grid-cols-9 gap-8'>
+                                            <div className='col-span-6 mb-4'>
+                                                <div className='flex justify-between items-center w-full'>
+                                                    <div className='flex justify-start items-center title'>
+                                                        <h2 className='mb-0'>{'Revenue Share'}</h2>
+                                                        <div class="form-control ml-4">
+                                                            <label class="label cursor-pointer">
+                                                                <FormSwitch name={"revenue_share_enable"} className="toggle toggle-primary"/>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div className='flex justify-between items-center'>
+                                                        {
+                                                            (values.revenue_share_enable)
+                                                            ? <button
+                                                                type="button"
+                                                                className='btn btn-default'
+                                                                onClick={this.addShareOne.bind({},arrayHelpers)}
+                                                                >
+                                                                    <PlusIcon className='w-4 mr-2' /> {t('add share account')}
+                                                                </button>
+                                                            : null
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div className='grid grid-cols-9 gap-8'>
+                                                <div className="col-span-6">
+                                                    {
+                                                        (values.revenue_share_enable) 
+                                                        ? <div>
+                                                            {
+                                                                console.log('debug:show_values',values,values.refund)
+                                                            }
+                                                            {values.revenue_share.map((one,index) => <RevenueShareOne 
+                                                                remove={arrayHelpers.remove}
+                                                                key={one.id} 
+                                                                id={one.id}
+                                                                index={index}
+                                                                errors={errors['revenue_share'] ? errors['revenue_share'][index] : null}
+                                                                refund={one}
+                                                            />)}
+                                                            {
+                                                                (values.revenue_share.length == 0)
+                                                                ? <div className='ct text-center '>
+                                                                    {t('click add to add a share account')}
+                                                                </div>
+                                                                : null
+                                                            }
+                                                        </div>
+                                                        : <div className='p-6 bg-white text-gray-400 capitalize'>
+                                                            {t('revenue sharing is disabled , all income only could withdraw by owner')}
+                                                        </div>
+                                                    }
+                                                    
+
+                                                </div>
+                                                <div className="col-span-3 intro">
+                                                    <p>{t('ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.')}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        )}
+                                />
+
+
+                            
                                 <UploadPlaceholderModal club={club} visible={this.state.show_upload_modal} closeModal={this.toggleModal.bind({},'show_upload_modal')} setFieldValue={setFieldValue}/>
 
 
@@ -629,7 +726,7 @@ class GenerateGroupView extends React.Component {
     
 }
 
-GenerateGroupView.getInitialProps =  wrapper.getInitialPageProps((store) => async ({pathname, req, res,query}) => {
+ContractView.getInitialProps =  wrapper.getInitialPageProps((store) => async ({pathname, req, res,query}) => {
     return {
         club_id : query.id
     };
@@ -666,4 +763,4 @@ function mapStateToProps(state,ownProps) {
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(GenerateGroupView)
+export default connect(mapStateToProps,mapDispatchToProps)(ContractView)

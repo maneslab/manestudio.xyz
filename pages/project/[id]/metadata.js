@@ -36,6 +36,7 @@ class GenerateGroupView extends React.Component {
             is_fetching : false,
             is_fetched  : false,
             data : {},
+            count : 0
         }
         this.loadMetadata = ::this.loadMetadata
         this.listRef = React.createRef();
@@ -62,13 +63,14 @@ class GenerateGroupView extends React.Component {
         this.setState({
             'is_fetching' : false,
             'is_fetched'  : true,
-            'data'   : result.data,
+            'data'   : result.data.metadata,
+            'count'  : result.data.count
         })
     }
 
     render() {
         const {t} = this.props.i18n;
-        const {is_fetching,is_fetched,data} = this.state;
+        const {is_fetching,is_fetched,data,count} = this.state;
         const {club_id} = this.props;
 
 
@@ -95,7 +97,7 @@ class GenerateGroupView extends React.Component {
                         </div>
                         : null
                     }
-                    <SpecialNftMetadataList club_id={this.props.club_id}/>
+                    <SpecialNftMetadataList club_id={this.props.club_id} total_count={count}/>
                     
                 </div> 
             </div>

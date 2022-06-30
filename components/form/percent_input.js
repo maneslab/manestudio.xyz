@@ -5,7 +5,7 @@ import {percentDecimal} from 'helper/number'
 
 import React,{useState} from 'react';
 
-const PercentInput = ({ name, label, placeholder,className, ...props }) => {
+const PercentInput = ({ name, label, placeholder,className,...props }) => {
 
     return <div className="form-control">
         {
@@ -24,7 +24,7 @@ const PercentInput = ({ name, label, placeholder,className, ...props }) => {
                 let show_error = meta.touched && meta.error;
                 let show_value = percentDecimal(value);
                 return <div>
-                    <div className={classNames("input-with-prefix",className,{"has-error":show_error})}>
+                    <div className={classNames("input-with-prefix",className,{"has-error":show_error})} >
                         <PercentInputComponent 
                             placeholder={placeholder} 
                             value={show_value} 
@@ -62,7 +62,7 @@ class PercentInputComponent extends React.Component {
 
     render() {
         const {placeholder} = this.props;
-        return  <input value={this.state.value} className="input-inner" onChange={this.onChange} onBlur={this.props.onBlur}/>
+        return  <input value={this.state.value} className="input-inner" onChange={this.onChange} onBlur={this.props.onBlur} style={{width:'80px'}}/>
     }
 }
 

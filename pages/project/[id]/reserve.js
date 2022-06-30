@@ -32,6 +32,7 @@ import Image2 from 'components/image/generate/image2'
 import message from 'components/common/message'
 
 import {CheckIcon} from '@heroicons/react/outline'
+import Switch from 'rc-switch';
 
 @withTranslate
 @withMustLogin
@@ -257,10 +258,14 @@ class GenerateGroupView extends React.Component {
                 <div className='flex justify-between items-center mb-8 text-black max-w-screen-xl mx-auto'>
                     <h1 className='h1'>{t('reserve NFT')}</h1>
                     <div>
-                        <div className="tabs tabs-boxed capitalize">
-                            <a className={classNames("tab",{"tab-active":(only_selected == false)})} onClick={this.handleChangeOnlySelected.bind({},false)}>{t('all nft')}</a> 
-                            <a className={classNames("tab",{"tab-active":(only_selected == true)})} onClick={this.handleChangeOnlySelected.bind({},true)}>{t('only selected')}</a> 
-                        </div>
+                        <span className='mr-4 text-sm font-bold'>Only Show Selected</span>
+                        <Switch
+                          onChange={this.handleChangeOnlySelected}
+                          disabled={false}
+                          checked={only_selected}
+                          // checkedChildren="开"
+                          // unCheckedChildren="关"
+                        />
                     </div>
                 </div>
                 
@@ -311,8 +316,6 @@ class GenerateGroupView extends React.Component {
                         </div>
 
                         <div className="col-span-3 pb-24">
-
-                        
 
                             {
                                 (is_fetching)

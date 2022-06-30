@@ -5,6 +5,9 @@ import { connect } from 'react-redux'
 import { denormalize } from 'normalizr';
 import { userSchema } from 'redux/schema/index'
 import WalletLogin from 'components/wallet/login'
+import withWallet from 'hocs/wallet'
+
+import { logoutUser } from 'redux/reducer/user';
 
 export default function withMustLogin(WrappedComponent) {
 
@@ -14,18 +17,31 @@ export default function withMustLogin(WrappedComponent) {
             super(props)
             this.state = {}
         }
+
+        componentDidUpdate(prevProps) {
+            if (!this.props.wallet && prevProps.wallet) {
+                console.log('debug10,钱包退出登陆');
+                this.props.logoutUser();
+            }
+            if (this.props.wallet && !prevProps.wallet){
+                console.log('debug10,钱包登陆');
+            }
+        }
         
         render() {
-        const {t} = this.props.i18n;
+
+            console.log('debug10,this.props',this.props);
+
+            const {t} = this.props.i18n;
 
             if (this.props.login_user) {
                 return <WrappedComponent {...this.props} />;
             }else {
                 return <PageWrapper>
                     <div className='my-12'>
-                        <div className='font-bold text-xl text-center text-white mb-4'>{t('login required to access')}</div>
+                        <div className='font-bold text-xl text-center text-black mb-4'>{t('login required to access')}</div>
                         <div className='flex justify-center my-8'>
-                        <WalletLogin />
+                            <WalletLogin />
                         </div>
                     </div>
                 </PageWrapper>
@@ -38,7 +54,9 @@ export default function withMustLogin(WrappedComponent) {
 
     const mapDispatchToProps = (dispatch) => {
         return {
-
+            logoutUser : () => {
+                return dispatch(logoutUser())
+            }
         }
     }
     function mapStateToProps(state,ownProps) {
@@ -55,7 +73,7 @@ export default function withMustLogin(WrappedComponent) {
             'login_user'  :  login_user,
         }
     }
-    return connect(mapStateToProps,mapDispatchToProps)(Logincheck);
+    return withWallet(connect(mapStateToProps,mapDispatchToProps)(Logincheck));
 
 }
 

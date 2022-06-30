@@ -1,5 +1,8 @@
 import React from 'react';
-import { ConnectButton } from '@rainbow-me/rainbowkit'
+// import { ConnectButton } from '@rainbow-me/rainbowkit'
+
+import ConnectButton from 'components/wallet/connect_button'
+
 import WalletPersonalSign from 'components/wallet/personal_sign'
 import withWallet from 'hocs/wallet';
 import { connect } from 'react-redux'

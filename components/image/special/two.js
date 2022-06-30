@@ -5,6 +5,7 @@ import {withTranslate} from 'hocs/index'
 
 import {CheckIcon,PencilIcon,XIcon} from '@heroicons/react/outline'
 import autobind from 'autobind-decorator';
+import {percentDecimal} from 'helper/number'
 
 @withTranslate
 class SpecialOne extends React.Component {
@@ -47,7 +48,7 @@ class SpecialOne extends React.Component {
 
     render() {
 
-        const { special } = this.props;
+        const { special,total_count } = this.props;
         const {edit_mode} = this.state;
 
 
@@ -77,7 +78,12 @@ class SpecialOne extends React.Component {
                 </div>
             </div>
             <div className='flex justify-center items-center text-sm'>
-                (1)
+                <div className='mr-4'>(1)</div>
+                <div className=''>{
+                    (total_count > 0)
+                    ? percentDecimal(1/total_count) + '%'
+                    : null
+                }</div>
             </div>
             
         </div>
