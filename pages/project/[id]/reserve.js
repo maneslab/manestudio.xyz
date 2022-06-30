@@ -15,6 +15,7 @@ import ClubStep from 'components/club/step'
 import GenerateFrom from 'components/image/generate/form';
 import Loading from 'components/common/loading'
 import SpecialNftList from 'components/image/special/reserve_list'
+import SuccessModal from 'components/common/success_modal'
 
 import withMustLogin from 'hocs/mustlogin';
 import withTranslate from 'hocs/translate';
@@ -54,7 +55,9 @@ class GenerateGroupView extends React.Component {
             show_special_nft : true,
             select_nft_ids : Immutable.List([]),
             select_special_nft_ids : Immutable.List([]),
-            only_selected : false
+            only_selected : false,
+            show_skip_page : true,
+            show_success_modal : false
         }
         this.loadGenerateList = ::this.loadGenerateList
         this.saveReserve = ::this.saveReserve
@@ -88,10 +91,16 @@ class GenerateGroupView extends React.Component {
         })
         console.log('debug08,result',result);
 
+        let show_skip_page = true;
+        if (result.data.nft_ids.length > 0 || result.data.sp_nft_ids.length > 0) {
+            show_skip_page = false;
+        }
+
         this.setState({
             'is_fetching_reserve_list' : false,
             'select_nft_ids' : Immutable.List(result.data.nft_ids),
-            'select_special_nft_ids' : Immutable.List(result.data.sp_nft_ids)
+            'select_special_nft_ids' : Immutable.List(result.data.sp_nft_ids),
+            'show_skip_page'    : show_skip_page
         })
     }
 
@@ -117,6 +126,13 @@ class GenerateGroupView extends React.Component {
             'generates'   : result.data.generates,
             'merged_traits' : result.data.merged_traits,
             'uniqueness'  : result.data.uniqueness
+        })
+    }
+
+    @autobind
+    toggleSuccessModal() {
+        this.setState({
+            'show_success_modal' : !this.state.show_success_modal
         })
     }
 
@@ -212,6 +228,13 @@ class GenerateGroupView extends React.Component {
         })
     }
 
+    @autobind
+    toggleShowSkipPage() {
+        this.setState({
+            'show_skip_page' : !this.state.show_skip_page
+        })
+    }
+
     async saveReserve() {
         const {t} = this.props.i18n;
         const {club_id} = this.props;
@@ -238,11 +261,13 @@ class GenerateGroupView extends React.Component {
         })
 
         message.success(t('reserve success'));
+
+        this.toggleSuccessModal();
     }
  
     render() {
         const {t} = this.props.i18n;
-        const {is_fetching,is_fetched,generates,merged_traits,select_special_nft_ids,show_special_nft,select_nft_ids,only_selected} = this.state;
+        const {is_fetching,is_fetched,generates,merged_traits,select_special_nft_ids,show_special_nft,select_nft_ids,show_skip_page,only_selected} = this.state;
 
         const {club_id,entities,special_nft_count} = this.props;
 
@@ -255,136 +280,155 @@ class GenerateGroupView extends React.Component {
 
                 <ClubStep club_id={club_id} active={4}/>
 
-                <div className='flex justify-between items-center mb-8 text-black max-w-screen-xl mx-auto'>
+                <div className='flex justify-between items-center mb-8 text-black max-w-screen-xl mx-auto border-b border-gray-300 pb-4'>
                     <h1 className='h1'>{t('reserve NFT')}</h1>
-                    <div>
-                        <span className='mr-4 text-sm font-bold'>Only Show Selected</span>
-                        <Switch
-                          onChange={this.handleChangeOnlySelected}
-                          disabled={false}
-                          checked={only_selected}
-                          // checkedChildren="开"
-                          // unCheckedChildren="关"
-                        />
-                    </div>
+                    {
+                        (!show_skip_page)
+                        ?   <div>
+                            <span className='mr-4 text-sm font-bold'>Only Show Selected</span>
+                            <Switch
+                            onChange={this.handleChangeOnlySelected}
+                            disabled={false}
+                            checked={only_selected}
+                            />
+                        </div>
+                        : null
+                    }
+                    
                 </div>
-                
-                <div className="max-w-screen-xl mx-auto">
 
-                    <div className="grid grid-cols-4 gap-8">
+                {
+                    (show_skip_page) 
+                    ? <div className='text-center my-12'>
+                        <div className='text-center text-black mb-8'>
+                            <p>{t('You can choose to set aside a portion of the NFT, or of course, you can choose to skip this step')}</p>
+                            <p>{t('The reserved NFTs will be automatically deposited to the address of the published contract after the official version of the contract is released')}</p>
+                        </div>
+                        <div>
+                            <div><button className='btn btn-primary' onClick={this.toggleShowSkipPage}>{t('reverse NFT')}</button></div>
+                            <div className='py-4'>{t('or')}</div>
+                            <div><button className='btn btn-outline' onClick={this.toggleSuccessModal}>{t('skip')}</button></div>
+                        </div>
+                    </div>
+                    :   <div className="max-w-screen-xl mx-auto">
 
-                        <div className="col-span-1">
+                        <div className="grid grid-cols-4 gap-8">
 
-                            <h3 className='h3 mb-2'>{t('special nft')}</h3>
-                            <div className='mb-4 bg-white'>
-                                <div className='px-4 py-2 max-h-36'>
-                                    <div className='flex justify-between items-center text-ubuntu my-2 font-sm items-center'>
-                                        <div className='flex justify-start items-center text-xs'>
-                                            <input type="checkbox" onChange={this.showSpecialNft} checked={show_special_nft} class="checkbox-input mr-2" />
-                                            special NFTs
-                                        </div>
-                                        <div className='text-xs text-gray-500'>
-                                            {special_nft_count}
+                            <div className="col-span-1">
+
+                                <h3 className='h3 mb-2'>{t('special nft')}</h3>
+                                <div className='mb-4 bg-white'>
+                                    <div className='px-4 py-2 max-h-36'>
+                                        <div className='flex justify-between items-center text-ubuntu my-2 font-sm items-center'>
+                                            <div className='flex justify-start items-center text-xs'>
+                                                <input type="checkbox" onChange={this.showSpecialNft} checked={show_special_nft} class="checkbox-input mr-2" />
+                                                special NFTs
+                                            </div>
+                                            <div className='text-xs text-gray-500'>
+                                                {special_nft_count}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <h3 className='h3 mb-2'>{t('filters')}</h3>
+                                {
+                                    Object.keys(merged_traits).map(k=>{
+                                        return <div className=' mb-4 bg-white'>
+                                            <div className='bg-white text-black py-2 px-4 font-bold border-b border-gray-200'>{k}</div>
+                                            <div className='px-4 py-2 max-h-36 overflow-y-auto'>
+                                                {
+                                                    Object.keys(merged_traits[k]).map(k2=>{
+                                                        return <div className='flex justify-between items-center text-ubuntu my-2 font-sm items-center'>
+                                                            <div className='flex justify-start items-center text-xs'>
+                                                                <input type="checkbox" onChange={this.filterOnChange} value={merged_traits[k][k2]['trait_ids']} class="checkbox-input mr-2" />
+                                                                {k2}
+                                                            </div>
+                                                            <div className='text-xs text-gray-500'>
+                                                                {merged_traits[k][k2]['count']}
+                                                            </div>
+                                                        </div>
+                                                    })
+                                                }
+                                            </div>
+                                        </div>
+                                    })
+                                }
                             </div>
 
-                            <h3 className='h3 mb-2'>{t('filters')}</h3>
-                            {
-                                Object.keys(merged_traits).map(k=>{
-                                    return <div className=' mb-4 bg-white'>
-                                        <div className='bg-white text-black py-2 px-4 font-bold border-b border-gray-200'>{k}</div>
-                                        <div className='px-4 py-2 max-h-36 overflow-y-auto'>
-                                            {
-                                                Object.keys(merged_traits[k]).map(k2=>{
-                                                    return <div className='flex justify-between items-center text-ubuntu my-2 font-sm items-center'>
-                                                        <div className='flex justify-start items-center text-xs'>
-                                                            <input type="checkbox" onChange={this.filterOnChange} value={merged_traits[k][k2]['trait_ids']} class="checkbox-input mr-2" />
-                                                            {k2}
-                                                        </div>
-                                                        <div className='text-xs text-gray-500'>
-                                                            {merged_traits[k][k2]['count']}
-                                                        </div>
-                                                    </div>
-                                                })
-                                            }
+                            <div className="col-span-3 pb-24">
+
+                                {
+                                    (is_fetching)
+                                    ? <div className='py-24 flex justify-center'>
+                                        <Loading />
+                                    </div>
+                                    : null
+                                }
+
+                                {
+                                    (is_fetched && generates.length == 0)
+                                    ? <div className='py-24'>
+                                        <div className='flex justify-center capitalize font-bold text-xl mb-8'>{t('no item')}</div>
+                                        <div className='flex justify-center'>
+                                            <GenerateFrom club_id={club_id} />
                                         </div>
                                     </div>
-                                })
-                            }
-                        </div>
+                                    : null
+                                }
 
-                        <div className="col-span-3 pb-24">
+                                {
+                                    (is_fetched && generates.length > 0)
+                                    ? <div className="grid grid-cols-6 gap-4">
 
-                            {
-                                (is_fetching)
-                                ? <div className='py-24 flex justify-center'>
-                                    <Loading />
-                                </div>
-                                : null
-                            }
+                                        
+                                        <SpecialNftList club_id={club_id} only_selected={only_selected} show={show_special_nft} select_special_nft_ids={select_special_nft_ids} handleSelect={this.selectSpecialNft}/>
 
-                            {
-                                (is_fetched && generates.length == 0)
-                                ? <div className='py-24'>
-                                    <div className='flex justify-center capitalize font-bold text-xl mb-8'>{t('no item')}</div>
-                                    <div className='flex justify-center'>
-                                        <GenerateFrom club_id={club_id} />
-                                    </div>
-                                </div>
-                                : null
-                            }
-
-                            {
-                                (is_fetched && generates.length > 0)
-                                ? <div className="grid grid-cols-6 gap-4">
-
-                                    
-                                    <SpecialNftList club_id={club_id} only_selected={only_selected} show={show_special_nft} select_special_nft_ids={select_special_nft_ids} handleSelect={this.selectSpecialNft}/>
-
-                                    {
-                                        (generates.map((one,index)=>{
-                                            let is_selected = select_nft_ids.includes(one.id);
-                                            if (only_selected && !is_selected) {
-                                                return null;
-                                            }
-                                            let traits = denormalize(one.trait_ids_array,imageTraitListSchema,entities);
-                                            return <div key={one.id} className="bg-white text-sm text-gray-600 cursor-pointer" onClick={this.selectNft.bind({},one.id)}>
-                                                <Image2 trait_list={traits} index={index} id={one.id} />
-                                                <div className='p-2 flex justify-between'>
-                                                    #{one.temp_id}
-                                                    {
-                                                        (is_selected)
-                                                        ?  <div className='bg-primary text-white w-5 h-5 flex justify-center items-center'>
-                                                            <CheckIcon className="icon-xs" />
-                                                        </div>
-                                                        : null
-                                                    }
+                                        {
+                                            (generates.map((one,index)=>{
+                                                let is_selected = select_nft_ids.includes(one.id);
+                                                if (only_selected && !is_selected) {
+                                                    return null;
+                                                }
+                                                let traits = denormalize(one.trait_ids_array,imageTraitListSchema,entities);
+                                                return <div key={one.id} className="bg-white text-sm text-gray-600 cursor-pointer" onClick={this.selectNft.bind({},one.id)}>
+                                                    <Image2 trait_list={traits} index={index} id={one.id} />
+                                                    <div className='p-2 flex justify-between'>
+                                                        #{one.temp_id}
+                                                        {
+                                                            (is_selected)
+                                                            ?  <div className='bg-primary text-white w-5 h-5 flex justify-center items-center'>
+                                                                <CheckIcon className="icon-xs" />
+                                                            </div>
+                                                            : null
+                                                        }
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        }))
-                                    }
+                                            }))
+                                        }
+                                    </div>
+                                    : null
+                                }
+
+
+                            </div>
+                        </div>
+                        <div className='fixed bottom-0 left-0 w-full py-4 bg-white border-t border-gray-300' style={{'zIndex':9999}}>
+                            <div className='max-w-screen-xl mx-auto flex justify-between items-center'>
+                                <div className='text-sm'>
+                                    <div>{select_nft_ids.count()} generated NFT selected</div>
+                                    <div>{select_special_nft_ids.count()} sepecial NFT selected</div>
                                 </div>
-                                : null
-                            }
-
-
+                                <div className='flex justify-end items-center'>
+                                    <Button onClick={this.saveReserve} loading={this.state.is_saveing} className='btn btn-primary -ml-1'>{t('confirm reserve')}</Button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div> 
+                    </div> 
+                }
+                
+                <SuccessModal visible={this.state.show_success_modal} closeModal={this.toggleSuccessModal} title={t('Congratulations!')} desc={t('you have finished generate NFT ,now you can goto contract page for build your NFT contract now!')} link_text={t('goto contract page')} link_href={'/project/'+club_id+'/contract'} />
 
-                <div className='fixed bottom-0 left-0 w-full py-4 bg-white border-t border-gray-300' style={{'zIndex':9999}}>
-                    <div className='max-w-screen-xl mx-auto flex justify-between items-center'>
-                        <div className='text-sm'>
-                            <div>{select_nft_ids.count()} generated NFT selected</div>
-                            <div>{select_special_nft_ids.count()} sepecial NFT selected</div>
-                        </div>
-                        <div className='flex justify-end items-center'>
-                            <Button onClick={this.saveReserve} loading={this.state.is_saveing} className='btn btn-primary -ml-1'>{t('confirm reserve')}</Button>
-                        </div>
-                    </div>
-                </div>
             </div>
     </PageWrapper>
     }

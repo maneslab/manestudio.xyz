@@ -629,6 +629,7 @@ input{outline:none;}
 .club-nav-tabs .tab-active {
     @apply border-primary border-b-2 px-0 relative;
     bottom:-2px;  
+    padding-bottom:2px;
 }
 
 .header-bg {

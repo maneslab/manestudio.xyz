@@ -25,6 +25,7 @@ import BluechipSelect from 'components/form/mane/bluechip_select';
 import WhitelistUpload from 'components/form/mane/upload_whitelist_csv';
 import UploadPlaceholderModal from 'components/contract/placeholder_modal';
 
+
 import withClubView from 'hocs/clubview'
 
 import { BeakerIcon, DocumentTextIcon, PlusIcon, UploadIcon, InformationCircleIcon,  } from '@heroicons/react/outline'
@@ -737,6 +738,7 @@ class ContractView extends React.Component {
                         </Formik>
 
                     </div>
+
 
                 </div> 
             </div>
