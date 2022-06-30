@@ -29,6 +29,8 @@ function getUploadImageUrl(club) {
     return upload_url
 }
 
+
+
 function getApiUrl(url) {
     if (url.indexOf('/') == 0) {
         return config.get('API') + url;

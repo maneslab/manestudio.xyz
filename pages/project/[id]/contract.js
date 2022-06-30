@@ -154,6 +154,14 @@ class ContractView extends React.Component {
             values.placeholder_img_id = values.placeholder_img.img_id
         }
 
+        if (values.placeholder_video_id == 0) {
+            delete values.placeholder_video_id
+        }
+
+        if (values.placeholder_video) {
+            values.placeholder_video_id = values.placeholder_video.id
+        }
+
         return values;
     }
 
@@ -224,7 +232,7 @@ class ContractView extends React.Component {
             pb_price: "0",
             pb_start_time: 0,
             placeholder_img_id: 0,
-            placeholder_mp4_url: 0,
+            placeholder_video_id: 0,
             refund: [],
             refund_enable: 0,
             reveal_time: 0,
@@ -253,6 +261,12 @@ class ContractView extends React.Component {
             listType : 'picture',
             accept : '.jpg,.jpeg,.png,.gif',
         })
+
+        let empty_placeholder = <div className='bg-gray-100 w-64 h-64 flex justify-center items-center flex-col text-gray-400'>
+            <UploadIcon className='icon-base mb-4'/>
+            <div>{t('upload placeholder art')}</div>
+            <div>jpg / png / gif / mp4</div>
+        </div>
 
         return <PageWrapper>
             <Head>
@@ -594,15 +608,20 @@ class ContractView extends React.Component {
                                                         </label>
                                                         <div className='flex justify-start'>
                                                             {
-                                                                (values && values.placeholder_img)
+                                                                (values && values.placeholder_video)
                                                                 ? <div className='placeholder-img-wapper'>
-                                                                    <img src={values.placeholder_img.image_urls.url} />
+                                                                    <video autoplay muted loop src={values.placeholder_video.url}>
+                                                                    </video>
                                                                 </div>
-                                                                : <div className='bg-gray-100 w-64 h-64 flex justify-center items-center flex-col text-gray-400'>
-                                                                    <UploadIcon className='icon-base mb-4'/>
-                                                                    <div>{t('upload placeholder art')}</div>
-                                                                    <div>jpg / png / gif / mp4</div>
-                                                                </div>
+                                                                : <>
+                                                                    {
+                                                                        (values && values.placeholder_img)
+                                                                        ? <div className='placeholder-img-wapper'>
+                                                                            <img src={values.placeholder_img.image_urls.url} />
+                                                                        </div>
+                                                                        : empty_placeholder
+                                                                    }
+                                                                </>
                                                             }
                                                             <a className='btn btn-default ml-4' onClick={this.toggleModal.bind({},'show_upload_modal')}>
                                                                 <PlusIcon className='w-4 mr-2' /> {t('add pre-reveal placeholder')}

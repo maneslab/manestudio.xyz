@@ -22,13 +22,16 @@ class PlaceholderModal extends React.Component {
     handleUploadImageSuccess(result) {
         console.log('upload-result',result)
 
-        // this.props.saveContract({
-        //     'placeholder_img_id'    : result.data.img_id,
-        //     'club_id'               : this.props.club.get('id')
-        // });
-
         this.props.setFieldValue('placeholder_img',result.data)
+        this.props.setFieldValue('placeholder_video',null)
 
+        this.props.closeModal();
+    }
+
+    @autobind
+    handleUploadVideoSuccess(result) {
+        console.log('upload-result',result)
+        this.props.setFieldValue('placeholder_video',result.data)
         this.props.closeModal();
     }
 
@@ -43,6 +46,15 @@ class PlaceholderModal extends React.Component {
             name : 'file',
             listType : 'picture',
             accept : '.jpg,.jpeg,.png,.gif',
+        })
+
+        const uploadVideoProps = uploadRequest({
+            showUploadList : false,
+            multiple: false,
+            action: '/v1/upload/video',
+            name : 'file',
+            listType : 'picture',
+            accept : '.mov,.mp4,.mpeg',
         })
 
         return <Modal
@@ -67,6 +79,7 @@ class PlaceholderModal extends React.Component {
                     </div>
                 </button>
                 </Upload>
+                <Upload uploadProps={uploadVideoProps} afterSuccess={this.handleUploadVideoSuccess}>
                 <button className="btn btn-outline">
                     <div className="flex justify-start capitalize">
                         <FilmIcon className='icon-sm mr-2'/>
@@ -76,6 +89,7 @@ class PlaceholderModal extends React.Component {
                         mp4
                     </div>
                 </button>
+                </Upload>
             </div>
         </Modal>
     }
