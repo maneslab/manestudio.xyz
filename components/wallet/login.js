@@ -1,30 +1,107 @@
 import React from 'react';
-// import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { connect } from 'react-redux'
+import autobind from 'autobind-decorator';
 
 import ConnectButton from 'components/wallet/connect_button'
-
 import WalletPersonalSign from 'components/wallet/personal_sign'
+
 import withWallet from 'hocs/wallet';
-import { connect } from 'react-redux'
 import {getUnixtime} from 'helper/time'
-import {loginUser} from 'redux/reducer/user'
-import autobind from 'autobind-decorator';
+import {loginUser,logoutUser} from 'redux/reducer/user'
+import { denormalize } from 'normalizr';
+import { userSchema } from 'redux/schema/index'
 
 @withWallet
 class WalletLogin extends React.Component {
 
-
     constructor(props) {
         super(props)
         this.state = {
-            'is_init' : false,
+            'show_type' : null
         }
     }
     
-    componentDidMount() {
-        this.setState({
-            'is_init' : true
-        })
+    static getDerivedStateFromProps(props, state) {
+
+        const {login_user,wallet} = props;
+
+        let CONNECT = 'connect';
+        let SIGN_MESSAGE = 'sign_message'
+
+        let show_type = 'connect';
+
+        console.log('debug03->this.props.wallet',wallet);
+        if (login_user) {
+            console.log('debug03->this.props.login_user',login_user.toJS());
+        }else {
+            console.log('debug03->this.props.login_user is not exist');
+        }
+        /*
+            分成5种情况
+            1. 都登陆，且相同
+            2. 都登陆，且不同同
+            3. wallet尚未connect
+            4. login_user为空
+            5. 都为空
+        */
+
+        //都为空的情况
+        if (!login_user && !wallet) {
+            show_type = CONNECT;
+        }
+
+        //wallet存在，但是login_user为空的情况
+        if (!login_user && wallet) {
+            show_type = SIGN_MESSAGE;
+        }
+
+        //login_user存在，但是wallet为空的情况
+        if (login_user && !wallet) {
+
+            ///登出登陆用户
+            // this.logoutUser();
+            show_type = CONNECT;
+        }
+
+        //都存在的情况，并且相同
+        if (login_user && wallet && login_user.get('wallet_address').toLowerCase() == wallet.address.toLowerCase()) {
+            show_type = CONNECT;
+        }
+
+        //都存在的情况，并且不相同
+        if (login_user && wallet && login_user.get('wallet_address').toLowerCase() != wallet.address.toLowerCase()) {
+
+            ///登出登陆用户
+            // this.logoutUser();
+            show_type = SIGN_MESSAGE;
+        }
+
+        return {
+            show_type: show_type,
+        }
+    }
+
+    componentDidUpdate(prevProps,prevState) {
+        if (this.props.is_inited) {
+            
+            const {login_user,wallet} = this.props;
+
+            if (login_user && !wallet) {
+                console.log('debug03->因为发现登陆用户却没有发现connect-wallet，调用登出')
+                this.logoutUser();
+            }
+
+            if (login_user && wallet && login_user.get('wallet_address').toLowerCase() != wallet.address.toLowerCase()) {
+                console.log('debug03->因为发现登陆用户和connect-wallet不一致，调用登出')
+                this.logoutUser();
+            }
+
+        }
+    }
+
+
+    logoutUser() {
+        this.props.logoutUser();
     }
 
     generatePayload(wallet_address) {
@@ -49,14 +126,14 @@ class WalletLogin extends React.Component {
 
     render() {
 
-        const {wallet} = this.props;
-        const {is_init} = this.state;
+        const {wallet,is_inited} = this.props;
+        const {show_type} = this.state;
 
-        if (!is_init) {
-            return false;
+        if (!is_inited) {
+            return null;
         }
 
-        if (wallet && wallet.address) {
+        if (show_type == 'sign_message') {
 
             let payload = this.generatePayload(wallet.address);
             let msgstr = JSON.stringify(payload);  
@@ -74,10 +151,25 @@ const mapDispatchToProps = (dispatch) => {
     return {
         loginUser : (data) => {
             return dispatch(loginUser(data))
+        },
+        logoutUser : () => {
+            return dispatch(logoutUser())
         }
     }
 }
 function mapStateToProps(state,ownProps) {
-    return {}
+
+    let entities = state.get('entities');
+    ///注册成功
+    let login_user_id = state.getIn(['setting','login_user']);
+    let login_user = null;
+    if (login_user_id) {
+        login_user = denormalize(login_user_id,userSchema,entities)
+    }
+
+    return {
+        'login_user'  :  login_user,
+        'is_inited'   :  state.getIn(['setting','is_inited'])
+    }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(WalletLogin);

@@ -1,4 +1,5 @@
 import { useSignMessage } from 'wagmi'
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 export default function PersonalSign({message_str,handleLogin}) {
 
