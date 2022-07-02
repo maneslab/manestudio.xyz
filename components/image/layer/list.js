@@ -199,5 +199,5 @@ LayerList.propTypes = {
     group_id     : PropTypes.number
 };
   
-module.exports = connect(mapStateToProps,mapDispatchToProps)(withPageList(LayerList,{'formatData':formatData}))
+module.exports = connect(mapStateToProps,mapDispatchToProps,null,{forwardRef:true})(withPageList(LayerList,{'formatData':formatData}))
 

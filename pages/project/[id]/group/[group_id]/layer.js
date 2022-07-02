@@ -46,6 +46,7 @@ class GenerateGroupView extends React.Component {
 
     @autobind
     refreshList() {
+        console.log('called,refreshList',this.listRef.current)
         if (this.listRef.current) {
             this.listRef.current.refresh();
         }
@@ -63,7 +64,7 @@ class GenerateGroupView extends React.Component {
     render() {
         const {t} = this.props.i18n;
         const {list_count,group_id,club_id} = this.props;
-
+        console.log('this.listRef',this.listRef)
 
         return <PageWrapper>
             <Head>

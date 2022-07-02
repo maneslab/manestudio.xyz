@@ -97,6 +97,8 @@ class TraitList extends React.Component {
             accept : '.jpg,.jpeg,.png,.gif',
         })
 
+        console.log('debuguploadProps',uploadProps)
+
         return <div>
             {
                 (list_data_one.get('is_fetching'))

@@ -49,6 +49,7 @@
     "next-translate": "^1.2.0",
     "next-transpile-modules": "^9.0.0",
     "normalizr": "^3.6.1",
+    "qs": "^6.11.0",
     "query-string": "^7.0.1",
     "raw-loader": "^4.0.2",
     "rc-datepicker": "^5.0.16",
