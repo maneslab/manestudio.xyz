@@ -364,7 +364,7 @@ class ContractView extends React.Component {
                                                             <div className='flex-grow mr-2 items-center'>
                                                                 <input className='input-box' value={this.state.asc2text} onChange={(e)=>{this.setState({
                                                                     asc2text: e.target.value
-                                                                })}} label={t("ASCII art text generator")} placeholder={"any text"} />
+                                                                })}} maxlength={6} label={t("ASCII art text generator")} placeholder={"any text"} />
                                                             </div>
                                                             <a className='btn btn-default' onClick={()=>{
                                                                 this.fetchAsc2MarkFromText(this.state.asc2text,setFieldValue)
