@@ -33,15 +33,6 @@ class GroupOne extends React.Component {
         }
     }
 
-    // componentDidUpdate(prevProps, prevState) {
-    //     console.log('debug97,componentDidUpdate');
-    //     if (!this.props.group.equals(prevProps.group)) {
-    //         console.log('debug07,not eq',this.props.group.toJS())
-    //         this.setState({
-    //             'generate_number' : this.props.group.get('generate_number')
-    //         })
-    //     }
-    // }
 
     async deleteGroup() {
         const {t} = this.props.i18n;

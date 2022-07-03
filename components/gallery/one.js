@@ -1,13 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
 import {useSortable} from '@dnd-kit/sortable';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation'
 import {CSS} from '@dnd-kit/utilities';
 
-import Input from 'components/form/field'
-import Textarea from 'components/form/textarea'
+import {confirm} from 'components/common/confirm/index'
 
-import { MinusIcon, ChevronDownIcon,ChevronUpIcon, TrashIcon } from '@heroicons/react/outline';
+import { TrashIcon } from '@heroicons/react/outline';
 import DragIcon from 'public/img/icons/drag.svg'
 
 export default function SortableItem({img,open_index,id,toggleOpen,remove,draging_index,errors}) {
@@ -35,6 +34,15 @@ export default function SortableItem({img,open_index,id,toggleOpen,remove,dragin
     if (is_draging) {
         style['zIndex'] = 10000
     }
+
+    const  deleteItem = async (e) => {
+        if (await confirm({
+            confirmation: t('are you sure you want to delete this image?')
+        })) {
+            e.stopPropagation();
+            remove(id)
+        }
+    }
     /* onClick={()=>{
                 toggleOpen(id)
             }}*/
@@ -48,11 +56,7 @@ export default function SortableItem({img,open_index,id,toggleOpen,remove,dragin
                     </div>
                     <div className='hover-bg'></div>
                     <div className='tools'>
-                        <button type="button" className='btn btn-primary'  onClick={(e) => {
-                            console.log('debug05,call remove',id)
-                            e.stopPropagation();
-                            remove(id)
-                        }}>
+                        <button type="button" className='btn btn-primary'  onClick={deleteItem}>
                             <TrashIcon className='icon-sm'/>
                         </button>
                     </div>
