@@ -90,6 +90,7 @@
 
 body {
     color :#000;
+    background-color: #f5f5f5;
 }
 
 html,body {
@@ -790,3 +791,34 @@ select {
 .placeholder-img-wapper {
     @apply w-64
 }
+
+.info-dl {
+    @apply mb-4;
+}
+.info-dl label {
+    @apply text-gray-400;
+}
+
+.alert-info {
+    @apply bg-[#DAE5FC] text-[#5387F6];
+}
+
+.info-table {
+    @apply w-full text-sm;
+}
+.info-table th {
+    @apply text-left bg-gray-100 py-2 px-4;
+}
+.info-table td {
+    @apply text-left py-2 px-4;
+}
+
+.gas-wrapper {
+    @apply p-4 py-2 text-base;
+}
+.gas-wrapper .gas-one {
+    @apply flex justify-between items-center my-2;
+}
+.gas-wrapper .gas-one .l {
+    @apply capitalize;
+} 

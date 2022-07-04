@@ -133,6 +133,10 @@ const showBalance = (balance,decimals = 18) => {
     return new BigNumber(balance).dividedBy(Math.pow(10,decimals));
 }
 
+const fromPercentToPPM = (value) => {
+    return Number(value)*1000000;
+}
+
 module.exports = {
     'percentDecimal' : percentDecimal,
     'autoDecimal'    : autoDecimal,
@@ -147,5 +151,6 @@ module.exports = {
     'getAmountFromIntAmount' : getAmountFromIntAmount,
     'getIntAmountByAmount'   : getIntAmountByAmount,
     'getAmountFromHex'       : getAmountFromHex,
-    'showBalance'            : showBalance
+    'showBalance'            : showBalance,
+    'fromPercentToPPM'       : fromPercentToPPM
 }

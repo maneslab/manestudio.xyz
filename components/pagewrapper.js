@@ -4,6 +4,7 @@ import autobind from 'autobind-decorator'
 
 import classNames from 'classnames';
 import LanguageBtn from 'components/language/btn'
+import GasButton from 'components/common/gas/button'
 // import NavLink from 'components/common/navlink'
 
 import Head from 'next/head'
@@ -94,6 +95,8 @@ class PageWrapper extends React.Component {
                             
 
                             <div className='flex justify-end items-center'>
+
+                                <GasButton />
 
                                 <LanguageBtn />
 

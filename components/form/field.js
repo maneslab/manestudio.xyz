@@ -23,7 +23,9 @@ const CommonField = ({ name, label, placeholder,notice, className , ...props }) 
                 {/* console.log('show_error',meta) */}
                 return <div  className="form-input-wapper">
                 <Input placeholder={placeholder} has_error={show_error} value={value} onChange={(e)=>setFieldValue(name,e.target.value)} onBlur={(e)=>setFieldTouched(name,true)} {...props}/>
+                <div className='text-red-500'>
                 <ErrorMessage name={name} />
+                </div>
                 {
                     (notice)
                     ? <div className="text-base text-gray-600 pt-1">{notice}</div>

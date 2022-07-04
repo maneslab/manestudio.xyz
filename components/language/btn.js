@@ -115,7 +115,9 @@ class LanguageBtn extends React.Component {
         const country = this.transferLanguageToCountry(lang);
 
         // console.log('debug-lang',lang,country);
-
+/*                            <span className="icon">
+                                {this.getFlagIcon(country)}
+                            </span>*/
         let content = <div className="block-menu w-48">
             <ul className='overflow-y-auto w-full py-2'>
                 {
@@ -123,9 +125,7 @@ class LanguageBtn extends React.Component {
                         let country = this.transferLanguageToCountry(one).toLowerCase();
                         return <li key={one}>
                             <a onClick={this.setLanguage.bind({},one)} className="select-li">
-                            <span className="icon">
-                                {this.getFlagIcon(country)}
-                            </span>
+
                             <span className='word'>
                             {
                                 this.transferLanguageToFullName(one)
@@ -138,15 +138,16 @@ class LanguageBtn extends React.Component {
             </ul>
         </div>
 
+//                    <span className="md:mr-2">{this.getFlagIcon(country)}</span>
+
         //{"press-down":visible}
         return (
             <>
             <Dropdown visible={visible} overlay={content} 
                 trigger="click"
                 placement="bottomLeft" onVisibleChange={this.toggleVisible} >
-                <Button className={classNames('mr-4 py-1 px-2')}>
+                <Button className='btn btn-ghost mr-2'>
                     <div className="flex items-center text-sm">
-                    <span className="md:mr-2">{this.getFlagIcon(country)}</span>
                     <span className='hidden md:block font-bold text-base uppercase'>{lang}</span>
                     <span><ChevronDownIcon className='icon-sm ml-2' /></span>
                     </div>

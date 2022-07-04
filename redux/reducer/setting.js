@@ -6,6 +6,7 @@ import {httpRequest} from 'helper/http'
 
 import {userSchema} from 'redux/schema/index';
 import { normalize, schema } from 'normalizr';
+import { getUnixtime } from "helper/time";
 
 
 
@@ -20,6 +21,9 @@ export const setActiveClub = createAction('SET_ACTIVE_CLUB_ID');
 
 export const SET_ACTIVE_TRAIT_ID = 'SET_ACTIVE_TRAIT_ID'
 export const setActiveTraitId = createAction('SET_ACTIVE_TRAIT_ID');
+
+export const SET_GAS_DATA = 'SET_GAS_DATA'
+export const setGasData = createAction('SET_GAS_DATA');
 
 
 export const SET_SETTING = 'SET_SETTING'
@@ -143,10 +147,18 @@ export function reducer(state = Immutable.fromJS({
     'is_initing'            : false,
     'is_inited'             : false,
     'slider'                : true,
-    'active_trait'          : {}
+    'active_trait'          : {},
+    'gas_data'              : {
+        'data'              : {},
+        'last_update_time'  : 0
+    },
 }), action) {
 
     switch (action.type) {
+
+        case SET_GAS_DATA:
+            return state.setIn(['gas_data','data'],Immutable.fromJS(action.payload))
+            .setIn(['gas_data','last_update_time'],getUnixtime());
 
         case SET_ACTIVE_TRAIT_ID:
             return state.setIn(['active_trait',action.payload.group_id,action.payload.layer_id],action.payload.trait_id);

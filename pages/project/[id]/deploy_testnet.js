@@ -15,6 +15,7 @@ import withMustLogin from 'hocs/mustlogin';
 import withTranslate from 'hocs/translate';
 import withSetActiveClub from 'hocs/set_active_club'
 import withActiveClub from 'hocs/active_club'
+import Showtime from 'components/time/showtime'
 
 import {loadContract,saveContract} from 'redux/reducer/contract'
 import FormSwitch from 'components/form/switch';
@@ -24,9 +25,11 @@ import ExpiretimeSelect from 'components/form/expiretime_select';
 import BluechipSelect from 'components/form/mane/bluechip_select';
 import WhitelistUpload from 'components/form/mane/upload_whitelist_csv';
 import UploadPlaceholderModal from 'components/contract/placeholder_modal';
+import ContractSide from 'components/contract/side';
+import {ethers} from 'ethers'
+import notification from 'components/common/notification'
 
-import ContractSide from 'components/contract/side'
-
+import manestudio from 'helper/web3/manestudio';
 
 import withClubView from 'hocs/clubview'
 
@@ -40,8 +43,11 @@ import Upload from 'components/common/upload'
 import {httpRequest, uploadRequest} from 'helper/http'
 import { denormalize } from 'normalizr';
 import {contractSchema} from 'redux/schema/index'
+import withWallet from 'hocs/wallet';
+import {percentDecimal,autoDecimal,fromPercentToPPM} from 'helper/number'
 
 @withTranslate
+@withWallet
 @withMustLogin
 @withClubView
 @withActiveClub
@@ -51,11 +57,8 @@ class ContractView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            is_fetching : false,
-            is_fetched  : false,
-            is_saveing  : false,
-            show_upload_modal : false,
-            asc2text : ''
+            is_deploy_contract : false,
+            is_estimate_ing : false
         }
         // this.loadGenerateList = ::this.loadGenerateList
         this.formRef = React.createRef();
@@ -220,11 +223,182 @@ class ContractView extends React.Component {
             setFieldValue('asc2mark',result.data)
         })
     }
- 
+
+    @autobind
+    getDeployData() {
+
+        ///准备deploy的资料
+        let {contract,club} = this.props;
+        // console.log('debug05:contract',contract.toJS())
+        // console.log('debug05:club',club.toJS())
+
+
+        let u256s = {
+            "reserve_count" : contract.get('reserve_count'),
+            "max_supply"    : contract.get('max_supply'),
+            "presale_max_supply"    :   contract.get('wl_enable') ? contract.get('wl_max_supply') : 0,
+            "club_id"       : contract.get('club_id'),
+            'presale_start_time'    :   (contract.get('wl_enable') && contract.get('wl_start_time')) ? contract.get('wl_start_time') : 0,
+            'presale_end_time'      :   (contract.get('wl_enable') && contract.get('wl_end_time')) ? contract.get('wl_end_time') : 1,
+            'sale_start_time'       :   (contract.get('pb_enable') && contract.get('pb_start_time')) ? contract.get('pb_start_time') : 0,
+            'sale_end_time'         :   (contract.get('pb_enable') && contract.get('sale_end_time')) ? contract.get('sale_end_time') : 0,
+            'presale_price'         :   contract.get('wl_enable') ? ethers.utils.parseEther(contract.get('wl_price')) : 0,
+            'sale_price'            :   contract.get('pb_enable') ? ethers.utils.parseEther(contract.get('pb_price')) : 0,
+            'presale_per_wallet_count'  :   contract.get('wl_enable') ? contract.get('wl_per_address') : 0,
+            'sale_per_wallet_count'  :   contract.get('pb_enable') ? contract.get('pb_per_address') : 0,
+        }
+
+        // console.log('debug05,u256s',u256s);
+
+        let share_address_list = [];
+        let share_ratio_list = [];
+        if (contract.get('revenue_share_enable')) {
+            contract.get('revenue_share').map(one=>{
+                share_address_list.push(one.get('address'));
+                share_ratio_list.push(fromPercentToPPM(one.get('rate')));
+            })
+        }
+
+        let refund_time_list = [];
+        let refund_ratio_list = [];
+        if (contract.get('refund_enable')) {
+            contract.get('refund').map(one=>{
+                refund_time_list.push(one.get('end_time'));
+                refund_ratio_list.push(fromPercentToPPM(one.get('refund_rate')));
+            })
+        }
+
+
+        
+        let data = {
+            'name'      : contract.get('name'),
+            'symbol'    : contract.get('symbol'),
+            'refund_time_list' : refund_time_list,
+            'refund_ratio_list': refund_ratio_list,
+            'share_address_list' : share_address_list,
+            'share_ratio_list'   : share_ratio_list,
+            'u256s'              : u256s
+        };
+
+        return data;
+    }
+
+    @autobind
+    async estimateGas() {
+        const data = this.getDeployData();
+        let mane = new manestudio(t,'kovan');
+
+        
+        this.setState({
+            is_estimate_ing : true
+        })
+        ///预估gas费用
+        let gas_data = await mane.estimateGasDeploy(
+            data.name,
+            data.symbol,
+            [
+                data.u256s.reserve_count,
+                data.u256s.max_supply,
+                data.u256s.presale_max_supply,
+                data.u256s.club_id,
+                data.u256s.presale_start_time,
+                data.u256s.presale_end_time,
+                data.u256s.sale_start_time,
+                data.u256s.sale_end_time,
+                data.u256s.presale_price,
+                data.u256s.sale_price,
+                data.u256s.presale_per_wallet_count,
+                data.u256s.sale_per_wallet_count
+            ],
+            data.share_address_list,
+            data.share_ratio_list,
+            data.refund_time_list,
+            data.refund_ratio_list,
+        );
+
+        this.setState({
+            is_estimate_ing : false
+        })
+        // console.log('estimateGasDepositToken得到的gas_data：',gas_data);
+        // console.log('estimateGasDepositToken得到的gas_fee：',gas_data.gasFee.toString());
+        notification.info({
+            'message' : '预估Gas费用',
+            'description': '预计需要的GAS费用是:'+autoDecimal(gas_data.gasFee.toString())+'ETH'
+        });
+
+    }
+
+    @autobind
+    async deploy() {
+
+        const {t} = this.props.i18n;
+
+        const data = this.getDeployData();
+
+        let mane = new manestudio(t,'kovan');
+        console.log('mane',mane)
+
+
+
+        var that = this;
+
+        await mane.request({
+            'text' : {
+                'loading' : t('deploy contract'),
+                'sent'    : t('deploy contract tx sent'),
+                'success' : t('deploy contract successful'),
+            },
+            'func' : {
+                'send_tx' : async () => {
+                    let tx_in = await mane.contract.deploy(
+                        data.name,
+                        data.symbol,
+                        [
+                            data.u256s.reserve_count,
+                            data.u256s.max_supply,
+                            data.u256s.presale_max_supply,
+                            data.u256s.club_id,
+                            data.u256s.presale_start_time,
+                            data.u256s.presale_end_time,
+                            data.u256s.sale_start_time,
+                            data.u256s.sale_end_time,
+                            data.u256s.presale_price,
+                            data.u256s.sale_price,
+                            data.u256s.presale_per_wallet_count,
+                            data.u256s.sale_per_wallet_count
+                        ],
+                        data.share_address_list,
+                        data.share_ratio_list,
+                        data.refund_time_list,
+                        data.refund_ratio_list
+                    );
+                    console.log('tx is send',tx_in)
+                    return tx_in;
+                },
+                'before_send_tx' : () => {
+                    that.setState({
+                        is_deploy_contract : true,
+                    })
+                },
+                'finish_tx' : () => {
+                    that.setState({
+                        is_deploy_contract : false,
+                    })
+                },
+                'after_finish_tx' : () => {
+                    console.log('after_finish_tx');
+                    // this.getUserSafeBox(this.props.login_user.get('wallet_address'));
+                }
+            } 
+        })
+    }
+
     render() {
         // const {t} = this.props.i18n;
         const {is_fetching,is_fetched,generates,merged_traits,preview_id,preview_index} = this.state;
-        const {club_id,club,contract} = this.props;
+        const {club_id,club,contract,wallet,chain,chains} = this.props;
+
+        console.log('wallet-test',wallet,chain,chains)
 
         let init_data = {
             asc2mark: "",
@@ -254,8 +428,6 @@ class ContractView extends React.Component {
         }
         let formSchema = Yup.object().shape({
             name      : Yup.string().required(),
-            symbol    : Yup.string().required(),
-            wl_max_supply : Yup.number().integer().lessThan(Yup.ref('max_supply')).nullable(),
         });
 
         const uploadProps = uploadRequest({
@@ -287,6 +459,84 @@ class ContractView extends React.Component {
                     </div>
 
                     <div className="col-span-10 pb-24">
+
+                        <h1 className='h1 mb-8'>{t('deployment to ETH testnet')}</h1>
+
+                        {
+                            (chain && chain.id == 1)
+                            ? <div className='bg-white p-4 pl-8 mb-8 flex justify-between items-center'>
+                                <span className="capitalize">{t('you are connecting to the ETH mainnet')}</span>
+                                <button className='btn btn-primary'>switch Network</button>
+                            </div>
+                            : <div className='bg-white p-4 pl-8 mb-8 flex justify-between items-center'>
+                                <span className="capitalize">{t('you are connecting to the ETH testnet')} {chain.name}</span>
+                                <div className='flex justify-end items-center'>
+                                    <Button loading={this.state.is_estimate_ing} className='btn btn-default mr-2' onClick={this.estimateGas}>estimate gas fee</Button>
+                                    <Button loading={this.state.is_deploy_contract} className='btn btn-primary' onClick={this.deploy}>deploy</Button>
+                                </div>
+                            </div>
+                        }
+
+                        <div className='contract-form'>
+                            <h2 className='mb-2'>{t('contract infomation')}</h2>
+                            <div className='grid grid-cols-9 gap-8'>
+                                <div className="col-span-6">
+                                    <div className='ct'>
+                                        <div className='info-dl'>
+                                            <label>合约地址</label>
+                                            <div>
+                                            0x374fEB1050EE9F84d03BE7B189A00c911fD65e2a
+                                            </div>
+                                        </div>
+                                        <div className='info-dl'>
+                                            <label>Type</label>
+                                            <div>
+                                                ERC721
+                                            </div>
+                                        </div>
+                                        <div className='info-dl'>
+                                            <label>Symbol</label>
+                                            <div>
+                                                WGG
+                                            </div>
+                                        </div>
+                                        <div className='info-dl'>
+                                            <label>Name</label>
+                                            <div>
+                                                Facebook Inc
+                                            </div>
+                                        </div>
+                                        <div className='info-dl'>
+                                            <label>Refundable</label>
+                                            <div>
+                                                <table className='info-table w-full"'>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>{t('time')}</th>
+                                                            <th>{t('refundable ratio')}</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><span className=''><Showtime unixtime={1} /></span></td>
+                                                            <td>{percentDecimal(0.1)}%</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-span-3 intro">
+                                    <p>{t('ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.')}</p>
+                                    <p>{t('You can define your details of your contract here, as well as many customizable function below.')}</p>
+                                    <p>{t('DON’T PANIC! You can deploy your contract to Kovan testnet for free, check if everythings is correct, then deploy to Ethereum mainnet.')}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+
                         <div class="alert alert-info shadow-sm mb-8">
                             <div>
                                 <InformationCircleIcon className='icon-sm'/>
@@ -700,14 +950,7 @@ class ContractView extends React.Component {
 
 
                        
-                        <div className='fixed bottom-0 left-0 w-full py-4 bg-white border-t border-gray-300' style={{'zIndex':9999}}>
-                            <div className='max-w-screen-xl mx-auto grid grid-cols-12 gap-8'>
-                                <div className='col-span-2'></div>
-                                <div className='col-span-10'>
-                                    <Button type="submit" loading={this.state.is_saveing} className='btn btn-primary -ml-1'>{t('save')}</Button>
-                                </div>
-                            </div>
-                        </div>
+           
 
                         </Form>
                             )}

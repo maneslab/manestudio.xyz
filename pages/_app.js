@@ -10,43 +10,69 @@ import config from 'helper/config'
 import '@rainbow-me/rainbowkit/styles.css';
 
 import {
-  apiProvider,
-  configureChains,
   getDefaultWallets,
   RainbowKitProvider,
   darkTheme
 } from '@rainbow-me/rainbowkit';
-import { chain, createClient, WagmiProvider } from 'wagmi';
-import merge from 'lodash.merge';
 
-const env = config.get('ENV')
-
-let allow_nets = [];
-if (env == 'production') {
-    allow_nets = [chain.polygonMumbai]
-}else {
-    allow_nets = [chain.kovan]
-
-}
+import {
+  chain,
+  configureChains,
+  createClient,
+  WagmiConfig,
+} from 'wagmi';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
+import { publicProvider } from 'wagmi/providers/public';
+//rainbowkit导入结束
 
 const { chains, provider } = configureChains(
-    allow_nets,
+    [chain.mainnet, chain.ropsten, chain.kovan ],
     [
-      apiProvider.alchemy(process.env.ALCHEMY_ID),
-      apiProvider.fallback()
+        alchemyProvider({ alchemyId: config.get('ALCHEMY_ID') }),
+        publicProvider()
     ]
 );
-  
+
 const { connectors } = getDefaultWallets({
-    appName: 'My RainbowKit App',
+    appName: 'ManeStudio',
     chains
 });
-  
+
 const wagmiClient = createClient({
     autoConnect: true,
     connectors,
     provider
 })
+
+import merge from 'lodash.merge';
+// const env = config.get('ENV')
+
+// let allow_nets = [];
+// if (env == 'production') {
+//     allow_nets = [chain.polygonMumbai]
+// }else {
+//     allow_nets = [chain.kovan]
+
+// }
+
+// const { chains, provider } = configureChains(
+//     allow_nets,
+//     [
+//       apiProvider.alchemy(process.env.ALCHEMY_ID),
+//       apiProvider.fallback()
+//     ]
+// );
+  
+// const { connectors } = getDefaultWallets({
+//     appName: 'My RainbowKit App',
+//     chains
+// });
+  
+// const wagmiClient = createClient({
+//     autoConnect: true,
+//     connectors,
+//     provider
+// })
 
 const myTheme = merge(darkTheme(), {
     colors: {
@@ -120,7 +146,7 @@ class MyApp extends App {
 
         // const isServer = (typeof window === 'undefined');
 
-        return <WagmiProvider client={wagmiClient}>
+        return <WagmiConfig client={wagmiClient}>
             <RainbowKitProvider chains={chains} theme={myTheme}>
                 <Component {...pageProps} />
                 {
@@ -129,7 +155,7 @@ class MyApp extends App {
                     : <div className="m-loading-bar"></div>
                 }
             </RainbowKitProvider>
-        </WagmiProvider>
+        </WagmiConfig>
         
     }
 }
