@@ -154,20 +154,7 @@ class GenerateGroupView extends React.Component {
         const {is_fetching,is_fetched,generates,merged_traits,preview_id,preview_index,uniqueness} = this.state;
         const {club_id,entities} = this.props;
 
-        // console.log('debug08,merged_traits',merged_traits)
 
-        /* Object.keys(merged_traits).map(k=>{
-            return <div>
-                <div>{merged_traits[k]}</div>
-                <div>{
-                    Object.keys(merged_traits[k]).map(k2=>{
-                        return <div>
-                        {k2}
-                        </div>
-                    })
-                }</div>
-            </div>
-        }) */
         return <PageWrapper>
             <Head>
                 <title>{t('generate nft')}</title>

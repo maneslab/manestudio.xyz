@@ -8,6 +8,7 @@ import {connect} from 'react-redux'
 import PageWrapper from 'components/pagewrapper'
 import ClubHeader from 'components/club/header'
 import Button from 'components/common/button'
+import GasButton from 'components/common/gas/button'
 
 import withMustLogin from 'hocs/mustlogin';
 import withTranslate from 'hocs/translate';
@@ -46,7 +47,11 @@ class ContractView extends React.Component {
         super(props)
         this.state = {
             is_deploy_contract : false,
-            is_estimate_ing : false
+            is_estimate_ing : false,
+            is_estimated    : false,
+            gas_data_without_reverse : null,
+            gas_data : null,
+            reserve_count : 0
         }
     }
 
@@ -144,6 +149,7 @@ class ContractView extends React.Component {
         this.setState({
             is_estimate_ing : true
         })
+
         ///预估gas费用
         let gas_data = await mane.estimateGasDeploy(
             data.name,
@@ -168,15 +174,48 @@ class ContractView extends React.Component {
             data.refund_ratio_list,
         );
 
+        let gas_data_without_reverse;
+
+        if (data.u256s.reserve_count > 0) {
+
+            gas_data_without_reverse = await mane.estimateGasDeploy(
+                data.name,
+                data.symbol,
+                [
+                    0,
+                    data.u256s.max_supply,
+                    data.u256s.presale_max_supply,
+                    data.u256s.club_id,
+                    data.u256s.presale_start_time,
+                    data.u256s.presale_end_time,
+                    data.u256s.sale_start_time,
+                    data.u256s.sale_end_time,
+                    data.u256s.presale_price,
+                    data.u256s.sale_price,
+                    data.u256s.presale_per_wallet_count,
+                    data.u256s.sale_per_wallet_count
+                ],
+                data.share_address_list,
+                data.share_ratio_list,
+                data.refund_time_list,
+                data.refund_ratio_list,
+            );
+
+        }
+
         this.setState({
-            is_estimate_ing : false
+            is_estimate_ing : false,
+            is_estimated : true,
+            gas_data_without_reverse : gas_data_without_reverse,
+            gas_data : gas_data,
+            reserve_count : data.u256s.reserve_count
         })
         // console.log('estimateGasDepositToken得到的gas_data：',gas_data);
         // console.log('estimateGasDepositToken得到的gas_fee：',gas_data.gasFee.toString());
-        notification.info({
-            'message' : '预估Gas费用',
-            'description': '预计需要的GAS费用是:'+autoDecimal(gas_data.gasFee.toString())+'ETH'
-        });
+        // notification.info({
+        //     'message' : '预估Gas费用',
+        //     'description': '预计需要的GAS费用是:'+autoDecimal(gas_data.gasFee.toString())+'ETH'
+        // });
 
     }
 
@@ -274,12 +313,34 @@ class ContractView extends React.Component {
                                 <span className="capitalize">{t('you are connecting to the ETH mainnet')}</span>
                                 <SwitchChainButton />
                             </div>
-                            : <div className='bg-white p-4 pl-8 mb-8 flex justify-between items-center'>
-                                <span className="capitalize">{t('you are connecting to the ETH testnet')} {chain.name}</span>
-                                <div className='flex justify-end items-center'>
-                                    <Button loading={this.state.is_estimate_ing} className='btn btn-default mr-2' onClick={this.estimateGas}>estimate gas fee</Button>
-                                    <Button loading={this.state.is_deploy_contract} className='btn btn-primary' onClick={this.deploy}>deploy</Button>
+                            : <div className='bg-white p-4 pl-8 mb-8 '>
+                                <div className='flex justify-between items-center'>
+                                    <span className="capitalize">{t('you are connecting to the ETH testnet')} {chain.name}</span>
+                                    <div className='flex justify-end items-center'>
+                                        <GasButton />
+                                        <Button loading={this.state.is_estimate_ing} className='btn btn-default mr-2' onClick={this.estimateGas}>estimate gas fee</Button>
+                                        <Button loading={this.state.is_deploy_contract} className='btn btn-primary' onClick={this.deploy}>deploy</Button>
+                                    </div>
                                 </div>
+                                {
+                                    (this.state.is_estimated)
+                                    ? <div className='pt-4 mt-4 border-t border-gray-100'>
+                                        <h3 className='text-gray-500 mb-2'>{t('gas estimate')}</h3>
+                                        <div className='flex justify-start'>
+                                            <span className='w-64'>{t('contract deploy')}</span>
+                                            <span>{autoDecimal(this.state.gas_data.gasFee.toString())} ETH</span>
+                                        </div>
+                                        {
+                                            (this.state.reserve_count > 0)
+                                            ? <div className='flex justify-start'>
+                                                <span className='w-64'>{t('contract deploy without reverse')}</span>
+                                                <span>{autoDecimal(this.state.gas_data_without_reverse.gasFee.toString())} ETH</span>
+                                            </div>
+                                            : null
+                                        }
+                                    </div>
+                                    : null
+                                }
                             </div>
                         }
 

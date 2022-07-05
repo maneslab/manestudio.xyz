@@ -25,6 +25,7 @@ import BluechipSelect from 'components/form/mane/bluechip_select';
 import WhitelistUpload from 'components/form/mane/upload_whitelist_csv';
 import UploadPlaceholderModal from 'components/contract/placeholder_modal';
 import EmptyPlaceholder from 'components/common/empty_placeholder'
+import PublicEndTimeSelect from 'components/form/mane/public_endtime_select';
 
 import ContractSide from 'components/contract/side'
 
@@ -544,19 +545,8 @@ class ContractView extends React.Component {
 
                                                     <ExpiretimeSelect label={t('public sale start time')} name={'pb_start_time'}  />
                                                     
-                                                    {
-                                                        (values.pb_end_time_enable > 0)
-                                                        ? <div className='flex justify-start items-end'>
-                                                            <ExpiretimeSelect label={t('public sale end time')} name={'pb_end_time'}  />
-                                                            <FormSwitch name={"pb_end_time_enable"} className="toggle toggle-primary"/>
-                                                        </div>
-                                                        : <div class="form-control">
-                                                            <label class="label"><span class="label-text">public sale end time</span></label>
-                                                            <div>
-                                                            <FormSwitch name={"pb_end_time_enable"} className="toggle toggle-primary"/>
-                                                            </div>
-                                                        </div>
-                                                    }
+                                                    <PublicEndTimeSelect label={t('public sale end time')} name={'pb_end_time'} pb_enable={values.pb_end_time_enable}/>
+
 
                                                     
 
