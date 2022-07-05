@@ -16,6 +16,7 @@ import withTranslate from 'hocs/translate';
 import withSetActiveClub from 'hocs/set_active_club'
 import withActiveClub from 'hocs/active_club'
 import Showtime from 'components/time/showtime'
+import SwitchChainButton from 'components/wallet/switch_chain';
 
 import {loadContract,saveContract} from 'redux/reducer/contract'
 import FormSwitch from 'components/form/switch';
@@ -466,7 +467,7 @@ class ContractView extends React.Component {
                             (chain && chain.id == 1)
                             ? <div className='bg-white p-4 pl-8 mb-8 flex justify-between items-center'>
                                 <span className="capitalize">{t('you are connecting to the ETH mainnet')}</span>
-                                <button className='btn btn-primary'>switch Network</button>
+                                <SwitchChainButton />
                             </div>
                             : <div className='bg-white p-4 pl-8 mb-8 flex justify-between items-center'>
                                 <span className="capitalize">{t('you are connecting to the ETH testnet')} {chain.name}</span>
@@ -535,12 +536,17 @@ class ContractView extends React.Component {
                             </div>
                         </div>
                         
-                        
+                        <div class="alert alert-info shadow-sm mb-8">
+                            <div>
+                                <InformationCircleIcon className='icon-sm'/>
+                                <span>以下部分设置，需要支付GAS在合约中进行修改</span>
+                            </div>
+                        </div>
 
                         <div class="alert alert-info shadow-sm mb-8">
                             <div>
                                 <InformationCircleIcon className='icon-sm'/>
-                                <span>以下部分设置，需要重新发布合约才会生效</span>
+                                <span>以下部分设置，不需要修改合约，会实时生效</span>
                             </div>
                         </div>
                         
@@ -554,163 +560,6 @@ class ContractView extends React.Component {
                                 <Form className="w-full">
                                 
                                 {console.log('form.value',values)}
-
-                                <div className='contract-form'>
-                                    <h2 className='mb-2'>{t('contract basics')}</h2>
-                                    <div className='grid grid-cols-9 gap-8'>
-                                        <div className="col-span-6">
-                                            <div className='ct'>
-                                                <Input name="name" label={t("contract name")} placeholder={"E.g. weirdo ghost gang"} />
-                                                <Input name="symbol" label={"symbol"} placeholder={"E.g. WGG"} />
-                                                <div className='grid grid-cols-2 gap-4'>
-                                                    <Input name="type" label={t("type")} value={"ERC-721A"} readOnly={true} placeholder={"E.g. weirdo ghost gang"} />
-                                                    <Input name="max_supply" label={"max token supply"} readOnly={true} disabled />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-span-3 intro">
-                                            <p>{t('ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.')}</p>
-                                            <p>{t('You can define your details of your contract here, as well as many customizable function below.')}</p>
-                                            <p>{t('DON’T PANIC! You can deploy your contract to Kovan testnet for free, check if everythings is correct, then deploy to Ethereum mainnet.')}</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className='contract-form'>
-                                    <h2 className='mb-2'>{'ASCII mark'}</h2>
-                                    <div className='grid grid-cols-9 gap-8'>
-                                        <div className="col-span-6">
-                                            <div className='ct'>
-
-                                                <div className='grid grid-cols-2 gap-4 mb-4'>
-                                                    <div>
-                                                        <label class="label"><span class="label-text">ASCII art {t('text generator')}</span></label>
-
-                                                        <div className='flex justify-between items-center mb-4'>
-                                                            <div className='flex-grow mr-2 items-center'>
-                                                                <input className='input-box' value={this.state.asc2text} onChange={(e)=>{this.setState({
-                                                                    asc2text: e.target.value
-                                                                })}} maxlength={6} label={t("ASCII art text generator")} placeholder={"any text"} />
-                                                            </div>
-                                                            <a className='btn btn-default' onClick={()=>{
-                                                                this.fetchAsc2MarkFromText(this.state.asc2text,setFieldValue)
-                                                            }}>LFG!</a>
-                                                        </div>
-                                                    </div>
-                                                    <div className=''>
-                                                        <label class="label"><span class="label-text">ASCII art {t('image generator')}</span></label>
-                                                        <div className='flex justify-between'>
-                                                            <Upload uploadProps={uploadProps} afterSuccess={(asc_result)=>{
-                                                                this.fetchAsc2Mark(asc_result,setFieldValue);
-                                                            }}>  
-                                                                <button type="button" className='btn w-full'>
-                                                                    <PlusIcon className='w-4 mr-2' /> {t('upload image')}
-                                                                </button>
-                                                            </Upload>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                
-                                                {
-                                                    (values.asc2mark) 
-                                                    ? <div className=''>
-                                                        <div className='flex justify-between items-center mb-2'>
-                                                            <label class="label"><span class="label-text">ASCII mark {t('preview')}</span></label>
-                                                            <a className='btn btn-outline btn-xs' onClick={()=>setFieldValue('asc2mark','')}>{t('remove')}</a>
-                                                        </div>
-                                                        <div className='border-2 border-black p-4'>
-                                                            <pre className='text-xs leading-4'>
-                                                                {values.asc2mark}
-                                                            </pre>
-                                                            
-                                                        </div>
-                                                    </div>
-                                                    : null
-                                                }
-                                                
-
-                                            </div>
-                                        </div>
-                                        <div className="col-span-3 intro">
-                                            <p>{t('ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.')}</p>
-                                            <p>{t('You can define your details of your contract here, as well as many customizable function below.')}</p>
-                                            <p>{t('DON’T PANIC! You can deploy your contract to Kovan testnet for free, check if everythings is correct, then deploy to Ethereum mainnet.')}</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                
-                                    <FieldArray
-                                        name="refund"
-                                        render={arrayHelpers => (
-
-                                            <div className='contract-form'>
-                                                <div className='grid grid-cols-9 gap-8'>
-                                                <div className='col-span-6 mb-4'>
-                                                    <div className='flex justify-between items-center w-full'>
-                                                        <div className='flex justify-start items-center title'>
-                                                            <h2 className='mb-0'>{'Refundable'}</h2>
-                                                            <div class="form-control ml-4">
-                                                                <label class="label cursor-pointer">
-                                                                    <FormSwitch name={"refund_enable"} className="toggle toggle-primary"/>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div className='flex justify-between items-center'>
-                                                            {
-                                                                (values.refund_enable)
-                                                                ? <button
-                                                                    type="button"
-                                                                    className='btn btn-default'
-                                                                    onClick={this.addRefundOne.bind({},arrayHelpers)}
-                                                                    >
-                                                                        <PlusIcon className='w-4 mr-2' /> {t('add refundable period')}
-                                                                    </button>
-                                                                : null
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                </div>
-                                                <div className='grid grid-cols-9 gap-8'>
-                                                    <div className="col-span-6">
-                                                        {
-                                                            (values.refund_enable) 
-                                                            ? <div>
-                                                                {
-                                                                    console.log('debug10->refund',values.refund)
-                                                                }
-                                                                {values.refund.map((one,index) => <RefundableOne 
-                                                                    remove={arrayHelpers.remove}
-                                                                    key={one.id} 
-                                                                    id={one.id}
-                                                                    index={index}
-                                                                    errors={errors['refund'] ? errors['refund'][index] : null}
-                                                                    refund={one}
-                                                                />)}
-                                                                {
-                                                                    (values.refund.length == 0)
-                                                                    ? <div className='ct text-center '>
-                                                                        {t('click add to add a refundable period')}
-                                                                    </div>
-                                                                    : null
-                                                                }
-                                                            </div>
-                                                            : <div className='p-6 bg-white text-gray-400 capitalize'>
-                                                                {t('refund is disabled')}
-                                                            </div>
-                                                        }
-                                                        
-
-                                                    </div>
-                                                    <div className="col-span-3 intro">
-                                                        <p>{t('ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.')}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            )}
-                                    />
 
 
 
@@ -738,12 +587,7 @@ class ContractView extends React.Component {
                                                 (values.wl_enable && values.wl_enable > 0)
                                                 ? <div className='ct'>
 
-                                                    <ExpiretimeSelect label={t('whitelist presale start time')} name={'wl_start_time'}  />
-                                                    <ExpiretimeSelect label={t('whitelist presale end time')} name={'wl_end_time'}  />
-
-                                                    <Input name="wl_max_supply" label={"whitelist max supply"} placeholder={"cannot exceed total supply"} />
-                                                    <Input name="wl_per_address" label={"whitelist token limit per wallet"} placeholder={"limit how many token pre wallet can mint"} />
-                                                    <Input name="wl_price" label={"whitelist mint price"} placeholder={"e.g 0.05"} />
+                                                   <Input name="wl_price" label={"whitelist mint price"} placeholder={"e.g 0.05"} />
 
                                                     <div className='divider' />
 
@@ -754,48 +598,6 @@ class ContractView extends React.Component {
                                                 </div>
                                                 : <div className='ct text-gray-400 capitalize'>
                                                     {t('whitelist is disabled')}
-                                                </div>
-                                            }
-                                            
-                                        </div>
-                                        <div className="col-span-3 intro">
-                                            <p>{t('ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.')}</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className='contract-form'>
-                                    <div className='grid grid-cols-9 gap-8'>
-                                    <div className='col-span-6 mb-4'>
-                                        <div className='flex justify-between items-center w-full'>
-                                            <div className='flex justify-start items-center title'>
-                                                <h2 className='mb-0'>{'public sale'}</h2>
-                                                <div class="form-control ml-4">
-                                                    <label class="label cursor-pointer">
-                                                        <FormSwitch name={"pb_enable"} className="toggle toggle-primary"/>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </div>
-                                    <div className='grid grid-cols-9 gap-8'>
-                                        <div className="col-span-6">
-                                            {
-                                                (values.pb_enable && values.pb_enable > 0)
-                                                ? <div className='ct'>
-
-                                                    <ExpiretimeSelect label={t('public sale start time')} name={'pb_start_time'}  />
-                                                    <ExpiretimeSelect label={t('public sale end time')} name={'pb_end_time'}  />
-
-                                                    <Input name="pb_per_address" label={"public sale token limit per wallet"} placeholder={"limit how many token pre wallet can mint"} />
-                                                    <Input name="pb_price" label={"public sale mint price"} placeholder={"e.g 0.05"} />
-
-                                                </div>
-                                                : <div className='ct text-gray-400 capitalize'>
-                                                    {t('public sale is disabled')}
                                                 </div>
                                             }
                                             
@@ -872,79 +674,6 @@ class ContractView extends React.Component {
 
                                     
                                 </div>
-
-                                <FieldArray
-                                    name="revenue_share"
-                                    render={arrayHelpers => (
-
-                                        <div className='contract-form'>
-                                            <div className='grid grid-cols-9 gap-8'>
-                                            <div className='col-span-6 mb-4'>
-                                                <div className='flex justify-between items-center w-full'>
-                                                    <div className='flex justify-start items-center title'>
-                                                        <h2 className='mb-0'>{'Revenue Share'}</h2>
-                                                        <div class="form-control ml-4">
-                                                            <label class="label cursor-pointer">
-                                                                <FormSwitch name={"revenue_share_enable"} className="toggle toggle-primary"/>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div className='flex justify-between items-center'>
-                                                        {
-                                                            (values.revenue_share_enable)
-                                                            ? <button
-                                                                type="button"
-                                                                className='btn btn-default'
-                                                                onClick={this.addShareOne.bind({},arrayHelpers)}
-                                                                >
-                                                                    <PlusIcon className='w-4 mr-2' /> {t('add share account')}
-                                                                </button>
-                                                            : null
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            </div>
-                                            <div className='grid grid-cols-9 gap-8'>
-                                                <div className="col-span-6">
-                                                    {
-                                                        (values.revenue_share_enable) 
-                                                        ? <div>
-                                                            {
-                                                                console.log('debug:show_values',values,values.refund)
-                                                            }
-                                                            {values.revenue_share.map((one,index) => <RevenueShareOne 
-                                                                remove={arrayHelpers.remove}
-                                                                key={one.id} 
-                                                                id={one.id}
-                                                                index={index}
-                                                                errors={errors['revenue_share'] ? errors['revenue_share'][index] : null}
-                                                                refund={one}
-                                                            />)}
-                                                            {
-                                                                (values.revenue_share.length == 0)
-                                                                ? <div className='ct text-center '>
-                                                                    {t('click add to add a share account')}
-                                                                </div>
-                                                                : null
-                                                            }
-                                                        </div>
-                                                        : <div className='p-6 bg-white text-gray-400 capitalize'>
-                                                            {t('revenue sharing is disabled , all income only could withdraw by owner')}
-                                                        </div>
-                                                    }
-                                                    
-
-                                                </div>
-                                                <div className="col-span-3 intro">
-                                                    <p>{t('ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.')}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        )}
-                                />
-
-
                             
                                 <UploadPlaceholderModal club={club} visible={this.state.show_upload_modal} closeModal={this.toggleModal.bind({},'show_upload_modal')} setFieldValue={setFieldValue}/>
 

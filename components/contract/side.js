@@ -2,7 +2,7 @@ import React from 'react'
 import NavLink from 'components/common/navlink'
 import useTranslation from 'next-translate/useTranslation'
 
-import { BeakerIcon, DocumentTextIcon  } from '@heroicons/react/outline'
+import { BeakerIcon, DocumentTextIcon ,CloudUploadIcon } from '@heroicons/react/outline'
 
 export default function ContractSide({
     club_id
@@ -16,7 +16,7 @@ export default function ContractSide({
             <li>
                 <NavLink href={base_url+'/contract'}>
                 <a>
-                    <DocumentTextIcon className='icon-base' />
+                    <DocumentTextIcon className='icon-sm mr-2' />
                     {t('setting')}
                 </a>
                 </NavLink>
@@ -29,7 +29,7 @@ export default function ContractSide({
             <li>
                 <NavLink href={base_url+'/deploy_testnet'}>
                 <a>
-                    <DocumentTextIcon className='icon-base' />
+                    <CloudUploadIcon className='icon-sm mr-2' />
                     {t('testnet')}
                 </a>
                 </NavLink>
@@ -37,7 +37,7 @@ export default function ContractSide({
             <li>
                 <NavLink href={base_url+'/deploy_mainnet'}>
                 <a>
-                    <BeakerIcon className='icon-base' />
+                    <CloudUploadIcon className='icon-sm mr-2' />
                     {t('mainnet')}
                 </a>
                 </NavLink>

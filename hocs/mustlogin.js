@@ -20,21 +20,22 @@ export default function withMustLogin(WrappedComponent) {
 
         componentDidUpdate(prevProps) {
             if (!this.props.wallet && prevProps.wallet) {
-                console.log('debug10,钱包退出登陆');
+                // console.log('debug10,钱包退出登陆');
                 this.props.logoutUser();
             }
             if (this.props.wallet && !prevProps.wallet){
-                console.log('debug10,钱包登陆');
+                // console.log('debug10,钱包登陆');
             }
         }
         
         render() {
 
+            const {wallet,login_user} = this.props;
             console.log('debug10,this.props',this.props);
 
             const {t} = this.props.i18n;
 
-            if (this.props.login_user) {
+            if (login_user && wallet && wallet.address) {
                 return <WrappedComponent {...this.props} />;
             }else {
                 return <PageWrapper>

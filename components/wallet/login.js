@@ -46,30 +46,31 @@ class WalletLogin extends React.Component {
         */
 
         //都为空的情况
-        if (!login_user && !wallet) {
+        if (!login_user && !wallet.address) {
             show_type = CONNECT;
         }
 
         //wallet存在，但是login_user为空的情况
-        if (!login_user && wallet) {
+        if (!login_user && wallet.address) {
             show_type = SIGN_MESSAGE;
         }
 
         //login_user存在，但是wallet为空的情况
-        if (login_user && !wallet) {
+        if (login_user && !wallet.address) {
 
             ///登出登陆用户
             // this.logoutUser();
             show_type = CONNECT;
         }
 
+
         //都存在的情况，并且相同
-        if (login_user && wallet && login_user.get('wallet_address').toLowerCase() == wallet.address.toLowerCase()) {
+        if (login_user && wallet.address && login_user.get('wallet_address').toLowerCase() == wallet.address.toLowerCase()) {
             show_type = CONNECT;
         }
 
         //都存在的情况，并且不相同
-        if (login_user && wallet && login_user.get('wallet_address').toLowerCase() != wallet.address.toLowerCase()) {
+        if (login_user && wallet.address && login_user.get('wallet_address').toLowerCase() != wallet.address.toLowerCase()) {
 
             ///登出登陆用户
             // this.logoutUser();
@@ -91,7 +92,8 @@ class WalletLogin extends React.Component {
                 this.logoutUser();
             }
 
-            if (login_user && wallet && login_user.get('wallet_address').toLowerCase() != wallet.address.toLowerCase()) {
+
+            if (login_user && wallet && this.getJwtAddress(login_user) != this.getWalletAddress(wallet)) {
                 console.log('debug03->因为发现登陆用户和connect-wallet不一致，调用登出')
                 this.logoutUser();
             }
@@ -99,6 +101,15 @@ class WalletLogin extends React.Component {
         }
     }
 
+    getJwtAddress(login_user) {
+        let addr = (login_user && login_user.get('wallet_address')) ? login_user.get('wallet_address').toLowerCase() : '';
+        return addr;
+    }
+
+    getWalletAddress(wallet) {
+        let addr =(wallet && wallet.address) ? wallet.address.toLowerCase() : '';
+        return addr;
+    }
 
     logoutUser() {
         this.props.logoutUser();

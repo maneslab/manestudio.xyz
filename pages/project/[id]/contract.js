@@ -287,12 +287,10 @@ class ContractView extends React.Component {
                     </div>
 
                     <div className="col-span-10 pb-24">
-                        <div class="alert alert-info shadow-sm mb-8">
-                            <div>
-                                <InformationCircleIcon className='icon-sm'/>
-                                <span>以下部分设置，需要重新发布合约才会生效</span>
-                            </div>
-                        </div>
+                        
+                        <h1 className='h1'>{t('contract setting')}</h1>
+
+                        <div className='divider'></div>
                         
                         <Formik
                             innerRef={this.formRef}

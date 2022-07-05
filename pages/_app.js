@@ -12,7 +12,9 @@ import '@rainbow-me/rainbowkit/styles.css';
 import {
   getDefaultWallets,
   RainbowKitProvider,
-  darkTheme
+  darkTheme,
+  lightTheme,
+  Theme
 } from '@rainbow-me/rainbowkit';
 
 import {
@@ -74,13 +76,14 @@ import merge from 'lodash.merge';
 //     provider
 // })
 
-const myTheme = merge(darkTheme(), {
+const myTheme = merge(lightTheme(),{
     colors: {
-        accentColor: 'transparent',
-        connectButtonBackground : 'transparent;',
-        connectButtonInnerBackground :'transparent;',
-        actionButtonSecondaryBackground  : 'black',
-        connectButtonText : '#000'
+        // accentColor: 'transparent',
+        // connectButtonBackground : 'transparent;',
+        // connectButtonInnerBackground :'transparent;',
+        // actionButtonSecondaryBackground  : 'black',
+        // connectButtonText : '#000',
+        // modalBackground : '#fff'
     },
     shadows : {
         connectButton : 'none'

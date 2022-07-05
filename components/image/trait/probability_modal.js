@@ -225,6 +225,7 @@ class TraitProbabilityModal extends React.Component {
                                     // segmentsShift={(index) => (index === 0 ? shiftSize : 0.5)}
                                     segmentsStyle={{ transition: 'stroke .3s', cursor: 'pointer' }}
                                     segmentsShift={(index) => (index === select_index ? 6 : 1)}
+                                    lineWidth={30}
                                     onClick={(event, index) => {
                                         // action('CLICK')(event, index);
                                         console.log('CLICK', { event, index });

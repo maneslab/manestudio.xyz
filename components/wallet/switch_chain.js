@@ -1,6 +1,6 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 
-const ConnectWalletButton = () => {
+const SwitchChainButton = () => {
   return (
     <ConnectButton.Custom>
       {({
@@ -40,38 +40,13 @@ const ConnectWalletButton = () => {
               }
 
               return (
-                <div className='flex justify-start items-center'>
+                <div className='flex'>
                   <button
                     onClick={openChainModal}
-                    style={{ display: 'flex', alignItems: 'center' }}
                     type="button"
-                    className='btn btn-ghost capitalize text-base mr-2'
+                    className='btn btn-primary capitalize text-base'
                   >
-                    {chain.hasIcon && (
-                      <div
-                        style={{
-                          background: chain.iconBackground,
-                          width: 18,
-                          height: 18,
-                          borderRadius: 999,
-                          overflow: 'hidden',
-                          marginRight: 4,
-                        }}
-                      >
-                        {chain.iconUrl && (
-                          <img
-                            alt={chain.name ?? 'Chain icon'}
-                            src={chain.iconUrl}
-                            style={{ width: 18, height: 18 }}
-                          />
-                        )}
-                      </div>
-                    )}
-                    {chain.name}
-                  </button>
-
-                  <button onClick={openAccountModal} type="button" className='btn btn-ghost capitalize text-base'>
-                    {account.displayName}
+                    switch network
                   </button>
                 </div>
               );
@@ -82,4 +57,4 @@ const ConnectWalletButton = () => {
     </ConnectButton.Custom>
   );
 };
-export default ConnectWalletButton;
+export default SwitchChainButton;

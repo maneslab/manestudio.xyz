@@ -49,6 +49,9 @@ class ClubUpdate extends React.Component {
 
     @autobind
     setForm(club) {
+
+        console.log('debug-sp:调用到setFrom',club.toJS());
+
         this.formRef.current.setValues({
             'name' : (club && club.get('name')) ? club.get('name') : '',
             'unique_name' :  (club && club.get('unique_name')) ? club.get('unique_name') : ''
@@ -61,6 +64,8 @@ class ClubUpdate extends React.Component {
 
     @autobind
     setEditor(content) {
+        console.log('debug-sp:调用到setEditor',content);
+
         if (!this.editorRef.current) {
             this.timer = setTimeout(()=>{
                 this.setEditor(content)

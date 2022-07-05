@@ -213,7 +213,7 @@ class GroupProbabilityModal extends React.Component {
                                     data={chart_map}
                                     radius={PieChart.defaultProps.radius - shiftSize}
                                     segmentsShift={(index) => (index === 0 ? shiftSize : 0.5)}
-
+                                    lineWidth={30}
                                     label={({ dataEntry }) => dataEntry.percentage.toFixed(2) + '%'}
                                     labelStyle={(index) => ({
                                         fill: '#fff',

@@ -1,13 +1,13 @@
 import Notification from 'rc-notification';
 import {XIcon} from '@heroicons/react/solid';
 import {CheckCircleIcon,XCircleIcon,ExclamationCircleIcon} from '@heroicons/react/outline';
-import LoadingIcon from '/public/img/common/loading.svg'
+// import LoadingIcon from '/public/img/common/loading.svg'
 
 let notification = null;
 if (typeof window !== 'undefined') {
     Notification.newInstance({
         maxCount : 8,
-        style : {'top':'60px','right':'10px'},
+        style : {'top':'10px','right':'10px'},
         className: "block-right-notification",
     }, n => {
         notification = n
@@ -75,7 +75,7 @@ const mergeConfig = (config) => {
             </div>
         </div>,
         'duration' : ('duration' in config) ? config.duration : 5,
-        'style' : { top: '100', right:'10px'}
+        'style' : { top: '10px', right:'10px'}
     }
     console.log('merged',cfg);
     return cfg
