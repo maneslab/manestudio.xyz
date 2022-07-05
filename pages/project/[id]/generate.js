@@ -179,9 +179,6 @@ class GenerateGroupView extends React.Component {
 
                 <div className='flex justify-between items-center mb-8 text-black max-w-screen-xl mx-auto'>
                     <h1 className='h1'>{t('generate NFT')}</h1>
-
-   
-
                     {
                         (generates.length > 0)
                         ? <GenerateFrom club_id={club_id} />
@@ -223,8 +220,6 @@ class GenerateGroupView extends React.Component {
                     </div>
 
                     <div className="col-span-3">
-
-                       
 
                         {
                             (is_fetching)

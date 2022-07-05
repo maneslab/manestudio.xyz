@@ -822,3 +822,16 @@ select {
 .gas-wrapper .gas-one .l {
     @apply capitalize;
 } 
+
+.block-notification.info .title{
+    @apply text-blue-500;
+}
+.block-notification.success .title{
+    @apply text-green-500;
+}
+.block-notification.error .title{
+    @apply text-red-500;
+}
+.block-notification.loading .title{
+    @apply text-black;
+}

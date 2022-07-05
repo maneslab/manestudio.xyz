@@ -24,6 +24,7 @@ import ExpiretimeSelect from 'components/form/expiretime_select';
 import BluechipSelect from 'components/form/mane/bluechip_select';
 import WhitelistUpload from 'components/form/mane/upload_whitelist_csv';
 import UploadPlaceholderModal from 'components/contract/placeholder_modal';
+import EmptyPlaceholder from 'components/common/empty_placeholder'
 
 import ContractSide from 'components/contract/side'
 
@@ -267,11 +268,6 @@ class ContractView extends React.Component {
             accept : '.jpg,.jpeg,.png,.gif',
         })
 
-        let empty_placeholder = <div className='bg-gray-100 w-64 h-64 flex justify-center items-center flex-col text-gray-400'>
-            <UploadIcon className='icon-base mb-4'/>
-            <div>{t('upload placeholder art')}</div>
-            <div>jpg / png / gif / mp4</div>
-        </div>
 
         return <PageWrapper>
             <Head>
@@ -594,7 +590,7 @@ class ContractView extends React.Component {
                                                                         ? <div className='placeholder-img-wapper'>
                                                                             <img src={values.placeholder_img.image_urls.url} />
                                                                         </div>
-                                                                        : empty_placeholder
+                                                                        : <EmptyPlaceholder t={t} />
                                                                     }
                                                                 </>
                                                             }
