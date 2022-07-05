@@ -5,7 +5,7 @@ import autobind from 'autobind-decorator'
 import classNames from 'classnames';
 import LanguageBtn from 'components/language/btn'
 import GasButton from 'components/common/gas/button'
-// import NavLink from 'components/common/navlink'
+import Footer from 'components/layout/footer'
 
 import Head from 'next/head'
 import Link from 'next/link'
@@ -109,7 +109,8 @@ class PageWrapper extends React.Component {
                         <div className={(wapperClassName) ? wapperClassName : "flex-grow"}>
                             {this.props.children}
                         </div>
-                            
+
+                        <Footer />        
 
                     </div>
 

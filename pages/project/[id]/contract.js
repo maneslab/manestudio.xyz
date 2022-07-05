@@ -111,6 +111,12 @@ class ContractView extends React.Component {
         number_map.map(one=>{
             contract_data[one] = Number(contract_data[one])
         })
+
+        if (contract_data['pb_end_time'] > 0) {
+            contract_data['pb_end_time_enable'] = 1;
+        }else {
+            contract_data['pb_end_time_enable'] = 0;
+        }
         
         // console.log('debug10,formatContractData',contract_data);
 
@@ -164,6 +170,10 @@ class ContractView extends React.Component {
 
         if (values.placeholder_video) {
             values.placeholder_video_id = values.placeholder_video.id
+        }
+
+        if (!values.pb_end_time_enable) {
+            values.pb_end_time = 0;
         }
 
         return values;
@@ -251,7 +261,8 @@ class ContractView extends React.Component {
             wl_price: "0",
             wl_start_time: 0,
             max_supply : 0,
-            revenue_share : []
+            revenue_share : [],
+            pb_end_time_enable : 0
         }
         let formSchema = Yup.object().shape({
             name      : Yup.string().required(),
@@ -532,7 +543,22 @@ class ContractView extends React.Component {
                                                 ? <div className='ct'>
 
                                                     <ExpiretimeSelect label={t('public sale start time')} name={'pb_start_time'}  />
-                                                    <ExpiretimeSelect label={t('public sale end time')} name={'pb_end_time'}  />
+                                                    
+                                                    {
+                                                        (values.pb_end_time_enable > 0)
+                                                        ? <div className='flex justify-start items-end'>
+                                                            <ExpiretimeSelect label={t('public sale end time')} name={'pb_end_time'}  />
+                                                            <FormSwitch name={"pb_end_time_enable"} className="toggle toggle-primary"/>
+                                                        </div>
+                                                        : <div class="form-control">
+                                                            <label class="label"><span class="label-text">public sale end time</span></label>
+                                                            <div>
+                                                            <FormSwitch name={"pb_end_time_enable"} className="toggle toggle-primary"/>
+                                                            </div>
+                                                        </div>
+                                                    }
+
+                                                    
 
                                                     <Input name="pb_per_address" label={"public sale token limit per wallet"} placeholder={"limit how many token pre wallet can mint"} />
                                                     <Input name="pb_price" label={"public sale mint price"} placeholder={"e.g 0.05"} />

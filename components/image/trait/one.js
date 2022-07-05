@@ -93,7 +93,7 @@ class TraitOne extends React.Component {
             return null;
         }
 
-        return <div className={classNames("mb-4 bg-white border-2",{"border-black":is_selected})}>
+        return <div className={classNames("w-36 bg-white border-2",{"border-black":is_selected})}>
             <div className="">
                 <div className='relative trait-image asset-bg'>
                     <img src={trait.getIn(['img','image_urls','url'])} className="cursor-pointer" onClick={this.props.setActiveTraitId.bind({},{

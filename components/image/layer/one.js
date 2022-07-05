@@ -73,7 +73,7 @@ export default function LayerOne({handleDelete,handleEdit,layer,draging_index,re
 
         {
             (open)
-            ? <div className='p-4 bg-[#e6ebf4]'>
+            ? <div className='bg-[#e6ebf4]'>
                 <TraitList layer_id={layer.get('id')} />
             </div>
             : null

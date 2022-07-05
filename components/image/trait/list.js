@@ -99,6 +99,9 @@ class TraitList extends React.Component {
 
         console.log('debuguploadProps',uploadProps)
 
+        let count = (list_rows) ? list_rows.count() : 0;
+        let max_width  = count * 150;
+
         return <div>
             {
                 (list_data_one.get('is_fetching'))
@@ -111,7 +114,7 @@ class TraitList extends React.Component {
                 ? <div className='py-12 max-w-screen-md mx-auto my-0 text-center'>
                     <Empty text={t('no trait yet')} icon={<PuzzleIcon className='icon-base'/>}/>
                 </div>
-                : <div className="grid grid-cols-4 gap-4">
+                : <div className="p-4 pb-0 h-60 w-full overflow-x-auto overflow-y-hidden"><div className=' flex justify-start gap-4' style={{width:max_width}}>
 
                     {
                         (list_data_one.get('is_fetched'))
@@ -136,10 +139,10 @@ class TraitList extends React.Component {
                         </>
                         : null
                     }
-                </div>
+                </div></div>
             }
 
-            <div className='flex justify-between'>
+            <div className='flex justify-between p-4 '>
                 <div>
 
                 </div>
