@@ -90,7 +90,7 @@ class ClubDropSetting extends React.Component {
                 <title>{'Drop details'}</title>
             </Head>
             <div>
-                <ClubHeader club_id={club_id}  title={t('mint page')}/>
+                <ClubHeader club_id={club_id}  title={t('mint page')} active_id={3}/>
                 <div className="max-w-screen-xl mx-auto pb-32">
 
 

@@ -278,7 +278,7 @@ class ContractView extends React.Component {
                 <title>{t('contract')}</title>
             </Head>
             <div>
-                <ClubHeader club_id={club_id} title={'smart contract'}/>
+                <ClubHeader club_id={club_id} title={'smart contract'} active_id={2}/>
 
                 <div className="max-w-screen-xl mx-auto grid grid-cols-12 gap-8">
 

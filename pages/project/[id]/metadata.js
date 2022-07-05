@@ -79,7 +79,7 @@ class GenerateGroupView extends React.Component {
                 <title>{t('metadata')}</title>
             </Head>
             <div>
-                <ClubHeader club_id={club_id} title={'metadata'}/>
+                <ClubHeader club_id={club_id} title={'metadata'} active_id={1}/>
 
                 <ClubStep club_id={club_id} active={3}/>
 

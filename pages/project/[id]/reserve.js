@@ -276,7 +276,7 @@ class GenerateGroupView extends React.Component {
                 <title>{t('reserve NFT')}</title>
             </Head>
             <div>
-                <ClubHeader club_id={club_id} title={t('reserve NFT')}/>
+                <ClubHeader club_id={club_id} title={t('reserve NFT')} active_id={1}/>
 
                 <ClubStep club_id={club_id} active={4}/>
 

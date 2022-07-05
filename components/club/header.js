@@ -1,5 +1,7 @@
 import React,{useState} from 'react'
-import NavLink from 'components/common/navlink'
+// import NavLink from 'components/common/navlink'
+import classNames from 'classnames'
+import Link from 'next/link'
 import useTranslation from 'next-translate/useTranslation'
 
 // import { ArrowLeftIcon } from '@heroicons/react/solid';
@@ -7,7 +9,8 @@ import useTranslation from 'next-translate/useTranslation'
 
 export default function ClubHeader({
     club_id,
-    title
+    title,
+    active_id
 }) {
     const { t, lang } = useTranslation('common')
     let base_url = '/project/'+club_id;
@@ -25,9 +28,9 @@ export default function ClubHeader({
             <div>
                 <div className='space-x-4 flex justify-end'>
                     <div class="tabs club-nav-tabs">
-                        <NavLink href={base_url+'/group'} matchstart={true} activeClassName={"tab-active"}><a class="tab  capitalize">{t('generate NFT')}</a></NavLink>
-                        <NavLink href={base_url+'/contract'} activeClassName={"tab-active"}><a class="tab capitalize">{t('smart contract')}</a></NavLink>
-                        <NavLink href={base_url+'/drop'} activeClassName={"tab-active"}><a class="tab capitalize">{t('mint page')}</a></NavLink>
+                        <Link href={base_url+'/group'} className={"tab-active"}><a className={classNames("tab  capitalize",{"tab-active":(active_id == 1)})}>{t('generate NFT')}</a></Link>
+                        <Link href={base_url+'/contract'} activeClassName={"tab-active"}><a className={classNames("tab  capitalize",{"tab-active":(active_id == 2)})}>{t('smart contract')}</a></Link>
+                        <Link href={base_url+'/drop'} activeClassName={"tab-active"}><a className={classNames("tab  capitalize",{"tab-active":(active_id == 3)})}>{t('mint page')}</a></Link>
                     </div>
                 </div>
             </div>
