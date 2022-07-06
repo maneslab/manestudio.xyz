@@ -77,14 +77,8 @@ import merge from 'lodash.merge';
 //     provider
 // })
 
-const myTheme = merge(lightTheme(),{
+const myLightTheme = merge(lightTheme(),{
     colors: {
-        // accentColor: 'transparent',
-        // connectButtonBackground : 'transparent;',
-        // connectButtonInnerBackground :'transparent;',
-        // actionButtonSecondaryBackground  : 'black',
-        // connectButtonText : '#000',
-        // modalBackground : '#fff'
     },
     shadows : {
         connectButton : 'none'
@@ -96,7 +90,21 @@ const myTheme = merge(lightTheme(),{
         modal: 'none',
         modalMobile: 'none',
     }
-  });
+});
+const myDarkTheme = merge(darkTheme(),{
+    colors: {
+    },
+    shadows : {
+        connectButton : 'none'
+    },
+    radii : {
+        actionButton: 'none',
+        connectButton: 'none',
+        menuButton: 'none',
+        modal: 'none',
+        modalMobile: 'none',
+    }
+});
 
 
   
@@ -111,6 +119,7 @@ class MyApp extends App {
     constructor(props) {
         super(props)
         this.state = {
+            theme : 'default'
         }
     }
 
@@ -120,6 +129,9 @@ class MyApp extends App {
 
         let theme = getTheme();
         setThemeInCss(theme);
+        this.setState({
+            'theme' :theme
+        })
     }
 
     componentWillUnmount(){
@@ -150,11 +162,11 @@ class MyApp extends App {
 
     render() {
         const {Component, pageProps} = this.props;
-
+        const {theme} = this.state;
         // const isServer = (typeof window === 'undefined');
 
         return <WagmiConfig client={wagmiClient}>
-            <RainbowKitProvider chains={chains} theme={myTheme}>
+            <RainbowKitProvider chains={chains} theme={(theme=='dark')?myDarkTheme:myLightTheme}>
                 <Component {...pageProps} />
                 {
                     (this.state.show_page_loading)
