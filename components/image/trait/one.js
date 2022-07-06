@@ -93,7 +93,7 @@ class TraitOne extends React.Component {
             return null;
         }
 
-        return <div className={classNames("w-36 bg-white border-2",{"border-black":is_selected})}>
+        return <div className={classNames("w-36 bg-white dark:bg-[#121518] dark:border-[#121518] border-2",{"border-black":is_selected})}>
             <div className="">
                 <div className='relative trait-image asset-bg'>
                     <img src={trait.getIn(['img','image_urls','url'])} className="cursor-pointer" onClick={this.props.setActiveTraitId.bind({},{
@@ -120,7 +120,7 @@ class TraitOne extends React.Component {
                                 <a onClick={this.saveTrait} className="cursor-pointer mr-1"><CheckIcon className='icon-xs'/></a>
                                 <a onClick={this.toggleEditMode} className="cursor-pointer"><XIcon className='icon-xs'/></a>
                             </div>
-                            : <div className='text-sm h-8 text-black flex justify-start items-center cursor-pointer trait-name' onClick={this.toggleEditMode}>
+                            : <div className='text-sm h-8  flex justify-start items-center cursor-pointer trait-name' onClick={this.toggleEditMode}>
                                 {
                                     (trait.get('name')) ? trait.get('name') : '(no name)'
                                 }

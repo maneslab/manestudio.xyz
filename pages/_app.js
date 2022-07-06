@@ -5,6 +5,7 @@ import autobind from 'autobind-decorator'
 // import * as gtag from 'helper/gtag'
 import Router from 'next/router'
 import config from 'helper/config'
+import {getTheme,setThemeInCss} from 'helper/local'
 
 //rainbowkit开始
 import '@rainbow-me/rainbowkit/styles.css';
@@ -116,6 +117,9 @@ class MyApp extends App {
     componentDidMount() {
         Router.events.on('routeChangeStart', this.routerChangeStart)
         Router.events.on('routeChangeComplete', this.routerChangeComplete)
+
+        let theme = getTheme();
+        setThemeInCss(theme);
     }
 
     componentWillUnmount(){

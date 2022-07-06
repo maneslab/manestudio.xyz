@@ -82,17 +82,17 @@ class SpecialOne extends React.Component {
 
 
         return <div>
-            <div className="border border-gray-300">
-                <div className="w-full border-b border-gray-200 cursor-pointer">
+            <div className="border border-gray-300 dark:border-[#292C31] ">
+                <div className="w-full border-b border-gray-200 dark:border-[#292C31] cursor-pointer">
                     <div className='relative'>
                         <div>
                             <img src={special.getIn(['img','image_urls','url'])} className=""/>
                         </div>
                         <div class="dropdown dropdown-right absolute right-1 top-1">
-                            <label tabindex="0" class="btn m-1 px-2 bg-gray-100 border-none text-gray-800 hover:bg-gray-200">
+                            <label tabindex="0" class="btn m-1 px-2 bg-gray-100 dark:bg-[#191c20] dark:text-white border-none text-gray-800 hover:bg-gray-200">
                                 <DotsVerticalIcon className='icon-sm'/>
                             </label>
-                            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white rounded-box w-52 capitalize">
+                            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white dark:bg-[#191c20] dark:text-white rounded-box w-52 capitalize">
                                 <li><a onClick={this.deleteSpecial}><TrashIcon className='icon-sm'/>delete</a></li>
                                 <li><a onClick={this.props.handleEdit.bind({},special)}><PencilIcon className='icon-sm'/>edit</a></li>
                             </ul>
@@ -100,7 +100,7 @@ class SpecialOne extends React.Component {
                     </div>
                 </div>
                 
-                <div className="p-4 bg-white flex justify-between items-center">
+                <div className="p-4 bg-white dark:bg-[#22252b] dark:text-white flex justify-between items-center">
                     <div className='flex justify-center flex-col'>
                         {
                             (edit_mode) 
@@ -112,7 +112,7 @@ class SpecialOne extends React.Component {
                             </div>
                             <div className='text-xs pt-4 text-blue-500'>{t('name will appear in the metadata and in the attributes of the trading platform such as openesa, please fill in English and give a special name to each 1/1 of the special NFT')}</div>
                             </div>
-                            : <div className='text-sm h-8 text-black flex justify-start items-center cursor-pointer trait-name' onClick={this.toggleEditMode}>
+                            : <div className='text-sm h-8 text-black dark:text-white flex justify-start items-center cursor-pointer trait-name' onClick={this.toggleEditMode}>
                                 {
                                     (special.get('name')) ? special.get('name') : '(no name)'
                                 }

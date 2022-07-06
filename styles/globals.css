@@ -90,7 +90,7 @@
 
 body {
     color :#000;
-    /* background-color: #f5f5f5; */
+    @apply dark:bg-[#121518] dark:text-white;
 }
 
 html,body {
@@ -123,7 +123,7 @@ html,body {
     @apply px-0;
 }
 .label-text {
-    @apply font-bold text-base;
+    @apply font-bold text-base dark:text-white;
 }
 
 /*message*/
@@ -501,7 +501,7 @@ input{outline:none;}
 
 
 .input-box {
-    @apply font-ubuntu px-4 py-2 text-sm w-full border focus:ring-2 text-black input-base;
+    @apply font-ubuntu px-4 py-2 text-sm w-full border focus:ring-2 text-black input-base dark:bg-black dark:text-white;
 }
 .input-box.yellow {
     @apply bg-yellow-200 border border-yellow-300 text-black dark:bg-yellow-900 dark:border-yellow-700 text-black dark:text-white; 
@@ -564,7 +564,7 @@ input{outline:none;}
     @apply text-black;
 }
 .block-intro h3 {
-    @apply capitalize font-bold text-lg mb-2;
+    @apply capitalize font-bold text-lg mb-2 dark:text-white;
 }
 .block-intro .ct {
     @apply text-sm text-gray-600;
@@ -645,15 +645,15 @@ input{outline:none;}
     @apply flex justify-start items-center;
 }
 .block-step-one {
-    @apply flex justify-start items-center text-[#999] font-bold mr-8 capitalize;
+    @apply flex justify-start items-center text-[#999] dark:text-[#7a7c80] font-bold mr-8 capitalize;
 }
 
 .block-step-one .step-no {
-    @apply bg-[#ccc] text-white font-bold h-8 w-8 flex justify-center items-center mr-4;
+    @apply bg-[#ccc] dark:bg-[#4e5155] text-white font-bold h-8 w-8 flex justify-center items-center mr-4;
 }
 .block-step-one.active,
 .block-step-one.done {
-    @apply text-black;
+    @apply text-black dark:text-white;
 }
 .block-step-one.active .step-no,
 .block-step-one.done .step-no {
@@ -681,11 +681,12 @@ input{outline:none;}
     background-size: 16px 16px;
     background-position: 0 0, 8px 8px;
 }
+
 .club-nav-tabs {
-    @apply border-b-2 border-gray-200 space-x-8;
+    @apply border-b-2 border-gray-200 dark:border-[#31343a] space-x-8;
 }
 .club-nav-tabs .tab{
-    @apply font-bold text-base h-10 px-0;
+    @apply font-bold text-base h-10 px-0 dark:text-white;
 }
 .club-nav-tabs .tab-active {
     @apply border-primary border-b-2 px-0 relative;
@@ -721,19 +722,19 @@ input{outline:none;}
 
 
 .block-left-menu ul li a {
-    @apply flex justify-start items-center capitalize text-lg my-2 text-gray-400 cursor-pointer hover:text-black; 
+    @apply flex justify-start items-center capitalize text-lg my-2 text-gray-400 cursor-pointer hover:text-black dark:hover:text-white; 
 }
 .block-left-menu ul li a .icon-base {
     @apply mr-2 text-gray-400;
 }
 
 .block-left-menu ul li a.active {
-    @apply text-black;
+    @apply text-black dark:text-white;
 }
 
 .block-left-menu ul li a:hover .icon-base,
 .block-left-menu ul li a.active .icon-base {
-    @apply text-black;
+    @apply text-black dark:text-white;
 }
 .contract-form {
     @apply mb-12;
@@ -742,7 +743,7 @@ input{outline:none;}
     @apply font-bold text-lg capitalize;
 }
 .contract-form .ct {
-    @apply bg-white p-6;
+    @apply bg-white p-6 dark:bg-[#22252b];
 }
 .contract-form .intro {
     @apply text-sm text-gray-600;
@@ -834,4 +835,13 @@ select {
 }
 .block-notification.loading .title{
     @apply text-black;
+}
+
+
+.menu[class*=" p-"] li > a:hover {
+    @apply dark:bg-[#22252b];
+}
+
+.btn-default {
+    @apply dark:bg-[#074DFF] dark:text-white dark:hover:bg-primary;
 }

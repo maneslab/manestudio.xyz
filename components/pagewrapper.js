@@ -10,9 +10,6 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Logo from 'public/img/logo.svg'
 import ConnectWalletButton from 'components/wallet/connect_button'
-// import WggLogo from 'public/img/wgg_logo.svg'
-
-// import { MenuIcon} from '@heroicons/react/outline'
 
 import { denormalize } from 'normalizr';
 import { userSchema } from 'redux/schema/index'
@@ -22,6 +19,7 @@ import {withTranslate} from 'hocs/index'
 // import { HomeIcon,PlusCircleIcon , CashIcon , CogIcon,InboxInIcon} from '@heroicons/react/outline';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import config from 'helper/config'
+import DarkmodeSwitch from './common/darkmode_switch';
 
 @withTranslate
 class PageWrapper extends React.Component {
@@ -38,17 +36,9 @@ class PageWrapper extends React.Component {
         this.initPage();
     }
 
-
-
     @autobind
     initPage() {
         this.props.initApp();
-    }
-
-    @autobind
-    toggleSider() {
-        const {slider} = this.props;
-        this.props.setSlider(!slider)
     }
 
 
@@ -73,14 +63,14 @@ class PageWrapper extends React.Component {
 
                     <div className="h-screen w-screen overflow-y-scroll flex flex-col justify-between">
 
-                        <div className='header-bg text-black mb-8'>
+                        <div className='header-bg text-black mb-8 dark:bg-[#22252b] dark:text-white'>
                         <div className="flex justify-between py-8 h-24 w-full max-w-screen-xl mx-auto ">
 
                             <div className='flex justify-start'>
 
                                 <Link href="/">
                                     <a className="logo">
-                                        <Logo className="h-5"/>
+                                        <Logo className="h-5 dark:text-white"/>
                                     </a>
                                 </Link>
 
@@ -95,6 +85,9 @@ class PageWrapper extends React.Component {
 
                             <div className='flex justify-end items-center'>
 
+                                <div className='mr-4'>
+                                    <DarkmodeSwitch />
+                                </div>
 
                                 <LanguageBtn />
 
@@ -122,9 +115,6 @@ class PageWrapper extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setSlider : (data) => {
-            return dispatch(setSlider(data))
-        },
         setGlobalModal : (payload) => {
             return dispatch(setGlobalModal(payload));
         },

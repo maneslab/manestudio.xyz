@@ -16,7 +16,7 @@ export default function ClubHeader({
     let base_url = '/project/'+club_id;
 
 
-    return <div className='bg-white -mt-8 py-8 mb-8 border-t border-gray-200'>
+    return <div className='bg-white -mt-8 py-8 mb-8 border-t border-gray-200 dark:border-[#31343a] dark:bg-[#22252b] dark:text-white'>
         <div className='flex justify-between mx-auto max-w-screen-xl items-center'>
             <div>
 

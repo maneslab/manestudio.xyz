@@ -101,7 +101,7 @@ class GenerateGroupView extends React.Component {
 
                     <div className='col-span-5'>
 
-                        <div className='flex justify-between items-center mb-8 text-black'>
+                        <div className='flex justify-between items-center mb-8 text-black dark:text-white'>
                             <h2 className='h2'>{t('group')}</h2>
                             <button className='btn btn-default' onClick={this.toggleCreateModal}>
                                 <PlusIcon className='icon-xs mr-2'/>
@@ -130,7 +130,7 @@ class GenerateGroupView extends React.Component {
 
                     <div className='col-span-5'>
 
-                        <div className='flex justify-between items-center mb-8 text-black'>
+                        <div className='flex justify-between items-center mb-8 text-black dark:text-white'>
                             <h2 className='h2'>{t('spcail NFT')}</h2>
 
                             <Upload uploadProps={uploadProps} afterSuccess={this.handleUpload}>  

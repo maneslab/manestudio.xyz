@@ -78,16 +78,16 @@ class GenerateGroupView extends React.Component {
 
                     <div className='col-span-5'>
 
-                        <div className='pb-4 mb-4 border-b border-gray-300'>
+                        <div className='pb-4 mb-4 border-b border-gray-300 dark:border-gray-800'>
                             <Link href={"/project/"+club_id+"/group"}>
-                            <a className='flex justify-start items-center capitalize cursor-pointer'>
+                            <a className='flex justify-start items-center capitalize cursor-pointer dark:text-white'>
                                 <ChevronLeftIcon className='icon-sm'/>
                                 {t('back')}
                             </a>
                             </Link>
                         </div>
 
-                        <div className='flex justify-between items-center mb-4 text-black'>
+                        <div className='flex justify-between items-center mb-4 text-black dark:text-white'>
                             <h2 className='h2'>{t('layer')}</h2>
                             <button className='btn btn-default' onClick={this.toggleCreateModal}>
                                 <PlusIcon className='icon-xs mr-2'/>

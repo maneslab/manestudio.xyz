@@ -10,7 +10,7 @@ export default function RevenueOne({share,id,index,remove,errors}) {
 
     const {t} = useTranslation('common');
     return (
-        <div className={'mb-2 bg-[#fff] text-black border-b border-gray-100 p-6 pt-4 refund-one'}>
+        <div className={'mb-2 bg-white dark:bg-[#22252b] p-6 pt-4 refund-one'}>
             <div className='border-gray-300'>
                 <div className='flex justify-between'>
                     <Input label={t('address')} name={`revenue_share[${index}].address`} style={{'width':'380px'}} />

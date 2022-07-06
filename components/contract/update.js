@@ -4,7 +4,7 @@ import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
 
 import Input from 'components/form/field'
-import Button from 'components/common/button'
+// import Button from 'components/common/button'
 
 import withTranslate from 'hocs/translate';
 import EmptyPlaceholder from 'components/common/empty_placeholder'

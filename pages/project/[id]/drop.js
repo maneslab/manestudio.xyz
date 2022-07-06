@@ -94,7 +94,7 @@ class ClubDropSetting extends React.Component {
                 <div className="max-w-screen-xl mx-auto pb-32">
 
 
-                    <div className='flex justify-between items-center mb-4 text-black'>
+                    <div className='flex justify-between items-center mb-4 '>
                         <h2 className='h2'>{t('setting')}</h2>
                     </div>
                     

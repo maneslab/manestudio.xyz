@@ -67,34 +67,34 @@ class GroupOne extends React.Component {
         console.log('total_number',total_number)
 
         return <div>
-            <div className="border border-gray-300">
+            <div className="border border-gray-300 dark:border-[#292C31] ">
                 <Link href={"/project/"+group.get('club_id')+"/group/"+group.get('id')+"/layer"}>
-                <div className="w-full border-b border-gray-200 cursor-pointer">
+                <div className="w-full border-b border-gray-200 dark:border-[#292C31] cursor-pointer">
                     {
                         (!group.get('image_url'))
-                        ? <div className='bg-white text-gray-500 flex justify-center items-center w-full aspect-square'>
-                            <PhotographIcon className='icon-base text-gray-300'/>
+                        ? <div className='bg-white text-gray-500 dark:bg-[#25282e]  flex justify-center items-center w-full aspect-square'>
+                            <PhotographIcon className='icon-base text-gray-300 dark:text-[#4c4f54]'/>
                         </div>
-                        : <div className='aspect-square bg-white'>
+                        : <div className='aspect-square bg-white dark:bg-[#25282e]'>
                             <img src={group.get('image_url')} />
                         </div>
                     }
                 </div>
                 
                 </Link>
-                <div className="p-4 bg-white flex justify-between items-center">
+                <div className="p-4 bg-white dark:bg-[#22252b] flex justify-between items-center">
                     <div>
-                        <h2 className='font-bold text-black capitalize'>{group.get('name')}</h2>
+                        <h2 className='font-bold text-black capitalize dark:text-white'>{group.get('name')}</h2>
                         <div className='text-red-400 text-sm'>
                             {percentDecimal(group.get('generate_number')/total_number)} %
                         </div>
                     </div>
                     <div>
                         <div class="dropdown dropdown-right">
-                            <label tabindex="0" class="btn m-1 px-2 bg-gray-100 border-none text-gray-800 hover:bg-gray-200">
+                            <label tabindex="0" class="btn m-1 px-2 bg-gray-100 dark:bg-[#191c20] dark:text-white border-none text-gray-800 hover:bg-gray-200">
                                 <DotsVerticalIcon className='icon-sm'/>
                             </label>
-                            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white rounded-box w-52 capitalize">
+                            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white dark:bg-[#191c20] dark:text-white  rounded-box w-52 capitalize">
                                 <li><a onClick={this.deleteGroup}><TrashIcon className='icon-sm'/>delete</a></li>
                                 <li><a onClick={this.props.handleEdit.bind({},group)}><PencilIcon className='icon-sm'/>edit</a></li>
                                 <li><a onClick={this.props.handleEditProbability}><AdjustmentsIcon className='icon-sm'/>rarity</a></li>

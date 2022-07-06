@@ -8,8 +8,6 @@ import {userSchema} from 'redux/schema/index';
 import { normalize, schema } from 'normalizr';
 import { getUnixtime } from "helper/time";
 
-
-
 export const INIT_LOGIN_USER = 'INIT_LOGIN_USER'
 export const initLoginUser = createAction('INIT_LOGIN_USER');
 
@@ -46,11 +44,9 @@ export const toggleSetting = (name) => {
     }
 }
 
-export const SET_SLIDER = 'SET_SLIDER'
-export const setSlider = createAction('SET_SLIDER');
-
 export const SET_LANGUAGE = 'SET_LANGUAGE'
 export const setLanguage = createAction('SET_LANGUAGE');
+
 
 
 export const loginSuccess = createAction('LOGIN_SUCCESS');
@@ -146,7 +142,6 @@ export function reducer(state = Immutable.fromJS({
     'login_user'            : null,
     'is_initing'            : false,
     'is_inited'             : false,
-    'slider'                : true,
     'active_trait'          : {},
     'gas_data'              : {
         'data'              : {},
@@ -193,11 +188,6 @@ export function reducer(state = Immutable.fromJS({
 
         case LOAD_STATUS_FAILED:
             return state.setIn(['status','is_fetching'],false);
-
-
-        case SET_SLIDER:
-            return state.setIn(['slider'],action.payload);
-
 
         case SET_SETTING:
             return state.setIn([action.payload.name],action.payload.value);

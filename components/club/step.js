@@ -29,7 +29,7 @@ class ClubStep extends React.Component {
         const {t} = this.props.i18n;
 
 
-        return <div className='bg-white  pt-0 pb-6 -mt-8 mb-8 '>
+        return <div className='bg-white dark:bg-[#22252b] pt-0 pb-6 -mt-8 mb-8 '>
             <div className="max-w-screen-xl mx-auto flex justify-between ">
                 <Steps active={active}>
                     <Step href={this.getUrl(club_id,1)} key={1}>{t('setting')}</Step>
