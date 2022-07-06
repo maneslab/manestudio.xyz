@@ -131,7 +131,7 @@ class ClubUpdate extends React.Component {
                             <Input name="name" label={t("project name")} placeholder={t("any name you want")} />
                             <Editor label={t("description")} ref={this.editorRef}/>
                             <PrefixInput name="unique_name" label={t("link to the drop page")} placeholder={"customize-your-link-here"} prefix={"https://www.manespace.com/"} />
-                            <div className='border-t border-gray-300 my-4'></div>
+                            <div className='border-t d-border-c-1 my-4'></div>
                             <div className='flex justify-end'>
                             <Button loading={is_updating} className="btn btn-default" type="submit">{t("save")}</Button>
                             </div>

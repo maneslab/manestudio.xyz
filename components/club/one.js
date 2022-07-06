@@ -17,11 +17,11 @@ class clubOne extends React.Component {
 
         return <div>
             <Link href={"/project/"+club.get('id')+"/group"}>
-            <div className="flex justify-between mb-4 bg-white text-black p-4 cursor-pointer">
+            <div className="flex justify-between mb-4 d-bg-c-1 p-4 cursor-pointer">
                 <div className="w-48 mr-4">
                     {
                         (!club.get('image'))
-                        ? <div className='bg-gray-100 text-gray-400 flex justify-center items-center h-48'>
+                        ? <div className='bg-gray-100 text-gray-400 dark:bg-[#33363e] dark:text-[#555] flex justify-center items-center h-48'>
                             NO COVER
                         </div>
                         : null

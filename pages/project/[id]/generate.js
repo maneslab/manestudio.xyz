@@ -164,7 +164,7 @@ class GenerateGroupView extends React.Component {
 
                 <ClubStep club_id={club_id} active={2}/>
 
-                <div className='flex justify-between items-center mb-8 text-black max-w-screen-xl mx-auto'>
+                <div className='flex justify-between items-center mb-8 max-w-screen-xl mx-auto'>
                     <h1 className='h1'>{t('generate NFT')}</h1>
                     {
                         (generates.length > 0)
@@ -177,15 +177,15 @@ class GenerateGroupView extends React.Component {
 
                     <div className="col-span-1">
 
-                    <div class="bg-white flex justify-between items-center p-4 mb-4 text-sm">
-                        <div class="text-black">{t('unique ratio')}</div>
+                    <div class="d-bg-c-1 flex justify-between items-center p-4 mb-4 text-sm">
+                        <div class="">{t('unique ratio')}</div>
                         <div class="text-blue-400 font-bold">{percentDecimal(uniqueness)}%</div>
                     </div>
 
                     {
                         Object.keys(merged_traits).map(k=>{
-                            return <div className=' mb-4 bg-white'>
-                                <div className='bg-white text-black py-2 px-4 font-bold border-b border-gray-200'>{k}</div>
+                            return <div className=' mb-4 d-bg-c-1'>
+                                <div className='d-bg-c-1 py-2 px-4 font-bold border-b d-border-c-1'>{k}</div>
                                 <div className='px-4 py-2 max-h-36 overflow-y-scroll'>
                                     {
                                         Object.keys(merged_traits[k]).map(k2=>{
@@ -232,7 +232,7 @@ class GenerateGroupView extends React.Component {
                                 {
                                     (generates.map((one,index)=>{
                                         let traits = denormalize(one.trait_ids_array,imageTraitListSchema,entities);
-                                        return <div key={one.id} className="bg-white text-sm text-gray-600">
+                                        return <div key={one.id} className="d-bg-c-1 text-sm text-gray-600 dark:text-gray-200">
                                             <Image2 trait_list={traits} index={index} id={one.id}  handlePreview={this.setPreview}/>
                                             <div className='p-2'>#{one.temp_id}</div>
                                         </div>

@@ -52,19 +52,19 @@ export default function SortableItem({creator,club,open_index,id,toggleOpen,remo
 
 
     return (
-        <div className={classNames('mb-2 form-block-base p-4 bg-[#fff] text-black z-10',{'open':is_show},{"shadow-xl relative":is_draging})} style={style} ref={setNodeRef} >
+        <div className={classNames('mb-2 form-block-base p-4 d-bg-c-1 z-10',{'open':is_show},{"shadow-xl relative":is_draging})} style={style} ref={setNodeRef} >
             <div className='flex justify-between cursor-pointer' onClick={()=>{
                 toggleOpen(id)
             }}>
                 <div className='flex justify-start flex-grow items-center'>
-                <DragIcon className={classNames("mr-2 icon-sm text-black",{"bg-gray-100":is_draging})}  {...listeners} />
+                <DragIcon className={classNames("mr-2 icon-sm ",{"d-bg-c-3":is_draging})}  {...listeners} />
                 {
                     (is_empty)
                     ? <div>{t('not set')}</div>
                     : <div>
                         <div className='flex justify-start text-base'>
                         <span >{creator['name']}</span>
-                        <span className='text-gray-700 ml-4'>{creator['title']}</span>
+                        <span className='text-gray-700 dark:text-[#999] ml-4'>{creator['title']}</span>
                         </div>
                         <div className='text-sm opacity-50'>
                         {creator['detail']}
@@ -81,13 +81,13 @@ export default function SortableItem({creator,club,open_index,id,toggleOpen,remo
             </div>
             {
                 (is_show)
-                ? <div className='mt-4 pt-2 border-t border-gray-300 flex justify-between space-x-8'>
+                ? <div className='mt-4 pt-2 border-t d-border-c-1 flex justify-between space-x-8'>
                     <div className='w-2/5'>
                         <div className='mb-2'>
                             <label className='label'>
                                 <span className='label-text'>{t('avatar')}</span>
                             </label>
-                            <div className='border-2 border-black'>
+                            <div className='border-2 border-black dark:border-[#7a7c80]'>
                                 {
                                     (!(creator['img_id'] > 0)) 
                                     ? <div className='aspect-square bg-gray-200'>

@@ -708,7 +708,7 @@ class ContractView extends React.Component {
 
 
                        
-                        <div className='fixed bottom-0 left-0 w-full py-4 bg-white border-t border-gray-300' style={{'zIndex':9999}}>
+                        <div className='fixed bottom-0 left-0 w-full py-4 d-bg-c-1 border-t d-border-c-1' style={{'zIndex':9999}}>
                             <div className='max-w-screen-xl mx-auto grid grid-cols-12 gap-8'>
                                 <div className='col-span-2'></div>
                                 <div className='col-span-10'>

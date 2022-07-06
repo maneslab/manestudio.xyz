@@ -280,7 +280,7 @@ class GenerateGroupView extends React.Component {
 
                 <ClubStep club_id={club_id} active={4}/>
 
-                <div className='flex justify-between items-center mb-8 text-black max-w-screen-xl mx-auto border-b border-gray-300 pb-4'>
+                <div className='flex justify-between items-center mb-8  max-w-screen-xl mx-auto border-b d-border-c-1 pb-4'>
                     <h1 className='h1'>{t('reserve NFT')}</h1>
                     {
                         (!show_skip_page)
@@ -317,7 +317,7 @@ class GenerateGroupView extends React.Component {
                             <div className="col-span-1">
 
                                 <h3 className='h3 mb-2'>{t('special nft')}</h3>
-                                <div className='mb-4 bg-white'>
+                                <div className='mb-4 d-bg-c-1'>
                                     <div className='px-4 py-2 max-h-36'>
                                         <div className='flex justify-between items-center text-ubuntu my-2 font-sm items-center'>
                                             <div className='flex justify-start items-center text-xs'>
@@ -334,8 +334,8 @@ class GenerateGroupView extends React.Component {
                                 <h3 className='h3 mb-2'>{t('filters')}</h3>
                                 {
                                     Object.keys(merged_traits).map(k=>{
-                                        return <div className=' mb-4 bg-white'>
-                                            <div className='bg-white text-black py-2 px-4 font-bold border-b border-gray-200'>{k}</div>
+                                        return <div className=' mb-4 d-bg-c-1'>
+                                            <div className='d-bg-c-1 py-2 px-4 font-bold border-b d-border-c-2'>{k}</div>
                                             <div className='px-4 py-2 max-h-36 overflow-y-auto'>
                                                 {
                                                     Object.keys(merged_traits[k]).map(k2=>{
@@ -391,7 +391,7 @@ class GenerateGroupView extends React.Component {
                                                     return null;
                                                 }
                                                 let traits = denormalize(one.trait_ids_array,imageTraitListSchema,entities);
-                                                return <div key={one.id} className="bg-white text-sm text-gray-600 cursor-pointer" onClick={this.selectNft.bind({},one.id)}>
+                                                return <div key={one.id} className="d-bg-c-1 text-sm text-gray-600 dark:text-gray-200 cursor-pointer" onClick={this.selectNft.bind({},one.id)}>
                                                     <Image2 trait_list={traits} index={index} id={one.id} />
                                                     <div className='p-2 flex justify-between'>
                                                         #{one.temp_id}
@@ -413,7 +413,7 @@ class GenerateGroupView extends React.Component {
 
                             </div>
                         </div>
-                        <div className='fixed bottom-0 left-0 w-full py-4 bg-white border-t border-gray-300' style={{'zIndex':9999}}>
+                        <div className='fixed bottom-0 left-0 w-full py-4 d-bg-c-1 border-t d-border-c-1' style={{'zIndex':9999}}>
                             <div className='max-w-screen-xl mx-auto flex justify-between items-center'>
                                 <div className='text-sm'>
                                     <div>{select_nft_ids.count()} generated NFT selected</div>

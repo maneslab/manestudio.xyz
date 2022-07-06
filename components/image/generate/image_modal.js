@@ -121,15 +121,15 @@ class ImageModal extends React.Component {
                     <div className='flex-grow flex flex-col justify-between'>
                         
                         <div>
-                            <h2 className='modal-title border-b border-gray-200 pb-4'>{t('preview')} # {generate.temp_id}</h2>
+                            <h2 className='modal-title border-b d-border-c-2 pb-4'>{t('preview')} # {generate.temp_id}</h2>
 
                             <h3 className='mb-2 text-sm'>{t('properties')}</h3>
                             <div className='grid grid-cols-3 gap-2'>
                                 {
                                     Object.keys(trait_stat).map(k=>{
-                                        return <div className='border border-gray-200 p-2 text-center'>
+                                        return <div className='border d-border-c-2 p-2 text-center'>
                                             <div className='text-gray-500 text-sm font-ubuntu'>{trait_stat[k]['layer']['name']}</div>
-                                            <div className="text-black font-bold font-ubuntu">{trait_stat[k]['name']}</div>
+                                            <div className="font-bold font-ubuntu">{(trait_stat[k]['name']) ? trait_stat[k]['name'] : "(no name)"}</div>
                                             <div className='text-xs text-gray-500'>
                                                 {percentDecimal(trait_stat[k]['prob'])}%
                                                 have this

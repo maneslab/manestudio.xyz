@@ -102,7 +102,7 @@ class LayerUpdateModal extends React.Component {
 
                                 <Input name="name" label={t("layer name")} placeholder={t("any name you want")} />
 
-                                <div className='border-t border-gray-300 my-4' />
+                                <div className='border-t d-border-c-1 my-4' />
 
                                 <div className="form-submit flex justify-end mt-4">
                                     <Button loading={is_adding} className="btn btn-primary" type="submit">{t("update layer")}</Button>

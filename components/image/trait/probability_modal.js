@@ -263,7 +263,7 @@ class TraitProbabilityModal extends React.Component {
                                 <div className='probability_wapper grid grid-cols-4 gap-4'>
 
                                 {values.generate_number_map.map((one,index) =>  <div key={one['id']}>
-                                    <div className={classNames('mb-2 border border-gray-300',{'border-black':(index == select_index)})} onClick={()=>{
+                                    <div className={classNames('mb-2 border d-border-c-1',{'border-black dark:border-white':(index == select_index)})} onClick={()=>{
                                         this.setState({
                                             select_index : (index == select_index) ? undefined : index
                                         })
@@ -276,7 +276,7 @@ class TraitProbabilityModal extends React.Component {
                                 </div>
 
 
-                                <div className='border-t border-gray-300 my-4' />
+                                <div className='border-t d-border-c-1 my-4' />
 
                                 <div className="form-submit flex justify-end mt-4">
                                     <Button loading={is_adding} className="btn btn-primary" type="submit">{t("update trait")}</Button>

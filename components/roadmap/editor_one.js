@@ -39,18 +39,18 @@ export default function SortableItem({roadmap,open_index,id,toggleOpen,remove,dr
     }
   
     return (
-        <div className={classNames('mb-2 form-block-base p-4 bg-[#fff] text-black z-10',{'open':is_show},{"shadow-xl relative":is_draging})} style={style} ref={setNodeRef} >
+        <div className={classNames('mb-2 form-block-base p-4 d-bg-c-1 z-10',{'open':is_show},{"shadow-xl relative":is_draging})} style={style} ref={setNodeRef} >
             <div className='flex justify-between cursor-pointer' onClick={()=>{
                 toggleOpen(id)
             }}>
                 <div className='flex justify-start flex-grow items-center'>
-                <DragIcon className={classNames("mr-2 icon-sm text-black",{"bg-gray-100":is_draging})}  {...listeners} />
+                <DragIcon className={classNames("mr-2 icon-sm ",{"d-bg-c-3":is_draging})}  {...listeners} />
                 {
                     (is_empty)
                     ? <div>{t('not set')}</div>
                     : <div>
                         <div className='flex justify-start text-base'>
-                        <span className='text-gray-700'>{roadmap['time_point']}</span>
+                        <span className='text-gray-700 dark:text-[#999]'>{roadmap['time_point']}</span>
                         <MinusIcon className='w-6 mx-2'/>
                         <span>{roadmap['title']}</span>
                         </div>
@@ -69,7 +69,7 @@ export default function SortableItem({roadmap,open_index,id,toggleOpen,remove,dr
             </div>
             {
                 (is_show)
-                ? <div className='mt-4 pt-2 border-t border-gray-300'>
+                ? <div className='mt-4 pt-2 border-t d-border-c-1'>
                     <div className='flex justify-between'>
                         <Input label={t('time point')} name={`roadmaps[${id}].time_point`} className="w-1/2 mr-4"/>
                         <Input label={t('title')} name={`roadmaps.${id}.title`}  className="w-1/2"/>

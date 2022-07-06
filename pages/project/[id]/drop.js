@@ -21,6 +21,7 @@ import CreatorUpdate from 'components/creator/update'
 
 import ClubUpdate from 'components/club/update'
 import withClubView from 'hocs/clubview'
+import Switch from 'rc-switch';
 
 
 @withTranslate
@@ -60,12 +61,12 @@ class ClubDropSetting extends React.Component {
     }
 
     @autobind
-    onPublicChange(e) {
+    onPublicChange(value) {
         this.setState({
-            'is_public' :  e.target.checked
+            'is_public' :  value
         })
         this.props.updateClub(this.props.club_id,{
-            'is_public': e.target.checked ? 1: 0
+            'is_public': value ? 1: 0
         })
     }
 
@@ -108,11 +109,11 @@ class ClubDropSetting extends React.Component {
 
                     <RoadmapUpdate club={club} />
 
-                    <div className='fixed bottom-0 left-0 w-full py-4 bg-white border-t border-gray-300' style={{'zIndex':9999}}>
+                    <div className='fixed bottom-0 left-0 w-full py-4 d-bg-c-1 border-t d-border-c-1' style={{'zIndex':9999}}>
                         <div className='max-w-screen-xl mx-auto flex justify-between items-center'>
                             <div className='flex items-center'>
-                                <input type="checkbox" class="toggle mr-4" checked={this.state.is_public} onChange={this.onPublicChange}/>
-                                <div>
+                                <Switch onChange={this.onPublicChange} checked={this.state.is_public} />
+                                <div className='ml-4'>
                                     <div className="capitalize">{t('set public')}</div>
                                     <div className='text-sm text-gray-400'>{t('set-public-intro')}</div>
                                 </div>

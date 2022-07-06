@@ -124,8 +124,8 @@ class MetadataOne extends React.Component {
     render() {
         const {one,name} = this.props;
         const {is_open} = this.state;
-        return <div className="bg-white max-w-screen-lg mx-auto mb-4">
-            <div className='font-bold text-base px-4 py-4 border-b border-gray-300 cursor-pointer flex justify-between items-center' onClick={this.toggleOpen}>
+        return <div className="d-bg-c-1 max-w-screen-lg mx-auto mb-4">
+            <div className='font-bold text-base px-4 py-4 border-b d-border-c-1 cursor-pointer flex justify-between items-center' onClick={this.toggleOpen}>
                 <span>{name}</span>
                 {
                     (is_open)
@@ -139,7 +139,7 @@ class MetadataOne extends React.Component {
                 ?   <div className='py-2'>
                     {
                         Object.keys(one).map(k2=>{
-                            return <div className='flex justify-between py-2 px-4 hover:bg-gray-100'>
+                            return <div className='flex justify-between py-2 px-4 hover:bg-gray-100 dark:hover:bg-[#333]'>
                                 <div>{k2}</div>
                                 <div className='flex justify-end items-center text-sm'>
                                     <div className='mr-4'>({one[k2]['count']})</div>

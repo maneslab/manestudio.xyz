@@ -108,7 +108,7 @@ class LayerCreateModal extends React.Component {
 
                                 <Input name="name" label={t("layer name")} placeholder={t("must be english")} notice={notice}/>
 
-                                <div className='border-t border-gray-300 my-4' />
+                                <div className='border-t d-border-c-1 my-4' />
 
                                 <div className="form-submit flex justify-end mt-4">
                                     <Button loading={is_adding} className="btn btn-primary" type="submit">{t('create')}</Button>

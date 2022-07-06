@@ -52,9 +52,9 @@ class SpecialOne extends React.Component {
         const {edit_mode} = this.state;
 
 
-        return <div className="flex justify-between py-2 px-4 hover:bg-gray-100">
+        return <div className="flex justify-between py-2 px-4 hover:bg-gray-100 dark:hover:bg-[#333]">
             <div className='flex justify-start items-center '>
-                <img src={special.getIn(['img','image_urls','url'])} className="w-12 border border-gray-300 rounded-md"/>
+                <img src={special.getIn(['img','image_urls','url'])} className="w-12 border d-border-c-1 rounded-md"/>
                 
                 <div className="py-1 px-4 flex justify-between items-center">
                     <div className='flex justify-center flex-col'>
@@ -67,7 +67,7 @@ class SpecialOne extends React.Component {
                                 <a onClick={this.toggleEditMode} className="cursor-pointer"><XIcon className='icon-xs'/></a>
                             </div>
                             </div>
-                            : <div className='text-sm h-8 text-black flex justify-start items-center cursor-pointer trait-name' onClick={this.toggleEditMode}>
+                            : <div className='text-sm h-8  flex justify-start items-center cursor-pointer trait-name' onClick={this.toggleEditMode}>
                                 {
                                     (special.get('name')) ? special.get('name') : '(no name)'
                                 }

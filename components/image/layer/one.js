@@ -49,7 +49,7 @@ export default function LayerOne({handleDelete,handleEdit,layer,draging_index,re
 
     return <div className={classNames('border-2 border-black mb-4 z-10',{"shadow-xl relative":is_draging})} style={style} ref={setNodeRef}>
         <div className="p-4 bg-white dark:bg-[#22252b] flex justify-between items-center relative">
-            <DragIcon className={classNames("absolute -left-8 top-50% icon-sm",{"bg-gray-100":is_draging})}  {...listeners} />
+            <DragIcon className={classNames("absolute -left-8 top-50% icon-sm",{"d-bg-c-1":is_draging})}  {...listeners} />
 
             <div onClick={setOpen.bind({},!open)} className="flex-grow cursor-pointer">
                 <h2 className='font-bold text-black dark:text-white capitalize'>{layer.get('name')}</h2>

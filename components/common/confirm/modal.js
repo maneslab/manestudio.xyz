@@ -19,21 +19,21 @@ const YourDialog = ({show, proceed, confirmation, title, closeIcon, options}) =>
         onClose={() => proceed(false)} >
         {
             (confirmation && !title)
-            ? <div className="font-bold capitalize text-gray-700 border-b border-gray-200 pb-4 mb-4 text-xl">
+            ? <div className="font-bold capitalize border-b d-border-c-1 pb-4 mb-4 text-xl">
                 {confirmation}
             </div>
             : <div>
-                <div className="font-bold capitalize text-gray-700 border-b border-gray-200 pb-4 mb-4 text-xl">
+                <div className="font-bold capitalize border-b  d-border-c-1 pb-4 mb-4 text-xl">
                     {title}
                 </div>
-                <div className='mb-8 text-gray-800'>
+                <div className='mb-8 text-gray-800 dark:text-white'>
                     {confirmation}
                 </div>
             </div>
         }
         
         <div className="flex justify-end items-center space-x-2">
-            <button className="btn btn-default" onClick={() => proceed(false)}>cancel</button>
+            <button className="btn btn-outline" onClick={() => proceed(false)}>cancel</button>
             <button className="btn btn-primary" onClick={() => proceed(true)}>OK</button>
         </div>
     </Modal>

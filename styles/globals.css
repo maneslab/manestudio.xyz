@@ -9,7 +9,6 @@
 @tailwind utilities;
 
 
-
 @font-face{
     font-family: 'ubuntu'; 
     src: url('/font/ubuntu/Ubuntu-Bold.ttf');
@@ -85,6 +84,43 @@
 @keyframes fadeOutModal {
     0% {opacity:1; transform: translate3d(-50%, -50%, 0px)}
     to {opacity:0; transform: translate3d(-50%, -30%, 0px)}
+}
+
+/*scrollbar*/
+::-webkit-scrollbar {
+    @apply dark:bg-[#333];
+}
+::-webkit-scrollbar-thumb  {
+    @apply dark:bg-[#444] rounded-full;
+
+}
+::-webkit-scrollbar-track  
+{  
+    @apply dark:bg-[#333];
+}  
+
+
+/*darkmode*/
+.d-border-c-1 {
+    @apply border-gray-300 dark:border-[#31343a];
+}
+.d-border-c-2 {
+    @apply border-gray-200 dark:border-[#31343a];
+}
+
+.d-bg-c-1 {
+    @apply bg-white dark:bg-[#22252b];
+}
+.d-bg-c-2 {
+    @apply bg-gray-100 dark:bg-[#22252b];
+}
+.d-bg-c-3 {
+    @apply bg-gray-100 dark:bg-[#4e5155];
+}
+
+.divider::before,
+.divider::after {
+    @apply dark:bg-[#31343a]
 }
 
 
@@ -302,13 +338,13 @@ html,body {
 
 
 .input-with-prefix {
-    @apply font-ubuntu flex items-center text-sm text-gray-800 border focus:ring-2 border-2 border-black text-gray-800 bg-white dark:border-gray-600 dark:text-white dark:bg-gray-800 focus:ring-yellow-100 dark:focus:ring-gray-500 ;
+    @apply font-ubuntu flex items-center text-sm text-gray-800 border focus:ring-2 border-2 border-black text-gray-800 bg-white dark:border-gray-600 dark:text-white d-bg-c-1 dark:border-[#797d86] focus:ring-yellow-100 dark:focus:ring-gray-500 ;
 }
 .input-with-prefix .input-inner {
     @apply ml-2 bg-transparent flex-grow px-2 py-2 ;
 }
 .input-with-prefix .prefix {
-    @apply text-gray-500 px-4 py-2 bg-black text-white;
+    @apply text-gray-500 px-4 py-2 bg-black text-white dark:bg-[#797d86];
 }
 .input-with-prefix.has-error {
     @apply border-red-500;
@@ -321,13 +357,12 @@ html,body {
     @apply mr-2;
 }
 .block-menu {
-    @apply overflow-hidden bg-white shadow-xl border border-gray-300 ;  
+    @apply overflow-hidden d-bg-c-1 shadow-xl border d-border-c-1;  
 }
 .block-menu ul {
-    @apply bg-white;
 }
 .block-menu li .select-li {
-    @apply bg-white text-black cursor-pointer hover:bg-gray-100  px-4;
+    @apply d-bg-c-1 cursor-pointer hover:bg-gray-100 dark:hover:bg-[#333]  px-4;
 }
 .height-without-header {
     height: calc(100vh - 8rem);
@@ -416,15 +451,15 @@ html,body {
 .btn-secondary,
 .btn-secondary:hover,
 .btn-primary:hover {
-    @apply border-2 border-black;
+    @apply border-2 border-black dark:border-0;
 }
 
 .btn-outline {
-    @apply border-2;
+    @apply border-2 dark:border-[#7a7c80] dark:text-[#7a7c80];
 }
 
 .select-box {
-    @apply input-base p-0 flex justify-between items-center pl-2 pr-6 cursor-pointer max-w-full;
+    @apply input-base p-0 flex justify-between items-center pl-2 pr-6 cursor-pointer max-w-full dark:border-[#7a7c80];
 }
 .select-arrow {
     @apply appearance-none bg-no-repeat;
@@ -436,7 +471,7 @@ html,body {
 }
 
 .default-holder {
-    @apply flex justify-start items-center p-2 text-sm capitalize font-ubuntu text-gray-700;  
+    @apply flex justify-start items-center p-2 text-sm capitalize font-ubuntu text-gray-700 dark:text-[#999];  
 }
 .font-mono  {
     font-family: "mono",monospace,Helvetica Neue,Helvetica,Arial,sans;
@@ -471,7 +506,7 @@ input{outline:none;}
     @apply opacity-100  dark:text-white right-8 top-9;
 }
 .rc-dialog-content {
-    @apply rounded-none bg-white dark:bg-black;
+    @apply rounded-none bg-white dark:bg-[#22252b];
 }
 .z-100 {
     z-index: 100;
@@ -492,16 +527,14 @@ input{outline:none;}
     @apply w-6;
 }
 
-.input-base {
-    @apply border-black border-2;
-}
+.input-base,
 .form-block-base {
-    @apply border-black border-2;
+    @apply border-black border-2 dark:border-[#7a7c80];
 }
 
 
 .input-box {
-    @apply font-ubuntu px-4 py-2 text-sm w-full border focus:ring-2 text-black input-base dark:bg-black dark:text-white;
+    @apply font-ubuntu px-4 py-2 text-sm w-full border focus:ring-2 text-black input-base d-bg-c-1 dark:border-[#797d86]  dark:text-white;
 }
 .input-box.yellow {
     @apply bg-yellow-200 border border-yellow-300 text-black dark:bg-yellow-900 dark:border-yellow-700 text-black dark:text-white; 
@@ -526,13 +559,13 @@ input{outline:none;}
     @apply grid grid-cols-2 gap-4;
 }
 .project-type-select .select-one {
-    @apply border-2 border-black cursor-pointer p-0;
+    @apply border-2 border-black cursor-pointer p-0 dark:bg-transparent dark:border-[#7a7c80];
 }
 .project-type-select .select-one h3 {
-    @apply bg-white text-black px-4 py-2 text-base border-b-2 border-black flex justify-between;
+    @apply bg-white  px-4 py-2 text-base border-b-2 border-black flex justify-between dark:bg-transparent dark:border-[#7a7c80];
 }
 .project-type-select .select-one h3 .icon {
-    @apply w-5;
+    @apply w-5 dark:text-white;
 }
 
 .project-type-select .select-one.active {
@@ -574,14 +607,14 @@ input{outline:none;}
 }
 
 .block-title {
-    @apply font-bold text-2xl mb-2 text-black;
+    @apply font-bold text-2xl mb-2 ;
 }
 
 .form-box-one {
-    @apply bg-[#fff] p-8 text-white;
+    @apply d-bg-c-1 p-8 text-white;
 }
 .form-box-one .label-text {
-    @apply text-gray-700;
+    @apply text-gray-700 dark:text-[#999];
 }
 
 .block-menu2 {
@@ -621,7 +654,7 @@ input{outline:none;}
     @apply w-32 overflow-hidden;
 }
 .probability_wapper .prefix.end{
-    @apply w-auto;
+    @apply w-auto dark:bg-transparent;
 }
 .probability_wapper .input-inner{
     @apply w-16
@@ -680,6 +713,9 @@ input{outline:none;}
     background-image: linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%), linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%);
     background-size: 16px 16px;
     background-position: 0 0, 8px 8px;
+}
+.dark .asset-bg {
+    background-image: linear-gradient(45deg, #333 25%, transparent 25%, transparent 75%, #333 75%), linear-gradient(45deg, #333 25%, transparent 25%, transparent 75%, #333 75%);
 }
 
 .club-nav-tabs {
@@ -758,6 +794,12 @@ input{outline:none;}
     @apply mb-0;
 }
 
+.input {
+    @apply dark:bg-transparent;
+}
+.input-bordered {
+    @apply dark:border-[#7a7c80];
+}
 
 .input-select-box,
 select {
@@ -844,4 +886,8 @@ select {
 
 .btn-default {
     @apply dark:bg-[#074DFF] dark:text-white dark:hover:bg-primary;
+}
+
+.DraftEditor-root {
+    @apply dark:text-white;
 }

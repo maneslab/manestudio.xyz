@@ -309,11 +309,11 @@ class ContractView extends React.Component {
 
                         {
                             (chain && chain.id == 1)
-                            ? <div className='bg-white p-4 pl-8 mb-8 flex justify-between items-center'>
+                            ? <div className='d-bg-c-1 p-4 pl-8 mb-8 flex justify-between items-center'>
                                 <span className="capitalize">{t('you are connecting to the ETH mainnet')}</span>
                                 <SwitchChainButton />
                             </div>
-                            : <div className='bg-white p-4 pl-8 mb-8 '>
+                            : <div className='d-bg-c-1 p-4 pl-8 mb-8 '>
                                 <div className='flex justify-between items-center'>
                                     <span className="capitalize">{t('you are connecting to the ETH testnet')} {chain.name}</span>
                                     <div className='flex justify-end items-center'>

@@ -58,8 +58,8 @@ class ImageSpecialList extends React.Component {
         })
 
 
-        return <div className='bg-white max-w-screen-lg mx-auto mb-4'>
-            <div className='font-bold text-base px-4 py-4 border-b border-gray-300 cursor-pointer flex justify-between items-center' onClick={this.toggleOpen}>
+        return <div className='d-bg-c-1 max-w-screen-lg mx-auto mb-4'>
+            <div className='font-bold text-base px-4 py-4 border-b d-border-c-1 cursor-pointer flex justify-between items-center' onClick={this.toggleOpen}>
                 <span>1/1</span>
                 {
                     (is_open)
@@ -79,7 +79,7 @@ class ImageSpecialList extends React.Component {
 
                     {
                         (is_empty)
-                        ? <div className='py-12 max-w-screen-md mx-auto bg-white my-0 text-center'>
+                        ? <div className='py-12 max-w-screen-md mx-auto d-bg-c-1 my-0 text-center'>
                             <Empty text={t('no special NFT yet')} icon={<PhotographIcon className='icon-base'/>}/>
                         </div>
                         : <div className="py-2">

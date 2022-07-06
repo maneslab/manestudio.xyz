@@ -4,7 +4,7 @@ import {CheckIcon} from '@heroicons/react/outline'
 
 export default function SpecialNftThree({special,handleSelect,is_selected}) {
 
-    return <div className="bg-white text-sm text-gray-600" onClick={handleSelect.bind({},special.get('id'))}>
+    return <div className="d-bg-c-1 text-sm text-gray-600 dark:text-gray-200" onClick={handleSelect.bind({},special.get('id'))}>
         <div className='relative aspect-square cursor-pointer'>
             <img src={special.getIn(['img','image_urls','url'])} className=""/>
         </div>
