@@ -548,8 +548,6 @@ class ContractView extends React.Component {
                                                     <PublicEndTimeSelect label={t('public sale end time')} name={'pb_end_time'} pb_enable={values.pb_end_time_enable}/>
 
 
-                                                    
-
                                                     <Input name="pb_per_address" label={"public sale token limit per wallet"} placeholder={"limit how many token pre wallet can mint"} />
                                                     <Input name="pb_price" label={"public sale mint price"} placeholder={"e.g 0.05"} />
 
