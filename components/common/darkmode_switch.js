@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {getTheme,setTheme} from 'helper/local'
 
 import Switch from "rc-switch";
+import { SunIcon,MoonIcon } from "@heroicons/react/outline";
 
 export default function DarkmodeSwitch({loading,className,...props}) {
 
@@ -16,12 +17,21 @@ export default function DarkmodeSwitch({loading,className,...props}) {
             setThemeInCache('default');
         }
     }
-
+    // <Switch
+    // onChange={setDarkMode}
+    // disabled={false}
+    // checked={themeInCache =='dark'}
+    // />
     return (
-        <Switch
-            onChange={setDarkMode}
-            disabled={false}
-            checked={themeInCache =='dark'}
-            />
+        <a className="cursor-pointer" onClick={()=>{
+            setDarkMode(!(themeInCache == 'dark'))
+        }}>
+        {
+            (themeInCache == 'dark') 
+            ? <MoonIcon className="icon-sm"/>
+            : <SunIcon className="icon-sm"/>
+        }
+        </a>
+
     )
 }
