@@ -86,7 +86,7 @@ class BluechipSelect extends React.Component {
                                     checked = true;
                                 }
                                 return <li key={key} >
-                                    <a className="flex justify-between items-center p-2 text-sm capitalize font-ubuntu hover:bg-gray-100 cursor-pointer" 
+                                    <a className="flex justify-between items-center p-2 text-sm capitalize font-ubuntu hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer" 
                                         onClick={()=>{
 
                                             if (checked) {

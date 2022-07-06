@@ -163,7 +163,7 @@ class TimeSelect extends React.Component {
         console.log('debug04,hour,minute',hour,minute);
 
         return <div className="w-96">
-            <div className='bg-white p-4 shadow-xl border border-gray-200 '>
+            <div className='d-bg-c-1 p-4 shadow-xl border d-border-c-2'>
                 <div className='flex justify-center'>
                 <DayPicker 
                     fromYear={2022} 
@@ -180,7 +180,7 @@ class TimeSelect extends React.Component {
                     }} 
                     required />
                 </div>
-                <div className='flex justify-between items-center w-full border-t border-gray-200 pt-4'>
+                <div className='flex justify-between items-center w-full border-t d-border-c-2 pt-4'>
                     <div className='flex justify-center items-center flex-grow'>
                         <select class="select-one w-20" value={hour} onChange={this.selectHour}>
                             {this.getHoursOption()}

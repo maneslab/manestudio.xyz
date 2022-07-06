@@ -300,7 +300,7 @@ class GenerateGroupView extends React.Component {
                 {
                     (show_skip_page) 
                     ? <div className='text-center my-12'>
-                        <div className='text-center text-black mb-8'>
+                        <div className='text-center mb-8'>
                             <p>{t('You can choose to set aside a portion of the NFT, or of course, you can choose to skip this step')}</p>
                             <p>{t('The reserved NFTs will be automatically deposited to the address of the published contract after the official version of the contract is released')}</p>
                         </div>
