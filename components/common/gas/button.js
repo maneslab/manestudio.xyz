@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 import autobind from 'autobind-decorator';
 
-import {setGasData} from 'redux/reducer/setting'
+import {setGasData,setEthPrice} from 'redux/reducer/setting'
 import GasIcon from 'public/img/icons/gas.svg';
 import {getUnixtime} from 'helper/time'
 import withDropdown from 'hocs/dropdown';
@@ -29,6 +29,7 @@ class GasButton extends React.Component {
     componentDidMount() {
         // console.log('调用到DidMount')
         this.setGetGas();
+        this.getEthPrice();
     }
 
     componentWillUnmount() {
@@ -98,6 +99,17 @@ class GasButton extends React.Component {
 
     }
 
+    @autobind
+    async getEthPrice() {
+
+        if (!this.props.eth_price) {
+            let response = await fetch('https://api.etherscan.io/api?module=stats&action=ethprice')
+            let result = await response.json();
+            this.props.setEthPrice(result.result.ethusd);
+        }
+
+    }
+
     render() {
 
         const {gas_data,dropdown_visible} = this.props;
@@ -124,7 +136,7 @@ class GasButton extends React.Component {
                         <div className='l'>low</div>
                         <div className='r'>{gas_data.getIn(['data','safeLow']) / 10}</div>
                     </div>
-                    <div className='border-t border-gray-200 my-4'/>
+                    <div className='border-t d-border-c-2 my-4'/>
                     <div>
                         <div className='font-bold'>{t('Gas estimates')}</div>
                         <div className='gas-one '>
@@ -168,11 +180,15 @@ const mapDispatchToProps = (dispatch) => {
         setGasData : (data) => {
             return dispatch(setGasData(data))
         },
+        setEthPrice : (data)    => {
+            return dispatch(setEthPrice(data))
+        }
     }
 }
 function mapStateToProps(state,ownProps) {
     return {
         'gas_data'      :  state.getIn(['setting','gas_data']),
+        'eth_price'     :  state.getIn(['setting','eth_price']),
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(GasButton);
