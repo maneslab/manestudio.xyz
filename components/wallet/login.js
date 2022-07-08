@@ -23,6 +23,7 @@ class WalletLogin extends React.Component {
     
     static getDerivedStateFromProps(props, state) {
 
+
         const {login_user,wallet} = props;
 
         let CONNECT = 'connect';
@@ -83,6 +84,28 @@ class WalletLogin extends React.Component {
     }
 
     componentDidUpdate(prevProps,prevState) {
+        console.log('debug03->componentDidUpdate',this.props.is_inited);
+
+        if (this.props.is_inited) {
+            
+            const {login_user,wallet} = this.props;
+
+            if (login_user && !wallet) {
+                console.log('debug03->因为发现登陆用户却没有发现connect-wallet，调用登出')
+                this.logoutUser();
+            }
+
+
+            if (login_user && wallet && this.getJwtAddress(login_user) != this.getWalletAddress(wallet)) {
+                console.log('debug03->因为发现登陆用户和connect-wallet不一致，调用登出')
+                this.logoutUser();
+            }
+
+        }
+    }
+
+    componentDidMount() {
+        console.log('debug03->componentDidMount',this.props.is_inited);
         if (this.props.is_inited) {
             
             const {login_user,wallet} = this.props;
@@ -139,6 +162,8 @@ class WalletLogin extends React.Component {
 
         const {wallet,is_inited} = this.props;
         const {show_type} = this.state;
+
+        console.log('debug03->render,is_inited',is_inited)
 
         if (!is_inited) {
             return null;

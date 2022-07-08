@@ -9,13 +9,11 @@ import WalletLogin from 'components/wallet/login'
 @withLoginUser
 class MustLoginWrapper extends React.Component {
 
-
     constructor(props) {
         super(props)
         this.state = {
         }
     }
- 
 
     render() {
 

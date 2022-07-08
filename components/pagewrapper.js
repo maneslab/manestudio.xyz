@@ -16,8 +16,6 @@ import { userSchema } from 'redux/schema/index'
 import { initApp,setSlider,setGlobalModal } from 'redux/reducer/setting'
 import {withTranslate} from 'hocs/index'
 
-// import { HomeIcon,PlusCircleIcon , CashIcon , CogIcon,InboxInIcon} from '@heroicons/react/outline';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 import config from 'helper/config'
 import DarkmodeSwitch from './common/darkmode_switch';
 

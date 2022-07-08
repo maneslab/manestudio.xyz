@@ -34,12 +34,12 @@ export default function withMustLogin(WrappedComponent) {
 
             const {t} = this.props.i18n;
 
-            if (login_user && wallet && wallet.address) {
+            if (login_user && wallet && wallet.address && login_user.get('wallet_address').toLowerCase() == wallet.address.toLowerCase()) {
                 return <WrappedComponent {...this.props} />;
             }else {
                 return <PageWrapper>
                     <div className='my-12'>
-                        <div className='font-bold text-xl text-center text-black mb-4'>{t('login required to access')}</div>
+                        <div className='font-bold text-xl text-center mb-4'>{t('login required to access')}</div>
                         <div className='flex justify-center my-8'>
                             <WalletLogin />
                         </div>
