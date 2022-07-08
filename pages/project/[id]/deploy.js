@@ -27,11 +27,13 @@ import PbTime from 'components/contract/update/pb_time';
 import PbPrice from 'components/contract/update/pb_price';
 
 import {loadContract,saveContract} from 'redux/reducer/contract'
+import {updateClub} from 'redux/reducer/club'
 import ContractSide from 'components/contract/side';
 import {ethers} from 'ethers'
 
 import manestudio from 'helper/web3/manestudio';
 import manenft from 'helper/web3/manenft'
+import misc from 'helper/web3/misc'
 
 import withClubView from 'hocs/clubview'
 
@@ -44,7 +46,6 @@ import withWallet from 'hocs/wallet';
 import {percentDecimal,autoDecimal,fromPercentToPPM,hex2Number} from 'helper/number'
 import { httpRequest } from 'helper/http';
 
-@withWallet
 @withMustLogin
 @withClubView
 @withActiveClub
@@ -116,6 +117,9 @@ class ContractView extends React.Component {
             let contract_data = await this.manenft.contract.getAll();
             let symbol = await this.manenft.contract.symbol();
             let name = await this.manenft.contract.name();
+
+            let miscInstance = new misc();
+            let balance = await miscInstance.getBalance(addr);
             // let paused = await this.manenft.contract.paused();
 
             console.log('contract_data',contract_data)
@@ -123,6 +127,7 @@ class ContractView extends React.Component {
             formated_data['name'] = name;
             formated_data['symbol'] = symbol;
             formated_data['paused'] = paused;
+            formated_data['balance'] = balance;
 
             // console.log('formated_data',formated_data)
             this.setState({
@@ -427,9 +432,21 @@ class ContractView extends React.Component {
         })
     }
 
+    @autobind
+    lockClub() {
+        const {club_id} = this.props;
+        this.props.updateClub(club_id,{'is_lock':1});
+    }
+
+    @autobind
+    unlockClub() {
+        const {club_id} = this.props;
+        this.props.updateClub(club_id,{'is_lock':0});
+    }
+
     render() {
         // const {t} = this.props.i18n;
-        const {club_id,contract,wallet,chain,chains,eth_price} = this.props;
+        const {club_id,contract,chain,eth_price} = this.props;
         const {deploy_contract_address,contract_data,is_fetched_contract_data,is_fetching_contract_data} = this.state;
 
         console.log('debug:contract_data',contract_data)
@@ -447,7 +464,10 @@ class ContractView extends React.Component {
                 has_public_sale_stage = true;
             }
         }
-
+/*                        <div>
+                            <button className='btn btn-default' onClick={this.lockClub}>lockClub</button>
+                            <button className='btn btn-default' onClick={this.unlockClub}>unlockClub</button>
+                        </div>*/
 
         return <PageWrapper>
             <Head>
@@ -466,6 +486,7 @@ class ContractView extends React.Component {
                     <div className="col-span-10 pb-24">
 
                         <h1 className='h1 mb-8'>{t('deployment to ETH testnet')}</h1>
+                        
 
                         {
                             (chain && chain.id == 1)
@@ -531,6 +552,8 @@ class ContractView extends React.Component {
                                 }
                             </div>
                         }
+
+
 
                         {
                             (deploy_contract_address)
@@ -665,6 +688,32 @@ class ContractView extends React.Component {
                                         </div>
                                     </div>
                                 </div>
+
+                                <div className='contract-form'>
+                                    <h2 className='mb-2'>{t('withdraw')}</h2>
+                                    <div className='grid grid-cols-9 gap-8'>
+                                        <div className="col-span-6">
+                                            <div className='ct flex justify-between items-center'>
+                                                <div className='info-dl end w-1/3'>
+                                                    <label>{t('total balance')}</label>
+                                                    <div>
+                                                        {contract_data['balance']} ETH
+                                                    </div>
+                                                </div>
+                                                <div className='info-dl end w-1/3'>
+                                                    <label>{t('available balance')}</label>
+                                                    <div>
+                                                        {contract_data['balance']} ETH
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <button className='btn btn-default' onClick={this.withdraw}>{t('withdraw')}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 {
                                     (is_fetched_contract_data)
                                     ? <>
@@ -816,6 +865,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         saveContract : (data) => {
             return dispatch(saveContract(data))
+        },
+        updateClub : (club_id,data) => {
+            return dispatch(updateClub(club_id,data))
         }
     }
 }
@@ -828,9 +880,6 @@ function mapStateToProps(state,ownProps) {
         contract_id = contract_load_data.get('contract_id')
         contract = denormalize(contract_id,contractSchema,state.get('entities'));
     }
-    // console.log('debug03,state',state.toJS())
-    // console.log('debug03,contract_id',contract_id)
-    // console.log('debug03,contract',contract)
 
     return {
         'contract' : contract,

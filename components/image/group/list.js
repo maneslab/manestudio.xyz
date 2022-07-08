@@ -82,7 +82,7 @@ class GroupList extends React.Component {
 
             {
                 (is_empty)
-                ? <div className='py-12 max-w-screen-md mx-auto bg-white my-0 text-center'>
+                ? <div className='py-12 max-w-screen-md mx-auto d-bg-c-1 my-0 text-center'>
                     <Empty text={t('no group yet')} icon={<PhotographIcon className='icon-base'/>}/>
                 </div>
                 : <div className={"grid grid-cols-3 gap-4"}>

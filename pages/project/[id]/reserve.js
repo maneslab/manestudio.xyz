@@ -244,25 +244,33 @@ class GenerateGroupView extends React.Component {
             'is_saving' : true
         })
 
-        let result = httpRequest({
-            'url' : '/v1/image/reserve/save',
-            'method' : 'POST',
-            'data'  : {
-                'club_id' : club_id,
-                'nft_ids' : select_nft_ids.toJS().join(','),
-                'special_nft_ids' : select_special_nft_ids.toJS().join(',')
-            }
-        })
+        try {
 
-        console.log('result',result)
+            let result = await httpRequest({
+                'url' : '/v1/image/reserve/save',
+                'method' : 'POST',
+                'data'  : {
+                    'club_id' : club_id,
+                    'nft_ids' : select_nft_ids.toJS().join(','),
+                    'special_nft_ids' : select_special_nft_ids.toJS().join(',')
+                }
+            })
+
+            message.success(t('reserve success'));
+
+            this.toggleSuccessModal();
+
+        }catch(e) {
+            if (e.status == 'error') {
+                message.error(e.messages.join(','));
+            }
+        }
+
 
         this.setState({
             'is_saving' : false
         })
 
-        message.success(t('reserve success'));
-
-        this.toggleSuccessModal();
     }
  
     render() {

@@ -198,8 +198,9 @@ html,body {
 .alert.alert-success {
     @apply bg-[#D9F9D4] text-[#28D30D];
 }
-.alert.alert-warning {
-    @apply bg-[#DAE5FC] text-[#5387F6];
+.alert.alert-warning,
+.alert.alert-info {
+    @apply bg-[#DAE5FC] text-[#5387F6] dark:border-[#5387F6] dark:border dark:bg-[#19202e];
 }
 
 
@@ -848,9 +849,8 @@ select {
 .ct .info-dl:last-child {
     @apply mb-0;
 }
-
-.alert-info {
-    @apply bg-[#DAE5FC] text-[#5387F6] dark:border-[#5387F6] dark:border dark:bg-[#19202e];
+.info-dl.end {
+    @apply mb-0;
 }
 
 .info-table {

@@ -8,6 +8,7 @@ import * as Yup from 'yup';
 import Button from 'components/common/button'
 import PrefixInput from 'components/form/prefix_input'
 import {confirm} from 'components/common/confirm/index'
+import message from 'components/common/message'
 
 import {httpRequest} from 'helper/http';
 
@@ -42,14 +43,22 @@ class GenerateFrom extends React.Component {
             'is_fetching' :  true
         })
         
-        let result = await httpRequest({
-            'url' : '/v1/image/generate/generate_all',
-            'method' : 'POST',
-            'data'  : {
-                'club_id'      : club_id,
-                'max_number'   : collection_size
+        try {
+            let result = await httpRequest({
+                'url' : '/v1/image/generate/generate_all',
+                'method' : 'POST',
+                'data'  : {
+                    'club_id'      : club_id,
+                    'max_number'   : collection_size
+                }
+            })
+        }catch(e) {
+            console.log('debug00,result',e)
+            if (e.status == 'error') {
+                message.error(e.messages.join(','))
             }
-        })
+        }
+
         // console.log('debug08,result',result);
 
         this.setState({
