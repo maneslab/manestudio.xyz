@@ -17,7 +17,7 @@ export default function FourOhFour() {
         <Head>
             <title>404 - Page Not Found</title>
         </Head>
-        <div className='bg-white -mt-8 border-t border-gray-300'>
+        <div className='d-bg-c-1 -mt-8 border-t d-border-c-1'>
             <div className='max-w-screen-xl mx-auto flex justify-center flex-col items-center height-without-header' >
                 
                 <div className='mb-8'>

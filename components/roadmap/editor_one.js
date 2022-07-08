@@ -43,7 +43,7 @@ export default function SortableItem({roadmap,open_index,id,toggleOpen,remove,dr
             <div className='flex justify-between cursor-pointer' onClick={()=>{
                 toggleOpen(id)
             }}>
-                <div className='flex justify-start flex-grow items-center'>
+                <div className='flex justify-start flex-grow items-center text-black dark:text-white'>
                 <DragIcon className={classNames("mr-2 icon-sm ",{"d-bg-c-3":is_draging})}  {...listeners} />
                 {
                     (is_empty)

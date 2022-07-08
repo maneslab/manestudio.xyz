@@ -10,7 +10,7 @@ export default class Loading extends React.Component {
     render() {
         return (
           <div className='flex justify-center'>
-          <div className={"loading-container"}>
+          <div className="loading-container">
           </div>
           </div>
         );

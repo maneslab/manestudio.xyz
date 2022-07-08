@@ -216,24 +216,24 @@ html,body {
   }
   
   .loading-container::before {
+    @apply bg-black dark:bg-white;
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
     width: 100%;
-    background-color: black;
     opacity: 0.1;
   }
   
   .loading-container::after {
+    @apply bg-black dark:bg-white;
     content: '';
     height: 100%;
     width: 100%;
     border-radius: 3px;
     animation: raceBy 1.4s ease-in-out infinite;
     transform: translateX(-100%);
-    background-color: black;
   }
   
   @keyframes raceBy {
@@ -512,6 +512,10 @@ input{outline:none;}
     z-index: 100;
 }
 
+.bf-controlbar {
+    @apply d-border-c-2 border-b;
+    box-shadow: none;
+}
 
 /*main*/
 .logo {
@@ -836,21 +840,24 @@ select {
 }
 
 .info-dl {
-    @apply mb-4;
+    @apply mb-6;
 }
 .info-dl label {
-    @apply text-gray-400;
+    @apply text-gray-400 capitalize;
+}
+.ct .info-dl:last-child {
+    @apply mb-0;
 }
 
 .alert-info {
-    @apply bg-[#DAE5FC] text-[#5387F6];
+    @apply bg-[#DAE5FC] text-[#5387F6] dark:border-[#5387F6] dark:border dark:bg-[#19202e];
 }
 
 .info-table {
     @apply w-full text-sm;
 }
 .info-table th {
-    @apply text-left bg-gray-100 py-2 px-4;
+    @apply text-left bg-gray-100 dark:bg-[#181a1e] dark:text-[#a3a3a5] py-2 px-4;
 }
 .info-table td {
     @apply text-left py-2 px-4;
@@ -876,7 +883,7 @@ select {
     @apply text-red-500;
 }
 .block-notification.loading .title{
-    @apply text-black;
+    @apply text-black dark:text-white;
 }
 
 
@@ -885,9 +892,18 @@ select {
 }
 
 .btn-default {
-    @apply dark:bg-[#074DFF] dark:text-white dark:hover:bg-primary;
+    @apply dark:bg-[#49516f] dark:hover:bg-[#39405b] dark:text-white;
 }
 
 .DraftEditor-root {
     @apply dark:text-white;
 }
+.edit-form-line {
+    @apply cursor-pointer;
+}
+.edit-form-line .icon-xs {
+    @apply hidden;
+}
+.edit-form-line:hover .icon-xs {
+    @apply block;
+} 

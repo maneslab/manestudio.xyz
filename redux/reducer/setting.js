@@ -23,6 +23,8 @@ export const setActiveTraitId = createAction('SET_ACTIVE_TRAIT_ID');
 export const SET_GAS_DATA = 'SET_GAS_DATA'
 export const setGasData = createAction('SET_GAS_DATA');
 
+export const SET_ETH_PRICE = 'SET_ETH_PRICE'
+export const setEthPrice = createAction('SET_ETH_PRICE');
 
 export const SET_SETTING = 'SET_SETTING'
 export const setSetting = (payload) => {
@@ -147,9 +149,13 @@ export function reducer(state = Immutable.fromJS({
         'data'              : {},
         'last_update_time'  : 0
     },
+    'eth_price'             : null
 }), action) {
 
     switch (action.type) {
+
+        case SET_ETH_PRICE:
+            return state.setIn(['eth_price'],action.payload)
 
         case SET_GAS_DATA:
             return state.setIn(['gas_data','data'],Immutable.fromJS(action.payload))

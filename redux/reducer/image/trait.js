@@ -251,7 +251,6 @@ export function deleteTrait(trait_id) {
 
 
 export function initTrait(trait_id,response) {
-    console.log('debug008,call init trait');
     return {
         type             : LOAD_TRAIT_SUCCESS,
         payload : {
@@ -262,12 +261,7 @@ export function initTrait(trait_id,response) {
 }
 
 export function initTraitList(trait_list) {
-
-    console.log('debug07,initTraitList，',trait_list);
     let response = normalize(trait_list, imageTraitListSchema)
-
-    console.log('debug07,response',response);
-
     return {
         type             : 'MERGE_ENTITES',
         payload : response.entities

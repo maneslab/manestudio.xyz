@@ -56,7 +56,7 @@ export default function SortableItem({creator,club,open_index,id,toggleOpen,remo
             <div className='flex justify-between cursor-pointer' onClick={()=>{
                 toggleOpen(id)
             }}>
-                <div className='flex justify-start flex-grow items-center'>
+                <div className='flex justify-start flex-grow items-center text-black dark:text-white'>
                 <DragIcon className={classNames("mr-2 icon-sm ",{"d-bg-c-3":is_draging})}  {...listeners} />
                 {
                     (is_empty)
@@ -64,7 +64,7 @@ export default function SortableItem({creator,club,open_index,id,toggleOpen,remo
                     : <div>
                         <div className='flex justify-start text-base'>
                         <span >{creator['name']}</span>
-                        <span className='text-gray-700 dark:text-[#999] ml-4'>{creator['title']}</span>
+                        <span className='text-gray-500 dark:text-[#999] ml-4'>{creator['title']}</span>
                         </div>
                         <div className='text-sm opacity-50'>
                         {creator['detail']}

@@ -78,19 +78,16 @@ class PageWrapper extends React.Component {
                                     <Link href="/project/list"><a className='font-bold capitalize ml-2'>{t('projects')}</a></Link>
                                 </div>
 
-                                
-
                             </div>
                             
 
                             <div className='flex justify-end items-center'>
 
-
                                 <LanguageBtn />
 
                                 <ConnectWalletButton />
 
-                                <div className='ml-2'>
+                                <div className='ml-2 dark:text-white'>
                                     <DarkmodeSwitch />
                                 </div>
 

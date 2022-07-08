@@ -15,6 +15,7 @@ import ExpiretimeSelect from 'components/form/expiretime_select';
 import BluechipSelect from 'components/form/mane/bluechip_select';
 import WhitelistUpload from 'components/form/mane/upload_whitelist_csv';
 import UploadPlaceholderModal from 'components/contract/placeholder_modal';
+import message from 'components/common/message'
 
 import {  PlusIcon  } from '@heroicons/react/outline'
 import {t} from 'helper/translate'
@@ -57,7 +58,6 @@ class ContractUpdate extends React.Component {
 
     @autobind
     setForm(contract) {
-
         // console.log('debug10,contract->',contract.toJS());
         let contract_data = this.formatContractData(contract);
 
@@ -76,55 +76,62 @@ class ContractUpdate extends React.Component {
         number_map.map(one=>{
             contract_data[one] = Number(contract_data[one])
         })
-        
-        // console.log('debug10,formatContractData',contract_data);
 
+        let price = ['wl_price','pb_price'];
+        price.map(one=>{
+            contract_data[one] = parseFloat(contract_data[one])
+        });
+        
         return contract_data;
     }
 
     @autobind
     formatData(values) {
+
+        let result = {}
         //添加clubid 
-        values.club_id = this.props.club_id;
-
-        //整理refund数据
-        values.refund = JSON.stringify(values.refund);
-
-        //整理revenue_share数据
-        values.revenue_share = JSON.stringify(values.revenue_share);
+        result.club_id = this.props.club_id;
 
         //清理为0的字段
-        if (values.placeholder_img_id == 0) {
-            delete values.placeholder_img_id
+        if (values.placeholder_img_id != 0) {
+            result.placeholder_img_id = values.placeholder_img_id
         }
 
         if (values.placeholder_img) {
-            values.placeholder_img_id = values.placeholder_img.img_id
-        }
-
-        if (values.placeholder_video_id == 0) {
-            delete values.placeholder_video_id
+            result.placeholder_img_id = values.placeholder_img.img_id
         }
 
         if (values.placeholder_video) {
-            values.placeholder_video_id = values.placeholder_video.id
+            result.placeholder_video_id = values.placeholder_video.id
         }
 
-        return values;
+        let arr = [
+            'wl_bluechip_list',
+            'wl_price',
+            'reveal_time'
+        ]
+
+        arr.map(one=>{
+            result[one] = values[one];
+        })
+
+        return result;
     }
 
     async submitForm(values) {
-        console.log('submitForm',values)
-
+        const {t} = this.props.i18n;
         ///清理数据结构
         let values_deepclone = JSON.parse(JSON.stringify(values))
-
         let format_data = this.formatData(values_deepclone)
 
         this.setState({
             'is_saving' : true
         })
-        this.props.saveContract(format_data);
+        let result = await this.props.saveContract(format_data);
+        console.log('result',result)
+        if (result.status == 'success') {
+            message.success(t('save success'));
+        }
 
         this.setState({
             'is_saving' : false
@@ -166,11 +173,6 @@ class ContractUpdate extends React.Component {
                             <div className='flex justify-between items-center w-full'>
                                 <div className='flex justify-start items-center title'>
                                     <h2 className='mb-0'>{'whitelist'}</h2>
-                                    <div class="form-control ml-4">
-                                        <label class="label cursor-pointer">
-                                            <FormSwitch name={"wl_enable"} className="toggle toggle-primary"/>
-                                        </label>
-                                    </div>
                                 </div>
                                 <div>
                                 </div>
@@ -196,7 +198,6 @@ class ContractUpdate extends React.Component {
                                         {t('whitelist is disabled')}
                                     </div>
                                 }
-                                
                             </div>
                             <div className="col-span-3 intro">
                                 <p>{t('ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.')}</p>
@@ -266,6 +267,10 @@ class ContractUpdate extends React.Component {
                             <div className="col-span-3 intro">
                                 <p>{t('ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.')}</p>
                             </div>
+                        </div>
+                        
+                        <div className='py-4'>
+                            <button className='btn btn-primary'>submit</button>
                         </div>
 
                         

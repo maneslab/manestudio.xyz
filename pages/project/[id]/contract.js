@@ -119,6 +119,10 @@ class ContractView extends React.Component {
             contract_data['pb_end_time_enable'] = 0;
         }
         
+        let price = ['wl_price','pb_price'];
+        price.map(one=>{
+            contract_data[one] = parseFloat(contract_data[one])
+        });
         // console.log('debug10,formatContractData',contract_data);
 
         return contract_data;
@@ -332,7 +336,7 @@ class ContractView extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className='contract-form'>
+                                <div className='contract-form hidden'>
                                     <h2 className='mb-2'>{'ASCII mark'}</h2>
                                     <div className='grid grid-cols-9 gap-8'>
                                         <div className="col-span-6">
@@ -453,7 +457,7 @@ class ContractView extends React.Component {
                                                                     : null
                                                                 }
                                                             </div>
-                                                            : <div className='p-6 bg-white text-gray-400 capitalize'>
+                                                            : <div className='p-6 d-bg-c-1 text-gray-400 capitalize'>
                                                                 {t('refund is disabled')}
                                                             </div>
                                                         }
@@ -687,7 +691,7 @@ class ContractView extends React.Component {
                                                                 : null
                                                             }
                                                         </div>
-                                                        : <div className='p-6 bg-white text-gray-400 capitalize'>
+                                                        : <div className='p-6 d-bg-c-1 text-gray-400 capitalize'>
                                                             {t('revenue sharing is disabled , all income only could withdraw by owner')}
                                                         </div>
                                                     }

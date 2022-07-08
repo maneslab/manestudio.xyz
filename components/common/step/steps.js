@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function Steps({children,active,...props}) {
-    console.log('children',children);
+    // console.log('children',children);
     let i = 1;
     let children_formated = children.map( (o, i)=>{
         i += 1;

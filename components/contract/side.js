@@ -27,7 +27,7 @@ export default function ContractSide({
         <h3 className='font-bold capitalize mb-4'>{t('deploy')}</h3>
         <ul>
             <li>
-                <NavLink href={base_url+'/deploy_testnet'}>
+                <NavLink href={base_url+'/deploy?net=kovan'}>
                 <a>
                     <CloudUploadIcon className='icon-sm mr-2' />
                     {t('testnet')}
@@ -35,7 +35,7 @@ export default function ContractSide({
                 </NavLink>
             </li>
             <li>
-                <NavLink href={base_url+'/deploy_mainnet'}>
+                <NavLink href={base_url+'/deploy?net=mainnet'}>
                 <a>
                     <CloudUploadIcon className='icon-sm mr-2' />
                     {t('mainnet')}

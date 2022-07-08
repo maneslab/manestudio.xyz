@@ -89,7 +89,7 @@ class GenerateGroupView extends React.Component {
                 'club_id'      : club_id,
             }
         })
-        console.log('debug08,result',result);
+        // console.log('debug08,result',result);
 
         let show_skip_page = true;
         if (result.data.nft_ids.length > 0 || result.data.sp_nft_ids.length > 0) {

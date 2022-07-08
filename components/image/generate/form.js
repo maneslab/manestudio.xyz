@@ -50,7 +50,7 @@ class GenerateFrom extends React.Component {
                 'max_number'   : collection_size
             }
         })
-        console.log('debug08,result',result);
+        // console.log('debug08,result',result);
 
         this.setState({
             'is_fetching' : false,

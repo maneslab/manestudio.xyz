@@ -31,7 +31,6 @@ export default function withMustLogin(WrappedComponent) {
         render() {
 
             const {wallet,login_user} = this.props;
-            console.log('debug10,this.props',this.props);
 
             const {t} = this.props.i18n;
 

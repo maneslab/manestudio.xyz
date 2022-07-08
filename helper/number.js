@@ -54,6 +54,8 @@ const formatBigNumber = (num) => {
     }
 }
 
+
+
 // const getPoolPercent = (token_amount,total_amount) => {
 //     token_amount = Number(token_amount);
 //     total_amount = Number(total_amount);
@@ -119,6 +121,14 @@ const getAmountFromIntAmount = (amount,decimals) => {
     return value;
 }
 
+const hex2Number = (str = '') => {
+    if (str.indexOf('0x') === 0) {
+        str = str.slice(2);
+    }
+    return parseInt(`0x${str}`, 16);
+}
+
+
 const getIntAmountByAmount = (amount,decimals = 18) => {
     amount = new BigNumber(amount);
     let value = amount.times(Math.pow(10,Number(decimals)));
@@ -152,5 +162,6 @@ module.exports = {
     'getIntAmountByAmount'   : getIntAmountByAmount,
     'getAmountFromHex'       : getAmountFromHex,
     'showBalance'            : showBalance,
-    'fromPercentToPPM'       : fromPercentToPPM
+    'fromPercentToPPM'       : fromPercentToPPM,
+    'hex2Number'             : hex2Number
 }

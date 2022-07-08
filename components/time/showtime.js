@@ -1,6 +1,6 @@
 import { format,fromUnixTime } from 'date-fns';
 
-export default function Showtime({unixtime,cale}) {
+export default function Showtime({unixtime}) {
     const select_date = fromUnixTime(unixtime);
 
     return (

@@ -58,7 +58,7 @@ class GenerateGroupView extends React.Component {
                 'club_id'      : club_id,
             }
         })
-        console.log('debug08,result',result);
+        // console.log('debug08,result',result);
 
         this.setState({
             'is_fetching' : false,

@@ -8,6 +8,7 @@ import withLabel from 'hocs/label'
 
 import { httpRequest } from 'helper/http';
 import {ErrorMessage} from 'formik'
+import {removeValueEmpty} from 'helper/common'
 
 @withTranslate
 @withLabel
@@ -52,6 +53,10 @@ class BluechipSelect extends React.Component {
         return list.indexOf(value) > -1;
     }
 
+    removeEmptyValueInArray(new_array) {
+        return new_array.filter(one=>one!='');
+    }
+
     render() {
 
         const {name,dropdown_visible,toggleDropdown} = this.props;
@@ -65,7 +70,7 @@ class BluechipSelect extends React.Component {
             }) => {
 
                 let vs = value.split(",");
-                console.log('debugvs,bluechip_list',bluechip_list);
+                {/* console.log('debugvs,bluechip_list',bluechip_list); */}
 
                 let select_names = [];
                 vs.map(one=>{
@@ -74,7 +79,7 @@ class BluechipSelect extends React.Component {
                     }
                 })
 
-                console.log('debugvs,',vs,select_names)
+                {/* console.log('debugvs,',vs,select_names) */}
 
                 let menu = <div className="block-menu border-2 border-black">
                     <ul className="overflow-y-scroll">
@@ -94,6 +99,7 @@ class BluechipSelect extends React.Component {
                                             } else {
                                                 vs.push(key);
                                             }
+                                            vs = this.removeEmptyValueInArray(vs);
                                             if (vs.length > 0) {
                                                 setFieldValue(name,vs.join(","));
                                             }else {

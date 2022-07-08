@@ -83,7 +83,7 @@ class GenerateGroupView extends React.Component {
                 'trait_ids'    : filter_trait_ids.toJS().join('_')
             }
         })
-        console.log('debug08,result',result);
+        // console.log('debug08,result',result);
 
         this.props.initTraitList(result.data.traits)
 
@@ -257,7 +257,7 @@ class GenerateGroupView extends React.Component {
 
 GenerateGroupView.getInitialProps =  wrapper.getInitialPageProps((store) => async ({pathname, req, res,query}) => {
     return {
-        club_id : query.id
+        club_id : Number(query.id)
     };
 });
 

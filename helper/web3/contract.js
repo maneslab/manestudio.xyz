@@ -93,6 +93,11 @@ export default class Contract {
             if (clear_create_msg) {
                 clear_create_msg();
             }
+
+            if (typeof merge_cond['func']['error_tx'] == 'function') {
+                merge_cond['func']['error_tx'](e);
+            }
+            
         }
     }
 }
