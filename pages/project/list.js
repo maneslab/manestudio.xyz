@@ -45,7 +45,7 @@ class ClubList extends React.Component {
                             {t('add project')}
                         </button>
                     </div>
-                    <MyClubList />
+                    <MyClubList toggleCreateModal={this.toggleCreateModal}/>
                     <CreateModal visible={show_create_modal} closeModal={this.toggleCreateModal}/>
                 </div>
                 <div class="">

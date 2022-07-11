@@ -88,15 +88,15 @@
 
 /*scrollbar*/
 ::-webkit-scrollbar {
-    @apply dark:bg-[#333];
+    @apply bg-gray-50 dark:bg-[#333];
 }
 ::-webkit-scrollbar-thumb  {
-    @apply dark:bg-[#444] rounded-full;
+    @apply bg-gray-200 dark:bg-[#444] rounded-full;
 
 }
 ::-webkit-scrollbar-track  
 {  
-    @apply dark:bg-[#333];
+    @apply bg-gray-50 dark:bg-[#333];
 }  
 
 
@@ -456,6 +456,9 @@ html,body {
 }
 
 .btn-outline {
+    @apply border-2 dark:border-[#fff] dark:text-[#fff];
+}
+.btn-outline.btn-secondary {
     @apply border-2 dark:border-[#7a7c80] dark:text-[#7a7c80];
 }
 

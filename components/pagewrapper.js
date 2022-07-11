@@ -59,7 +59,7 @@ class PageWrapper extends React.Component {
                 </Head>
                 <div>
 
-                    <div className="h-screen w-screen overflow-y-scroll flex flex-col justify-between">
+                    <div className="h-screen w-screen overflow-y-auto flex flex-col justify-between">
 
                         <div className='header-bg text-black mb-8 dark:bg-[#22252b] dark:text-white'>
                         <div className="flex justify-between py-8 h-24 w-full max-w-screen-xl mx-auto ">
@@ -81,13 +81,14 @@ class PageWrapper extends React.Component {
 
                             <div className='flex justify-end items-center'>
 
+                                <div className='mr-2 dark:text-white'>
+                                    <DarkmodeSwitch />
+                                </div>
+
                                 <LanguageBtn />
 
                                 <ConnectWalletButton />
 
-                                <div className='ml-2 dark:text-white'>
-                                    <DarkmodeSwitch />
-                                </div>
 
                             </div>
 
