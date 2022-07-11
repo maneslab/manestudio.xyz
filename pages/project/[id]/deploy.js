@@ -42,15 +42,15 @@ import {t} from 'helper/translate'
 
 import { denormalize } from 'normalizr';
 import {contractSchema} from 'redux/schema/index'
-import withWallet from 'hocs/wallet';
 import {percentDecimal,autoDecimal,fromPercentToPPM,hex2Number} from 'helper/number'
 import { httpRequest } from 'helper/http';
+import { getUnixtime } from 'helper/time';
 
 @withMustLogin
 @withClubView
 @withActiveClub
 @withSetActiveClub
-class ContractView extends React.Component {
+class DeployView extends React.Component {
 
     constructor(props) {
         super(props)
@@ -67,7 +67,7 @@ class ContractView extends React.Component {
             is_fetched_contract_data    : false,
             is_fetching_contract_data   : false,
 
-            network : props.network
+            // network : props.network
         }
         const {t} = props.i18n;
         this.mane = new manestudio(t,props.network);
@@ -78,24 +78,77 @@ class ContractView extends React.Component {
 
     componentDidMount() {
         if (this.props.club_id) {
-            this.props.loadContract(this.props.club_id);
-            this.getDeployedAddress();
+            this.fetchPageData();
         }
     }
 
     componentDidUpdate(prevProps,prevState) {
         if (this.props.club_id && this.props.club_id != prevProps.club_id) {
-            this.props.loadContract(this.props.club_id);
+            this.fetchPageData();
         }
+        if (this.props.network && this.props.network != prevProps.network) {
+            this.initData();
+            this.fetchPageData();
+        }
+    }
+
+    @autobind
+    fetchPageData() {
+        this.props.loadContract(this.props.club_id);
+        this.getDeployedAddress();
+    }
+
+    @autobind
+    initData() {
+
+        const {t} = this.props.i18n;
+        const {network} = this.props;
+
+        this.mane = new manestudio(t,network);
+
+        this.setState({
+            is_deploy_contract : false,
+            is_estimate_ing : false,
+            is_estimated    : false,
+            gas_data_without_reverse : null,
+            gas_data : null,
+            reserve_count : 0,
+
+            deploy_contract_address     : '',
+            contract_data               : {},
+            is_fetched_contract_data    : false,
+            is_fetching_contract_data   : false,
+        })
+    }
+
+    @autobind
+    async fetchContractDataFromServer(addr,network) {
+
+        let result = await httpRequest({
+            'url'   :   '/v1/mane/get_all',
+            'data'  : {
+                contract_address : addr,
+                network : network
+            }
+        })
+
+        return result.data;
+
     }
 
     @autobind
     async getDeployedAddress() {
         const {t} = this.props.i18n;
         const {club_id,network} = this.props;
-        let addr = await this.mane.contract.clubMap(club_id);
-        console.log('addr',addr)
-        
+
+        let addr = '0x0';
+        try {
+            addr = await this.mane.contract.clubMap(club_id);
+        }catch(e) {
+            console.log('debug-e',e)
+        }
+
+
         if (hex2Number(addr) != 0) {
             this.setState({
                 'deploy_contract_address'   : addr,
@@ -115,18 +168,19 @@ class ContractView extends React.Component {
 
             this.manenft = new manenft(t,network,addr);
             let contract_data = await this.manenft.contract.getAll();
-            let symbol = await this.manenft.contract.symbol();
-            let name = await this.manenft.contract.name();
+            // let symbol = await this.manenft.contract.symbol();
+            // let name = await this.manenft.contract.name();
+            let contract_data_in_server = await this.fetchContractDataFromServer(addr,network);
 
             let miscInstance = new misc();
             let balance = await miscInstance.getBalance(addr);
-            // let paused = await this.manenft.contract.paused();
+            let paused = await this.manenft.contract.paused();
 
             console.log('contract_data',contract_data)
-            let formated_data = this.deformatContractData(contract_data);
-            formated_data['name'] = name;
-            formated_data['symbol'] = symbol;
-            formated_data['paused'] = paused;
+            let formated_data = this.deformatContractData(contract_data,contract_data_in_server);
+            // formated_data['name'] = name;
+            // formated_data['symbol'] = symbol;
+            formated_data['paused'] = (paused == 1) ? true : false;
             formated_data['balance'] = balance;
 
             // console.log('formated_data',formated_data)
@@ -139,46 +193,56 @@ class ContractView extends React.Component {
 
     }
 
-    deformatContractData(contract_data) {
+    deformatContractData(contract_data,contract_data2) {
+
+        console.log('contract_data',contract_data,contract_data2)
 
         let contract_data_formatted = {
-            'reserve_count' : contract_data[0][0].toString(),
-            'max_supply'    : contract_data[0][1].toString(),
-            'presale_max_supply'    : contract_data[0][2].toString(),
-            'club_id'               :   contract_data[0][3].toString(),
-            'presale_start_time'    :   contract_data[0][4].toString(),
-            'presale_end_time'      :   contract_data[0][5].toString(),
-            'sale_start_time'       :   contract_data[0][6].toString(),
-            'sale_end_time'         :   contract_data[0][7].toString(),
-            'presale_price'         :   contract_data[0][8].toString(),
-            'sale_price'            :   ethers.utils.formatEther(contract_data[0][9].toString()),
-            'presale_per_wallet_count'  :   contract_data[0][10].toString(),
-            'sale_per_wallet_count'     :   contract_data[0][11].toString(),
+            'reserve_count' : contract_data[0].toString(),
+            'max_supply'    : contract_data[1].toString(),
+            'presale_max_supply'    : contract_data[2].toString(),
+            'club_id'               :   contract_data[3].toString(),
+            'presale_start_time'    :   contract_data[4].toString(),
+            'presale_end_time'      :   contract_data[5].toString(),
+            'sale_start_time'       :   contract_data[6].toString(),
+            'sale_end_time'         :   contract_data[7].toString(),
+            'presale_price'         :   contract_data[8].toString(),
+            'sale_price'            :   ethers.utils.formatEther(contract_data[9].toString()),
+            'presale_per_wallet_count'  :   contract_data[10].toString(),
+            'sale_per_wallet_count'     :   contract_data[11].toString(),
         };
 
         let share_reverse_data = [];
-        if (contract_data[1]) {
-            contract_data[1].map(one=>{
+        if (contract_data2['shares']) {
+            contract_data2['shares'].map(one=>{
                 share_reverse_data.push({
-                    'owner'         :   one['owner'],
+                    'owner'         : one['address'],
                     'ratioPPM'      : one['ratioPPM'].toString(),
-                    'collectAmount' : one['collectAmount'].toString(),
+                    // 'collectAmount' : one['collectAmount'].toString(),
                 })
             })
         }
         contract_data_formatted['share'] = share_reverse_data;
 
         let refund_time_list = [];
-        if (contract_data[2]) {
-            contract_data[2].map(one=>{
-                console.log('refund-one',one)
+        if (contract_data2['refunds']) {
+            contract_data2['refunds'].map(one=>{
+                // console.log('refund-one',one)
                 refund_time_list.push({
-                    'endTime'       :   one['endTime'].toString(),
+                    'endTime'       :   one['end_time'].toString(),
                     'ratioPPM'      :   one['ratioPPM'].toString(),
                 })
             })
         }
         contract_data_formatted['refund'] = refund_time_list;
+
+        let arr_map = ['name','symbol'];
+        arr_map.map(one=>{
+            if (contract_data2[one]) {
+                contract_data_formatted[one] = contract_data2[one];
+            }
+        });
+        
 
         return contract_data_formatted
     }
@@ -334,7 +398,7 @@ class ContractView extends React.Component {
             },
             'func' : {
                 'send_tx' : async () => {
-                    let tx_in = await this.manenft.contract.setPause(paused);
+                    let tx_in = await this.manenft.contract.setPaused(paused);
                     console.log('tx is send',tx_in)
                     return tx_in;
                 },
@@ -431,6 +495,40 @@ class ContractView extends React.Component {
             } 
         })
     }
+    @autobind
+    async withdraw() {
+        const {t} = this.props.i18n;
+        var that = this;
+
+        await this.mane.request({
+            'text' : {
+                'loading' : t('withdraw'),
+                'sent'    : t('withdraw tx sent'),
+                'success' : t('withdraw successful'),
+            },
+            'func' : {
+                'send_tx' : async () => {
+                    let tx_in = await this.manenft.contract.collect();
+                    console.log('tx is send',tx_in)
+                    return tx_in;
+                },
+                'before_send_tx' : () => {
+                    that.setState({
+                        is_withdrawing : true,
+                    })
+                },
+                'finish_tx' : () => {
+                    that.setState({
+                        is_withdrawing : false,
+                    })
+                },
+                'after_finish_tx' : () => {
+                    console.log('after_finish_tx');
+                    // this.getUserSafeBox(this.props.login_user.get('wallet_address'));
+                }
+            } 
+        })
+    }
 
     @autobind
     lockClub() {
@@ -444,12 +542,51 @@ class ContractView extends React.Component {
         this.props.updateClub(club_id,{'is_lock':0});
     }
 
+    isNetworkCurrect(network,chain) {
+        let wish_net_id = 0;
+        switch(network) {
+            case 'mainnet':
+                wish_net_id = 1;
+                break;
+            case 'ropsten':
+                wish_net_id = 3;
+                break;
+            case 'kovan':
+                wish_net_id = 42;
+                break;
+            default:
+                wish_net_id = 1;
+                break;
+        }
+
+        if (chain && chain.id == wish_net_id) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    isAllowWithdraw(refund_list) {
+        if (!refund_list) {
+            return true;
+        }
+        let now_unixtime = getUnixtime();
+        let allow_withdraw = true;
+        refund_list.map((item,index) => {
+            if (now_unixtime < item.endTime) {
+                allow_withdraw = false;
+            }
+        })
+        return allow_withdraw;
+    }
+
     render() {
         // const {t} = this.props.i18n;
-        const {club_id,contract,chain,eth_price} = this.props;
+        const {club_id,contract,chain,eth_price,network} = this.props;
         const {deploy_contract_address,contract_data,is_fetched_contract_data,is_fetching_contract_data} = this.state;
 
         console.log('debug:contract_data',contract_data)
+        console.log('debug:chain',chain)
 
         let has_presale_stage = false;
         if (is_fetched_contract_data) {
@@ -464,6 +601,16 @@ class ContractView extends React.Component {
                 has_public_sale_stage = true;
             }
         }
+
+        let is_network_correct = this.isNetworkCurrect(network,chain);
+
+        let is_allow_withdraw = false;
+        if (contract_data) {
+            is_allow_withdraw = this.isAllowWithdraw(contract_data['refund'])
+        } 
+
+
+        
 /*                        <div>
                             <button className='btn btn-default' onClick={this.lockClub}>lockClub</button>
                             <button className='btn btn-default' onClick={this.unlockClub}>unlockClub</button>
@@ -485,79 +632,83 @@ class ContractView extends React.Component {
 
                     <div className="col-span-10 pb-24">
 
-                        <h1 className='h1 mb-8'>{t('deployment to ETH testnet')}</h1>
+                        <h1 className='h1 mb-8'>{(network == 'mainnet')?t('deployment to ETH mainnet'):t('deployment to ETH testnet') + ' : ' + network}</h1>
                         
-
                         {
-                            (chain && chain.id == 1)
-                            ? <div className='d-bg-c-1 p-4 pl-8 mb-8 flex justify-between items-center'>
-                                <span className="capitalize">{t('you are connecting to the ETH mainnet')}</span>
-                                <SwitchChainButton />
-                            </div>
-                            : <div className='d-bg-c-1 p-4 pl-8 mb-8 '>
-                                <div className='flex justify-between items-center'>
-                                    <span className="capitalize">{t('you are connecting to the ETH testnet')} {chain.name}</span>
-                                    <div className='flex justify-end items-center'>
-                                        <GasButton />
-                                        <Button loading={this.state.is_estimate_ing} className='btn btn-default mr-2' onClick={this.estimateGas}>estimate gas fee</Button>
-                                        <Button loading={this.state.is_deploy_contract} className='btn btn-primary' onClick={this.deploy}>deploy</Button>
-                                    </div>
-                                </div>
+                            (!deploy_contract_address)
+                            ? <>
                                 {
-                                    (this.state.is_estimated)
-                                    ? <div className='pt-4 mt-4 border-t d-border-c-1'>
-                                        <h3 className='text-gray-500 mb-2'>{t('gas estimate')}</h3>
-                                        <table className='info-table w-full"'>
-                                            <thead>
-                                                <tr>
-                                                    <th>{t('type')}</th>
-                                                    <th>{t('estimate gas')}</th>
-                                                    {
-                                                        (eth_price)
-                                                        ? <th>{t('usd value')}</th>
-                                                        : null
-                                                    }
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>{t('contract deploy')}</td>
-                                                    <td>{autoDecimal(this.state.gas_data.gasFee.toString())} ETH</td>
-                                                    {
-                                                        eth_price 
-                                                        ? <td>{autoDecimal(Number(this.state.gas_data.gasFee.toString()* eth_price))} USD</td>
-                                                        : null
-                                                    }
-                                                </tr>
+                                    (!is_network_correct && chain.id)
+                                    ? <div className='d-bg-c-1 p-4 pl-8 mb-8 flex justify-between items-center'>
+                                        <span className="capitalize">{t('you are connecting to wrong eth network')}</span>
+                                        <SwitchChainButton />
+                                    </div>
+                                    : <div className='d-bg-c-1 p-4 pl-8 mb-8 '>
+                                        <div className='flex justify-between items-center'>
+                                            <span className="capitalize">{t('you are connecting to the ETH testnet')} {chain.name}</span>
+                                            <div className='flex justify-end items-center'>
                                                 {
-                                                    (this.state.reserve_count > 0)
-                                                    ? <tr>
-                                                        <td>{t('contract deploy without reverse')}</td>
-                                                        <td>{autoDecimal(this.state.gas_data_without_reverse.gasFee.toString())} ETH</td>
-                                                        {
-                                                            eth_price 
-                                                            ? <td>{autoDecimal(Number(this.state.gas_data_without_reverse.gasFee.toString()* eth_price))} USD</td>
-                                                            : null
-                                                        }
-                                                    </tr>
+                                                    (network == 'mainnet')
+                                                    ? <>
+                                                        <GasButton />
+                                                        <Button loading={this.state.is_estimate_ing} className='btn btn-default mr-2' onClick={this.estimateGas}>estimate gas fee</Button>
+                                                    </>
                                                     : null
                                                 }
-                                            </tbody>
-                                        </table>
-                                       
-    
-                                        
+                                                <Button loading={this.state.is_deploy_contract} className='btn btn-primary' onClick={this.deploy}>deploy</Button>
+                                            </div>
+                                        </div>
+                                        {
+                                            (this.state.is_estimated)
+                                            ? <div className='pt-4 mt-4 border-t d-border-c-1'>
+                                                <h3 className='text-gray-500 mb-2'>{t('gas estimate')}</h3>
+                                                <table className='info-table w-full"'>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>{t('type')}</th>
+                                                            <th>{t('estimate gas')}</th>
+                                                            {
+                                                                (eth_price)
+                                                                ? <th>{t('usd value')}</th>
+                                                                : null
+                                                            }
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>{t('contract deploy')}</td>
+                                                            <td>{autoDecimal(this.state.gas_data.gasFee.toString())} ETH</td>
+                                                            {
+                                                                eth_price 
+                                                                ? <td>{autoDecimal(Number(this.state.gas_data.gasFee.toString()* eth_price))} USD</td>
+                                                                : null
+                                                            }
+                                                        </tr>
+                                                        {
+                                                            (this.state.reserve_count > 0)
+                                                            ? <tr>
+                                                                <td>{t('contract deploy without reverse')}</td>
+                                                                <td>{autoDecimal(this.state.gas_data_without_reverse.gasFee.toString())} ETH</td>
+                                                                {
+                                                                    eth_price 
+                                                                    ? <td>{autoDecimal(Number(this.state.gas_data_without_reverse.gasFee.toString()* eth_price))} USD</td>
+                                                                    : null
+                                                                }
+                                                            </tr>
+                                                            : null
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            
+            
+                                                
+                                            </div>
+                                            : null
+                                        }
                                     </div>
-                                    : null
                                 }
-                            </div>
-                        }
-
-
-
-                        {
-                            (deploy_contract_address)
-                            ? <div>
+                            </>
+                            : <div>
                                 <div className='contract-form'>
                                     <h2 className='mb-2'>{t('contract infomation')}</h2>
                                     <div className='grid grid-cols-9 gap-8'>
@@ -640,7 +791,7 @@ class ContractView extends React.Component {
                                                                     <tbody>
                                                                         {
                                                                             (contract_data['refund'].map(one=>{
-                                                                                return <tr>
+                                                                                return <tr key={one.endTime}>
                                                                                     <td><span className=''><Showtime unixtime={one.endTime} /></span></td>
                                                                                     <td>{percentDecimal(one.ratioPPM/1000000)}%</td>
                                                                                 </tr>
@@ -664,7 +815,7 @@ class ContractView extends React.Component {
                                                                     <tbody>
                                                                         {
                                                                             (contract_data['share'].map(one=>{
-                                                                                return <tr>
+                                                                                return <tr key={one.owner}>
                                                                                     <td><span className=''>{one.owner}</span></td>
                                                                                     <td>{percentDecimal(one.ratioPPM/1000000)}%</td>
                                                                                 </tr>
@@ -693,22 +844,35 @@ class ContractView extends React.Component {
                                     <h2 className='mb-2'>{t('withdraw')}</h2>
                                     <div className='grid grid-cols-9 gap-8'>
                                         <div className="col-span-6">
-                                            <div className='ct flex justify-between items-center'>
-                                                <div className='info-dl end w-1/3'>
-                                                    <label>{t('total balance')}</label>
-                                                    <div>
-                                                        {contract_data['balance']} ETH
+                                            <div className='ct'>
+                                                <div className='flex justify-start items-center w-full'>
+                                                    <div className='info-dl end w-1/3'>
+                                                        <label>{t('total balance')}</label>
+                                                        <div>
+                                                            {contract_data['balance']} ETH
+                                                        </div>
+                                                    </div>
+                                                    <div className='info-dl end w-1/3'>
+                                                        <label>{t('available balance')}</label>
+                                                        <div>
+                                                            {contract_data['balance']} ETH
+                                                        </div>
+                                                    </div>
+                                                    <div className='w-1/3 flex justify-end'>
+                                                        {
+                                                            (is_allow_withdraw)
+                                                            ? <button className='btn btn-default' onClick={this.withdraw}>{t('withdraw')}</button>
+                                                            : null
+                                                        }
                                                     </div>
                                                 </div>
-                                                <div className='info-dl end w-1/3'>
-                                                    <label>{t('available balance')}</label>
-                                                    <div>
-                                                        {contract_data['balance']} ETH
+                                                {
+                                                    (!is_allow_withdraw)
+                                                    ? <div className='border-t d-border-c-1 pt-4 mt-4'>
+                                                        {t('withdrawals can only be made after all refund periods have expired and at least 7 days after mint.')}
                                                     </div>
-                                                </div>
-                                                <div>
-                                                    <button className='btn btn-default' onClick={this.withdraw}>{t('withdraw')}</button>
-                                                </div>
+                                                    : null
+                                                }
                                             </div>
                                         </div>
                                     </div>
@@ -836,11 +1000,9 @@ class ContractView extends React.Component {
                                     </div>
                                 </div>
                                 </div>
-
                         
                                 <ContractUpdate contract={contract} club_id={club_id} />
                             </div>
-                            : null
                         }
                     </div>
                 </div> 
@@ -850,7 +1012,7 @@ class ContractView extends React.Component {
     
 }
 
-ContractView.getInitialProps =  wrapper.getInitialPageProps((store) => async ({pathname, req, res,query}) => {
+DeployView.getInitialProps =  wrapper.getInitialPageProps((store) => async ({pathname, req, res,query}) => {
     return {
         club_id : query.id,
         network : query.net
@@ -889,5 +1051,5 @@ function mapStateToProps(state,ownProps) {
     }
 }
 
-export default withTranslate(connect(mapStateToProps,mapDispatchToProps)(ContractView))
+export default withTranslate(connect(mapStateToProps,mapDispatchToProps)(DeployView))
 

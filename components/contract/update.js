@@ -108,7 +108,8 @@ class ContractUpdate extends React.Component {
         let arr = [
             'wl_bluechip_list',
             'wl_price',
-            'reveal_time'
+            'reveal_time',
+            'delay_reveal_enable'
         ]
 
         arr.map(one=>{
@@ -198,12 +199,16 @@ class ContractUpdate extends React.Component {
                                         {t('whitelist is disabled')}
                                     </div>
                                 }
+                                <div className='py-4 flex justify-end'>
+                                    <button className='btn btn-primary'>submit</button>
+                                </div>
                             </div>
                             <div className="col-span-3 intro">
                                 <p>{t('ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.')}</p>
                             </div>
                         </div>
                     </div>
+
 
                     <div className='contract-form'>
                         <div className='grid grid-cols-9 gap-8'>
@@ -261,7 +266,9 @@ class ContractUpdate extends React.Component {
                                         {t('delayed reveal is disabled')}
                                     </div>
                                 }
-                                
+                                <div className='py-4 flex justify-end'>
+                                    <button className='btn btn-primary'>submit</button>
+                                </div>
                             </div>
                             
                             <div className="col-span-3 intro">
@@ -269,9 +276,7 @@ class ContractUpdate extends React.Component {
                             </div>
                         </div>
                         
-                        <div className='py-4'>
-                            <button className='btn btn-primary'>submit</button>
-                        </div>
+                        
 
                         
                     </div>

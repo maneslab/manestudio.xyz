@@ -4,7 +4,7 @@ import autobind from 'autobind-decorator';
 import { PencilIcon } from '@heroicons/react/outline';
 import withContractUpdate from 'hocs/contract_update';
 
-// @withTranslate
+@withTranslate
 @withContractUpdate
 class WlMaxSupply extends React.Component {
 
