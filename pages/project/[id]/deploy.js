@@ -732,7 +732,7 @@ class DeployView extends React.Component {
                                                             <div className='info-dl'>
                                                                 <label>{t('status')}</label>
                                                                 <div>
-                                                                {contract_data['paused'] ? <span className='text-red-500 uppercase'>{t('paused')}</span> : <span className='text-green-500 uppercase'>{t('normal')}</span>}
+                                                                {contract_data['paused'] ? <span className='text-red-500 uppercase'>{t('paused')}</span> : <span className='text-green-500 uppercase'>{t('live')}</span>}
                                                                 </div>
                                                             </div>
                                                             
