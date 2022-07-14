@@ -12,7 +12,7 @@ import Button  from 'components/common/button'
 import PageWrapper from 'components/pagewrapper'
 import ClubHeader from 'components/club/header'
 import ClubStep from 'components/club/step'
-import GenerateFrom from 'components/image/generate/form';
+// import GenerateFrom from 'components/image/generate/form';
 import Loading from 'components/common/loading'
 import SpecialNftList from 'components/image/special/reserve_list'
 import SuccessModal from 'components/common/success_modal'
@@ -277,7 +277,7 @@ class GenerateGroupView extends React.Component {
         const {t} = this.props.i18n;
         const {is_fetching,is_fetched,generates,merged_traits,select_special_nft_ids,show_special_nft,select_nft_ids,show_skip_page,only_selected} = this.state;
 
-        const {club_id,entities,special_nft_count} = this.props;
+        const {club_id,entities,special_nft_count,club} = this.props;
 
         return <PageWrapper>
             <Head>
@@ -286,7 +286,7 @@ class GenerateGroupView extends React.Component {
             <div>
                 <ClubHeader club_id={club_id} title={t('reserve NFT')} active_id={1}/>
 
-                <ClubStep club_id={club_id} active={4}/>
+                <ClubStep club_id={club_id} active_name={'reserve'} project_type={(club)?club.get('project_type'):'use_generator'}/>
 
                 <div className='flex justify-between items-center mb-8  max-w-screen-xl mx-auto border-b d-border-c-1 pb-4'>
                     <h1 className='h1'>{t('reserve NFT')}</h1>
@@ -339,28 +339,34 @@ class GenerateGroupView extends React.Component {
                                     </div>
                                 </div>
 
-                                <h3 className='h3 mb-2'>{t('filters')}</h3>
                                 {
-                                    Object.keys(merged_traits).map(k=>{
-                                        return <div className=' mb-4 d-bg-c-1'>
-                                            <div className='d-bg-c-1 py-2 px-4 font-bold border-b d-border-c-2'>{k}</div>
-                                            <div className='px-4 py-2 max-h-36 overflow-y-auto'>
-                                                {
-                                                    Object.keys(merged_traits[k]).map(k2=>{
-                                                        return <div className='flex justify-between items-center text-ubuntu my-2 font-sm items-center'>
-                                                            <div className='flex justify-start items-center text-xs'>
-                                                                <input type="checkbox" onChange={this.filterOnChange} value={merged_traits[k][k2]['trait_ids']} class="checkbox-input mr-2" />
-                                                                {k2}
-                                                            </div>
-                                                            <div className='text-xs text-gray-500'>
-                                                                {merged_traits[k][k2]['count']}
-                                                            </div>
-                                                        </div>
-                                                    })
-                                                }
-                                            </div>
-                                        </div>
-                                    })
+                                    (club && club.get('project_type') == 'use_generator')
+                                    ? <>
+                                        <h3 className='h3 mb-2'>{t('filters')}</h3>
+                                        {
+                                            Object.keys(merged_traits).map(k=>{
+                                                return <div className=' mb-4 d-bg-c-1'>
+                                                    <div className='d-bg-c-1 py-2 px-4 font-bold border-b d-border-c-2'>{k}</div>
+                                                    <div className='px-4 py-2 max-h-36 overflow-y-auto'>
+                                                        {
+                                                            Object.keys(merged_traits[k]).map(k2=>{
+                                                                return <div className='flex justify-between items-center text-ubuntu my-2 font-sm items-center'>
+                                                                    <div className='flex justify-start items-center text-xs'>
+                                                                        <input type="checkbox" onChange={this.filterOnChange} value={merged_traits[k][k2]['trait_ids']} class="checkbox-input mr-2" />
+                                                                        {k2}
+                                                                    </div>
+                                                                    <div className='text-xs text-gray-500'>
+                                                                        {merged_traits[k][k2]['count']}
+                                                                    </div>
+                                                                </div>
+                                                            })
+                                                        }
+                                                    </div>
+                                                </div>
+                                            })
+                                        }
+                                    </>
+                                    : null
                                 }
                             </div>
 
@@ -374,22 +380,11 @@ class GenerateGroupView extends React.Component {
                                     : null
                                 }
 
-                                {
-                                    (is_fetched && generates.length == 0)
-                                    ? <div className='py-24'>
-                                        <div className='flex justify-center capitalize font-bold text-xl mb-8'>{t('no item')}</div>
-                                        <div className='flex justify-center'>
-                                            <GenerateFrom club_id={club_id} />
-                                        </div>
-                                    </div>
-                                    : null
-                                }
 
                                 {
-                                    (is_fetched && generates.length > 0)
+                                    (is_fetched)
                                     ? <div className="grid grid-cols-6 gap-4">
 
-                                        
                                         <SpecialNftList club_id={club_id} only_selected={only_selected} show={show_special_nft} select_special_nft_ids={select_special_nft_ids} handleSelect={this.selectSpecialNft}/>
 
                                         {

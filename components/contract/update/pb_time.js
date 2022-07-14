@@ -94,6 +94,7 @@ class PbTime extends React.Component {
                     this.props.closeEditMode();
                     let tx_in = await this.props.manenft.contract.setPresaleTimes(value[0],value[1]);
                     console.log('tx is send',tx_in)
+                    this.props.onUpdate(tx_in.hash);
                     return tx_in;
                 },
                 'before_send_tx' : () => {

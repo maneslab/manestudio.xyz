@@ -67,7 +67,6 @@ class DeployView extends React.Component {
             is_fetched_contract_data    : false,
             is_fetching_contract_data   : false,
 
-            // network : props.network
         }
         const {t} = props.i18n;
         this.mane = new manestudio(t,props.network);
@@ -94,6 +93,10 @@ class DeployView extends React.Component {
 
     @autobind
     fetchPageData() {
+        this.setState({
+            'is_fetching_contract_data' : false,
+            'is_fetched_contract_data'  : false,
+        })
         this.props.loadContract(this.props.club_id);
         this.getDeployedAddress();
     }
@@ -166,29 +169,53 @@ class DeployView extends React.Component {
                 'is_fetched_contract_data'  : false
             })
 
-            this.manenft = new manenft(t,network,addr);
-            let contract_data = await this.manenft.contract.getAll();
-            // let symbol = await this.manenft.contract.symbol();
-            // let name = await this.manenft.contract.name();
-            let contract_data_in_server = await this.fetchContractDataFromServer(addr,network);
+            try {
+                this.manenft = new manenft(t,network,addr);
+                let contract_data = await this.manenft.contract.getAll();
 
-            let miscInstance = new misc();
-            let balance = await miscInstance.getBalance(addr);
-            let paused = await this.manenft.contract.paused();
+                // let symbol = await this.manenft.contract.symbol();
+                // let name = await this.manenft.contract.name();
+                let contract_data_in_server = await this.fetchContractDataFromServer(addr,network);
 
-            console.log('contract_data',contract_data)
-            let formated_data = this.deformatContractData(contract_data,contract_data_in_server);
-            // formated_data['name'] = name;
-            // formated_data['symbol'] = symbol;
-            formated_data['paused'] = (paused == 1) ? true : false;
-            formated_data['balance'] = balance;
+                let miscInstance = new misc();
+                let balance = await miscInstance.getBalance(addr);
+                let paused = await this.manenft.contract.paused();
 
-            // console.log('formated_data',formated_data)
-            this.setState({
-                'contract_data' : formated_data,
-                'is_fetching_contract_data' : false,
-                'is_fetched_contract_data'  : true
-            })
+                let ownerBalance = await this.manenft.contract.ownerBalance();
+                let collectorBalance = await this.manenft.contract.collectorBalance();
+                // console.log('ownerbalance',ownerBalance);
+                // console.log('collectorwBalance',collectorBalance);
+
+                let totalAvailableBalance =  ownerBalance.add(collectorBalance);
+
+                // console.log('total_balance',totalAvailableBalance);
+
+
+                // console.log('contract_data',contract_data)
+                let formated_data = this.deformatContractData(contract_data,contract_data_in_server);
+                // formated_data['name'] = name;
+                // formated_data['symbol'] = symbol;
+                formated_data['paused'] = (paused == 1) ? true : false;
+                formated_data['balance'] = balance;
+                formated_data['available_balance'] = ethers.utils.formatEther(totalAvailableBalance.toString());
+
+                this.setState({
+                    'contract_data' : formated_data,
+                    'is_fetching_contract_data' : false,
+                    'is_fetched_contract_data'  : true
+                })
+
+            }catch(e) {
+                this.setState({
+                    'deploy_contract_address'   : '',
+                    'contract_data'             : {},
+                    'is_fetching_contract_data' : false,
+                    'is_fetched_contract_data'  : true
+                })
+
+            } 
+
+
         }
 
     }
@@ -415,42 +442,48 @@ class DeployView extends React.Component {
                 'after_finish_tx' : () => {
                     console.log('after_finish_tx');
                     // this.getUserSafeBox(this.props.login_user.get('wallet_address'));
+                    this.fetchPageData();
                 }
             } 
         })
     }
 
     @autobind
-    async destory() {
+    async destroy() {
 
         const {t} = this.props.i18n;
+        const {network} = this.props;
 
         var that = this;
 
         await this.manenft.request({
             'text' : {
-                'loading' : t('destory contract') ,
-                'sent'    : t('destory contract tx sent'),
-                'success' : t('destory contract tx successful'),
+                'loading' : t('destroy contract') ,
+                'sent'    : t('destroy contract tx sent'),
+                'success' : t('destroy contract tx successful'),
             },
             'func' : {
                 'send_tx' : async () => {
-                    let tx_in = await this.manenft.contract.destory();
-                    console.log('tx is send',tx_in)
+                    let tx_in = await this.manenft.contract.destroy();
+                    this.onDestroy(tx_in.hash);
                     return tx_in;
                 },
                 'before_send_tx' : () => {
                     that.setState({
-                        is_destory_contract : true,
+                        is_destroy_contract : true,
                     })
                 },
                 'finish_tx' : () => {
                     that.setState({
-                        is_destory_contract : false,
+                        is_destroy_contract : false,
                     })
                 },
                 'after_finish_tx' : () => {
-                    console.log('after_finish_tx');
+                    // console.log('after_finish_tx');
+                    if (network == 'mainnet') {
+                        this.unlockClub();
+                    }
+                    this.fetchPageData();
                     // this.getUserSafeBox(this.props.login_user.get('wallet_address'));
                 }
             } 
@@ -463,8 +496,11 @@ class DeployView extends React.Component {
 
         const {t} = this.props.i18n;
         const data = await this.getDeployData();
+        const {network} = this.props;
 
         var that = this;
+
+        console.log('准备deploy的数据',data);
 
         await this.mane.request({
             'text' : {
@@ -475,7 +511,8 @@ class DeployView extends React.Component {
             'func' : {
                 'send_tx' : async () => {
                     let tx_in = await this.mane.contract.deploy(...data);
-                    console.log('tx is send',tx_in)
+                    // console.log('tx is send',tx_in)
+                    this.onDeploy(tx_in.hash);
                     return tx_in;
                 },
                 'before_send_tx' : () => {
@@ -489,8 +526,13 @@ class DeployView extends React.Component {
                     })
                 },
                 'after_finish_tx' : () => {
-                    console.log('after_finish_tx');
-                    // this.getUserSafeBox(this.props.login_user.get('wallet_address'));
+                    // console.log('after_finish_tx');
+                    //如果是正式环境发布以后需要lock这个club
+                    if (network == 'mainnet') {
+                        this.lockClub();
+                    }
+                    this.fetchPageData();
+                    ///刷新数据
                 }
             } 
         })
@@ -528,6 +570,52 @@ class DeployView extends React.Component {
                 }
             } 
         })
+    }
+
+    @autobind
+    async onDeploy(tx_hash) {
+        const {network,club_id} = this.props;
+        let result = await httpRequest({
+            'url'   :   '/v1/mane/on_deploy',
+            'data'  : {
+                tx_hash : tx_hash,
+                network : network,
+                club_id : club_id
+            },
+            'method': 'POST'
+        })
+        return result
+    }
+
+    @autobind
+    async onDestroy(tx_hash) {
+        const {network,club_id} = this.props;
+        let result = await httpRequest({
+            'url'   :   '/v1/mane/on_destroy',
+            'data'  : {
+                tx_hash : tx_hash,
+                network : network,
+                club_id : club_id
+            },
+            'method': 'POST'
+        })
+        return result
+    }
+
+    @autobind
+    async onUpdate(tx_hash) {
+        const {network} = this.props;
+        const {deploy_contract_address} = this.state;
+        let result = await httpRequest({
+            'url'   :   '/v1/mane/on_update',
+            'data'  : {
+                contract_address : deploy_contract_address,
+                network : network,
+                tx_hash : tx_hash
+            },
+            'method': 'POST'
+        })
+        return result
     }
 
     @autobind
@@ -855,7 +943,7 @@ class DeployView extends React.Component {
                                                     <div className='info-dl end w-1/3'>
                                                         <label>{t('available balance')}</label>
                                                         <div>
-                                                            {contract_data['balance']} ETH
+                                                            {contract_data['available_balance']} ETH
                                                         </div>
                                                     </div>
                                                     <div className='w-1/3 flex justify-end'>
@@ -886,7 +974,7 @@ class DeployView extends React.Component {
                                             <div class="alert alert-info shadow-sm mb-8">
                                                 <div>
                                                     <InformationCircleIcon className='icon-sm'/>
-                                                    <span>以下部分设置，需要支付GAS在合约中进行修改</span>
+                                                    <span>{t('the following settings need to be modified in the contract by paying GAS')}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -901,18 +989,18 @@ class DeployView extends React.Component {
                                                         <div className='ct'>
                                                             <div className='info-dl'>
                                                                 <label>{t('whitelist max supply')}</label>
-                                                                <WlMaxSupplyUpdate value={contract_data['presale_max_supply']} manenft={this.manenft}/>
+                                                                <WlMaxSupplyUpdate value={contract_data['presale_max_supply']} manenft={this.manenft} onUpdate={this.onUpdate}/>
                                                             </div>
                                                             <div className='info-dl'>
                                                                 <label>{t('whitelist mint time')}</label>
                                                                 <div className=''>
-                                                                    <WlTime value={[contract_data['presale_start_time'],contract_data['presale_end_time']]} manenft={this.manenft}/>
+                                                                    <WlTime value={[contract_data['presale_start_time'],contract_data['presale_end_time']]} manenft={this.manenft} onUpdate={this.onUpdate}/>
                                                                 </div>
                                                             </div>
                                                             <div className='info-dl'>
                                                                 <label>{t('mint limit per wallet')}</label>
                                                                 <div className=''>
-                                                                    <WlLimitPerWallet value={contract_data['presale_per_wallet_count']}  manenft={this.manenft}/>
+                                                                    <WlLimitPerWallet value={contract_data['presale_per_wallet_count']}  manenft={this.manenft} onUpdate={this.onUpdate}/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -934,19 +1022,19 @@ class DeployView extends React.Component {
                                                             <div className='info-dl'>
                                                                 <label>{t('public sale mint time')}</label>
                                                                 <div className=''>
-                                                                    <PbTime value={[contract_data['sale_start_time'],contract_data['sale_end_time']]} manenft={this.manenft}/>
+                                                                    <PbTime value={[contract_data['sale_start_time'],contract_data['sale_end_time']]} manenft={this.manenft} onUpdate={this.onUpdate}/>
                                                                 </div>
                                                             </div>
                                                             <div className='info-dl'>
                                                                 <label>{t('mint limit per wallet')}</label>
                                                                 <div className=''>
-                                                                    <PbLimitPerWallet  value={contract_data['sale_per_wallet_count']}  manenft={this.manenft}/>
+                                                                    <PbLimitPerWallet  value={contract_data['sale_per_wallet_count']}  manenft={this.manenft} onUpdate={this.onUpdate}/>
                                                                 </div>
                                                             </div>
                                                             <div className='info-dl'>
                                                                 <label>{t('mint price')}</label>
                                                                 <div className=''>
-                                                                    <PbPrice value={contract_data['sale_price']}  manenft={this.manenft}/>
+                                                                    <PbPrice value={contract_data['sale_price']}  manenft={this.manenft} onUpdate={this.onUpdate}/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -979,7 +1067,7 @@ class DeployView extends React.Component {
                                                             <div className='text-sm'>
                                                                 {t('If you are not satisfied with some configuration, such as account splitting, refund, name, etc., you can destroy the contract and republish it')}
                                                             </div>
-                                                            <Button loading={this.state.is_destory_contract} className='btn btn-error' onClick={this.destory}>{t('destroy')}</Button>
+                                                            <Button loading={this.state.is_destroy_contract} className='btn btn-error' onClick={this.destroy}>{t('destroy')}</Button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -995,7 +1083,7 @@ class DeployView extends React.Component {
                                     <div class="alert alert-info shadow-sm mb-8">
                                         <div>
                                             <InformationCircleIcon className='icon-sm'/>
-                                            <span>以下部分设置，不需要修改合约，会实时生效</span>
+                                            <span>{t('the following settings, which do not require contract modification, will take effect in real time')}</span>
                                         </div>
                                     </div>
                                 </div>

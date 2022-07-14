@@ -64,7 +64,6 @@ class GroupOne extends React.Component {
 
         const { group,total_number } = this.props;
 
-        console.log('total_number',total_number)
 
         return <div>
             <div className="border border-gray-300 dark:border-[#292C31] ">

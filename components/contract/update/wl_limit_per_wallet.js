@@ -55,6 +55,7 @@ class WlMaxSupply extends React.Component {
                 'send_tx' : async () => {
                     let tx_in = await this.props.manenft.contract.setPresaleMaxMintCountPerAddress(value);
                     console.log('tx is send',tx_in)
+                    this.props.onUpdate(tx_in.hash)
                     return tx_in;
                 },
                 'before_send_tx' : () => {

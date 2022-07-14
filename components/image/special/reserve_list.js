@@ -26,12 +26,15 @@ class ImageSpecialList extends React.Component {
         this.state = {
         }
         this.wapperRef = React.createRef();
+        console.log('debug11');
     }
 
     
     render() {
 
         let {list_data_one,list_rows,show,select_special_nft_ids,only_selected} = this.props;
+
+        console.log('debug11,show',show)
 
         if (!show) {
             return null;
@@ -87,6 +90,7 @@ function mapStateToProps(state,ownProps) {
 const mapDispatchToProps = (dispatch) => {
     return {
         loadList   : (cond) => {
+            console.log('载入特殊NFT',cond);
             return dispatch(loadSpecialList(cond))
         },
     }

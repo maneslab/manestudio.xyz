@@ -63,7 +63,7 @@ class GenerateGroupView extends React.Component {
 
     render() {
         const {t} = this.props.i18n;
-        const {list_count,group_id,club_id} = this.props;
+        const {list_count,group_id,club_id,club} = this.props;
         console.log('this.listRef',this.listRef)
 
         return <PageWrapper>
@@ -72,7 +72,7 @@ class GenerateGroupView extends React.Component {
             </Head>
             <div>
                 <ClubHeader club_id={club_id}  title={t('generate nft')} active_id={1}/>
-                <ClubStep club_id={club_id} active={1}  />
+                <ClubStep club_id={club_id} active_name={'setting'} project_type={(club)?club.get('project_type'):'use_generator'} />
 
                 <div className="max-w-screen-xl mx-auto grid grid-cols-8 gap-16">
 

@@ -76,7 +76,7 @@ class GenerateGroupView extends React.Component {
     render() {
         const {t} = this.props.i18n;
         const {is_adding,is_init} = this.state;
-        const {list_count,club_id,active_club} = this.props;
+        const {list_count,club_id,active_club,club} = this.props;
 
 
         const uploadProps = uploadRequest({
@@ -87,7 +87,11 @@ class GenerateGroupView extends React.Component {
             listType : 'picture',
             accept : '.jpg,.jpeg,.png,.gif',
         })
-
+        
+        if (club) {
+            console.log('club',club.toJS());
+        }
+        
         return <PageWrapper>
             <Head>
                 <title>{t('generate nft')}</title>
@@ -95,38 +99,46 @@ class GenerateGroupView extends React.Component {
             <div>
                 <ClubHeader club_id={club_id} title={t('generate nft')} active_id={1}/>
 
-                <ClubStep club_id={club_id} active={1}/>
+                <ClubStep club_id={club_id} active_name={'setting'} project_type={(club)?club.get('project_type'):'use_generator'}/>
                 
-                <div className="max-w-screen-xl mx-auto grid grid-cols-8 gap-16">
+                {
+                    (club && club.get('project_type') == 'use_generator')
+                    ? <div className="max-w-screen-xl mx-auto grid grid-cols-8 gap-16">
 
-                    <div className='col-span-5'>
+                            <div className='col-span-5'>
 
-                        <div className='flex justify-between items-center mb-8 text-black dark:text-white'>
-                            <h2 className='h2'>{t('group')}</h2>
-                            <button className='btn btn-default' onClick={this.toggleCreateModal}>
-                                <PlusIcon className='icon-xs mr-2'/>
-                                {t('add group')}
-                            </button>
-                        </div>
+                                <div className='flex justify-between items-center mb-8 text-black dark:text-white'>
+                                    <h2 className='h2'>{t('group')}</h2>
+                                    <button className='btn btn-default' onClick={this.toggleCreateModal}>
+                                        <PlusIcon className='icon-xs mr-2'/>
+                                        {t('add group')}
+                                    </button>
+                                </div>
 
-                        <GroupList club_id={this.props.club_id} ref={this.listRef}/>
+                                <GroupList club_id={this.props.club_id} ref={this.listRef}/>
 
-                    </div>
+                            </div>
 
-                    <div className='col-span-3'>
-                        <div className='block-intro'>
-                            <h3>{t('about group')}</h3>
-                            <div className='ct'>
-                            <p>
-                                {t('By adding groups, you are able to create sub-collections that use their own designed traits. For example, for a PFP collection, if the character are shaped differently, the position of their eyes and mouths must be designed accordingly with different scales and positions. Therefore, you can create groups for each of the base characters.')}
-                            </p>
-                            <p>
-                                {t('If you want to bring some 1/1s to your collection, you can add them in step “Metadata” later.')}
-                            </p>
+                        
+
+                        <div className='col-span-3'>
+                            <div className='block-intro'>
+                                <h3>{t('about group')}</h3>
+                                <div className='ct'>
+                                <p>
+                                    {t('By adding groups, you are able to create sub-collections that use their own designed traits. For example, for a PFP collection, if the character are shaped differently, the position of their eyes and mouths must be designed accordingly with different scales and positions. Therefore, you can create groups for each of the base characters.')}
+                                </p>
+                                <p>
+                                    {t('If you want to bring some 1/1s to your collection, you can add them in step “Metadata” later.')}
+                                </p>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    : null
+                }
 
+                <div className="max-w-screen-xl mx-auto grid grid-cols-8 gap-16">
 
                     <div className='col-span-5'>
 

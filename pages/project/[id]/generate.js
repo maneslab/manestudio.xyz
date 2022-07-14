@@ -152,7 +152,7 @@ class GenerateGroupView extends React.Component {
     render() {
         const {t} = this.props.i18n;
         const {is_fetching,is_fetched,generates,merged_traits,preview_id,preview_index,uniqueness} = this.state;
-        const {club_id,entities} = this.props;
+        const {club_id,entities,club} = this.props;
 
 
         return <PageWrapper>
@@ -162,7 +162,7 @@ class GenerateGroupView extends React.Component {
             <div>
                 <ClubHeader club_id={club_id} title={t('generate nft')} active_id={1}/>
 
-                <ClubStep club_id={club_id} active={2}/>
+                <ClubStep club_id={club_id} active={'generate'} project_type={(club)?club.get('project_type'):'use_generator'}/>
 
                 <div className='flex justify-between items-center mb-8 max-w-screen-xl mx-auto'>
                     <h1 className='h1'>{t('generate NFT')}</h1>

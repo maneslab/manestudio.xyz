@@ -71,7 +71,7 @@ class GenerateGroupView extends React.Component {
     render() {
         const {t} = this.props.i18n;
         const {is_fetching,is_fetched,data,count} = this.state;
-        const {club_id} = this.props;
+        const {club_id,club} = this.props;
 
 
         return <PageWrapper>
@@ -81,7 +81,7 @@ class GenerateGroupView extends React.Component {
             <div>
                 <ClubHeader club_id={club_id} title={'metadata'} active_id={1}/>
 
-                <ClubStep club_id={club_id} active={3}/>
+                <ClubStep club_id={club_id} active_name={'metadata'} project_type={(club)?club.get('project_type'):'use_generator'}/>
 
                 <div className="max-w-screen-xl mx-auto">
                     {
