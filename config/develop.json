@@ -5,6 +5,8 @@
     "DEBUG"             : true,
     
     "WEBSITE"           : "http://127.0.0.1:3000",
+
+    "SPACE_WEBSITE"     : "http://127.0.0.1:3001",
     
     "API"               : "http://dev.api.manestudio.com",
 

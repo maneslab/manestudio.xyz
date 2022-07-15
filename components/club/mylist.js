@@ -64,7 +64,7 @@ class MyClubList extends React.Component {
                         ? <>
                             {
                                 list_rows.map((one)=>{
-                                    return <ClubOne club={one} key={one.get('id')} />
+                                    return <ClubOne t={t} club={one} key={one.get('id')} />
                                 })
                             }
                         </>

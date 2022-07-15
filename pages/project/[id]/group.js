@@ -103,7 +103,7 @@ class GenerateGroupView extends React.Component {
                 
                 {
                     (club && club.get('project_type') == 'use_generator')
-                    ? <div className="max-w-screen-xl mx-auto grid grid-cols-8 gap-16">
+                    ? <div className="max-w-screen-xl mx-auto grid grid-cols-8 gap-16 mb-8">
 
                             <div className='col-span-5'>
 

@@ -19,6 +19,7 @@ export default function DarkmodeSwitch({loading,className,...props}) {
         }
     }
     return <DarkModeSwitch
+        className="dark-mode-switch"
         checked={(themeInCache == 'dark')}
         onChange={()=>{
             setDarkMode(!(themeInCache == 'dark'))

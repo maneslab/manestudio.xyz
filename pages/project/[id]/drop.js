@@ -7,6 +7,7 @@ import {connect} from 'react-redux'
 
 import PageWrapper from 'components/pagewrapper'
 import ClubHeader from 'components/club/header'
+import ClubIntergration from 'components/club/intergration'
 
 import withMustLogin from 'hocs/mustlogin';
 import withTranslate from 'hocs/translate';
@@ -108,6 +109,8 @@ class ClubDropSetting extends React.Component {
                     <CreatorUpdate club={club} />
 
                     <RoadmapUpdate club={club} />
+
+                    <ClubIntergration club={club} />
 
                     <div className='fixed bottom-0 left-0 w-full py-4 d-bg-c-1 border-t d-border-c-1' style={{'zIndex':9999}}>
                         <div className='max-w-screen-xl mx-auto flex justify-between items-center'>

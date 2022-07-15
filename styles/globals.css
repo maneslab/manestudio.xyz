@@ -466,7 +466,7 @@ html,body {
     @apply input-base p-0 flex justify-between items-center pl-2 pr-6 cursor-pointer max-w-full dark:border-[#7a7c80];
 }
 .select-arrow {
-    @apply appearance-none bg-no-repeat;
+    @apply appearance-none bg-no-repeat text-black dark:text-white;
     background-image: linear-gradient(
 45deg,transparent 50%,currentColor 0),linear-gradient(
 135deg,currentColor 50%,transparent 0);
@@ -744,8 +744,14 @@ input{outline:none;}
 .fullpage-container.blue {
     @apply bg-[#2e2c9b];
 }
+.fullpage-container.blue .footer {
+    color :#fff !important;
+}
 .fullpage-container.blue .header-bg{
     @apply bg-[#2e2c9b] text-white;
+}
+.fullpage-container.blue .dark-mode-switch {
+    @apply hidden;
 }
 .fullpage-container.blue .btn-outline
 {
