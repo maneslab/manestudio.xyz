@@ -75,7 +75,6 @@ class GenerateGroupView extends React.Component {
 
     render() {
         const {t} = this.props.i18n;
-        const {is_adding,is_init} = this.state;
         const {list_count,club_id,active_club,club} = this.props;
 
 
