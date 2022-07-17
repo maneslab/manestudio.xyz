@@ -56,6 +56,7 @@ const formatBigNumber = (num) => {
 
 
 
+
 // const getPoolPercent = (token_amount,total_amount) => {
 //     token_amount = Number(token_amount);
 //     total_amount = Number(total_amount);
@@ -147,6 +148,22 @@ const fromPercentToPPM = (value) => {
     return Number(value)*1000000;
 }
 
+const removeSuffixZero = (number) => {
+    let number_str = String(number);
+    let number_str_arr = number_str.split('.');
+    if (number_str_arr.length === 2) {
+        let n1 = number_str_arr[1];
+        let es = n1.slice(-1);
+        while (es == '0' && n1.length > 1) {
+            n1 = n1.slice(0,-1);
+            es = n1.slice(-1);
+        }
+        return number_str_arr[0] + '.' + n1;
+    }else {
+        return number;
+    }
+}
+
 module.exports = {
     'percentDecimal' : percentDecimal,
     'autoDecimal'    : autoDecimal,
@@ -163,5 +180,6 @@ module.exports = {
     'getAmountFromHex'       : getAmountFromHex,
     'showBalance'            : showBalance,
     'fromPercentToPPM'       : fromPercentToPPM,
-    'hex2Number'             : hex2Number
+    'hex2Number'             : hex2Number,
+    'removeSuffixZero'       : removeSuffixZero
 }

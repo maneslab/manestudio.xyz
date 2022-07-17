@@ -57,7 +57,12 @@ export const showTimeLeft = (unixtime) => {
 }
 
 
-
+export function formatOverflowUnixtime(unixtime) {
+    if (unixtime > 2147483647) {
+        unixtime = 0;
+    }
+    return unixtime;
+}
 
 
 export function getUnixtime() {

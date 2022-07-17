@@ -12,9 +12,8 @@ import ClubIntergration from 'components/club/intergration'
 import withMustLogin from 'hocs/mustlogin';
 import withTranslate from 'hocs/translate';
 
-import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
 import {updateClub} from 'redux/reducer/club'
+import config from 'helper/config'
 
 import RoadmapUpdate from 'components/roadmap/update'
 import GalleryUpdate from 'components/gallery/update'
@@ -23,6 +22,8 @@ import CreatorUpdate from 'components/creator/update'
 import ClubUpdate from 'components/club/update'
 import withClubView from 'hocs/clubview'
 import Switch from 'rc-switch';
+import message from 'components/common/message'
+import { httpRequest } from 'helper/http';
 
 
 @withTranslate
@@ -33,7 +34,8 @@ class ClubDropSetting extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            is_public : false
+            is_public : false,
+            preview_link : '',
         }
     }
 
@@ -42,6 +44,7 @@ class ClubDropSetting extends React.Component {
             this.setState({
                 'is_public' : Number(this.props.club.get('is_public'))
             })
+            this.getPreviewPageUrl();
         }
     }
 
@@ -50,6 +53,7 @@ class ClubDropSetting extends React.Component {
             this.setState({
                 'is_public' : Number(this.props.club.get('is_public'))
             })
+            this.getPreviewPageUrl();
         }
     } 
 
@@ -71,21 +75,51 @@ class ClubDropSetting extends React.Component {
         })
     }
 
+    async fetchClubKey(club_id) {
+        
+        let result;
+        try {
+            result = await httpRequest({
+                'url' : '/v1/club/key',
+                'method' : 'GET',
+                'data'  : {
+                    'id'      : club_id,
+                }
+            })
+        }catch(e) {
+            console.log('debug00,result',e)
+            if (e.status == 'error') {
+                message.error(e.messages.join(','))
+            }
+            return '';
+        }
+
+        return result.data.public_key;
+
+    }
+
+    @autobind
+    async getPreviewPageUrl() {
+        let mane_space_url  = config.get('SPACE_WEBSITE');
+        const {club_id} = this.props;
+
+        let club_key = await this.fetchClubKey(club_id);
+
+        let url = `${mane_space_url}/project/${this.props.club_id}?key=${club_key}`;
+
+
+        this.setState({
+            'preview_link' : url
+        })
+
+    }
+
     render() {
         const {t} = this.props.i18n;
-        const {is_public} = this.state;
+        const {is_public,preview_link} = this.state;
         const {club,club_id} = this.props;
 
 
-        let init_data ={
-            'name' : '',
-            'project_type' : 'use_generator'
-        }
-
-        const formSchema = Yup.object().shape({
-            name      : Yup.string().required(),
-            project_type : Yup.string().required(),
-        });
 
         return <PageWrapper>
             <Head>
@@ -100,8 +134,6 @@ class ClubDropSetting extends React.Component {
                         <h2 className='h2'>{t('setting')}</h2>
                     </div>
                     
-
-
                     <ClubUpdate club={club} updateClub={this.props.updateClub}/>
 
                     <GalleryUpdate club={club} />
@@ -115,13 +147,13 @@ class ClubDropSetting extends React.Component {
                     <div className='fixed bottom-0 left-0 w-full py-4 d-bg-c-1 border-t d-border-c-1' style={{'zIndex':9999}}>
                         <div className='max-w-screen-xl mx-auto flex justify-between items-center'>
                             <div className='flex items-center'>
-                                <Switch onChange={this.onPublicChange} checked={this.state.is_public} />
+                                <Switch onChange={this.onPublicChange} checked={is_public} />
                                 <div className='ml-4'>
                                     <div className="capitalize">{t('set public')}</div>
                                     <div className='text-sm text-gray-400'>{t('set-public-intro')}</div>
                                 </div>
                             </div>
-                            <a className='btn btn-primary'>{t('preview')}</a>
+                            <a className='btn btn-primary' href={preview_link} target="_blank">{t('preview')}</a>
                         </div>
                     </div>
                 </div> 

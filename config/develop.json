@@ -16,12 +16,6 @@
 
     "ETHERSCAN_BASE"    : "https://testnet.bscscan.com",
 
-    "NEXTID_ENV"        : "develop",
-
-    "MANE_CONTRACT"     : {
-        "kovan"     :   "0x79d9b5cA0419FDD56a97f3e7202b1A7C1BB5296D",
-        "ropsten"   :   "",
-        "mainnet"   :   ""
-    }
+    "NEXTID_ENV"        : "develop"
 
 }

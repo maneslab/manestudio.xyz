@@ -81,7 +81,7 @@ class PageWrapper extends React.Component {
 
                             <div className='flex justify-end items-center'>
 
-                                <div className='mr-4 dark:text-white'>
+                                <div className='mr-4 dark-mode-switch'>
                                     <DarkmodeSwitch />
                                 </div>
 

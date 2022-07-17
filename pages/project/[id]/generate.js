@@ -69,6 +69,11 @@ class GenerateGroupView extends React.Component {
         }
     }
 
+    @autobind
+    afterGenerate() {
+        this.loadGenerateList(this.props.club_id,this.state.filter_trait_ids)
+    }
+
     
     async loadGenerateList(club_id,filter_trait_ids) {
         this.setState({
@@ -168,7 +173,7 @@ class GenerateGroupView extends React.Component {
                     <h1 className='h1'>{t('generate NFT')}</h1>
                     {
                         (generates.length > 0)
-                        ? <GenerateFrom club_id={club_id} />
+                        ? <GenerateFrom club_id={club_id} afterGenerate={this.afterGenerate}/>
                         : null
                     }
                 </div>
@@ -221,7 +226,7 @@ class GenerateGroupView extends React.Component {
                             ? <div className='py-24'>
                                 <div className='flex justify-center capitalize font-bold text-xl mb-8'>{t('no item')}</div>
                                 <div className='flex justify-center'>
-                                    <GenerateFrom club_id={club_id} />
+                                    <GenerateFrom club_id={club_id} afterGenerate={this.afterGenerate}/>
                                 </div>
                             </div>
                             : null

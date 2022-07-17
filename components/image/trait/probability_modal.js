@@ -263,7 +263,7 @@ class TraitProbabilityModal extends React.Component {
                                 <div className='probability_wapper grid grid-cols-4 gap-4'>
 
                                 {values.generate_number_map.map((one,index) =>  <div key={one['id']}>
-                                    <div className={classNames('mb-2 border d-border-c-1',{'border-black dark:border-white':(index == select_index)})} onClick={()=>{
+                                    <div className={classNames('mb-2 border',{'d-border-c-1':(index != select_index)},{'border-black dark:border-white':(index == select_index)})} onClick={()=>{
                                         this.setState({
                                             select_index : (index == select_index) ? undefined : index
                                         })

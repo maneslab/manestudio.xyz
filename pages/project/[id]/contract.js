@@ -4,12 +4,12 @@ import {wrapper} from 'redux/store';
 import Head from 'next/head'
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
-// import Immutable from 'immutable';
 
 import PageWrapper from 'components/pagewrapper'
 import ClubHeader from 'components/club/header'
 import Input from 'components/form/field'
 import Button from 'components/common/button'
+import message from 'components/common/message'
 
 import withMustLogin from 'hocs/mustlogin';
 import withTranslate from 'hocs/translate';
@@ -28,11 +28,10 @@ import EmptyPlaceholder from 'components/common/empty_placeholder'
 import PublicEndTimeSelect from 'components/form/mane/public_endtime_select';
 
 import ContractSide from 'components/contract/side'
-
-
 import withClubView from 'hocs/clubview'
 
-import {  PlusIcon, UploadIcon, InformationCircleIcon,  } from '@heroicons/react/outline'
+import {  PlusIcon,   } from '@heroicons/react/outline'
+import {removeSuffixZero} from 'helper/number'
 import {t} from 'helper/translate'
 
 import { Formik, Form, FieldArray,Field } from 'formik';
@@ -107,7 +106,7 @@ class ContractView extends React.Component {
         let refund = contract.get('refund');
         let contract_data = contract.toJS();
 
-        let number_map = ['pb_enable','wl_enable','delay_reveal_enable','refund_enable'];
+        let number_map = ['pb_enable','wl_enable','delay_reveal_enable','refund_enable','revenue_share_enable'];
 
         number_map.map(one=>{
             contract_data[one] = Number(contract_data[one])
@@ -121,9 +120,9 @@ class ContractView extends React.Component {
         
         let price = ['wl_price','pb_price'];
         price.map(one=>{
-            contract_data[one] = parseFloat(contract_data[one])
+            // contract_data[one] = parseFloat(contract_data[one])
+            contract_data[one] = removeSuffixZero(contract_data[one])
         });
-        // console.log('debug10,formatContractData',contract_data);
 
         return contract_data;
     }
@@ -187,6 +186,8 @@ class ContractView extends React.Component {
     async submitForm(values) {
         console.log('submitForm',values)
 
+        const {t} = this.props.i18n;
+
         ///清理数据结构
         let values_deepclone = JSON.parse(JSON.stringify(values))
 
@@ -195,11 +196,18 @@ class ContractView extends React.Component {
         this.setState({
             'is_saving' : true
         })
-        this.props.saveContract(format_data);
+        try {
+            this.props.saveContract(format_data);
+            message.success(t('save success'));
+
+        }catch(e) {
+            message.error(t('save failed'));
+        }
 
         this.setState({
             'is_saving' : false
         })
+
     }
 
     @autobind
@@ -313,8 +321,6 @@ class ContractView extends React.Component {
                                 
                                 <Form className="w-full">
                                 
-                                {console.log('form.value',values)}
-
                                 <div className='contract-form'>
                                     <h2 className='mb-2'>{t('contract basics')}</h2>
                                     <div className='grid grid-cols-9 gap-8'>

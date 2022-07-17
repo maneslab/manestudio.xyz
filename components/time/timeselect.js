@@ -5,6 +5,7 @@ import 'react-day-picker/dist/style.css';
 import withDropdown  from 'hocs/dropdown';
 import {withTranslate} from 'hocs/index'
 import { format,getUnixTime,fromUnixTime } from 'date-fns';
+import {formatOverflowUnixtime} from 'helper/time';
 
 import TimeSelect from 'components/common/time_select';
 import { CalendarIcon } from '@heroicons/react/outline';
@@ -24,8 +25,12 @@ class TimeSelectComponent extends React.Component {
     }
 
     render() {
-        const {value,dropdown_visible} = this.props;
+        const {dropdown_visible} = this.props;
+        let {value} = this.props;
         const {t} = this.props.i18n;
+
+        value = formatOverflowUnixtime(value);
+
         const select_date = fromUnixTime(value);
         let menu = <TimeSelect value={value} onChange={this.props.handleValueChange} toggleDropdown={this.props.toggleDropdown}/>
 

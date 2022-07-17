@@ -4,7 +4,6 @@ import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
 
 import Input from 'components/form/field'
-// import Button from 'components/common/button'
 
 import withTranslate from 'hocs/translate';
 import EmptyPlaceholder from 'components/common/empty_placeholder'
@@ -16,6 +15,7 @@ import BluechipSelect from 'components/form/mane/bluechip_select';
 import WhitelistUpload from 'components/form/mane/upload_whitelist_csv';
 import UploadPlaceholderModal from 'components/contract/placeholder_modal';
 import message from 'components/common/message'
+import {removeSuffixZero} from 'helper/number'
 
 import {  PlusIcon  } from '@heroicons/react/outline'
 import {t} from 'helper/translate'
@@ -79,8 +79,10 @@ class ContractUpdate extends React.Component {
 
         let price = ['wl_price','pb_price'];
         price.map(one=>{
-            contract_data[one] = parseFloat(contract_data[one])
+            contract_data[one] = removeSuffixZero(contract_data[one])
         });
+
+
         
         return contract_data;
     }
@@ -166,8 +168,6 @@ class ContractUpdate extends React.Component {
                     
                     <Form className="w-full">
                     
-                    {console.log('form.value',values)}
-
                     <div className='contract-form'>
                         <div className='grid grid-cols-9 gap-8'>
                         <div className='col-span-6 mb-4'>

@@ -15,6 +15,7 @@ import Button from 'components/common/button'
 
 import Editor from 'components/form/editor'
 import message from 'components/common/message'
+import config from 'helper/config'
 
 @withTranslate
 @withMustLogin
@@ -130,7 +131,7 @@ class ClubUpdate extends React.Component {
                         <div className='form-box-one'>
                             <Input name="name" label={t("project name")} placeholder={t("any name you want")} />
                             <Editor label={t("description")} ref={this.editorRef}/>
-                            <PrefixInput name="unique_name" label={t("link to the drop page")} placeholder={"customize-your-link-here"} prefix={"https://www.manespace.com/"} />
+                            <PrefixInput name="unique_name" label={t("link to the drop page")} placeholder={"customize-your-link-here"} prefix={config.get('SPACE_WEBSITE')+'/project/'} />
                             <div className='border-t d-border-c-1 my-4'></div>
                             <div className='flex justify-end'>
                             <Button loading={is_updating} className="btn btn-default" type="submit">{t("save")}</Button>

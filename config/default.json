@@ -2,5 +2,11 @@
 
     "FORBIDDEN_CHINA"   : true,
     "NAME"              : "ManeStudio",
-    "ALCHEMY_ID"        : "JPWQi3ZfcRsCPerhWtcVYtJeWmYfUC-a"
+    "ALCHEMY_ID"        : "JPWQi3ZfcRsCPerhWtcVYtJeWmYfUC-a",
+
+    "MANE_CONTRACT"     : {
+        "kovan"     :   "0xE404Ba4a7D6054cF56811234C5C67cA985b78e70",
+        "ropsten"   :   "",
+        "mainnet"   :   ""
+    }
 }

@@ -52,7 +52,7 @@ class ClubCreateModal extends React.Component {
                     'is_adding' : false
                 })
                 ///URL跳转
-                this.props.router.push('/project/'+data.data.id);
+                this.props.router.push('/project/'+data.data.id+'/group');
             }else {
                 Object.keys(data.messages).map(key=>{
                     this.formRef.current.setFieldError(key,data.messages[key].join(','));

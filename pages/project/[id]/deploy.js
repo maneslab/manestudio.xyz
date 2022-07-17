@@ -173,8 +173,8 @@ class DeployView extends React.Component {
                 this.manenft = new manenft(t,network,addr);
                 let contract_data = await this.manenft.contract.getAll();
 
-                // let symbol = await this.manenft.contract.symbol();
-                // let name = await this.manenft.contract.name();
+                console.log('contract_data_from_contract',contract_data)
+
                 let contract_data_in_server = await this.fetchContractDataFromServer(addr,network);
 
                 let miscInstance = new misc();
@@ -184,17 +184,12 @@ class DeployView extends React.Component {
                 let ownerBalance = await this.manenft.contract.ownerBalance();
                 let collectorBalance = await this.manenft.contract.collectorBalance();
                 // console.log('ownerbalance',ownerBalance);
-                // console.log('collectorwBalance',collectorBalance);
 
                 let totalAvailableBalance =  ownerBalance.add(collectorBalance);
-
                 // console.log('total_balance',totalAvailableBalance);
 
-
-                // console.log('contract_data',contract_data)
                 let formated_data = this.deformatContractData(contract_data,contract_data_in_server);
-                // formated_data['name'] = name;
-                // formated_data['symbol'] = symbol;
+
                 formated_data['paused'] = (paused == 1) ? true : false;
                 formated_data['balance'] = balance;
                 formated_data['available_balance'] = ethers.utils.formatEther(totalAvailableBalance.toString());
@@ -222,7 +217,7 @@ class DeployView extends React.Component {
 
     deformatContractData(contract_data,contract_data2) {
 
-        console.log('contract_data',contract_data,contract_data2)
+        // console.log('contract_data',contract_data,contract_data2)
 
         let contract_data_formatted = {
             'reserve_count' : contract_data[0].toString(),
@@ -238,6 +233,8 @@ class DeployView extends React.Component {
             'presale_per_wallet_count'  :   contract_data[10].toString(),
             'sale_per_wallet_count'     :   contract_data[11].toString(),
         };
+
+        console.log('contract_data_from_contract_formated',contract_data_formatted);
 
         let share_reverse_data = [];
         if (contract_data2['shares']) {

@@ -8,6 +8,7 @@ import TimeSelect from 'components/time/timeselect';
 import Switch from 'rc-switch'
 import { t } from 'helper/translate';
 import message from 'components/common/message'
+import {formatOverflowUnixtime} from 'helper/time'
 
 @withTranslate
 @withContractUpdate
@@ -92,8 +93,7 @@ class PbTime extends React.Component {
                 'send_tx' : async () => {
 
                     this.props.closeEditMode();
-                    let tx_in = await this.props.manenft.contract.setPresaleTimes(value[0],value[1]);
-                    console.log('tx is send',tx_in)
+                    let tx_in = await this.props.manenft.contract.setSaleTimes(value[0],value[1]);
                     this.props.onUpdate(tx_in.hash);
                     return tx_in;
                 },
@@ -124,10 +124,13 @@ class PbTime extends React.Component {
     }
 
     render() {
-        const {data_value,edit_mode,is_calling_contract} = this.props;
+        let {data_value,edit_mode} = this.props;
         const {show_endtime} = this.state;
 
         let has_end_time = true;
+
+        data_value[1] = formatOverflowUnixtime(data_value[1]);
+
         if (Number(data_value[1]) == 0) {
             has_end_time = false;
         }

@@ -21,6 +21,7 @@ import { denormalize } from 'normalizr';
 import {creatorListSchema} from 'redux/schema/index'
 import { defaultListData } from 'helper/common';
 import {url} from 'helper/regex'
+import message from 'components/common/message'
 
 
 @withTranslate
@@ -93,17 +94,25 @@ class CreatorUpdate extends React.Component {
     @autobind
     async save(values) {
 
-        console.log('debug05,values',values);
-
+        const {t} = this.props.i18n;
 
         this.setState({
             'is_updating' : true
         })
         
-        await this.props.saveCreatorList({
-            club_id : this.props.club.get('id'),
-            json_data : JSON.stringify(values['creators'])
-        });
+        try {
+
+            await this.props.saveCreatorList({
+                club_id : this.props.club.get('id'),
+                json_data : JSON.stringify(values['creators'])
+            });
+
+            message.success(t('save success'));
+
+        }catch(e) {
+            message.error(t('save failed'));
+        }
+
 
         this.setState({
             'is_updating' : false
@@ -123,21 +132,17 @@ class CreatorUpdate extends React.Component {
         const {active, over} = event;
 
         if (over) {
-            console.log('debug05,handleDragEnd',active,over);
 
             let begin_index = Number(active.id)
             let end_index = Number(over.id)
 
             let values = Array.from(this.formRef.current.values.creators);
             let item = this.formRef.current.values.creators[begin_index];
-            console.log('debug04,开始前',values)
 
             values.splice(begin_index, 1);
-            console.log('debug04,中间',values)
 
             values.splice(end_index, 0, item);
     
-            console.log('debug04,结束以后',values)
             this.formRef.current.setValues({
                 'creators' : values
             })

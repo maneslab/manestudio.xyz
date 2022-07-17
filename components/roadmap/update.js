@@ -19,6 +19,7 @@ import {SortableContext} from '@dnd-kit/sortable';
 import { denormalize } from 'normalizr';
 import {roadmapListSchema} from 'redux/schema/index'
 import { defaultListData } from 'helper/common';
+import message from 'components/common/message'
 
 @withTranslate
 @withMustLogin
@@ -90,17 +91,25 @@ class RoadmapUpdate extends React.Component {
     @autobind
     async save(values) {
 
-        console.log('debug05,values',values);
-
-
         this.setState({
             'is_updating' : true
         })
         
-        await this.props.saveRoadmapList({
-            club_id : this.props.club.get('id'),
-            json_data : JSON.stringify(values['roadmaps'])
-        });
+        const {t} = this.props.i18n;
+
+        try {
+
+            await this.props.saveRoadmapList({
+                club_id : this.props.club.get('id'),
+                json_data : JSON.stringify(values['roadmaps'])
+            });
+
+            message.success(t('save success'));
+
+        }catch(e) {
+            message.error(t('save failed'));
+        }
+
 
         this.setState({
             'is_updating' : false
@@ -120,21 +129,17 @@ class RoadmapUpdate extends React.Component {
         const {active, over} = event;
 
         if (over) {
-            console.log('debug05,handleDragEnd',active,over);
 
             let begin_index = Number(active.id)
             let end_index = Number(over.id)
 
             let values = Array.from(this.formRef.current.values.roadmaps);
             let item = this.formRef.current.values.roadmaps[begin_index];
-            console.log('debug04,开始前',values)
 
             values.splice(begin_index, 1);
-            console.log('debug04,中间',values)
 
             values.splice(end_index, 0, item);
     
-            console.log('debug04,结束以后',values)
             this.formRef.current.setValues({
                 'roadmaps' : values
             })

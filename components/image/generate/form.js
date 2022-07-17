@@ -38,11 +38,14 @@ class GenerateFrom extends React.Component {
     async generateNFT(collection_size) {
         
         const {club_id} = this.props;
+        const {t} = this.props.i18n;
 
         this.setState({
             'is_fetching' :  true
         })
         
+        let clear_msg_loader = message.loading(t('Generating NFT images...'));
+
         try {
             let result = await httpRequest({
                 'url' : '/v1/image/generate/generate_all',
@@ -59,18 +62,23 @@ class GenerateFrom extends React.Component {
             }
         }
 
+        clear_msg_loader();
         // console.log('debug08,result',result);
 
         this.setState({
             'is_fetching' : false,
             'is_fetched'  : true
         })
+
+        if (typeof this.props.afterGenerate === 'function') {
+            this.props.afterGenerate();
+        }
     }
 
 
     render() {
         const {t} = this.props.i18n;
-        const {is_adding} = this.state;
+        const {is_fetching} = this.state;
 
 
         let init_data ={
@@ -92,7 +100,7 @@ class GenerateFrom extends React.Component {
 
                     <div className="flex justify-start items-center ">
                         <PrefixInput name="collection_size" prefix={'collection size'} label={null} placeholder={t("how many NFT you wanna to generate")} className="mr-2" />
-                        <Button loading={is_adding} className="btn btn-default" type="submit">{t("generate")}</Button>
+                        <Button loading={is_fetching} className="btn btn-default" type="submit">{t("generate")}</Button>
                     </div>
 
                 </Form>
