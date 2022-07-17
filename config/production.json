@@ -1,6 +1,6 @@
 {
 
-    "ENV"               : "local",
+    "ENV"               : "production",
     
     "DEBUG"             : false,
 

@@ -34,11 +34,12 @@ import {ethers} from 'ethers'
 import manestudio from 'helper/web3/manestudio';
 import manenft from 'helper/web3/manenft'
 import misc from 'helper/web3/misc'
+import config from 'helper/config'
 
 import withClubView from 'hocs/clubview'
 
 import {  InformationCircleIcon  } from '@heroicons/react/outline'
-import {t} from 'helper/translate'
+import {strFormat, t} from 'helper/translate'
 
 import { denormalize } from 'normalizr';
 import {contractSchema} from 'redux/schema/index'
@@ -54,6 +55,13 @@ class DeployView extends React.Component {
 
     constructor(props) {
         super(props)
+    
+        let env = config.get('ENV');
+        let lock_env = 'kovan';
+        if (env == 'production') {
+            lock_env = 'mainnet';
+        }
+
         this.state = {
             is_deploy_contract : false,
             is_estimate_ing : false,
@@ -67,7 +75,12 @@ class DeployView extends React.Component {
             is_fetched_contract_data    : false,
             is_fetching_contract_data   : false,
 
+            lock_env : lock_env
         }
+
+
+
+
         const {t} = props.i18n;
         this.mane = new manestudio(t,props.network);
         this.manenft = null;
@@ -450,6 +463,7 @@ class DeployView extends React.Component {
 
         const {t} = this.props.i18n;
         const {network} = this.props;
+        const {lock_env} = this.state;
 
         var that = this;
 
@@ -477,7 +491,8 @@ class DeployView extends React.Component {
                 },
                 'after_finish_tx' : () => {
                     // console.log('after_finish_tx');
-                    if (network == 'mainnet') {
+                    console.log('当前的网络环境是:'+network+',需要解除锁定的网络环境是:'+lock_env);
+                    if (network == lock_env) {
                         this.unlockClub();
                     }
                     this.fetchPageData();
@@ -494,6 +509,7 @@ class DeployView extends React.Component {
         const {t} = this.props.i18n;
         const data = await this.getDeployData();
         const {network} = this.props;
+        const {lock_env} = this.state;
 
         var that = this;
 
@@ -525,7 +541,8 @@ class DeployView extends React.Component {
                 'after_finish_tx' : () => {
                     // console.log('after_finish_tx');
                     //如果是正式环境发布以后需要lock这个club
-                    if (network == 'mainnet') {
+                    console.log('当前的网络环境是:'+network+',需要锁定的网络环境是:'+lock_env);
+                    if (network == lock_env) {
                         this.lockClub();
                     }
                     this.fetchPageData();
@@ -618,6 +635,9 @@ class DeployView extends React.Component {
     @autobind
     lockClub() {
         const {club_id} = this.props;
+
+
+
         this.props.updateClub(club_id,{'is_lock':1});
     }
 

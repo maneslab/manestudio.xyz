@@ -4,6 +4,7 @@ import {wrapper} from 'redux/store';
 import Head from 'next/head'
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
+import classNames from 'classnames';
 
 import PageWrapper from 'components/pagewrapper'
 import ClubHeader from 'components/club/header'
@@ -34,8 +35,9 @@ import {  PlusIcon,   } from '@heroicons/react/outline'
 import {removeSuffixZero} from 'helper/number'
 import {t} from 'helper/translate'
 
-import { Formik, Form, FieldArray,Field } from 'formik';
+import { Formik, Form, FieldArray } from 'formik';
 import * as Yup from 'yup';
+import {InformationCircleIcon} from '@heroicons/react/outline'
 
 import Upload from 'components/common/upload'
 import {httpRequest, uploadRequest} from 'helper/http'
@@ -292,6 +294,10 @@ class ContractView extends React.Component {
             accept : '.jpg,.jpeg,.png,.gif',
         })
 
+        let is_lock = false;
+        if (club && club.get('is_lock')) {
+            is_lock = true;
+        }
 
         return <PageWrapper>
             <Head>
@@ -311,7 +317,20 @@ class ContractView extends React.Component {
                         <h1 className='h1'>{t('contract setting')}</h1>
 
                         <div className='divider'></div>
-                        
+
+                        {
+                            (is_lock)
+                            ? <div>
+                                <div class="alert alert-info shadow-sm mb-8">
+                                    <div>
+                                        <InformationCircleIcon className='icon-sm'/>
+                                        <span>{t('The contract has been locked, if you need to change it, please destroy the ETH mainnet contract before you can change it.')}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            : null
+                        }
+                        <div className={classNames({"hidden":is_lock})}>
                         <Formik
                             innerRef={this.formRef}
                             initialValues={init_data}
@@ -730,6 +749,8 @@ class ContractView extends React.Component {
                         </Form>
                             )}
                         </Formik>
+                        
+                        </div>
 
                     </div>
 
