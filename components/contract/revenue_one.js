@@ -1,6 +1,6 @@
 import React from 'react';
 // import classNames from 'classnames';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation'
 import Input from 'components/form/field'
 
 import {  TrashIcon } from '@heroicons/react/outline';

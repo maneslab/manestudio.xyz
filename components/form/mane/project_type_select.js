@@ -3,7 +3,6 @@ import { Field } from 'formik';
 
 import classNames from 'classnames';
 import {withTranslate} from 'hocs/index'
-import {t} from 'helper/translate'
 import EmptyCircleIcon from 'public/img/icons/empty_circle.svg';
 import CheckCircleIcon from 'public/img/icons/check_circle.svg';
 
@@ -15,14 +14,13 @@ class ProjectTypeSelect extends React.Component {
     }   
 
     render() {
-
+        const {t} = this.props.i18n;
         const {label,name} = this.props;
 
-        let map_data = {
-            'use_generator' : 'use_generator',
-            'normal'        : 'normal'
-        };
-
+        // let map_data = {
+        //     'use_generator' : 'use_generator',
+        //     'normal'        : 'normal'
+        // };
 
         return  <div className="form-control">
             <Field name={name}>
@@ -51,10 +49,10 @@ class ProjectTypeSelect extends React.Component {
                                 </h3>
                                 <div className='p-4 text-sm'>
                                     <div className='mb-2'>
-                                        {t('The smart tool by ManeSTUDIO allows artists to create their own collections by simply uploading traits in different layers. ')}
+                                        {t('Project-type-1')}
                                     </div>
                                     <div>
-                                        {t('You can easily tweak the rarity of each trait with the built-in editor.')}
+                                        {t('Project-type-2')}
                                     </div>
                                 </div>
                             </div>
@@ -72,10 +70,10 @@ class ProjectTypeSelect extends React.Component {
                                 </h3>
                                 <div className='p-4 text-sm'>
                                     <div className='mb-2'>
-                                        {t('Batch upload already finished artworks, add properties manually')}
+                                        {t('Project-type-3')}
                                     </div>
                                     <div>
-                                        {t('Recommened for artists who want to create a collection of small amount, like 1-100')}
+                                        {t('Project-type-4')}
                                     </div>
                                 </div>
                             </div>

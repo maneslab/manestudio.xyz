@@ -39,7 +39,7 @@ import config from 'helper/config'
 import withClubView from 'hocs/clubview'
 
 import {  InformationCircleIcon  } from '@heroicons/react/outline'
-import {strFormat, t} from 'helper/translate'
+import {strFormat} from 'helper/translate'
 
 import { denormalize } from 'normalizr';
 import {contractSchema} from 'redux/schema/index'
@@ -66,7 +66,7 @@ class DeployView extends React.Component {
             is_deploy_contract : false,
             is_estimate_ing : false,
             is_estimated    : false,
-            gas_data_without_reverse : null,
+            gas_data_without_reserve : null,
             gas_data : null,
             reserve_count : 0,
 
@@ -126,7 +126,7 @@ class DeployView extends React.Component {
             is_deploy_contract : false,
             is_estimate_ing : false,
             is_estimated    : false,
-            gas_data_without_reverse : null,
+            gas_data_without_reserve : null,
             gas_data : null,
             reserve_count : 0,
 
@@ -249,17 +249,17 @@ class DeployView extends React.Component {
 
         console.log('contract_data_from_contract_formated',contract_data_formatted);
 
-        let share_reverse_data = [];
+        let share_reserve_data = [];
         if (contract_data2['shares']) {
             contract_data2['shares'].map(one=>{
-                share_reverse_data.push({
+                share_reserve_data.push({
                     'owner'         : one['address'],
                     'ratioPPM'      : one['ratioPPM'].toString(),
                     // 'collectAmount' : one['collectAmount'].toString(),
                 })
             })
         }
-        contract_data_formatted['share'] = share_reverse_data;
+        contract_data_formatted['share'] = share_reserve_data;
 
         let refund_time_list = [];
         if (contract_data2['refunds']) {
@@ -395,20 +395,20 @@ class DeployView extends React.Component {
 
         ///预估gas费用
         let gas_data = await this.mane.estimateGasDeploy(...data);
-        let gas_data_without_reverse;
+        let gas_data_without_reserve;
 
         if (contract.get('reserve_count') > 0) {
 
             //把预留的count改为0
             data[2][0] = 0;
-            gas_data_without_reverse = await this.mane.estimateGasDeploy(...data);
+            gas_data_without_reserve = await this.mane.estimateGasDeploy(...data);
 
         }
 
         this.setState({
             is_estimate_ing : false,
             is_estimated : true,
-            gas_data_without_reverse : gas_data_without_reverse,
+            gas_data_without_reserve : gas_data_without_reserve,
             gas_data : gas_data,
             reserve_count : contract.get('reserve_count')
         })
@@ -686,7 +686,7 @@ class DeployView extends React.Component {
     }
 
     render() {
-        // const {t} = this.props.i18n;
+        const {t} = this.props.i18n;
         const {club_id,contract,chain,eth_price,network} = this.props;
         const {deploy_contract_address,contract_data,is_fetched_contract_data,is_fetching_contract_data} = this.state;
 
@@ -792,11 +792,11 @@ class DeployView extends React.Component {
                                                         {
                                                             (this.state.reserve_count > 0)
                                                             ? <tr>
-                                                                <td>{t('contract deploy without reverse')}</td>
-                                                                <td>{autoDecimal(this.state.gas_data_without_reverse.gasFee.toString())} ETH</td>
+                                                                <td>{t('contract deploy without reserve')}</td>
+                                                                <td>{autoDecimal(this.state.gas_data_without_reserve.gasFee.toString())} ETH</td>
                                                                 {
                                                                     eth_price 
-                                                                    ? <td>{autoDecimal(Number(this.state.gas_data_without_reverse.gasFee.toString()* eth_price))} USD</td>
+                                                                    ? <td>{autoDecimal(Number(this.state.gas_data_without_reserve.gasFee.toString()* eth_price))} USD</td>
                                                                     : null
                                                                 }
                                                             </tr>

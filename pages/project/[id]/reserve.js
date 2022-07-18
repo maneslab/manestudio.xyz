@@ -313,7 +313,7 @@ class GenerateGroupView extends React.Component {
                             <p>{t('The reserved NFTs will be automatically deposited to the address of the published contract after the official version of the contract is released')}</p>
                         </div>
                         <div>
-                            <div><button className='btn btn-primary' onClick={this.toggleShowSkipPage}>{t('reverse NFT')}</button></div>
+                            <div><button className='btn btn-primary' onClick={this.toggleShowSkipPage}>{t('reserve NFT')}</button></div>
                             <div className='py-4'>{t('or')}</div>
                             <div><button className='btn btn-outline' onClick={this.toggleSuccessModal}>{t('skip')}</button></div>
                         </div>
@@ -419,8 +419,8 @@ class GenerateGroupView extends React.Component {
                         <div className='fixed bottom-0 left-0 w-full py-4 d-bg-c-1 border-t d-border-c-1' style={{'zIndex':9999}}>
                             <div className='max-w-screen-xl mx-auto flex justify-between items-center'>
                                 <div className='text-sm'>
-                                    <div>{select_nft_ids.count()} generated NFT selected</div>
-                                    <div>{select_special_nft_ids.count()} sepecial NFT selected</div>
+                                    <div>{select_nft_ids.count()} {t('generated NFT selected')}</div>
+                                    <div>{select_special_nft_ids.count()} {t('sepecial NFT selected')}</div>
                                 </div>
                                 <div className='flex justify-end items-center'>
                                     <Button onClick={this.saveReserve} loading={this.state.is_saveing} className='btn btn-primary -ml-1'>{t('confirm reserve')}</Button>

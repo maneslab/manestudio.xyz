@@ -7,7 +7,7 @@ import {DotsVerticalIcon,TrashIcon,PencilIcon} from '@heroicons/react/outline'
 import DragIcon from 'public/img/icons/drag.svg'
 
 import {useSortable} from '@dnd-kit/sortable';
-import { useTranslation } from 'next-i18next';
+import useTranslation from 'next-translate/useTranslation'
 import {CSS} from '@dnd-kit/utilities';
 
 import TraitList from 'components/image/trait/list'
@@ -64,8 +64,8 @@ export default function LayerOne({handleDelete,handleEdit,layer,draging_index,re
                         <DotsVerticalIcon className='icon-sm'/>
                     </label>
                     <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white dark:bg-[#191c20] rounded-box w-52 capitalize">
-                        <li><a onClick={deleteLayer}><TrashIcon className='icon-sm'/>delete</a></li>
-                        <li><a onClick={handleEdit.bind({},layer)}><PencilIcon className='icon-sm'/>edit</a></li>
+                        <li><a onClick={deleteLayer}><TrashIcon className='icon-sm'/>{t('delete')}</a></li>
+                        <li><a onClick={handleEdit.bind({},layer)}><PencilIcon className='icon-sm'/>{t('edit')}</a></li>
                     </ul>
                 </div>
             </div>

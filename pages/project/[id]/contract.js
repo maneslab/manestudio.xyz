@@ -33,7 +33,7 @@ import withClubView from 'hocs/clubview'
 
 import {  PlusIcon,   } from '@heroicons/react/outline'
 import {removeSuffixZero} from 'helper/number'
-import {t} from 'helper/translate'
+// import {t} from 'helper/translate'
 
 import { Formik, Form, FieldArray } from 'formik';
 import * as Yup from 'yup';
@@ -248,7 +248,7 @@ class ContractView extends React.Component {
     }
  
     render() {
-        // const {t} = this.props.i18n;
+        const {t} = this.props.i18n;
         const {is_fetching,is_fetched,generates,merged_traits,preview_id,preview_index} = this.state;
         const {club_id,club,contract} = this.props;
 
@@ -324,7 +324,7 @@ class ContractView extends React.Component {
                                 <div class="alert alert-info shadow-sm mb-8">
                                     <div>
                                         <InformationCircleIcon className='icon-sm'/>
-                                        <span>{t('The contract has been locked, if you need to change it, please destroy the ETH mainnet contract before you can change it.')}</span>
+                                        <span>{t('lock-info')}</span>
                                     </div>
                                 </div>
                             </div>

@@ -18,7 +18,7 @@ import message from 'components/common/message'
 import {removeSuffixZero} from 'helper/number'
 
 import {  PlusIcon  } from '@heroicons/react/outline'
-import {t} from 'helper/translate'
+// import {t} from 'helper/translate'
 
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
@@ -142,7 +142,7 @@ class ContractUpdate extends React.Component {
     }
 
     render() {
-        // const {t} = this.props.i18n;
+        const {t} = this.props.i18n;
         const {is_saving} = this.state;
         const {club_id,club,contract} = this.props;
 
@@ -186,7 +186,7 @@ class ContractUpdate extends React.Component {
                                     (values.wl_enable && values.wl_enable > 0)
                                     ? <div className='ct'>
 
-                                        <Input name="wl_price" label={"whitelist mint price"} placeholder={"e.g 0.05"} />
+                                        <Input name="wl_price" label={t("whitelist mint price")} placeholder={"e.g 0.05"} />
 
                                         <div className='divider' />
 
@@ -200,7 +200,7 @@ class ContractUpdate extends React.Component {
                                     </div>
                                 }
                                 <div className='py-4 flex justify-end'>
-                                    <button className='btn btn-primary'>submit</button>
+                                    <button className='btn btn-primary'>{t('save')}</button>
                                 </div>
                             </div>
                             <div className="col-span-3 intro">
@@ -267,7 +267,7 @@ class ContractUpdate extends React.Component {
                                     </div>
                                 }
                                 <div className='py-4 flex justify-end'>
-                                    <button className='btn btn-primary'>submit</button>
+                                    <button className='btn btn-primary'>{t('save')}</button>
                                 </div>
                             </div>
                             

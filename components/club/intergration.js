@@ -44,7 +44,7 @@ class ClubIntergration extends React.Component {
         let str  = '<iframe src="'+iframe_url+'" allowtransparency="true" height="48" width="320"></iframe>'
 
         return  <div>
-            <h2 className='h2'>{t('integration mint button')}</h2>
+            <h2 className='h2 mb-2'>{t('integration mint button')}</h2>
             <div className='block-wapper-one mb-4'>
                 <div className='l'>
                     <div className='form-box-one'>
