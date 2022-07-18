@@ -1,12 +1,12 @@
 import React,{useState} from 'react'
 import {getShortAddress} from 'helper/common'
-import {getConfig} from 'helper/config'
+import config from 'helper/config'
 
 export default function WalletOne({
     tx_hash,
     className
 }) {
-    let etherscan_base = getConfig('ETHERSCAN_BASE');
+    let etherscan_base = config.get('ETHERSCAN_BASE');
     let [showTip,setShowTip] = useState(false);
 
     if (!tx_hash) {
