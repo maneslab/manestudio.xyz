@@ -196,6 +196,7 @@ class DeployView extends React.Component {
 
                 let ownerBalance = await this.manenft.contract.ownerBalance();
                 let collectorBalance = await this.manenft.contract.collectorBalance();
+                let isForceRefundable = await this.manenft.contract.isForceRefundable();
                 // console.log('ownerbalance',ownerBalance);
 
                 let totalAvailableBalance =  ownerBalance.add(collectorBalance);
@@ -206,7 +207,8 @@ class DeployView extends React.Component {
                 formated_data['paused'] = (paused == 1) ? true : false;
                 formated_data['balance'] = balance;
                 formated_data['available_balance'] = ethers.utils.formatEther(totalAvailableBalance.toString());
-
+                formated_data['is_force_refundable'] = (isForceRefundable == 1) ? true : false;
+ 
                 this.setState({
                     'contract_data' : formated_data,
                     'is_fetching_contract_data' : false,
@@ -711,11 +713,10 @@ class DeployView extends React.Component {
 
         let is_allow_withdraw = false;
         if (contract_data) {
-            is_allow_withdraw = this.isAllowWithdraw(contract_data['refund'])
+            is_allow_withdraw = (this.isAllowWithdraw(contract_data['refund']) && !contract_data['is_force_refundable'])
         } 
 
 
-        
 /*                        <div>
                             <button className='btn btn-default' onClick={this.lockClub}>lockClub</button>
                             <button className='btn btn-default' onClick={this.unlockClub}>unlockClub</button>
@@ -883,54 +884,63 @@ class DeployView extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className='info-dl'>
-                                                            <label className="capitalize">{t('refundable')}</label>
-                                                            <div className='py-2'>
-                                                                <table className='info-table w-full"'>
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>{t('time')}</th>
-                                                                            <th className='w-1/3'>{t('refundable ratio')}</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        {
-                                                                            (contract_data['refund'].map(one=>{
-                                                                                return <tr key={one.endTime}>
-                                                                                    <td><span className=''><Showtime unixtime={one.endTime} /></span></td>
-                                                                                    <td>{percentDecimal(one.ratioPPM/1000000)}%</td>
-                                                                                </tr>
-                                                                            }))
-                                                                        }
-                                                                        
-                                                                    </tbody>
-                                                                </table>
+                                                        {
+                                                            (contract_data['refund'].length > 0)
+                                                            ? <div className='info-dl'>
+                                                                <label className="capitalize">{t('refundable')}</label>
+                                                                <div className='py-2'>
+                                                                    <table className='info-table w-full"'>
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>{t('time')}</th>
+                                                                                <th className='w-1/3'>{t('refundable ratio')}</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            {
+                                                                                (contract_data['refund'].map(one=>{
+                                                                                    return <tr key={one.endTime}>
+                                                                                        <td><span className=''><Showtime unixtime={one.endTime} /></span></td>
+                                                                                        <td>{percentDecimal(one.ratioPPM/1000000)}%</td>
+                                                                                    </tr>
+                                                                                }))
+                                                                            }
+                                                                            
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div className='info-dl'>
-                                                            <label className="capitalize">{t('revenue sharing')}</label>
-                                                            <div className='py-2'>
-                                                                <table className='info-table w-full"'>
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>{t('address')}</th>
-                                                                            <th className='w-1/3'>{t('share ratio')}</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        {
-                                                                            (contract_data['share'].map(one=>{
-                                                                                return <tr key={one.owner}>
-                                                                                    <td><span className=''>{one.owner}</span></td>
-                                                                                    <td>{percentDecimal(one.ratioPPM/1000000)}%</td>
-                                                                                </tr>
-                                                                            }))
-                                                                        }
-                                                                        
-                                                                    </tbody>
-                                                                </table>
+                                                            : null
+                                                        }
+                                                        {
+                                                            (contract_data['share'].length > 0)
+                                                            ? <div className='info-dl'>
+                                                                <label className="capitalize">{t('revenue sharing')}</label>
+                                                                <div className='py-2'>
+                                                                    <table className='info-table w-full"'>
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>{t('address')}</th>
+                                                                                <th className='w-1/3'>{t('share ratio')}</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            {
+                                                                                (contract_data['share'].map(one=>{
+                                                                                    return <tr key={one.owner}>
+                                                                                        <td><span className=''>{one.owner}</span></td>
+                                                                                        <td>{percentDecimal(one.ratioPPM/1000000)}%</td>
+                                                                                    </tr>
+                                                                                }))
+                                                                            }
+                                                                            
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                            : null
+                                                        }
+                                                        
                                                     </>
                                                     : null
                                                 }
@@ -1082,7 +1092,7 @@ class DeployView extends React.Component {
                                                         <div className='divider' />
                                                         <div className='flex justify-between items-center'>
                                                             <div className='text-sm'>
-                                                                {t('If you are not satisfied with some configuration, such as account splitting, refund, name, etc., you can destroy the contract and republish it')}
+                                                                {t('destory-info')}
                                                             </div>
                                                             <Button loading={this.state.is_destroy_contract} className='btn btn-error' onClick={this.destroy}>{t('destroy')}</Button>
                                                         </div>

@@ -919,7 +919,7 @@ select {
 .edit-form-line:hover .icon-xs {
     @apply block;
 } 
-
+/* 
 @keyframes layerBoxSlideDown {
     0% {height:84px;}
     to {height:396px;}
@@ -936,4 +936,4 @@ select {
 
 .layer-open {
     animation: layerBoxSlideDown 0.3s ease-in-out;
-}
+} */

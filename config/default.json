@@ -5,7 +5,7 @@
     "ALCHEMY_ID"        : "JPWQi3ZfcRsCPerhWtcVYtJeWmYfUC-a",
 
     "MANE_CONTRACT"     : {
-        "kovan"     :   "0xD4085De27B549CBee2892Eb1BA3a47602e758e2D",
+        "kovan"     :   "0x8eB29Ffe792A76523218E10Af30573085FD6d827",
         "ropsten"   :   "",
         "mainnet"   :   ""
     }

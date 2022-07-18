@@ -223,10 +223,10 @@ public sale,public sale,公开销售
 public sale mint time,public sale mint time,公开销售铸造时间
 mint price,mint price,mint价格
 special tools,special tools,特殊工具
-"Emergency suspension will suspend Mint for the entire contract, which is used to suspend Mint in an emergency","Emergency suspension will suspend Mint for the entire contract, which is used to suspend Mint in an emergency",紧急暂停将暂停
+"Emergency suspension will suspend Mint for the entire contract, which is used to suspend Mint in an emergency","Emergency suspension will suspend Mint for the entire contract, which is used to suspend Mint in an emergency",紧急暂停将暂停Mint功能
 resume,resume,恢复
 pause,pause,暂停
-"If you are not satisfied with some configuration, such as account splitting, refund, name, etc., you can destroy the contract and republish it","If you are not satisfied with some configuration, such as account splitting, refund, name, etc., you can destroy the contract and republish it",如果你对某些配置不满意，如账户拆分、退款、名称等，你可以销毁合约并重新发布它
+destory-info,"If you are not satisfied with some configuration, such as account splitting, refund, name, etc., you can destroy the contract and republish it, (contract need has not any mint and reserve NFT yet)","如果你对某些配置不满意，如账户拆分、退款、名称等，你可以销毁合约并重新发布它(合约需要无预留NFT,无mint)"
 destroy,destroy,销毁
 "the following settings, which do not require contract modification, will take effect in real time","the following settings, which do not require contract modification, will take effect in real time",以下设置不需要修改合约，将实时生效
 paused contract,paused contract,暂停的合约

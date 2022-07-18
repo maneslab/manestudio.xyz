@@ -122,8 +122,17 @@ class TraitProbabilityModal extends React.Component {
             this.timer = setTimeout(this.resetForm,500);
         }
 
-        const {list_rows} = this.props;
+        let {list_rows} = this.props;
         let {chart_map} = this.state;
+        
+
+        list_rows = list_rows.filter(one=>{
+            if (one.get('delete_time') > 0) {
+                return false;
+            }else {
+                return true;
+            }
+        })
 
         // console.log('debug-chart:list_rows',list_rows);
 
@@ -174,13 +183,20 @@ class TraitProbabilityModal extends React.Component {
 
     render() {
         const {is_adding,chart_map,select_index,hover_index} = this.state;
-        const {list_rows,visible} = this.props;
+        let {list_rows,visible} = this.props;
         const {t} = this.props.i18n;
 
         if (!visible) {
             return null;
         }
 
+        list_rows = list_rows.filter(one=>{
+            if (one.get('delete_time') > 0) {
+                return false;
+            }else {
+                return true;
+            }
+        })
 
         let init_data ={
             'generate_number_map' : []

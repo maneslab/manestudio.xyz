@@ -116,7 +116,7 @@ export function logoutUser() {
         show_status : {
             'loading'   :    false,
             'success'   :    false,
-            'error'     :    true
+            'error'     :    false
         },
         // 在 actions 的开始和结束注入的参数
         payload: {
