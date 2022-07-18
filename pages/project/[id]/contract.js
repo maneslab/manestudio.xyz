@@ -33,8 +33,6 @@ import withClubView from 'hocs/clubview'
 
 import {  PlusIcon,   } from '@heroicons/react/outline'
 import {removeSuffixZero} from 'helper/number'
-// import {t} from 'helper/translate'
-
 import { Formik, Form, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import {InformationCircleIcon} from '@heroicons/react/outline'
@@ -349,7 +347,7 @@ class ContractView extends React.Component {
                                                 <Input name="symbol" label={"symbol"} placeholder={"E.g. WGG"} />
                                                 <div className='grid grid-cols-2 gap-4'>
                                                     <Input name="type" label={t("type")} value={"ERC-721A"} readOnly={true} placeholder={"E.g. weirdo ghost gang"} />
-                                                    <Input name="max_supply" label={"max token supply"} readOnly={true} disabled />
+                                                    <Input name="max_supply" label={t("max token supply")} readOnly={true} disabled />
                                                 </div>
                                             </div>
                                         </div>
@@ -435,7 +433,7 @@ class ContractView extends React.Component {
                                                 <div className='col-span-6 mb-4'>
                                                     <div className='flex justify-between items-center w-full'>
                                                         <div className='flex justify-start items-center title'>
-                                                            <h2 className='mb-0'>{'Refundable'}</h2>
+                                                            <h2 className='mb-0'>{t('refundable')}</h2>
                                                             <div class="form-control ml-4">
                                                                 <label class="label cursor-pointer">
                                                                     <FormSwitch name={"refund_enable"} className="toggle toggle-primary"/>
@@ -505,7 +503,7 @@ class ContractView extends React.Component {
                                     <div className='col-span-6 mb-4'>
                                         <div className='flex justify-between items-center w-full'>
                                             <div className='flex justify-start items-center title'>
-                                                <h2 className='mb-0'>{'whitelist'}</h2>
+                                                <h2 className='mb-0'>{t('whitelist')}</h2>
                                                 <div class="form-control ml-4">
                                                     <label class="label cursor-pointer">
                                                         <FormSwitch name={"wl_enable"} className="toggle toggle-primary"/>
@@ -526,9 +524,9 @@ class ContractView extends React.Component {
                                                     <ExpiretimeSelect label={t('whitelist presale start time')} name={'wl_start_time'}  />
                                                     <ExpiretimeSelect label={t('whitelist presale end time')} name={'wl_end_time'}  />
 
-                                                    <Input name="wl_max_supply" label={"whitelist max supply"} placeholder={"cannot exceed total supply"} />
-                                                    <Input name="wl_per_address" label={"whitelist token limit per wallet"} placeholder={"limit how many token pre wallet can mint"} />
-                                                    <Input name="wl_price" label={"whitelist mint price"} placeholder={"e.g 0.05"} />
+                                                    <Input name="wl_max_supply" label={t("whitelist max supply")} placeholder={"cannot exceed total supply"} />
+                                                    <Input name="wl_per_address" label={t("whitelist token limit per wallet")} placeholder={"limit how many token pre wallet can mint"} />
+                                                    <Input name="wl_price" label={t("whitelist mint price")} placeholder={"e.g 0.05"} />
 
                                                     <div className='divider' />
 
@@ -548,13 +546,13 @@ class ContractView extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-
+                                    
                                 <div className='contract-form'>
                                     <div className='grid grid-cols-9 gap-8'>
                                     <div className='col-span-6 mb-4'>
                                         <div className='flex justify-between items-center w-full'>
                                             <div className='flex justify-start items-center title'>
-                                                <h2 className='mb-0'>{'public sale'}</h2>
+                                                <h2 className='mb-0'>{t('public sale')}</h2>
                                                 <div class="form-control ml-4">
                                                     <label class="label cursor-pointer">
                                                         <FormSwitch name={"pb_enable"} className="toggle toggle-primary"/>
@@ -577,8 +575,8 @@ class ContractView extends React.Component {
                                                     <PublicEndTimeSelect label={t('public sale end time')} name={'pb_end_time'} pb_enable={values.pb_end_time_enable}/>
 
 
-                                                    <Input name="pb_per_address" label={"public sale token limit per wallet"} placeholder={"limit how many token pre wallet can mint"} />
-                                                    <Input name="pb_price" label={"public sale mint price"} placeholder={"e.g 0.05"} />
+                                                    <Input name="pb_per_address" label={t("public sale token limit per wallet")} placeholder={"limit how many token pre wallet can mint"} />
+                                                    <Input name="pb_price" label={t("public sale mint price")} placeholder={"e.g 0.05"} />
 
                                                 </div>
                                                 : <div className='ct text-gray-400 capitalize'>
@@ -598,7 +596,7 @@ class ContractView extends React.Component {
                                     <div className='col-span-6 mb-4'>
                                         <div className='flex justify-between items-center w-full'>
                                             <div className='flex justify-start items-center title'>
-                                                <h2 className='mb-0'>{'delayed reveal'}</h2>
+                                                <h2 className='mb-0'>{t('delayed reveal')}</h2>
                                                 <div class="form-control ml-4">
                                                     <label class="label cursor-pointer">
                                                         <FormSwitch name={"delay_reveal_enable"} className="toggle toggle-primary"/>
@@ -669,7 +667,7 @@ class ContractView extends React.Component {
                                             <div className='col-span-6 mb-4'>
                                                 <div className='flex justify-between items-center w-full'>
                                                     <div className='flex justify-start items-center title'>
-                                                        <h2 className='mb-0'>{'Revenue Share'}</h2>
+                                                        <h2 className='mb-0'>{t('revenue share')}</h2>
                                                         <div class="form-control ml-4">
                                                             <label class="label cursor-pointer">
                                                                 <FormSwitch name={"revenue_share_enable"} className="toggle toggle-primary"/>
@@ -788,10 +786,6 @@ function mapStateToProps(state,ownProps) {
         contract_id = contract_load_data.get('contract_id')
         contract = denormalize(contract_id,contractSchema,state.get('entities'));
     }
-    // console.log('debug03,state',state.toJS())
-    // console.log('debug03,contract_id',contract_id)
-    // console.log('debug03,contract',contract)
-
     return {
         'contract' : contract,
         'contract_id' : contract_id,

@@ -261,7 +261,6 @@ metadata,metadata,元数据
 reserve NFT,reserve NFT,预留NFT
 "You can choose to set aside a portion of the NFT, or of course, you can choose to skip this step","You can choose to set aside a portion of the NFT, or of course, you can choose to skip this step",你可以选择预留一部分NFT，当然，你也可以选择跳过这一步
 The reserved NFTs will be automatically deposited to the address of the published contract after the official version of the contract is released,The reserved NFTs will be automatically deposited to the address of the published contract after the official version of the contract is released,预留的NFT将在正式版本的合约发布后自动存入已发布的合约地址中
-reserve NFT,reserve NFT,预留NFT
 or,or,或
 skip,skip,跳过
 special nft,special nft,特殊NFT
@@ -285,9 +284,9 @@ whitelist presale end time,whitelist presale end time,白名单预售结束时�
 public sale start time,public sale start time,公开销售开始时间
 public sale end time,public sale end time,公开销售结束时间
 public sale is disabled,public sale is disabled,公开销售被禁用
-add share account,add share account,添加股票账户
-click add to add a share account,click add to add a share account,点击添加以添加一个股票账户
-"revenue sharing is disabled , all income only could withdraw by owner","revenue sharing is disabled , all income only could withdraw by owner",收益分享已被禁用，所有收入只能由业主提取。
+add share account,add share account,添加钱包地址
+click add to add a share account,click add to add a share account,点击添加以添加一个钱包地址
+"revenue sharing is disabled , all income only could withdraw by owner","revenue sharing is disabled , all income only could withdraw by owner",收入分账已被禁用，所有收入只能由owner提取。
 contract name,contract name,合约名称
 ASCII art text generator,ASCII art text generator,ASCII艺术文本生成器
 generate groups,generate groups,生成组
@@ -296,3 +295,10 @@ add layer,add layer,添加图层
 warning,warning,注意
 generated NFT selected,generated NFT selected,合成的NFT已选择
 sepecial NFT selected,sepecial NFT selected,特殊的NFT已选择
+whitelist mint price,whitelist mint price,白名单mint价格
+delayed reveal,delayed reveal,延迟开图
+revenue share,revenue share,收入分账
+whitelist token limit per wallet,whitelist token limit per wallet,白名单单个钱包mint数量限制
+public sale token limit per wallet,public sale token limit per wallet,公开销售单个钱包mint数量限制
+public sale mint price,public sale mint price,公开销售mint价格
+max token supply,max token supply,NFT发行总量

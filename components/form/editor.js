@@ -119,7 +119,7 @@ export default class Editor extends React.Component {
                 <div className="d-bg-c-1 input-base">
                 <BraftEditor
                     contentStyle={{height: 'auto', minHeight: 200}}
-                    contentClassName="prose max-w-full"
+                    contentClassName="prose dark:prose-invert max-w-full"
                     language={'en'}
                     media={{
                         uploadFn : this.uploadFn,

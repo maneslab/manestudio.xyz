@@ -47,7 +47,7 @@ export default function LayerOne({handleDelete,handleEdit,layer,draging_index,re
 
 
 
-    return <div className={classNames('border-2 border-black mb-4 z-10',{"shadow-xl relative":is_draging})} style={style} ref={setNodeRef}>
+    return <div className={classNames('border-2 border-black mb-4 z-10 ',{"shadow-xl relative":is_draging},{"layer-open":open},{"layer-close":!open})} style={style} ref={setNodeRef}>
         <div className="p-4 bg-white dark:bg-[#22252b] flex justify-between items-center relative">
             <DragIcon className={classNames("absolute -left-8 top-50% icon-sm",{"d-bg-c-1":is_draging})}  {...listeners} />
 
@@ -73,7 +73,7 @@ export default function LayerOne({handleDelete,handleEdit,layer,draging_index,re
 
         {
             (open)
-            ? <div className='bg-[#e6ebf4] dark:bg-[#22252b]'>
+            ? <div className={classNames('bg-[#e6ebf4] dark:bg-[#22252b]',{'animate-fade-in':open},{'animate-fade-out':!open})}>
                 <TraitList layer_id={layer.get('id')} />
             </div>
             : null

@@ -125,8 +125,11 @@
 
 
 body {
-    color :#000;
-    @apply dark:bg-[#121518] dark:text-white;
+    @apply  text-black dark:bg-[#121518] dark:text-white;
+}
+
+body,div {
+    transition: background 0.3s;
 }
 
 html,body {
@@ -916,3 +919,21 @@ select {
 .edit-form-line:hover .icon-xs {
     @apply block;
 } 
+
+@keyframes layerBoxSlideDown {
+    0% {height:84px;}
+    to {height:396px;}
+}
+
+@keyframes layerBoxSlideUp {
+    0% {height: 396px}
+    to {height: 84px}
+}
+
+.layer-close {
+    animation: layerBoxSlideUp 0.3s ease-in-out;
+}
+
+.layer-open {
+    animation: layerBoxSlideDown 0.3s ease-in-out;
+}
