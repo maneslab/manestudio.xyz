@@ -5,6 +5,8 @@
     "DEBUG"             : false,
 
     "WEBSITE"           : "https://test.manestudio.xyz",
+
+    "SPACE_WEBSITE"     : "https://test.manespace.xyz",
     
     "API"               : "https://api.manestudio.xyz",
 
