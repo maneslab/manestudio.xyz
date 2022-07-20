@@ -153,7 +153,14 @@ class ClubDropSetting extends React.Component {
                                     <div className='text-sm text-gray-400'>{t('set-public-intro')}</div>
                                 </div>
                             </div>
-                            <a className='btn btn-primary' href={preview_link} target="_blank">{t('preview')}</a>
+                            {
+                                (!club.get('contract'))
+                                ? <div class="tooltip" data-tip={t('you need setting contract first before preview drop page')}>
+                                    <button class="btn btn-default" disabled>{t('preview')}</button>
+                                </div>
+                                : <a className='btn btn-primary' href={preview_link} target="_blank">{t('preview')}</a>
+                            }
+                            
                         </div>
                     </div>
                 </div> 
