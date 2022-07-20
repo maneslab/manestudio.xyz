@@ -4,15 +4,15 @@
     
     "DEBUG"             : false,
 
-    "WEBSITE"           : "http://127.0.0.1:3000",
+    "WEBSITE"           : "https://test.manestudio.xyz",
     
-    "API"               : "http://127.0.0.1:3000",
+    "API"               : "https://api.manestudio.xyz",
 
-    "LOGO"              : "test",
+    "LOGO"              : "production",
     
     "GA_TRACKING_ID"    : "G-5C0R9CD5QL",
 
-    "ETHERSCAN_BASE"    : "https://testnet.bscscan.com",
+    "ETHERSCAN_BASE"    : "https://www.etherscan.com",
 
     "NEXTID_ENV"        : "production"
 
