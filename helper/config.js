@@ -5,8 +5,9 @@ import production_config from '../config/production.json';
 
 
 class Config {
+
     constructor() {
-        this.cfg = this.loadConfig(process.env.ENV);
+        this.cfg = this.loadConfig(process.env.NEXT_PUBLIC_ENV);
     }
 
     loadConfig(env) {
