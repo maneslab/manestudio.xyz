@@ -940,6 +940,9 @@ select {
 .rdp-button:hover:not([aria-disabled='true']) {
     @apply dark:bg-black;
 }
+.rdp-dropdown {
+    @apply bg-gray-200 dark:bg-black;
+}
 /* 
 @keyframes layerBoxSlideDown {
     0% {height:84px;}
