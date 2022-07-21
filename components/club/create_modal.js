@@ -121,6 +121,17 @@ class ClubCreateModal extends React.Component {
                   
                     <div>
 
+                    <div className='py-4 border-t border-b d-border-c-1'>
+                        <div className='flex justify-start mb-4'>
+                            <span className='bg-black w-6 h-6 aspect-square text-white flex justify-center mr-2 rounded-full dark:bg-white dark:text-black'>1</span>
+                            {t('Once your contract is deployed on the blockchain, your fund will be locked for 7 days')}
+                        </div>
+                        <div className='flex justify-start'>
+                        <span className='bg-black w-6 h-6 aspect-square text-white flex justify-center mr-2 rounded-full dark:bg-white dark:text-black'>2</span>
+                            {t('ManeSTUDIO will get a commission of 10%  from your collection sales')}
+                        </div>
+                    </div>
+
                     <Formik
                         innerRef={this.formRef}
                         initialValues={init_data}

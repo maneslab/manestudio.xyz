@@ -8,6 +8,7 @@ import classNames from 'classnames';
 
 import PageWrapper from 'components/pagewrapper'
 import ClubHeader from 'components/club/header'
+import ContractStep from 'components/contract/step'
 import Input from 'components/form/field'
 import Button from 'components/common/button'
 import message from 'components/common/message'
@@ -346,6 +347,8 @@ class ContractView extends React.Component {
             </Head>
             <div>
                 <ClubHeader club_id={club_id} title={'smart contract'} active_id={2}/>
+           
+                <ContractStep club_id={club_id} active_name={'setting'} contract={contract} next_step={(contract)?true:false} />
 
                 <div className="max-w-screen-xl mx-auto grid grid-cols-12 gap-8">
 
