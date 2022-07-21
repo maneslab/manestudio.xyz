@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field } from 'formik';
-import Dropdown from 'rc-dropdown';
+// import Dropdown from 'rc-dropdown';
 
 import 'react-day-picker/dist/style.css';
 import withDropdown  from 'hocs/dropdown';
@@ -9,6 +9,7 @@ import { format,getUnixTime,fromUnixTime } from 'date-fns';
 
 import TimeSelect from 'components/common/time_select';
 import { CalendarIcon } from '@heroicons/react/outline';
+import DropdownComponent from 'components/common/dropdown';
 
 @withDropdown
 @withTranslate
@@ -50,12 +51,8 @@ class ExpiretimeSelect extends React.Component {
 
                 let menu = <TimeSelect value={value} onChange={setFieldValue.bind({},name)} toggleDropdown={this.props.toggleDropdown}/>
                 return <div>
-                    <div >
-
-                        <Dropdown
-                            overlay={menu} visible={dropdown_visible}
-                        >
-                            <div onClick={this.props.toggleDropdown} className="flex justify-start cursor-pointer">
+                    <DropdownComponent menu={menu}>
+                        <div className="flex justify-start cursor-pointer">
                             {
                                 (select_date)
                                 ? <span className="text-sm flex items-center px-4 py-2 border-2 border-black dark:border-[#797d86]">
@@ -68,16 +65,12 @@ class ExpiretimeSelect extends React.Component {
                             }
                             <span className='bg-black dark:bg-[#797d86] text-white p-2 px-4'><CalendarIcon className='icon-sm'/></span>
                             </div>
-                        </Dropdown>
-
-
-                    </div>
-
-                {
-                    (show_error)
-                    ? <div className="input-error-msg">{meta.error}</div>
-                    : null
-                }
+                    </DropdownComponent>
+                    {
+                        (show_error)
+                        ? <div className="input-error-msg">{meta.error}</div>
+                        : null
+                    }
                 </div>
             }}
         </Field>

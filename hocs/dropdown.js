@@ -14,6 +14,13 @@ export default function withDropdown(WrappedComponent) {
 
         toggleDropdown() {
             const {dropdown_visible} = this.state;
+
+            if (!dropdown_visible) {
+                document.body.style.overflow = 'hidden';
+            }else {
+                document.body.style.overflow = 'auto';
+            }
+
             this.setState({
                 'dropdown_visible' : !dropdown_visible
             })

@@ -42,7 +42,7 @@ class GroupProbabilityModal extends React.Component {
 
     @autobind
     submitForm(values) {
-        // console.log('debug03,values',values)
+        console.log('debug03,values',values)
 
         ///如果最后一个没有填，或是0，那么最后一个自动填进去
         ///如果最后一个填了，但是不是0，则每一个按照全部的计算一下
@@ -83,7 +83,7 @@ class GroupProbabilityModal extends React.Component {
             })
         }
 
-        // console.log('debug03,data_map',data_map)
+        console.log('debug03,data_map',data_map)
 
         this.setState({
             'is_adding' : true
@@ -91,7 +91,7 @@ class GroupProbabilityModal extends React.Component {
 
         var that = this;
         this.props.updateGroupProbability(data_map).then(data=>{
-            // console.log('result',data);
+            console.log('debug03,result',data);
             if (data.status == 'success') {
                 that.setState({
                     'is_adding' : false
@@ -214,7 +214,10 @@ class GroupProbabilityModal extends React.Component {
                                     radius={PieChart.defaultProps.radius - shiftSize}
                                     segmentsShift={(index) => (index === 0 ? shiftSize : 0.5)}
                                     lineWidth={30}
-                                    label={({ dataEntry }) => dataEntry.percentage.toFixed(2) + '%'}
+                                    label={({ dataEntry }) => {
+                                        return null;
+                                        // dataEntry.percentage.toFixed(2) + '%'
+                                    }}
                                     labelStyle={(index) => ({
                                         fill: '#fff',
                                         fontSize: '5px',

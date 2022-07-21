@@ -228,6 +228,35 @@ export function initGroup(group_id,response) {
         }
     }
 }
+//添加
+export const BEFORE_UPDATE_GROUP_PROBABILITY  = 'BEFORE_UPDATE_GROUP_PROBABILITY'
+export const UPDATE_GROUP_PROBABILITY_SUCCESS = 'UPDATE_GROUP_PROBABILITY_SUCCESS'
+export const UPDATE_GROUP_PROBABILITY_FAILURE = 'UPDATE_GROUP_PROBABILITY_FAILURE'
+
+export function updateGroupProbability(data) {
+    return {
+        // 要在之前和之后发送的 action types
+        types: ['BEFORE_UPDATE_GROUP_PROBABILITY', 'UPDATE_GROUP_PROBABILITY_SUCCESS', 'UPDATE_GROUP_PROBABILITY_FAILURE'],
+        // 检查缓存 (可选):
+        // 进行取：
+        callAPI: () => {
+            return httpRequest({
+                'url'    : '/v1/image/group/update_probability',
+                'method' : 'POST', 
+                'data'   : data
+            })
+        },
+        data_format : (data) => normalize(data.data, imageGroupListSchema),
+
+        show_status : {
+            'loading'   :    false,
+            'success'   :    false,
+            'error'     :    true
+        },
+        payload: {
+        }
+    };
+}
 
 
 

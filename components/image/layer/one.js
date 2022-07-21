@@ -1,8 +1,8 @@
-import React,{useState} from 'react';
+import React,{useState,useRef} from 'react';
 import classNames from 'classnames';
 
 import {confirm} from 'components/common/confirm/index'
-import {DotsVerticalIcon,TrashIcon,PencilIcon} from '@heroicons/react/outline'
+import {DotsVerticalIcon,TrashIcon,PencilIcon,AdjustmentsIcon} from '@heroicons/react/outline'
 
 import DragIcon from 'public/img/icons/drag.svg'
 
@@ -11,6 +11,7 @@ import useTranslation from 'next-translate/useTranslation'
 import {CSS} from '@dnd-kit/utilities';
 
 import TraitList from 'components/image/trait/list'
+import ProbabilityModal from 'components/image/trait/probability_modal'
 
 
 export default function LayerOne({handleDelete,handleEdit,layer,draging_index,refreshList,id}) {
@@ -38,6 +39,7 @@ export default function LayerOne({handleDelete,handleEdit,layer,draging_index,re
     }
 
     let [open,setOpen] = useState(false);
+    let [showProbalityModal,setShowProbalityModal] = useState(false);
 
 
     const style = {
@@ -45,6 +47,15 @@ export default function LayerOne({handleDelete,handleEdit,layer,draging_index,re
         transition,
     };
 
+    const listRef = useRef(null);
+
+    let openProbabilityModal = () => {
+        console.log('listRef',listRef)
+    }
+
+    let toggleProbabilityModal = () => {
+        setShowProbalityModal(!showProbalityModal);
+    }
 
 
     return <div className={classNames('border-2 border-black mb-4 z-10 ',{"shadow-xl relative":is_draging},{"layer-open":open},{"layer-close":!open})} style={style} ref={setNodeRef}>
@@ -58,7 +69,10 @@ export default function LayerOne({handleDelete,handleEdit,layer,draging_index,re
                 </div>
             </div>
             
-            <div>
+            <div className='flex justify-end items-center'>
+                <button className='btn btn-ghost' onClick={toggleProbabilityModal}>
+                    <AdjustmentsIcon className='icon-sm'/>
+                </button>
                 <div class="dropdown dropdown-right">
                     <label tabindex="0" class="btn m-1 px-2 bg-white border-none text-gray-800 hover:bg-gray-200 dark:bg-[#22252b] dark:hover:bg-[#191c20] dark:text-white">
                         <DotsVerticalIcon className='icon-sm'/>
@@ -74,10 +88,15 @@ export default function LayerOne({handleDelete,handleEdit,layer,draging_index,re
         {
             (open)
             ? <div className={classNames('bg-[#e6ebf4] dark:bg-[#22252b]',{'animate-fade-in':open},{'animate-fade-out':!open})}>
-                <TraitList layer_id={layer.get('id')} />
+                <TraitList ref={listRef} layer_id={layer.get('id')} toggleProbabilityModal={toggleProbabilityModal}/>
             </div>
             : null
         }
+
+        <ProbabilityModal 
+                layer_id={layer.get('id')} 
+                visible={showProbalityModal} 
+                closeModal={toggleProbabilityModal} />
     </div>
 }
 

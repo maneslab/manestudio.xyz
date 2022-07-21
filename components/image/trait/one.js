@@ -5,9 +5,9 @@ import classNames from 'classnames'
 import {withTranslate} from 'hocs/index'
 import {confirm} from 'components/common/confirm/index'
 
-import {DotsVerticalIcon,PencilIcon,TrashIcon,CheckIcon,XIcon,AdjustmentsIcon} from '@heroicons/react/outline'
+import {DotsVerticalIcon,PencilIcon,TrashIcon,CheckIcon,XIcon,AdjustmentsIcon,EyeIcon} from '@heroicons/react/outline'
 import autobind from 'autobind-decorator';
-// import {percentDecimal} from 'helper/number'
+import {percentDecimal} from 'helper/number'
 import { t } from 'helper/translate';
 
 @withTranslate
@@ -67,7 +67,7 @@ class TraitOne extends React.Component {
         })) {
             const {trait} = this.props;
             await this.props.handleDelete(trait.get('id'));
-            // this.props.refreshList();
+            this.props.refreshList();
         }
     }
 
@@ -100,7 +100,7 @@ class TraitOne extends React.Component {
             return null;
         }
 
-        return <div className={classNames("w-36 bg-white dark:bg-[#121518] dark:border-[#121518] border-2",{"border-black":is_selected})}>
+        return <div className={classNames("w-36 bg-white dark:bg-[#121518] dark:border-[#121518] border-2",{"border-black dark:border-white":is_selected})}>
             <div className="">
                 <div className='relative trait-image asset-bg'>
                     <img src={trait.getIn(['img','image_urls','url'])} className="cursor-pointer" onClick={this.props.setActiveTraitId.bind({},{
@@ -109,7 +109,7 @@ class TraitOne extends React.Component {
                         'trait_id' : (is_selected) ? null : trait.get('id')
                     })} />
                     <div class="dropdown dropdown-right absolute right-1 top-1">
-                        <label tabindex="0" class="btn m-1 px-2 bg-transparent border-none text-gray-600 dark:text-white hover:text-black hover:bg-transparent">
+                        <label tabindex="0" class="btn m-1 px-2  border-none text-gray-600  bg-gray-50 hover:bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 dark:text-white">
                             <DotsVerticalIcon className='icon-sm'/>
                         </label>
                         <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white dark:bg-[#191c20] rounded-box w-52 capitalize">
@@ -117,6 +117,11 @@ class TraitOne extends React.Component {
                             <li><a onClick={this.props.handleEditProbability}><AdjustmentsIcon className='icon-sm'/>{t('rarity')}</a></li>
                         </ul>
                     </div>
+                    {
+                        (is_selected)
+                        ? <EyeIcon className='w-4 h-4 absolute left-1 top-1'/>
+                        : null
+                    }
                 </div>
                 <div className="flex-grow flex justify-between p-2">
                     <div className='flex justify-center flex-col'>
@@ -135,7 +140,7 @@ class TraitOne extends React.Component {
                             </div>
                         }
                         <div className='text-xs text-blue-400'>
-                            15%
+                            {percentDecimal(trait.get('generate_prob'))}%
                         </div>
                     </div>
 

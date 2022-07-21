@@ -11,7 +11,6 @@ import Empty from 'components/common/empty'
 import TraitOne  from 'components/image/trait/one'
 import {uploadRequest} from 'helper/http'
 import Upload from 'components/common/upload'
-import ProbabilityModal from 'components/image/trait/probability_modal'
 
 import {removeValueEmpty} from 'helper/common'
 import {getUploadImageUrl} from 'helper/http'
@@ -19,7 +18,7 @@ import {getUploadImageUrl} from 'helper/http'
 import {withPageList} from 'hocs/index'
 import withActiveClub from 'hocs/active_club'
 
-import {loadTraitList,deleteTrait,updateTrait,addTrait,updateTraitProbability} from 'redux/reducer/image/trait'
+import {loadTraitList,deleteTrait,updateTrait,addTrait} from 'redux/reducer/image/trait'
 import {imageTraitListSchema,imageLayerSchema} from 'redux/schema/index'
 import {setActiveTraitId} from 'redux/reducer/setting'
 import {withTranslate} from 'hocs/index'
@@ -39,13 +38,9 @@ class TraitList extends React.Component {
         super(props)
         this.state = {
             edit_item : null,
-            probability_modal : false,
         }
         this.wapperRef = React.createRef();
         this.handleUpload = ::this.handleUpload
-    }
-
-    componentDidMount() {
     }
 
     @autobind
@@ -62,31 +57,20 @@ class TraitList extends React.Component {
         })
     }
 
-    @autobind
-    toggleProbabilityModal() {
-        this.setState({
-            'probability_modal' : !this.state.probability_modal
-        })
-    }
-
     async handleUpload(data) {
-        // console.log('debug04,data',data)
         await this.props.addTrait({
             img_id : data.data.img_id,
             layer_id : this.props.layer_id
         })
-
-        // this.props.refresh();
+        this.props.refresh();
     }
 
     render() {
 
         let {list_data_one,list_rows,active_club,active_trait_id,layer_id,group_id} = this.props;
-        // let {show_create_modal} = this.state;
         const {t} = this.props.i18n;
 
         let is_empty = (list_data_one.get('is_fetched') && list_rows.count() == 0)
-
 
         const uploadProps = uploadRequest({
             showUploadList : true,
@@ -97,14 +81,17 @@ class TraitList extends React.Component {
             accept : '.jpg,.jpeg,.png,.gif',
         })
 
-        console.log('debuguploadProps',uploadProps)
+        console.log('list_data_one',list_data_one.toJS())
 
         let count = (list_rows) ? list_rows.count() : 0;
         let max_width  = count * 150;
 
+
+
+
         return <div>
             {
-                (list_data_one.get('is_fetching'))
+                (list_data_one.get('is_fetching') && list_rows.count() == 0)
                 ? <div className="my-16"><Loading /></div>
                 : null
             }
@@ -117,7 +104,7 @@ class TraitList extends React.Component {
                 : <div className="p-4 pb-0 h-60 w-full overflow-x-auto overflow-y-hidden"><div className=' flex justify-start gap-4' style={{width:max_width}}>
 
                     {
-                        (list_data_one.get('is_fetched'))
+                        (list_rows.count() > 0)
                         ? <>
                             {
                                 list_rows.map((one)=>{
@@ -128,7 +115,7 @@ class TraitList extends React.Component {
                                         refreshList={this.props.refresh}
                                         handleDelete={this.props.deleteTrait}
                                         handleUpdate={this.props.updateTrait}
-                                        handleEditProbability={this.toggleProbabilityModal}
+                                        handleEditProbability={this.props.toggleProbabilityModal}
                                         handleEdit={this.edit}
                                         group_id={group_id}
                                         layer_id={layer_id}
@@ -155,12 +142,7 @@ class TraitList extends React.Component {
             </div>
             
 
-            <div>
-            <ProbabilityModal list_rows={list_rows} 
-                updateTraitProbability={this.props.updateTraitProbability}
-                visible={this.state.probability_modal} 
-                closeModal={this.toggleProbabilityModal} />
-            </div>
+
         </div>;
 
     }
@@ -178,7 +160,6 @@ function mapStateToProps(state,ownProps) {
 
     let layer = denormalize(layer_id,imageLayerSchema,state.get('entities'));
     let active_trait_id = state.getIn(['setting','active_trait',layer.get('group_id'),layer_id]);
-    console.log('active_trait_id',active_trait_id)
 
     return {
         entities        : state.getIn(['entities']),
@@ -199,9 +180,6 @@ const mapDispatchToProps = (dispatch) => {
         },
         updateTrait : (trait_id,data) => {
             return dispatch(updateTrait(trait_id,data))
-        },
-        updateTraitProbability : (data) => {
-            return dispatch(updateTraitProbability(data))
         },
         addTrait : (data) => {
             return dispatch(addTrait(data))

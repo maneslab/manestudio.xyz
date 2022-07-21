@@ -2,11 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import autobind from 'autobind-decorator';
+import { connect } from "react-redux";
+import { denormalize } from 'normalizr';
+import {imageTraitListSchema} from 'redux/schema/index'
+import {defaultListData} from 'helper/common'
+import {removeValueEmpty} from 'helper/common'
 
 import Modal from 'components/common/modal'
 import Button from 'components/common/button'
+import {withPageList} from 'hocs/index'
 
 import PrefixInput from 'components/form/prefix_input'
+import {loadTraitList,updateTraitProbability} from 'redux/reducer/image/trait'
 
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
@@ -32,10 +39,6 @@ class TraitProbabilityModal extends React.Component {
 
     }
 
-    // componentDidMount() {
-    //     // 
-    // }
-
     componentDidUpdate(prevProps) {
         if (this.props.visible &&  !prevProps.visible) {
             this.resetForm();
@@ -44,7 +47,6 @@ class TraitProbabilityModal extends React.Component {
 
     @autobind
     submitForm(values) {
-        // console.log('debug03,values',values)
 
         ///如果最后一个没有填，或是0，那么最后一个自动填进去
         ///如果最后一个填了，但是不是0，则每一个按照全部的计算一下
@@ -260,8 +262,10 @@ class TraitProbabilityModal extends React.Component {
                                         })
                                     }}
 
-
-                                    label={({ dataEntry }) => dataEntry.percentage.toFixed(2) + '%'}
+                                    label={({ dataEntry }) => {
+                                        return null;
+                                        // dataEntry.percentage.toFixed(2) + '%'
+                                    }}
                                     labelStyle={(index) => ({
                                         fill: '#fff',
                                         fontSize: '5px',
@@ -317,9 +321,41 @@ class TraitProbabilityModal extends React.Component {
 TraitProbabilityModal.propTypes = {
     visible     : PropTypes.bool.isRequired,
     closeModal  : PropTypes.func.isRequired,
+    layer_id    : PropTypes.number
 };
   
+function mapStateToProps(state,ownProps) {
+    
+    let layer_id = ownProps.layer_id;
+    let list_data_one = state.getIn(['image_trait','list',layer_id]) ? state.getIn(['image_trait','list',layer_id]) : defaultListData
+    let list_rows = denormalize(list_data_one.get('list'),imageTraitListSchema,state.get('entities'));
 
-module.exports = TraitProbabilityModal
+
+    return {
+        list_rows       : list_rows,
+        list_data_one   : list_data_one,
+    }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loadList   : (cond) => {
+            return dispatch(loadTraitList(cond))
+        },
+        updateTraitProbability : (data) => {
+            return dispatch(updateTraitProbability(data))
+        }
+    }
+}
+const formatData = (props) => {
+    let result = removeValueEmpty({
+        layer_id        : props.layer_id,
+    })
+    return result;
+}
+
+
+module.exports = connect(mapStateToProps,mapDispatchToProps,null, {forwardRef: true})(withPageList(TraitProbabilityModal,{'formatData':formatData}))
 
 

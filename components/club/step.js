@@ -93,12 +93,19 @@ class ClubStep extends React.Component {
                 }
                 <div>
                     {
-                        ((active < 4 && project_type == 'use_generator') || (active < 3 && project_type == 'normal'))
-                        ?   <Link href={(project_type=='use_generator')?this.getGeneratorUrl(club_id,active+1):this.getNormalUrl(club_id,active+1)}>
-                            <button className='btn btn-primary'>{t('next')}</button>
-                        </Link>
-                        : null
+                        (this.props.next_step == false)
+                        ?  <button className='btn btn-primary' disabled>{t('next')}</button>
+                        : <>
+                        {
+                            ((active < 4 && project_type == 'use_generator') || (active < 3 && project_type == 'normal'))
+                            ?   <Link href={(project_type=='use_generator')?this.getGeneratorUrl(club_id,active+1):this.getNormalUrl(club_id,active+1)}>
+                                <button className='btn btn-primary'>{t('next')}</button>
+                            </Link>
+                            : null
+                        }
+                        </>
                     }
+                   
                 </div>
             </div>
         </div>

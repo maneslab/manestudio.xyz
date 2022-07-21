@@ -125,7 +125,7 @@
 
 
 body {
-    @apply  text-black dark:bg-[#121518] dark:text-white;
+    @apply  bg-[#e6ebf4] text-black dark:bg-[#121518] dark:text-white;
 }
 
 body,div {
@@ -133,7 +133,8 @@ body,div {
 }
 
 html,body {
-    overflow: hidden;
+    overflow-x: hidden;
+    /* overflow: hidden; */
 }
 
 .icon-xs {
@@ -451,11 +452,11 @@ html,body {
 .btn {
     @apply min-h-8 h-10;
 }
-.btn-primary,
-.btn-secondary,
-.btn-secondary:hover,
-.btn-primary:hover {
-    @apply border-2 border-black dark:border-0;
+
+
+.btn-primary[disabled],
+.btn-primary[disabled]:hover {
+    @apply bg-[#ccc] text-[#999] dark:bg-[#4e5155] dark:text-[#999];
 }
 
 .btn-outline {
@@ -919,6 +920,12 @@ select {
 .edit-form-line:hover .icon-xs {
     @apply block;
 } 
+
+/*modal垂直居中*/
+.rc-dialog-wrap {
+    @apply flex justify-center items-center;
+}
+
 /* 
 @keyframes layerBoxSlideDown {
     0% {height:84px;}

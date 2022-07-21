@@ -267,8 +267,8 @@ special nft,special nft,特殊NFT
 filters,filters,过滤
 confirm reserve,confirm reserve,确认保留
 Congratulations!,Congratulations!,祝贺您！您已经完成了NFT的生成，现在您可以进入合约页面建立您的NFT合约。
-"you have finished generate NFT ,now you can goto contract page for build your NFT contract now!","you have finished generate NFT ,now you can goto contract page for build your NFT contract now!",您已经完成了NFT的生成，现在您可以进入合约页面来建立您的NFT合约了。
-goto contract page,goto contract page,进入合约页面
+"you have finished generate NFT ,now you can go to contract page for build your NFT contract now!","you have finished generate NFT ,now you can go to contract page for build your NFT contract now!",您已经完成了NFT的生成，现在您可以进入合约页面来建立您的NFT合约了。
+go to contract page,go to contract page,进入合约页面
 reserve success,reserve success,储备成功
 contract setting,contract setting,合约设置
 lock-info,"The contract has been locked, if you need to change it, please destroy the ETH mainnet contract before you can change it.",该合约已被锁定，如果您需要修改，请在修改前销毁ETH主网合约。

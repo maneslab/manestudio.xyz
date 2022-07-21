@@ -188,7 +188,6 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 const formatData = (props) => {
-    console.log('debug030,props',props);
     let result = removeValueEmpty({
         group_id        : props.group_id,
     })

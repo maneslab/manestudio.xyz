@@ -430,7 +430,7 @@ class GenerateGroupView extends React.Component {
                     </div> 
                 }
                 
-                <SuccessModal visible={this.state.show_success_modal} closeModal={this.toggleSuccessModal} title={t('Congratulations!')} desc={t('you have finished generate NFT ,now you can goto contract page for build your NFT contract now!')} link_text={t('goto contract page')} link_href={'/project/'+club_id+'/contract'} />
+                <SuccessModal visible={this.state.show_success_modal} closeModal={this.toggleSuccessModal} title={t('Congratulations!')} desc={t('you have finished generate NFT ,now you can go to contract page for build your NFT contract now!')} link_text={t('go to contract page')} link_href={'/project/'+club_id+'/contract'} />
 
             </div>
     </PageWrapper>

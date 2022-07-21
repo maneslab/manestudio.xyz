@@ -72,7 +72,7 @@ class GenerateGroupView extends React.Component {
             </Head>
             <div>
                 <ClubHeader club_id={club_id}  title={t('generate nft')} active_id={1}/>
-                <ClubStep club_id={club_id} active_name={'setting'} project_type={(club)?club.get('project_type'):'use_generator'} />
+                <ClubStep club_id={club_id} active_name={'setting'} project_type={(club)?club.get('project_type'):'use_generator'} next_step={false} />
 
                 <div className="max-w-screen-xl mx-auto grid grid-cols-8 gap-16">
 
@@ -80,7 +80,7 @@ class GenerateGroupView extends React.Component {
 
                         <div className='pb-4 mb-4 border-b border-gray-300 dark:border-gray-800'>
                             <Link href={"/project/"+club_id+"/group"}>
-                            <a className='flex justify-start items-center capitalize cursor-pointer dark:text-white'>
+                            <a className='btn btn-default'>
                                 <ChevronLeftIcon className='icon-sm'/>
                                 {t('back')}
                             </a>
