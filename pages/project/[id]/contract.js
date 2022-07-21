@@ -150,14 +150,54 @@ class ContractView extends React.Component {
 
     @autobind
     formatData(values) {
+
+        // console.log('debug88,values',values)
+
         //添加clubid 
         values.club_id = this.props.club_id;
 
+
         //整理refund数据
-        values.refund = JSON.stringify(values.refund);
+        if (values.refund_enable) {
+            values.refund = JSON.stringify(values.refund);
+        }else {
+            values.refund = JSON.stringify([]);
+        }
 
         //整理revenue_share数据
-        values.revenue_share = JSON.stringify(values.revenue_share);
+        if (values.revenue_share_enable) {
+            values.revenue_share = JSON.stringify(values.revenue_share);
+        }else {
+            values.revenue_share = JSON.stringify([]);
+        }
+
+        if (!values.wl_enable) {
+            delete values['wl_bluechip_list'];
+            delete values['wl_end_time'];
+            delete values['wl_max_supply'];
+            delete values['wl_per_address'];
+            delete values['wl_price'];
+            delete values['wl_start_time'];
+        }
+
+
+        if (!values.pb_enable) {
+            delete values['pb_end_time'];
+            delete values['pb_end_time_enable'];
+            delete values['pb_per_address'];
+            delete values['pb_price'];
+            delete values['pb_start_time'];
+        }else {
+            if (!values.pb_end_time_enable) {
+                values.pb_end_time = 0;
+            }
+        }
+
+        if (!values.delay_reveal_enable){
+            delete values['reveal_time']
+            delete values['placeholder_img']
+            delete values['placeholder_video']
+        }
 
         //清理为0的字段
         if (values.placeholder_img_id == 0) {
@@ -176,9 +216,7 @@ class ContractView extends React.Component {
             values.placeholder_video_id = values.placeholder_video.id
         }
 
-        if (!values.pb_end_time_enable) {
-            values.pb_end_time = 0;
-        }
+        
 
         return values;
     }
@@ -197,8 +235,13 @@ class ContractView extends React.Component {
             'is_saving' : true
         })
         try {
-            this.props.saveContract(format_data);
-            message.success(t('save success'));
+            let result = await this.props.saveContract(format_data);
+            console.log('debug88-result',result);
+            if (result.status == 'success') {
+                message.success(t('save success'));
+            }else {
+                message.error(t('save failed'));
+            }
 
         }catch(e) {
             message.error(t('save failed'));
@@ -343,8 +386,8 @@ class ContractView extends React.Component {
                                     <div className='grid grid-cols-9 gap-8'>
                                         <div className="col-span-6">
                                             <div className='ct'>
-                                                <Input name="name" label={t("contract name")} placeholder={"E.g. weirdo ghost gang"} />
-                                                <Input name="symbol" label={"symbol"} placeholder={"E.g. WGG"} />
+                                                <Input name="name" label={t("contract name")} onlyEnglish={true} placeholder={"E.g. weirdo ghost gang"} />
+                                                <Input name="symbol" label={"symbol"} onlyEnglish={true} placeholder={"E.g. WGG"} />
                                                 <div className='grid grid-cols-2 gap-4'>
                                                     <Input name="type" label={t("type")} value={"ERC-721A"} readOnly={true} placeholder={"E.g. weirdo ghost gang"} />
                                                     <Input name="max_supply" label={t("max token supply")} readOnly={true} disabled />

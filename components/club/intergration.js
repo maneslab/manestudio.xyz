@@ -12,6 +12,8 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import config from 'helper/config';
 import message from 'components/common/message'
 
+import Switch from 'rc-switch'
+
 
 @withTranslate
 @withMustLogin
@@ -21,6 +23,7 @@ class ClubIntergration extends React.Component {
         super(props)
         this.state = {
             is_updating : false,
+            is_show : false,
             type : "type1"
         }
     }
@@ -32,10 +35,17 @@ class ClubIntergration extends React.Component {
         })
     }
 
+    @autobind
+    switchOnChange() {
+        this.setState({
+            'is_show' : !this.state.is_show
+        })
+    }
+
     render() {
         const {t} = this.props.i18n;
         const {club} = this.props;
-        const {type} = this.state;
+        const {type,is_show} = this.state;
 
         let space_url_base = config.get('SPACE_WEBSITE');
         let iframe_url = space_url_base + '/widget/' + club.get('id') + '?type=' + type;
@@ -44,57 +54,64 @@ class ClubIntergration extends React.Component {
         let str  = '<iframe src="'+iframe_url+'" allowtransparency="true" height="48" width="320"></iframe>'
 
         return  <div>
-            <h2 className='h2 mb-2'>{t('integration mint button')}</h2>
-            <div className='block-wapper-one mb-4'>
-                <div className='l'>
-                    <div className='form-box-one'>
-                        <div className='max-w-xs'>
-                        <IntergrationButton data_map={{
-                            'type1' :  'type 1',
-                            'type2' :  'type 2',
-                            'type3' :  'type 3',
-                            'type4' :  'type 4'
-                        }} value={this.state.type} onChange={this.setType} label={t('type')} />
-                        </div>
-                        <div className=''>
-                            <label className="label"><span className="label-text">{t('preview')}</span></label>
-                            <div className='bg-gray-50 dark:bg-gray-900 py-12 flex  justify-center'>
-                                <iframe src={iframe_url} allowtransparency="true" height={48} width={320}></iframe>
-                            </div>
-                        </div>
-                        <div className=''>
-                            <label className="label"><span className="label-text">{t('button code')}</span></label>
-                            <div className=''>
-                                <TextareaAutosize className='input-box' value={str}>
-                                </TextareaAutosize>
-                            </div>
-                        </div>
-                        <div className='flex justify-end'>
-                            <CopyToClipboard text={str}
-                                onCopy={() => {
-                                    message.success('copy successful');
-                                }}>
-                                <a className="btn btn-default">{t('copy')}</a>
-                            </CopyToClipboard>
-                        </div>
-                    </div>
-                </div>
-                <div className='r'>
-                    <div className='block-intro'>
-                        <h3>{t('drop details')}</h3>
-                        <div className='ct'>
-                            <p>{t('Add the general title of the your collection drop, write some description and tell us the story behind your artworks.')}</p>
-                        </div>
-                    </div>
-                </div>
-                
+            <div className='flex flex-start items-center mb-2' >
+                <h2 className='h2 mr-4'>{t('integration mint button')}</h2>
+                <Switch
+                    onChange={this.switchOnChange}
+                    disabled={false}
+                    checked={is_show}
+                    // checkedChildren="开"
+                    // unCheckedChildren="关"
+                />
             </div>
-                <div className='block-wapper-one'>
+            {
+                (is_show)
+                ?   <div className='block-wapper-one mb-4'>
                     <div className='l'>
+                        <div className='form-box-one'>
+                            <div className='max-w-xs'>
+                            <IntergrationButton data_map={{
+                                'type1' :  'type 1',
+                                'type2' :  'type 2',
+                                'type3' :  'type 3',
+                                'type4' :  'type 4'
+                            }} value={this.state.type} onChange={this.setType} label={t('type')} />
+                            </div>
+                            <div className=''>
+                                <label className="label"><span className="label-text">{t('preview')}</span></label>
+                                <div className='bg-gray-50 dark:bg-gray-900 py-12 flex  justify-center'>
+                                    <iframe src={iframe_url} allowtransparency="true" height={48} width={320}></iframe>
+                                </div>
+                            </div>
+                            <div className=''>
+                                <label className="label"><span className="label-text">{t('button code')}</span></label>
+                                <div className=''>
+                                    <TextareaAutosize className='input-box' value={str}>
+                                    </TextareaAutosize>
+                                </div>
+                            </div>
+                            <div className='flex justify-end'>
+                                <CopyToClipboard text={str}
+                                    onCopy={() => {
+                                        message.success('copy successful');
+                                    }}>
+                                    <a className="btn btn-default">{t('copy')}</a>
+                                </CopyToClipboard>
+                            </div>
+                        </div>
                     </div>
                     <div className='r'>
+                        <div className='block-intro'>
+                            <h3>{t('drop details')}</h3>
+                            <div className='ct'>
+                                <p>{t('Add the general title of the your collection drop, write some description and tell us the story behind your artworks.')}</p>
+                            </div>
+                        </div>
                     </div>
+                    
                 </div>
+                : null
+            }
 
         </div>
 

@@ -106,7 +106,7 @@ class LayerCreateModal extends React.Component {
 
                             <div className="p-0">
 
-                                <Input name="name" label={t("layer name")} placeholder={t("must be english")} notice={notice}/>
+                                <Input name="name" onlyEnglish={true} label={t("layer name")} placeholder={t("must be english")} notice={notice}/>
 
                                 <div className='border-t d-border-c-1 my-4' />
 

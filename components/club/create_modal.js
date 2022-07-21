@@ -31,6 +31,7 @@ class ClubCreateModal extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            is_checked  : false,
             is_adding : false,
             project_type : 'use_generator'
         }
@@ -75,7 +76,7 @@ class ClubCreateModal extends React.Component {
     
 
     render() {
-        const {project_type,is_adding} = this.state;
+        const {project_type,is_adding,is_checked} = this.state;
         const {visible,deposit_data} = this.props;
         const {t} = this.props.i18n;
 
@@ -139,17 +140,31 @@ class ClubCreateModal extends React.Component {
 
                                 {
                                     (this.state.project_type == 'use_generator')
-                                    ? <div className='grid grid-cols-2 gap-4'>
-                                        <PrefixInput name="width" label={t("width")} placeholder={t("width")} endfix={'px'} />
-                                        <PrefixInput name="height" label={t("height")} placeholder={t("height")} endfix={'px'} />
+                                    ? <div>
+                                        <div className='grid grid-cols-2 gap-4'>
+                                            <PrefixInput name="width" label={t("width")} placeholder={t("width")} endfix={'px'} />
+                                            <PrefixInput name="height" label={t("height")} placeholder={t("height")} endfix={'px'} />
+                                        </div>
+                                        <div className='text-gray-500'>{t('please note that once the resolution is set, it can no longer be changed')}</div>
                                     </div>
                                     : null
                                 }
 
                                 <div className='border-t d-border-c-1 my-4' />
 
-                                <div className="form-submit flex justify-end mt-4">
-                                    <Button loading={is_adding} className="btn btn-primary" type="submit">{t("create project")}</Button>
+                                <div className="form-submit flex justify-between mt-4">
+                                    <p className='flex justify-start items-center'>
+                                        <input type="checkbox" checked={is_checked} class="checkbox mr-2" onChange={(e)=>{
+                                            this.setState({
+                                                'is_checked' : e.target.checked
+                                            })
+                                        }}/>
+                                        {
+                                            t('I’ve read and agreed to')
+                                        }
+                                        <a className='ml-2 text-blue-500'>{t('terms & condition')}</a>
+                                    </p>
+                                    <Button loading={is_adding} className="btn btn-primary" type="submit" disabled={!is_checked}>{t("create project")}</Button>
                                 </div>
 
                             </div>

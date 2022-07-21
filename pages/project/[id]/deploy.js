@@ -25,6 +25,7 @@ import PbLimitPerWallet from 'components/contract/update/pb_limit_per_wallet';
 import WlTime from 'components/contract/update/wl_time';
 import PbTime from 'components/contract/update/pb_time';
 import PbPrice from 'components/contract/update/pb_price';
+import DestroyModal from 'components/contract/destroy_modal'
 
 import {loadContract,saveContract} from 'redux/reducer/contract'
 import {updateClub} from 'redux/reducer/club'
@@ -75,7 +76,8 @@ class DeployView extends React.Component {
             is_fetched_contract_data    : false,
             is_fetching_contract_data   : false,
 
-            lock_env : lock_env
+            lock_env : lock_env,
+            show_destroy_modal : false
         }
 
 
@@ -102,6 +104,13 @@ class DeployView extends React.Component {
             this.initData();
             this.fetchPageData();
         }
+    }
+
+    @autobind
+    toggleDestroyModal() {
+        this.setState({
+            show_destroy_modal : !this.state.show_destroy_modal
+        })
     }
 
     @autobind
@@ -1094,8 +1103,9 @@ class DeployView extends React.Component {
                                                             <div className='text-sm'>
                                                                 {t('destory-info')}
                                                             </div>
-                                                            <Button loading={this.state.is_destroy_contract} className='btn btn-error' onClick={this.destroy}>{t('destroy')}</Button>
+                                                            <Button className='btn btn-error' onClick={this.toggleDestroyModal}>{t('destroy')}</Button>
                                                         </div>
+                                                        <DestroyModal is_destroy_contract={this.state.is_destroy_contract} visible={this.state.show_destroy_modal} handleDestroy={this.destroy} closeModal={this.toggleDestroyModal} />
                                                     </div>
                                                 </div>
                                                 <div className='col-span-3'>

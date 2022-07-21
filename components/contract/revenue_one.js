@@ -14,7 +14,7 @@ export default function RevenueOne({share,id,index,remove,errors}) {
             <div className='border-gray-300'>
                 <div className='flex justify-between'>
                     <Input label={t('address')} name={`revenue_share[${index}].address`} style={{'width':'380px'}} />
-                    <PercentInput label={t('refund rate')} name={`revenue_share.${index}.rate`} style={{'width':'180px'}} />
+                    <PercentInput label={t('share rate')} name={`revenue_share.${index}.rate`} style={{'width':'180px'}} />
                     <div className='flex  justify-end items-end'>
                         <button type="button" className='btn btn-error btn-outline'  onClick={() => remove(index)}>
                             <TrashIcon className='icon-sm'/>

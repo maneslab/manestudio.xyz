@@ -6,6 +6,7 @@ import {CSS} from '@dnd-kit/utilities';
 
 import Input from 'components/form/field'
 import Textarea from 'components/form/textarea'
+import PrefixInput from 'components/form/prefix_input';
 
 import { PlusIcon, ChevronDownIcon,ChevronUpIcon, TrashIcon } from '@heroicons/react/outline';
 import DragIcon from 'public/img/icons/drag.svg'
@@ -117,7 +118,7 @@ export default function SortableItem({creator,club,open_index,id,toggleOpen,remo
                         <Input label={t('link')} name={`creators[${id}].link`} />
                         <div className='grid grid-cols-2 gap-4'>
                             <TwitterSelect label={'twitter'} name={`creators[${id}].twitter_id`} club_id={club.get('id')}/>
-                            <Input label={'instagram'} name={`creators[${id}].instagram_id`} />
+                            <PrefixInput prefix={<span>@</span>} label={'instagram'} name={`creators[${id}].instagram_id`} />
                         </div>
                         <div className='grid grid-cols-2 gap-4'>
                             <Input label={'discord'} name={`creators[${id}].discord`} />

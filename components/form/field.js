@@ -3,7 +3,7 @@ import { Field,ErrorMessage } from 'formik';
 import classnames from 'classnames'
 import Input from 'components/form/input'
 
-const CommonField = ({ name, label, placeholder,notice, className , ...props }) => {
+const CommonField = ({ name, label, placeholder,notice, className , onlyEnglish, ...props }) => {
 
     return <div className={classnames("form-control",className)} >
         {
@@ -22,7 +22,13 @@ const CommonField = ({ name, label, placeholder,notice, className , ...props }) 
                 let show_error = meta.touched && meta.error;
                 {/* console.log('show_error',meta) */}
                 return <div  className="form-input-wapper">
-                <Input placeholder={placeholder} has_error={show_error} value={value} onChange={(e)=>setFieldValue(name,e.target.value)} onBlur={(e)=>setFieldTouched(name,true)} {...props}/>
+                <Input placeholder={placeholder} has_error={show_error} value={value} onChange={(e)=>{
+                    let value = e.target.value;
+                    if (onlyEnglish) {
+                        value = value.replace(/[^A-Za-z0-9-_]/ig, '')
+                    }
+                    setFieldValue(name,value)
+                }} onBlur={(e)=>setFieldTouched(name,true)} {...props}/>
                 <div className='text-red-500'>
                 <ErrorMessage name={name} />
                 </div>

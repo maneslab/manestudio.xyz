@@ -75,9 +75,10 @@ class TraitOne extends React.Component {
     handleNameChange(e) {
         // console.log('debug07,e',e.target.value)
         // const { trait } = this.props;
-
+        let value = e.target.value;
+        value = value.replace(/[^A-Za-z0-9-_]/ig, '')
         this.setState({
-            'name' : e.target.value
+            'name' : value
         })
 
         // this.props.handleUpdate(trait.get('id'),{'generate_number':e.target.value});

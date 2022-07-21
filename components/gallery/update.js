@@ -215,7 +215,7 @@ class GalleryUpdate extends React.Component {
 
         const uploadProps = uploadRequest({
             showUploadList : false,
-            multiple: false,
+            multiple: true,
             action: '/v1/upload/img?template=gallery',
             name : 'file',
             listType : 'picture',
