@@ -926,6 +926,14 @@ select {
     @apply flex justify-center items-center;
 }
 
+/*select白底问题*/
+.rdp-dropdown:focus:not([disabled]) + .rdp-caption_label, 
+.rdp-dropdown:active:not([disabled]) + .rdp-caption_label {
+    @apply dark:bg-transparent dark:border-0;
+}
+.rdp-button:hover:not([aria-disabled='true']) {
+    @apply dark:bg-black;
+}
 /* 
 @keyframes layerBoxSlideDown {
     0% {height:84px;}

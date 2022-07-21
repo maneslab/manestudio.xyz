@@ -54,14 +54,14 @@ class ExpiretimeSelect extends React.Component {
                     <DropdownComponent menu={menu}>
                         <div className="flex justify-start cursor-pointer">
                             {
-                                (select_date)
+                                (value)
                                 ? <span className="text-sm flex items-center px-4 py-2 border-2 border-black dark:border-[#797d86]">
                                     <div className="">
                                         {format(select_date,'yyyy-MM-dd HH:mm')}
                                         <span className='text-gray-400 ml-4'>{format(select_date,'zzzz')}</span>
                                     </div>
                                 </span>
-                                : <span className="text-sm text-gray-400">{t('please select date')}</span>
+                                : <span className="text-sm flex items-center px-4 py-2 text-gray-400 border-2 border-black dark:border-[#797d86]">{t('please select date')}</span>
                             }
                             <span className='bg-black dark:bg-[#797d86] text-white p-2 px-4'><CalendarIcon className='icon-sm'/></span>
                             </div>

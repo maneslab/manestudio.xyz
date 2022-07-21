@@ -18,6 +18,8 @@ import {defaultListData} from 'helper/common'
 
 import TwitterIcon from 'public/img/share/twitter.svg'
 
+import DropdownComponent from 'components/common/dropdown';
+
 @withDropdown
 @withTranslate
 class TwitterSelect extends React.Component {
@@ -45,7 +47,7 @@ class TwitterSelect extends React.Component {
                 }
             }
         }
-
+        this.dropdownRef = React.createRef();
         this.setFieldValue = null
     }   
 
@@ -107,7 +109,13 @@ class TwitterSelect extends React.Component {
         this.setState({
             'show_bind_modal' : !this.state.show_bind_modal
         })
-        this.props.toggleDropdown();
+        this.toggleDropdown();
+    }   
+
+    @autobind
+    toggleDropdown() {
+        console.log('this.dropdownRef',this.dropdownRef);
+        this.dropdownRef.current.toggleDropdown();
     }
 
 
@@ -142,7 +150,7 @@ class TwitterSelect extends React.Component {
                                     <a className="py-4 px-4 text-sm block hover:bg-gray-100 cursor-pointer" 
                                         onClick={()=>{
                                             setFieldValue(name,social_one.get('identity'));
-                                            this.props.toggleDropdown();
+                                            this.toggleDropdown();
                                         }}>
                                     <div className="flex justify-start items-center ">
                                         <TwitterIcon className="w-5 mr-2 text-[#1d9bf0]" /> 
@@ -160,26 +168,23 @@ class TwitterSelect extends React.Component {
                 </div>
                 return (
                     <div>   
-                        <div>
-                            <Dropdown
-                                overlay={menu} visible={dropdown_visible}
-                               >
-                                <div onClick={this.props.toggleDropdown} className="select-box select-arrow">
-                                <div className='default-holder'>
-                                {
-                                    (select_token)
-                                    ? <span className="text-sm flex items-center">
-                                        <TwitterIcon className="w-5 mr-2 text-[#1d9bf0]" /> 
-                                        {select_token}    
-                                    </span>
-                                    : <span className="text-sm text-gray-400">{t('twitter')}</span>
-                                }
-                                </div>
-                                </div>
-                            </Dropdown>
-                        </div>
-
-
+                        <DropdownComponent
+                            ref={this.dropdownRef}
+                            menu={menu} 
+                            >
+                            <div className="select-box select-arrow">
+                            <div className='default-holder'>
+                            {
+                                (select_token)
+                                ? <span className="text-sm flex items-center">
+                                    <TwitterIcon className="w-5 mr-2 text-[#1d9bf0]" /> 
+                                    {select_token}    
+                                </span>
+                                : <span className="text-sm text-gray-400">{t('twitter')}</span>
+                            }
+                            </div>
+                            </div>
+                        </DropdownComponent>
                         {meta.touched && meta.error && (
                            <div className="input-error-msg">{meta.error}</div>
                         )}

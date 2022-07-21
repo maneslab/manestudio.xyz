@@ -162,6 +162,14 @@ class TimeSelect extends React.Component {
         // }
         console.log('debug04,hour,minute',hour,minute);
 
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        
+
+        const disabledDays = [
+            { from: new Date(1970, 1, 1), to: yesterday }
+        ];
+
         return <div className="w-96">
             <div className='d-bg-c-1 p-4 shadow-xl border d-border-c-2'>
                 <div className='flex justify-center'>
@@ -171,6 +179,7 @@ class TimeSelect extends React.Component {
                     mode="single" 
                     captionLayout="dropdown" 
                     selected={date} 
+                    disabled={disabledDays}
                     onSelect={(v)=>{
                         this.setState({
                             date : v
