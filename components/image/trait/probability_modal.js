@@ -102,6 +102,8 @@ class TraitProbabilityModal extends React.Component {
                 })
 
                 this.resetForm();
+
+                this.props.refreshList();
                 ///URL跳转
                 // this.props.refreshList();
                 // this.props.closeModal();
@@ -154,6 +156,7 @@ class TraitProbabilityModal extends React.Component {
             generate_number_map.push({
                 'image_url'       : one.getIn(['img','image_urls','url']),
                 'id'              : one.get('id'),
+                'name'            : one.get('name'),
                 'probability'     : percentDecimal(one.get('generate_number') / total_number)
             })
             if (chart_map[i]) {
@@ -211,7 +214,6 @@ class TraitProbabilityModal extends React.Component {
         });
         const shiftSize = 7;
 
-        // console.log('chart_map',chart_map);
 
         return  <Modal
                     width={650}
@@ -243,7 +245,7 @@ class TraitProbabilityModal extends React.Component {
                                     // segmentsShift={(index) => (index === 0 ? shiftSize : 0.5)}
                                     segmentsStyle={{ transition: 'stroke .3s', cursor: 'pointer' }}
                                     segmentsShift={(index) => (index === select_index ? 6 : 1)}
-                                    lineWidth={30}
+                                    // lineWidth={30}
                                     onClick={(event, index) => {
                                         // action('CLICK')(event, index);
                                         console.log('CLICK', { event, index });
@@ -283,12 +285,15 @@ class TraitProbabilityModal extends React.Component {
                                 <div className='probability_wapper grid grid-cols-4 gap-4'>
 
                                 {values.generate_number_map.map((one,index) =>  <div key={one['id']}>
-                                    <div className={classNames('mb-2 border',{'d-border-c-1':(index != select_index)},{'border-black dark:border-white':(index == select_index)})} onClick={()=>{
+                                    <div className={classNames('border',{'d-border-c-1':(index != select_index)},{'border-black dark:border-white':(index == select_index)})} onClick={()=>{
                                         this.setState({
                                             select_index : (index == select_index) ? undefined : index
                                         })
                                     }}>
                                         <img src={one.image_url} />
+                                    </div>
+                                    <div className='text-sm py-2 overflow-ellipsis h-8 mb-2'>
+                                        {(one['name'])?one['name']:"(no name)"}
                                     </div>
                                     <PrefixInput endfix={'%'} name={'generate_number_map.'+index+'.probability'} placeholder={t("probability")} />
                                 </div>)}

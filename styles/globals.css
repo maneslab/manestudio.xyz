@@ -577,20 +577,20 @@ input{outline:none;}
     @apply grid grid-cols-2 gap-4;
 }
 .project-type-select .select-one {
-    @apply border-2 border-black cursor-pointer p-0 dark:bg-transparent dark:border-[#7a7c80];
+    @apply border-2 border-black cursor-pointer p-0 dark:bg-transparent dark:border-primary;
 }
 .project-type-select .select-one h3 {
-    @apply bg-white  px-4 py-2 text-base border-b-2 border-black flex justify-between dark:bg-transparent dark:border-[#7a7c80];
+    @apply bg-white  px-4 py-2 text-base border-b-2 border-black flex justify-between dark:bg-transparent dark:border-primary;
 }
 .project-type-select .select-one h3 .icon {
     @apply w-5 dark:text-white;
 }
 
 .project-type-select .select-one.active {
-    @apply border-2 border-[#ff494a];
+    @apply border-2 border-primary;
 }
 .project-type-select .select-one.active h3{
-    @apply border-[#ff494a] bg-[#ff494a] text-white;
+    @apply border-primary bg-primary text-white;
 }
 
 .form-control {

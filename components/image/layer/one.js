@@ -57,6 +57,10 @@ export default function LayerOne({handleDelete,handleEdit,layer,draging_index,re
         setShowProbalityModal(!showProbalityModal);
     }
 
+    let refreshTraitList = () => {
+        listRef.current.refresh();
+    }
+
 
     return <div className={classNames('border-2 border-black mb-4 z-10 ',{"shadow-xl relative":is_draging},{"layer-open":open},{"layer-close":!open})} style={style} ref={setNodeRef}>
         <div className="p-4 bg-white dark:bg-[#22252b] flex justify-between items-center relative">
@@ -96,6 +100,7 @@ export default function LayerOne({handleDelete,handleEdit,layer,draging_index,re
         <ProbabilityModal 
                 layer_id={layer.get('id')} 
                 visible={showProbalityModal} 
+                refreshList={refreshTraitList}
                 closeModal={toggleProbabilityModal} />
     </div>
 }

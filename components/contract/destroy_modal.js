@@ -10,7 +10,7 @@ import autobind from 'autobind-decorator';
 import message from 'components/common/message'
 
 @withTranslate
-class DestoryModal extends React.Component {
+class DestroyModal extends React.Component {
 
     constructor(props) {
         super(props)
@@ -20,11 +20,11 @@ class DestoryModal extends React.Component {
     }
 
     @autobind
-    destory() {
+    destroy() {
         if (this.state.value == 'destroy') {
             this.props.handleDestroy();
         }else {
-            message.error('please input destroy to confirm destory');
+            message.error('please input destroy to confirm destroy');
         }
     }
 
@@ -45,7 +45,7 @@ class DestoryModal extends React.Component {
             footer={null}
             onClose={this.props.closeModal}>
 
-            <h2 className='modal-title'>{t('destory')}</h2>
+            <h2 className='modal-title'>{t('destroy')}</h2>
 
             <div className='border-t border-gray-100 my-4' />
             <div className='mb-4'>
@@ -54,7 +54,7 @@ class DestoryModal extends React.Component {
 
 
             <div className='mb-4'>
-                {t('Please type  "destory"  to confirm')}
+                {t('Please type  "destroy"  to confirm')}
             </div>
 
             <div className='mb-4'>
@@ -62,11 +62,11 @@ class DestoryModal extends React.Component {
                     this.setState({
                         'value' : e.target.value
                     })
-                }} className='input-box' placeholder={t('Please type  "destory"  to confirm')}/>
+                }} className='input-box' placeholder={t('Please type  "destroy"  to confirm')}/>
             </div>
 
             <div className='flex justify-end'>
-                <Button loading={this.props.is_destroy_contract} className='btn btn-error' onClick={this.destory}>{t('destory')}</Button>
+                <Button loading={this.props.is_destroy_contract} className='btn btn-error' onClick={this.destroy}>{t('destroy')}</Button>
             </div>
 
         </Modal>
@@ -74,13 +74,13 @@ class DestoryModal extends React.Component {
 
     
 }
-DestoryModal.propTypes = {
+DestroyModal.propTypes = {
     visible     : PropTypes.bool,
     closeModal  : PropTypes.func,
 };
   
 
 
-module.exports = DestoryModal
+module.exports = DestroyModal
 
 

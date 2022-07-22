@@ -81,13 +81,9 @@ class TraitList extends React.Component {
             accept : '.jpg,.jpeg,.png,.gif',
         })
 
-        console.log('list_data_one',list_data_one.toJS())
 
         let count = (list_rows) ? list_rows.count() : 0;
         let max_width  = count * 150;
-
-
-
 
         return <div>
             {

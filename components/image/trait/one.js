@@ -75,8 +75,8 @@ class TraitOne extends React.Component {
     handleNameChange(e) {
         // console.log('debug07,e',e.target.value)
         // const { trait } = this.props;
+        /*value = value.replace(/[^A-Za-z0-9-_]/ig, '') */
         let value = e.target.value;
-        value = value.replace(/[^A-Za-z0-9-_]/ig, '')
         this.setState({
             'name' : value
         })

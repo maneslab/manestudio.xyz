@@ -100,7 +100,7 @@ class LayerUpdateModal extends React.Component {
 
                             <div className="p-0">
 
-                                <Input name="name" onlyEnglish={true} label={t("layer name")} placeholder={t("any name you want")} />
+                                <Input name="name" onlyLayer={true} label={t("layer name")} placeholder={t("any name you want")} />
 
                                 <div className='border-t d-border-c-1 my-4' />
 

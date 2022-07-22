@@ -46,7 +46,6 @@ class GenerateGroupView extends React.Component {
 
     @autobind
     refreshList() {
-        console.log('called,refreshList',this.listRef.current)
         if (this.listRef.current) {
             this.listRef.current.refresh();
         }
@@ -80,9 +79,9 @@ class GenerateGroupView extends React.Component {
 
                         <div className='pb-4 mb-4 border-b border-gray-300 dark:border-gray-800'>
                             <Link href={"/project/"+club_id+"/group"}>
-                            <a className='btn btn-default'>
+                            <a className='btn btn-primary'>
                                 <ChevronLeftIcon className='icon-sm'/>
-                                {t('back')}
+                                {t('save & back')}
                             </a>
                             </Link>
                         </div>
