@@ -12,6 +12,7 @@ import ContractStep from 'components/contract/step'
 import Input from 'components/form/field'
 import Button from 'components/common/button'
 import message from 'components/common/message'
+import FormObserver from 'components/form/observer'
 
 import withMustLogin from 'hocs/mustlogin';
 import withTranslate from 'hocs/translate';
@@ -57,7 +58,15 @@ class ContractView extends React.Component {
             is_fetched  : false,
             is_saveing  : false,
             show_upload_modal : false,
-            asc2text : ''
+            asc2text : '',
+
+            form_data : {
+                pb_enable : 0,
+                wl_enable : 0,
+                delay_reveal_enable : 0,
+                refund_enable : 0,
+                revenue_share_enable : 0,
+            }
         }
         // this.loadGenerateList = ::this.loadGenerateList
         this.formRef = React.createRef();
@@ -223,7 +232,7 @@ class ContractView extends React.Component {
     }
 
     async submitForm(values) {
-        console.log('submitForm',values)
+        // console.log('debug-form,values',values)
 
         const {t} = this.props.i18n;
 
@@ -289,9 +298,23 @@ class ContractView extends React.Component {
         })
     }
  
+    @autobind
+    formChange(values) {
+        let new_form_data = {
+            pb_enable : values.pb_enable,
+            wl_enable : values.wl_enable,
+            delay_reveal_enable :   values.delay_reveal_enable,
+            refund_enable : values.refund_enable,
+            revenue_share_enable : values.revenue_share_enable,
+        }
+        this.setState({
+            form_data : new_form_data
+        })
+    }
+
     render() {
         const {t} = this.props.i18n;
-        const {is_fetching,is_fetched,generates,merged_traits,preview_id,preview_index} = this.state;
+        const {form_data} = this.state;
         const {club_id,club,contract} = this.props;
 
         let init_data = {
@@ -321,10 +344,78 @@ class ContractView extends React.Component {
             revenue_share : [],
             pb_end_time_enable : 0
         }
+
         let formSchema = Yup.object().shape({
             name      : Yup.string().required(),
             symbol    : Yup.string().required(),
-            wl_max_supply : Yup.number().integer().lessThan(Yup.ref('max_supply')).nullable(),
+            refund    : Yup.array().when('refund_enable', {
+                is: true,
+                then : Yup.array().of(Yup.object().shape({
+                    end_time : Yup.number().integer().required(),
+                    refund_rate : Yup.number().max(1).moreThan(0).required(),
+                }))
+            }),
+            refund_enable : Yup.boolean(),
+            wl_enable : Yup.boolean(),
+            wl_start_time : Yup.number().when('wl_enable', {
+                is: true,
+                then : Yup.number().integer().moreThan(0).required()
+            }),
+            wl_end_time : Yup.number().when('wl_enable', {
+                is: true,
+                then : Yup.number().integer().moreThan(Yup.ref('wl_start_time'),t('must over then start time')).required()
+            }),
+            wl_max_supply : Yup.number().integer().max(Yup.ref('max_supply')).when('wl_enable', {
+                is: true,
+                then : Yup.number().integer().moreThan(0).required()
+            }),
+            wl_per_address : Yup.number().integer().when('wl_enable', {
+                is: true,
+                then : Yup.number().integer().moreThan(0).required()
+            }),
+            wl_price : Yup.number().when('wl_enable', {
+                is: true,
+                then : Yup.number().moreThan(0).required()
+            }),
+
+            pb_enable : Yup.boolean(),
+            pb_start_time : Yup.number().when('pb_enable', {
+                is: true,
+                then : Yup.number().integer().moreThan(0).required()
+            }),
+            pb_end_time_enable : Yup.boolean(),
+            pb_end_time : Yup.number().when('pb_end_time_enable', {
+                is: true,
+                then : Yup.number().integer().moreThan(Yup.ref('pb_start_time'),t('must over then start time')).required()
+            }),
+            pb_per_address : Yup.number().integer().when('pb_enable', {
+                is: true,
+                then : Yup.number().integer().moreThan(0).required()
+            }),
+            pb_price : Yup.number().when('pb_enable', {
+                is: true,
+                then : Yup.number().moreThan(0).required()
+            }),
+
+
+            delay_reveal_enable : Yup.boolean(),
+
+            reveal_time : Yup.number().when('delay_reveal_enable', {
+                is: true,
+                then :  Yup.number().moreThan(0).required()
+            }),
+
+            revenue_share_enable : Yup.boolean(),
+
+            revenue_share : Yup.array().when('revenue_share_enable', {
+                is: true,
+                then : Yup.array().of(Yup.object().shape({
+                    address : Yup.string().trim().matches(/^0x[a-fA-F0-9]{40}$/, 'not eth wallet address').required(),
+                    rate : Yup.number().max(1).moreThan(0).required(),
+                }))
+            }),
+
+
         });
 
         const uploadProps = uploadRequest({
@@ -340,6 +431,7 @@ class ContractView extends React.Component {
         if (club && club.get('is_lock')) {
             is_lock = true;
         }
+                                /* console.log('debug-form,errors',errors) */
 
         return <PageWrapper>
             <Head>
@@ -380,10 +472,15 @@ class ContractView extends React.Component {
                             initialValues={init_data}
                             validationSchema={formSchema}
                             onSubmit={this.submitForm}>
-                            {({ values,errors,setFieldValue }) => (
+                            {({ values,errors,setFieldValue }) => {
+                                
+
+                                return (
                                 
                                 <Form className="w-full">
                                 
+                                <FormObserver onChange={this.formChange}/>
+
                                 <div className='contract-form'>
                                     <h2 className='mb-2'>{t('contract basics')}</h2>
                                     <div className='grid grid-cols-9 gap-8'>
@@ -741,9 +838,6 @@ class ContractView extends React.Component {
                                                     {
                                                         (values.revenue_share_enable) 
                                                         ? <div>
-                                                            {
-                                                                console.log('debug:show_values',values,values.refund)
-                                                            }
                                                             {values.revenue_share.map((one,index) => <RevenueShareOne 
                                                                 remove={arrayHelpers.remove}
                                                                 key={one.id} 
@@ -791,7 +885,7 @@ class ContractView extends React.Component {
                         </div>
 
                         </Form>
-                            )}
+                            )}}
                         </Formik>
                         
                         </div>

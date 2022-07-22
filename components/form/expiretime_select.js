@@ -1,11 +1,12 @@
 import React from 'react';
 import { Field } from 'formik';
-// import Dropdown from 'rc-dropdown';
+import classNames from 'classnames';
 
 import 'react-day-picker/dist/style.css';
 import withDropdown  from 'hocs/dropdown';
 import {withTranslate} from 'hocs/index'
 import { format,getUnixTime,fromUnixTime } from 'date-fns';
+import ErrorMessage from 'components/form/error_message'
 
 import TimeSelect from 'components/common/time_select';
 import { CalendarIcon } from '@heroicons/react/outline';
@@ -52,25 +53,21 @@ class ExpiretimeSelect extends React.Component {
                 let menu = <TimeSelect value={value} onChange={setFieldValue.bind({},name)} toggleDropdown={this.props.toggleDropdown}/>
                 return <div>
                     <DropdownComponent menu={menu}>
-                        <div className="flex justify-start cursor-pointer">
+                        <div className={classNames("input-with-prefix cursor-pointer",{"has-error":show_error})}>
                             {
                                 (value)
-                                ? <span className="text-sm flex items-center px-4 py-2 border-2 border-black dark:border-[#797d86]">
+                                ? <span className="input-inner">
                                     <div className="">
                                         {format(select_date,'yyyy-MM-dd HH:mm')}
                                         <span className='text-gray-400 ml-4'>{format(select_date,'zzzz')}</span>
                                     </div>
                                 </span>
-                                : <span className="text-sm flex items-center px-4 py-2 text-gray-400 border-2 border-black dark:border-[#797d86]">{t('please select date')}</span>
+                                : <span className="input-inner">{t('please select date')}</span>
                             }
-                            <span className='bg-black dark:bg-[#797d86] text-white p-2 px-4'><CalendarIcon className='icon-sm'/></span>
-                            </div>
+                            <span className='prefix end h-9 flex items-center'><CalendarIcon className='icon-xs'/></span>
+                        </div>
                     </DropdownComponent>
-                    {
-                        (show_error)
-                        ? <div className="input-error-msg">{meta.error}</div>
-                        : null
-                    }
+                    <ErrorMessage name={name}/>
                 </div>
             }}
         </Field>

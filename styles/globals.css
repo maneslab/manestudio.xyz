@@ -349,8 +349,9 @@ html,body {
     @apply font-ubuntu flex items-center text-sm text-gray-800 border focus:ring-2 border-2 border-black text-gray-800 bg-white dark:border-gray-600 dark:text-white d-bg-c-1 dark:border-[#797d86] focus:ring-yellow-100 dark:focus:ring-gray-500 ;
 }
 .input-with-prefix .input-inner {
-    @apply ml-2 bg-transparent flex-grow px-2 py-2 ;
+    @apply bg-transparent flex-grow px-4 py-2 ;
 }
+
 .input-with-prefix .prefix {
     @apply text-gray-500 px-4 py-2 bg-black text-white dark:bg-[#797d86];
 }
@@ -961,3 +962,11 @@ select {
 .layer-open {
     animation: layerBoxSlideDown 0.3s ease-in-out;
 } */
+
+
+.block-upload-msg {
+    @apply bg-[#DAE5FC] text-black flex justify-between items-center py-2 px-4 dark:bg-[#19202E] dark:text-white dark:border dark:border-[#3c5ea6];
+}
+.block-upload-msg.msg-error {
+    @apply bg-[#FCE2E2] text-[#F53535] dark:bg-[#2C2727] dark:border-[#a42f2f];
+}

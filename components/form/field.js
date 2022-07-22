@@ -1,7 +1,8 @@
 
-import { Field,ErrorMessage } from 'formik';
+import { Field } from 'formik';
 import classnames from 'classnames'
 import Input from 'components/form/input'
+import ErrorMessage from 'components/form/error_message'
 
 const CommonField = ({ name, label, placeholder,notice, className , onlyEnglish, onlyLayer, ...props }) => {
 
@@ -31,9 +32,7 @@ const CommonField = ({ name, label, placeholder,notice, className , onlyEnglish,
                     }
                     setFieldValue(name,value)
                 }} onBlur={(e)=>setFieldTouched(name,true)} {...props}/>
-                <div className='text-red-500'>
                 <ErrorMessage name={name} />
-                </div>
                 {
                     (notice)
                     ? <div className="text-base text-gray-600 pt-1">{notice}</div>

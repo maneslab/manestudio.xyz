@@ -1,9 +1,9 @@
 
-import { Field ,ErrorMessage} from 'formik';
+import { Field } from 'formik';
 import classNames from 'classnames'
 import {percentDecimal} from 'helper/number'
-
-import React,{useState} from 'react';
+import ErrorMessage from 'components/form/error_message'
+import React from 'react';
 
 const PercentInput = ({ name, label, placeholder,className,...props }) => {
 

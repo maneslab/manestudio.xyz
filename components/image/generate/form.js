@@ -4,13 +4,14 @@ import withTranslate from 'hocs/translate';
 
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-
+import Modal from 'components/common/modal';
 import Button from 'components/common/button'
-import PrefixInput from 'components/form/prefix_input'
+import Input from 'components/form/field'
 import {confirm} from 'components/common/confirm/index'
 import message from 'components/common/message'
 
 import {httpRequest} from 'helper/http';
+import autobind from 'autobind-decorator';
 
 @withTranslate
 class GenerateFrom extends React.Component {
@@ -18,6 +19,7 @@ class GenerateFrom extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            visible : false
         }
         this.listRef = React.createRef();
         this.submitForm = ::this.submitForm
@@ -75,10 +77,16 @@ class GenerateFrom extends React.Component {
         }
     }
 
+    @autobind
+    toggleVisible() {
+        this.setState({
+            visible : !this.state.visible
+        })
+    }
 
     render() {
         const {t} = this.props.i18n;
-        const {is_fetching} = this.state;
+        const {is_fetching,visible} = this.state;
 
 
         let init_data ={
@@ -89,23 +97,34 @@ class GenerateFrom extends React.Component {
             collection_size      : Yup.number().required(),
         });
 
-        return <Formik
-                innerRef={this.formRef}
-                initialValues={init_data}
-                validationSchema={formSchema}
-                onSubmit={this.submitForm}>
-                {({ errors, touched }) => (
-                    
-                    <Form className="inline-form">
+        return <div>
+            <button className='btn btn-primary' onClick={this.toggleVisible}>{t("generate")}</button>
+            <Modal visible={visible} onClose={this.toggleVisible} >
+                <h2 className='modal-title'>{t('generate')}</h2>
 
-                    <div className="flex justify-start items-center ">
-                        <PrefixInput name="collection_size" prefix={'collection size'} label={null} placeholder={t("how many NFT you wanna to generate")} className="mr-2" />
-                        <Button loading={is_fetching} className="btn btn-default" type="submit">{t("generate")}</Button>
-                    </div>
+                <div className='border-t d-border-c-1 mb-4'></div>
+                <Formik
+                    innerRef={this.formRef}
+                    initialValues={init_data}
+                    validationSchema={formSchema}
+                    onSubmit={this.submitForm}>
+                    {({ errors, touched }) => (
+                        
+                        <Form>
 
-                </Form>
-                )}
-            </Formik>
+                        <div className="">
+                            <Input name="collection_size" label={t('collection size')} 
+                                placeholder={t("how many NFT you wanna to generate")} />
+                        </div>
+                        <div className='flex justify-end'>
+                            <Button loading={is_fetching} className="btn btn-default" type="submit">{t("generate")}</Button>
+                        </div>
+                    </Form>
+                    )}
+                </Formik>
+            </Modal>
+        </div>
+
     }
     
 }
