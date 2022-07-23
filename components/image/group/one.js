@@ -8,7 +8,6 @@ import {confirm} from 'components/common/confirm/index'
 import {DotsVerticalIcon,PhotographIcon,TrashIcon,PencilIcon,AdjustmentsIcon} from '@heroicons/react/outline'
 import autobind from 'autobind-decorator';
 import {percentDecimal} from 'helper/number'
-import { t } from 'helper/translate';
 
 @withTranslate
 class GroupOne extends React.Component {
@@ -62,9 +61,14 @@ class GroupOne extends React.Component {
 
     render() {
 
-        const { group,total_number } = this.props;
-
-
+        const { group,total_number,is_lock} = this.props;
+        const {t} = this.props.i18n;
+/*                                <li className='hidden'>
+                                    <div className='py-2 px-2 bg-white border-t border-gray-200 flex-col w-full'>
+                                        <h4 className='text-sm text-gray-500 flex justify-start'>{t('occurrence probability')}</h4>
+                                        <input type="range" min="0" max="1000" value={this.state.generate_number} class="range" onChange={this.handleValueChange}/>
+                                    </div>
+                                </li>*/
         return <div>
             <div className="border border-gray-300 dark:border-[#292C31] ">
                 <Link href={"/project/"+group.get('club_id')+"/group/"+group.get('id')+"/layer"}>
@@ -94,15 +98,16 @@ class GroupOne extends React.Component {
                                 <DotsVerticalIcon className='icon-sm'/>
                             </label>
                             <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white dark:bg-[#191c20] dark:text-white  rounded-box w-52 capitalize">
-                                <li><a onClick={this.deleteGroup}><TrashIcon className='icon-sm'/>delete</a></li>
+                                {
+                                    (!is_lock)
+                                    ? <>
+                                        <li><a onClick={this.deleteGroup}><TrashIcon className='icon-sm'/>{t('delete')}</a></li>
+                                        <li><a onClick={this.props.handleEditProbability}><AdjustmentsIcon className='icon-sm'/>{t('rarity')}</a></li>
+                                    </>
+                                    : null
+                                }
                                 <li><a onClick={this.props.handleEdit.bind({},group)}><PencilIcon className='icon-sm'/>edit</a></li>
-                                <li><a onClick={this.props.handleEditProbability}><AdjustmentsIcon className='icon-sm'/>rarity</a></li>
-                                <li className='hidden'>
-                                    <div className='py-2 px-2 bg-white border-t border-gray-200 flex-col w-full'>
-                                        <h4 className='text-sm text-gray-500 flex justify-start'>{t('occurrence probability')}</h4>
-                                        <input type="range" min="0" max="1000" value={this.state.generate_number} class="range" onChange={this.handleValueChange}/>
-                                    </div>
-                                </li>
+
                             </ul>
                         </div>
                     </div>
@@ -115,6 +120,7 @@ class GroupOne extends React.Component {
 
 
 GroupOne.propTypes = {
+    is_lock         : PropTypes.bool.isRequired,
     group           : PropTypes.object.isRequired,
     handleDelete    : PropTypes.func.isRequired,
     handleEdit      : PropTypes.func.isRequired,

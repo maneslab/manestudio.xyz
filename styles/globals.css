@@ -783,7 +783,7 @@ input{outline:none;}
 
 
 .block-left-menu ul li a {
-    @apply flex justify-start items-center capitalize text-lg my-2 text-gray-400 cursor-pointer hover:text-black dark:hover:text-white; 
+    @apply flex justify-start items-center capitalize text-base my-2 text-gray-400 cursor-pointer hover:text-black dark:hover:text-white; 
 }
 .block-left-menu ul li a .icon-base {
     @apply mr-2 text-gray-400;
@@ -969,4 +969,12 @@ select {
 }
 .block-upload-msg.msg-error {
     @apply bg-[#FCE2E2] text-[#F53535] dark:bg-[#2C2727] dark:border-[#a42f2f];
+}
+
+.dot-circle {
+    @apply bg-gray-400 dark:bg-gray-400 w-2 h-2 mr-2 rounded-full;
+}
+
+.active .dot-circle {
+    @apply bg-black dark:bg-white;
 }

@@ -14,7 +14,7 @@ import TraitList from 'components/image/trait/list'
 import ProbabilityModal from 'components/image/trait/probability_modal'
 
 
-export default function LayerOne({handleDelete,handleEdit,layer,draging_index,refreshList,id}) {
+export default function LayerOne({handleDelete,handleEdit,layer,draging_index,refreshList,id,is_lock}) {
 
     const {
         attributes,
@@ -65,24 +65,34 @@ export default function LayerOne({handleDelete,handleEdit,layer,draging_index,re
     return <div className={classNames('border-2 border-black mb-4 z-10 ',{"shadow-xl relative":is_draging},{"layer-open":open},{"layer-close":!open})} style={style} ref={setNodeRef}>
         <div className="p-4 bg-white dark:bg-[#22252b] flex justify-between items-center relative">
             <DragIcon className={classNames("absolute -left-8 top-50% icon-sm",{"d-bg-c-1":is_draging})}  {...listeners} />
-
+            
             <div onClick={setOpen.bind({},!open)} className="flex-grow cursor-pointer">
                 <h2 className='font-bold text-black dark:text-white capitalize'>{layer.get('name')}</h2>
                 <div className='text-blue-400 text-sm'>
                     {layer.get('trait_count')} traits
                 </div>
             </div>
+           
             
             <div className='flex justify-end items-center'>
-                <button className='btn btn-ghost' onClick={toggleProbabilityModal}>
-                    <AdjustmentsIcon className='icon-sm'/>
-                </button>
+                {
+                    (!is_lock)
+                    ? <button className='btn btn-ghost' onClick={toggleProbabilityModal}>
+                        <AdjustmentsIcon className='icon-sm'/>
+                    </button>
+                    : null
+                }
+                
                 <div class="dropdown dropdown-right">
                     <label tabindex="0" class="btn m-1 px-2 bg-white border-none text-gray-800 hover:bg-gray-200 dark:bg-[#22252b] dark:hover:bg-[#191c20] dark:text-white">
                         <DotsVerticalIcon className='icon-sm'/>
                     </label>
                     <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white dark:bg-[#191c20] rounded-box w-52 capitalize">
-                        <li><a onClick={deleteLayer}><TrashIcon className='icon-sm'/>{t('delete')}</a></li>
+                        {
+                            (!is_lock)
+                            ? <li><a onClick={deleteLayer}><TrashIcon className='icon-sm'/>{t('delete')}</a></li>
+                            : null
+                        }
                         <li><a onClick={handleEdit.bind({},layer)}><PencilIcon className='icon-sm'/>{t('edit')}</a></li>
                     </ul>
                 </div>
@@ -92,7 +102,7 @@ export default function LayerOne({handleDelete,handleEdit,layer,draging_index,re
         {
             (open)
             ? <div className={classNames('bg-[#e6ebf4] dark:bg-[#22252b]',{'animate-fade-in':open},{'animate-fade-out':!open})}>
-                <TraitList ref={listRef} layer_id={layer.get('id')} toggleProbabilityModal={toggleProbabilityModal}/>
+                <TraitList ref={listRef} is_lock={is_lock} layer_id={layer.get('id')} toggleProbabilityModal={toggleProbabilityModal}/>
             </div>
             : null
         }

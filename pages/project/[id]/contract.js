@@ -438,17 +438,14 @@ class ContractView extends React.Component {
                 <title>{t('contract')}</title>
             </Head>
             <div>
-                <ClubHeader club_id={club_id} title={'smart contract'} active_id={2}/>
+                <ClubHeader club={club} title={t('smart contract')} active_id={2} intro={null}/>
            
                 <ContractStep club_id={club_id} active_name={'setting'} contract={contract} next_step={(contract)?true:false} />
 
                 <div className="max-w-screen-xl mx-auto grid grid-cols-12 gap-8">
 
-                    <div className="col-span-2">
-                        <ContractSide club_id={club_id}/>
-                    </div>
 
-                    <div className="col-span-10 pb-24">
+                    <div className="col-span-12 pb-24">
                         
                         <h1 className='h1'>{t('contract setting')}</h1>
 
@@ -876,10 +873,11 @@ class ContractView extends React.Component {
 
                        
                         <div className='fixed bottom-0 left-0 w-full py-4 d-bg-c-1 border-t d-border-c-1' style={{'zIndex':9999}}>
-                            <div className='max-w-screen-xl mx-auto grid grid-cols-12 gap-8'>
-                                <div className='col-span-2'></div>
-                                <div className='col-span-10'>
+                            <div className='max-w-screen-xl mx-auto grid grid-cols-9 gap-8'>
+                                <div className='col-span-6 flex justify-end'>
                                     <Button type="submit" loading={this.state.is_saveing} className='btn btn-primary -ml-1'>{t('save')}</Button>
+                                </div>
+                                <div className='col-span-3'>
                                 </div>
                             </div>
                         </div>

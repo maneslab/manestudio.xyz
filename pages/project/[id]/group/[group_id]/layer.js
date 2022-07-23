@@ -65,12 +65,18 @@ class GenerateGroupView extends React.Component {
         const {list_count,group_id,club_id,club} = this.props;
         console.log('this.listRef',this.listRef)
 
+        let is_lock = false;
+        if (club) {
+            is_lock = club.get('is_lock');
+        }
+        
+
         return <PageWrapper>
             <Head>
                 <title>{t('generate groups')}</title>
             </Head>
             <div>
-                <ClubHeader club_id={club_id}  title={t('generate nft')} active_id={1}/>
+                <ClubHeader club={club}  title={t('generate nft')} active_id={1} intro={t('generate-nft-header-intro')}/>
                 <ClubStep club_id={club_id} active_name={'setting'} project_type={(club)?club.get('project_type'):'use_generator'} next_step={false} />
 
                 <div className="max-w-screen-xl mx-auto grid grid-cols-8 gap-16">
@@ -88,14 +94,19 @@ class GenerateGroupView extends React.Component {
 
                         <div className='flex justify-between items-center mb-4 text-black dark:text-white'>
                             <h2 className='h2'>{t('layer')}</h2>
-                            <button className='btn btn-default' onClick={this.toggleCreateModal}>
-                                <PlusIcon className='icon-xs mr-2'/>
-                                {t('add layer')}
-                            </button>
+                            {
+                                (!is_lock)
+                                ? <button className='btn btn-default' onClick={this.toggleCreateModal}>
+                                    <PlusIcon className='icon-xs mr-2'/>
+                                    {t('add layer')}
+                                </button>
+                                : null
+                            }
                         </div>
 
                         <LayerList 
                             group_id={this.props.group_id} 
+                            is_lock={is_lock}
                             ref={this.listRef} 
                             />
 

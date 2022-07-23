@@ -11,45 +11,21 @@ export default function ContractSide({
     let base_url = '/project/'+club_id;
 
     return <div className='block-left-menu'>
-        <h3 className='font-bold capitalize mb-4'>{t('setting')}</h3>
-        <ul>
-            <li>
-                <NavLink href={base_url+'/contract'}>
-                <a>
-                    <DocumentTextIcon className='icon-sm mr-2' />
-                    {t('setting')}
-                </a>
-                </NavLink>
-            </li>
-        
-        </ul>
-        <div className='divider' />
-        <h3 className='font-bold capitalize mb-4'>{t('test deploy')}</h3>
+
+        <h3 className='font-bold capitalize mb-4'>{t('deploy')}</h3>
         <ul>
             <li>
                 <NavLink href={base_url+'/deploy?net=kovan'}>
                 <a>
-                    <CloudUploadIcon className='icon-sm mr-2' />
-                    {t('kovan')}
+                    <div class="dot-circle"></div>
+                    {'kovan testnet'}
                 </a>
                 </NavLink>
             </li>
-            <li>
-                <NavLink href={base_url+'/deploy?net=ropsten'}>
-                <a>
-                    <CloudUploadIcon className='icon-sm mr-2' />
-                    {t('ropsten')}
-                </a>
-                </NavLink>
-            </li>
-        </ul>
-        <div className='divider' />
-        <h3 className='font-bold capitalize mb-4'>{t('deploy')}</h3>
-        <ul>
             <li>
                 <NavLink href={base_url+'/deploy?net=mainnet'}>
                 <a>
-                    <CloudUploadIcon className='icon-sm mr-2' />
+                    <div class="dot-circle"></div>
                     {t('ETH mainnet')}
                 </a>
                 </NavLink>

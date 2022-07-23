@@ -67,7 +67,7 @@ class TraitList extends React.Component {
 
     render() {
 
-        let {list_data_one,list_rows,active_club,active_trait_id,layer_id,group_id} = this.props;
+        let {list_data_one,list_rows,active_club,active_trait_id,layer_id,group_id,is_lock} = this.props;
         const {t} = this.props.i18n;
 
         let is_empty = (list_data_one.get('is_fetched') && list_rows.count() == 0)
@@ -106,6 +106,7 @@ class TraitList extends React.Component {
                                 list_rows.map((one)=>{
                                     return <TraitOne 
                                         trait={one} 
+                                        is_lock={is_lock}
                                         is_selected={(active_trait_id == one.get('id'))}
                                         handleSelectTrait={this.props.handleSelectTrait}
                                         refreshList={this.props.refresh}
@@ -129,12 +130,17 @@ class TraitList extends React.Component {
                 <div>
 
                 </div>
-                <Upload uploadProps={uploadProps} afterSuccess={this.handleUpload}>  
-                <button className='btn btn-default capitalize'>
-                    <PlusIcon className='icon-xs mr-2'/>
-                    {t('add trait')}
-                </button>
-                </Upload>
+                {
+                    (!is_lock)
+                    ? <Upload uploadProps={uploadProps} afterSuccess={this.handleUpload}>  
+                    <button className='btn btn-default capitalize'>
+                        <PlusIcon className='icon-xs mr-2'/>
+                        {t('add trait')}
+                    </button>
+                    </Upload>
+                    : null
+                }
+                
             </div>
             
 

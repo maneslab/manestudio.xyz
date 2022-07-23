@@ -73,15 +73,24 @@ class GenerateGroupView extends React.Component {
         const {is_fetching,is_fetched,data,count} = this.state;
         const {club_id,club} = this.props;
 
-
+        let is_lock = false;
+        if (club) {
+            is_lock = club.get('is_lock');
+        }
+    
         return <PageWrapper>
             <Head>
                 <title>{t('metadata')}</title>
             </Head>
             <div>
-                <ClubHeader club_id={club_id} title={'metadata'} active_id={1}/>
+                <ClubHeader club={club}  title={t('generate nft')} active_id={1} intro={t('generate-nft-header-intro')}/>
 
-                <ClubStep club_id={club_id} active_name={'metadata'} project_type={(club)?club.get('project_type'):'use_generator'}/>
+                <ClubStep 
+                    club_id={club_id} 
+                    active_name={'metadata'} 
+                    project_type={(club)?club.get('project_type'):null}
+                    is_lock={is_lock}
+                    />
 
                 <div className="max-w-screen-xl mx-auto">
                     {

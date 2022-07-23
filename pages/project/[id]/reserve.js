@@ -279,14 +279,26 @@ class GenerateGroupView extends React.Component {
 
         const {club_id,entities,special_nft_count,club} = this.props;
 
+                
+        let is_lock = false;
+        if (club) {
+            is_lock = club.get('is_lock');
+        }
+    
+
         return <PageWrapper>
             <Head>
                 <title>{t('reserve NFT')}</title>
             </Head>
             <div>
-                <ClubHeader club_id={club_id} title={t('reserve NFT')} active_id={1}/>
+                <ClubHeader club={club}  title={t('generate nft')} active_id={1} intro={t('generate-nft-header-intro')}/>
 
-                <ClubStep club_id={club_id} active_name={'reserve'} project_type={(club)?club.get('project_type'):'use_generator'}/>
+                <ClubStep 
+                    club_id={club_id} 
+                    active_name={'reserve'} 
+                    project_type={(club)?club.get('project_type'):null}
+                    is_lock={is_lock}
+                    />
 
                 <div className='flex justify-between items-center mb-8  max-w-screen-xl mx-auto border-b d-border-c-1 pb-4'>
                     <h1 className='h1'>{t('reserve NFT')}</h1>

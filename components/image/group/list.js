@@ -61,7 +61,7 @@ class GroupList extends React.Component {
 
     render() {
 
-        let {list_data_one,list_rows,grid_span} = this.props;
+        let {list_data_one,list_rows,is_lock} = this.props;
         // let {show_create_modal} = this.state;
         const {t} = this.props.i18n;
 
@@ -94,6 +94,7 @@ class GroupList extends React.Component {
                                 list_rows.map((one)=>{
                                     return <GroupOne 
                                         group={one} 
+                                        is_lock={is_lock}
                                         total_number={total_number}
                                         refreshList={this.props.refresh}
                                         handleDelete={this.props.deleteGroup}

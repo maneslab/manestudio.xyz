@@ -93,7 +93,7 @@ class LayerList extends React.Component {
     render() {
 
 
-        let {list_data_one,list_rows,id_list} = this.props;
+        let {list_data_one,list_rows,id_list,is_lock} = this.props;
         const {draging_index} = this.state;
         const {t} = this.props.i18n;
 
@@ -124,6 +124,7 @@ class LayerList extends React.Component {
                                     return <LayerOne 
                                         layer={one} 
                                         id={index}
+                                        is_lock={is_lock}
                                         draging_index={draging_index}
                                         refreshList={this.props.refresh}
                                         handleDelete={this.props.deleteLayer}

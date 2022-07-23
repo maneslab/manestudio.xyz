@@ -87,8 +87,9 @@ class GenerateGroupView extends React.Component {
             accept : '.jpg,.jpeg,.png,.gif',
         })
         
+        let is_lock = false;
         if (club) {
-            console.log('club',club.toJS());
+            is_lock = club.get('is_lock');
         }
         
         return <PageWrapper>
@@ -96,9 +97,14 @@ class GenerateGroupView extends React.Component {
                 <title>{t('generate nft')}</title>
             </Head>
             <div>
-                <ClubHeader club_id={club_id} title={t('generate nft')} active_id={1}/>
+                <ClubHeader club={club} title={t('generate nft')} active_id={1} intro={t('generate-nft-header-intro')}/>
 
-                <ClubStep club_id={club_id} active_name={'setting'} project_type={(club)?club.get('project_type'):'use_generator'}/>
+                <ClubStep 
+                    club_id={club_id} 
+                    active_name={'setting'} 
+                    project_type={(club)?club.get('project_type'):null}
+                    is_lock={is_lock}
+                    />
                 
                 {
                     (club && club.get('project_type') == 'use_generator')
@@ -108,13 +114,17 @@ class GenerateGroupView extends React.Component {
 
                                 <div className='flex justify-between items-center mb-8 text-black dark:text-white'>
                                     <h2 className='h2'>{t('group')}</h2>
-                                    <button className='btn btn-default' onClick={this.toggleCreateModal}>
-                                        <PlusIcon className='icon-xs mr-2'/>
-                                        {t('add group')}
-                                    </button>
+                                    {
+                                        (!is_lock)
+                                        ?  <button className='btn btn-default' onClick={this.toggleCreateModal}>
+                                            <PlusIcon className='icon-xs mr-2'/>
+                                            {t('add group')}
+                                        </button>
+                                        : null
+                                    }
                                 </div>
 
-                                <GroupList club_id={this.props.club_id} ref={this.listRef}/>
+                                <GroupList club_id={this.props.club_id} ref={this.listRef} is_lock={is_lock}/>
 
                             </div>
 
@@ -144,16 +154,20 @@ class GenerateGroupView extends React.Component {
                         <div className='flex justify-between items-center mb-8 text-black dark:text-white'>
                             <h2 className='h2'>{t('spcail NFT')}</h2>
 
-                            <Upload uploadProps={uploadProps} afterSuccess={this.handleUpload}>  
-                            <button className='btn btn-default'>
-                                <PlusIcon className='icon-xs mr-2'/>
-                                {t('add spcail NFT')}
-                            </button>
-                            </Upload>
+                            {
+                                (!is_lock)
+                                ?  <Upload uploadProps={uploadProps} afterSuccess={this.handleUpload}>  
+                                    <button className='btn btn-default'>
+                                        <PlusIcon className='icon-xs mr-2'/>
+                                        {t('add spcail NFT')}
+                                    </button>
+                                </Upload>
+                                : null
+                            }
                            
                         </div>
 
-                        <ImageSpecialList club_id={this.props.club_id} ref={this.spListRef}/>
+                        <ImageSpecialList club_id={this.props.club_id} ref={this.spListRef} is_lock={is_lock}/>
 
                     </div>
 

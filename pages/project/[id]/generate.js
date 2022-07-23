@@ -23,8 +23,8 @@ import {httpRequest} from 'helper/http';
 import {initTraitList} from 'redux/reducer/image/trait'
 
 import withClubView from 'hocs/clubview'
-import Button from 'components/common/button'
-import PrefixInput from 'components/form/prefix_input'
+import UniqueRatio from 'components/image/generate/unqiue_ratio';
+
 // import { list } from 'react-immutable-proptypes';
 import { denormalize } from 'normalizr';
 import {imageTraitListSchema} from 'redux/schema/index'
@@ -52,7 +52,8 @@ class GenerateGroupView extends React.Component {
             filter_trait_ids : Immutable.List([]),
             preview_id : null,
             preview_index : null,
-            uniqueness : 0
+            uniqueness : 0,
+            max_generate_number : 1
         }
         this.loadGenerateList = ::this.loadGenerateList
         this.listRef = React.createRef();
@@ -97,7 +98,8 @@ class GenerateGroupView extends React.Component {
             'is_fetched'  : true,
             'generates'   : result.data.generates,
             'merged_traits' : result.data.merged_traits,
-            'uniqueness'  : result.data.uniqueness
+            'uniqueness'  : result.data.uniqueness,
+            'max_generate_number' : result.data.max_generate_number
         })
     }
 
@@ -156,24 +158,35 @@ class GenerateGroupView extends React.Component {
 
     render() {
         const {t} = this.props.i18n;
-        const {is_fetching,is_fetched,generates,merged_traits,preview_id,preview_index,uniqueness} = this.state;
+        const {is_fetching,is_fetched,generates,merged_traits,preview_id,preview_index,uniqueness, max_generate_number} = this.state;
         const {club_id,entities,club} = this.props;
 
-
+        
+        let is_lock = false;
+        if (club) {
+            is_lock = club.get('is_lock');
+        }
+    
         return <PageWrapper>
             <Head>
                 <title>{t('generate nft')}</title>
             </Head>
             <div>
-                <ClubHeader club_id={club_id} title={t('generate nft')} active_id={1}/>
+                <ClubHeader club={club}  title={t('generate nft')} active_id={1} intro={t('generate-nft-header-intro')}/>
 
-                <ClubStep club_id={club_id} active_name={'generate'} project_type={(club)?club.get('project_type'):'use_generator'}/>
+
+                <ClubStep 
+                    club_id={club_id} 
+                    active_name={'generate'} 
+                    project_type={(club)?club.get('project_type'):null}
+                    is_lock={is_lock}
+                    />
 
                 <div className='flex justify-between items-center mb-8 max-w-screen-xl mx-auto'>
                     <h1 className='h1'>{t('generate NFT')}</h1>
                     {
                         (generates.length > 0)
-                        ? <GenerateFrom club_id={club_id} afterGenerate={this.afterGenerate}/>
+                        ? <GenerateFrom club_id={club_id} afterGenerate={this.afterGenerate} max_generate_number={max_generate_number} is_generated={true}/>
                         : null
                     }
                 </div>
@@ -184,7 +197,7 @@ class GenerateGroupView extends React.Component {
 
                     <div class="d-bg-c-1 flex justify-between items-center p-4 mb-4 text-sm">
                         <div class="">{t('unique ratio')}</div>
-                        <div class="text-blue-400 font-bold">{percentDecimal(uniqueness)}%</div>
+                        <UniqueRatio value={uniqueness}/>
                     </div>
 
                     {
@@ -226,7 +239,7 @@ class GenerateGroupView extends React.Component {
                             ? <div className='py-24'>
                                 <div className='flex justify-center capitalize font-bold text-xl mb-8'>{t('no item')}</div>
                                 <div className='flex justify-center'>
-                                    <GenerateFrom club_id={club_id} afterGenerate={this.afterGenerate}/>
+                                    <GenerateFrom club_id={club_id} afterGenerate={this.afterGenerate} max_generate_number={max_generate_number} is_generated={false}/>
                                 </div>
                             </div>
                             : null

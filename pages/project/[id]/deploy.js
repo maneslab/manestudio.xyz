@@ -5,8 +5,11 @@ import Head from 'next/head'
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
 
+import {confirm} from 'components/common/confirm/index'
+
 import PageWrapper from 'components/pagewrapper'
 import ClubHeader from 'components/club/header'
+import ContractStep from 'components/contract/step'
 import Button from 'components/common/button'
 import GasButton from 'components/common/gas/button'
 import Loading from 'components/common/loading'
@@ -658,6 +661,20 @@ class DeployView extends React.Component {
         this.props.updateClub(club_id,{'is_lock':0});
     }
 
+    @autobind
+    async deployWithWarning(e) {
+        const {t} = this.props.i18n;
+        if (await confirm({
+            title : t('deploy contract warning'),
+            confirmation: <div>
+                <div>{t('After deployment, the project will be locked, you can no longer add, delete NFTtrait, images, can not modify the contract settings, etc.')}</div>
+            </div>
+        })) {
+            e.stopPropagation();
+            this.deploy();
+        }
+    }
+
     isNetworkCurrect(network,chain) {
         let wish_net_id = 0;
         switch(network) {
@@ -698,7 +715,7 @@ class DeployView extends React.Component {
 
     render() {
         const {t} = this.props.i18n;
-        const {club_id,contract,chain,eth_price,network} = this.props;
+        const {club_id,club,contract,chain,eth_price,network} = this.props;
         const {deploy_contract_address,contract_data,is_fetched_contract_data,is_fetching_contract_data} = this.state;
 
         console.log('debug:contract_data',contract_data)
@@ -736,7 +753,9 @@ class DeployView extends React.Component {
                 <title>{t('contract')}</title>
             </Head>
             <div>
-                <ClubHeader club_id={club_id} title={'smart contract'} active_id={2}/>
+                <ClubHeader club={club} title={t('smart contract')} active_id={2} intro={null} />
+
+                <ContractStep club_id={club_id} active_name={'deploy'} contract={contract} next_step={(contract)?true:false} />
 
                 <div className="max-w-screen-xl mx-auto grid grid-cols-12 gap-8">
 
@@ -744,21 +763,24 @@ class DeployView extends React.Component {
                         <ContractSide club_id={club_id}/>
                     </div>
 
-
                     <div className="col-span-10 pb-24">
 
-                        <h1 className='h1 mb-8'>{(network == 'mainnet')?t('deployment to ETH mainnet'):t('deployment to ETH testnet') + ' : ' + network}</h1>
+                        <h1 className='h1 mb-8'>{
+                            (network == 'mainnet')
+                            ?   <>{t('deployment to ETH mainnet')}</>
+                            :   <>{t('deployment to ETH testnet') + ' : ' + network}</>
+                        }</h1>
                         
                         {
                             (!deploy_contract_address)
                             ? <>
                                 {
                                     (!is_network_correct && chain.id)
-                                    ? <div className='d-bg-c-1 p-4 pl-8 mb-8 flex justify-between items-center'>
+                                    ? <div className='d-bg-c-1 p-4 pl-6 mb-8 flex justify-between items-center'>
                                         <span className="capitalize">{t('you are connecting to wrong eth network')}</span>
                                         <SwitchChainButton />
                                     </div>
-                                    : <div className='d-bg-c-1 p-4 pl-8 mb-8 '>
+                                    : <div className='d-bg-c-1 p-4 pl-6 mb-8 '>
                                         <div className='flex justify-between items-center'>
                                             <span className="capitalize">{t('you are connecting to the ETH testnet')} {chain.name}</span>
                                             <div className='flex justify-end items-center'>
@@ -770,7 +792,7 @@ class DeployView extends React.Component {
                                                     </>
                                                     : null
                                                 }
-                                                <Button loading={this.state.is_deploy_contract} className='btn btn-primary' onClick={this.deploy}>deploy</Button>
+                                                <Button loading={this.state.is_deploy_contract} className='btn btn-primary' onClick={(network=='mainnet')?this.deployWithWarning:this.deploy}>deploy</Button>
                                             </div>
                                         </div>
                                         {
@@ -822,6 +844,16 @@ class DeployView extends React.Component {
                                         }
                                     </div>
                                 }
+                                <div>
+                                    {
+                                        (network == 'kovan')
+                                        ? <div className='d-bg-c-1 p-4 pl-6'>
+                                            <h2 className='font-bold capitalize border-b pb-2 mb-2 d-border-c-1'>useful link</h2>
+                                            <a href="https://faucets.chain.link/" target="_blank" className='a'>{t('Kovan Faucet')}</a>
+                                        </div>
+                                        : null
+                                    }
+                                </div>
                             </>
                             : <div>
                                 <div className='contract-form'>
