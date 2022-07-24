@@ -45,7 +45,6 @@ class ClubLockStep extends React.Component {
                     <Step href={this.getUrl(club_id,1)} key={1}>{t('setting')}</Step>
                     <Step href={this.getUrl(club_id,2)} key={2}>metadata</Step>
                 </Steps>
-                
                 <div>
                     {
                         (this.props.next_step == false)

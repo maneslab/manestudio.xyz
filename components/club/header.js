@@ -71,7 +71,6 @@ export default function ClubHeader({
                                     2.{t('smart contract')}
                                 </a>
                             }
-                            
                             {
                                 (step_2_finished)
                                 ? <Link href={base_url+'/drop'} activeClassName={"tab-active"}>

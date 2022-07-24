@@ -77,7 +77,7 @@ class GenerateGroupView extends React.Component {
             </Head>
             <div>
                 <ClubHeader club={club}  title={t('generate nft')} active_id={1} intro={t('generate-nft-header-intro')}/>
-                <ClubStep club_id={club_id} active_name={'setting'} project_type={(club)?club.get('project_type'):'use_generator'} next_step={false} />
+                <ClubStep club_id={club_id} active_name={'setting'} project_type={(club)?club.get('project_type'):'use_generator'} next_step={false} is_lock={is_lock} />
 
                 <div className="max-w-screen-xl mx-auto grid grid-cols-8 gap-16">
 
