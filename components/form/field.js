@@ -28,7 +28,7 @@ const CommonField = ({ name, label, placeholder,notice, className , onlyEnglish,
                         value = value.replace(/[^A-Za-z0-9-_]/ig, '')
                     }else if (onlyLayer) {
                         value = value.replace(/[^0-9a-z ]/ig, '')
-                        value = value.toLowerCase();
+                        value = value.toUpperCase();
                     }
                     setFieldValue(name,value)
                 }} onBlur={(e)=>setFieldTouched(name,true)} {...props}/>

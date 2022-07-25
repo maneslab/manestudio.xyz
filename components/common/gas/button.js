@@ -132,7 +132,7 @@ class GasButton extends React.Component {
                         <div className='r'>{gas_data.getIn(['data','average']) / 10}</div>
 
                     </div>
-                    <div className='gas-one text-green-500'>
+                    <div className='gas-one text-red-500'>
                         <div className='l'>low</div>
                         <div className='r'>{gas_data.getIn(['data','safeLow']) / 10}</div>
                     </div>

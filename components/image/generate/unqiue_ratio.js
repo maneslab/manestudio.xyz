@@ -2,11 +2,14 @@ import {useState} from 'react'
 import classNames from 'classnames'
 import {percentDecimal} from 'helper/number'
 import {InformationCircleIcon}from '@heroicons/react/outline'
+import useTranslation from 'next-translate/useTranslation'
+import {t} from 'helper/translate';
 
 export default function UniqueRatio({
     value
 }) {
     const [isShown, setIsShown] = useState(false);
+    // const { t } = useTranslation('common');
 
     return <div className='flex justify-start items-center'>
 
