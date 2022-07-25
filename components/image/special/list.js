@@ -63,7 +63,7 @@ class ImageSpecialList extends React.Component {
 
     render() {
 
-        let {list_data_one,list_rows,grid_span} = this.props;
+        let {list_data_one,list_rows,is_lock} = this.props;
         // let {show_create_modal} = this.state;
         const {t} = this.props.i18n;
 
@@ -101,6 +101,7 @@ class ImageSpecialList extends React.Component {
                                         handleUpdate={this.props.updateSpecial}
                                         handleEditProbability={this.toggleProbabilityModal}
                                         handleEdit={this.edit}
+                                        is_lock={is_lock}
                                         key={one.get('id')} />
                                 })
                             }

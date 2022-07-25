@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Link from 'next/link'
+// import Link from 'next/link'
 import {withTranslate} from 'hocs/index'
 import {confirm} from 'components/common/confirm/index'
 
 import {DotsVerticalIcon,CheckIcon,TrashIcon,PencilIcon,XIcon} from '@heroicons/react/outline'
 import autobind from 'autobind-decorator';
-import {percentDecimal} from 'helper/number'
-import { t } from 'helper/translate';
+// import {percentDecimal} from 'helper/number'
+// import { t } from 'helper/translate';
 
 @withTranslate
 class SpecialOne extends React.Component {
@@ -77,8 +77,9 @@ class SpecialOne extends React.Component {
     }
     render() {
 
-        const { special } = this.props;
+        const { special,is_lock } = this.props;
         const {edit_mode} = this.state;
+        const {t} = this.props.i18n;
 
 
         return <div>
@@ -93,8 +94,15 @@ class SpecialOne extends React.Component {
                                 <DotsVerticalIcon className='icon-sm'/>
                             </label>
                             <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white dark:bg-[#191c20] dark:text-white rounded-box w-52 capitalize">
-                                <li><a onClick={this.deleteSpecial}><TrashIcon className='icon-sm'/>delete</a></li>
-                                <li><a onClick={this.props.handleEdit.bind({},special)}><PencilIcon className='icon-sm'/>edit</a></li>
+                                {
+                                    (is_lock)
+                                    ? <>
+                                        <li><a onClick={this.deleteSpecial}><TrashIcon className='icon-sm'/>{t('delete')}</a></li>
+                                    </>
+                                    : null
+                                }
+                                <li><a onClick={this.props.handleEdit.bind({},special)}><PencilIcon className='icon-sm'/>{t('edit')}</a></li>
+
                             </ul>
                         </div>
                     </div>

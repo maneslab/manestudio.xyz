@@ -42,8 +42,9 @@ import config from 'helper/config'
 
 import withClubView from 'hocs/clubview'
 
-import {  InformationCircleIcon  } from '@heroicons/react/outline'
-import {strFormat} from 'helper/translate'
+import {  InformationCircleIcon,ExternalLinkIcon  } from '@heroicons/react/outline'
+// import {strFormat} from 'helper/translate'
+
 
 import { denormalize } from 'normalizr';
 import {contractSchema} from 'redux/schema/index'
@@ -848,8 +849,13 @@ class DeployView extends React.Component {
                                     {
                                         (network == 'kovan')
                                         ? <div className='d-bg-c-1 p-4 pl-6'>
-                                            <h2 className='font-bold capitalize border-b pb-2 mb-2 d-border-c-1'>useful link</h2>
-                                            <a href="https://faucets.chain.link/" target="_blank" className='a'>{t('Kovan Faucet')}</a>
+                                            <h2 className='font-bold capitalize border-b pb-4 mb-4 d-border-c-1'>Kovan Testnet Faucet</h2>
+                                            <div className='flex justify-between items-center'>
+                                                <div className="capitalize">{t('get Kovan Testnet ETH')}</div>
+                                                <a href="https://faucets.chain.link/" target="_blank" className='btn btn-default'>
+                                                    <ExternalLinkIcon className='icon-sm mr-2' />{t('Get')}
+                                                </a>
+                                            </div>
                                         </div>
                                         : null
                                     }

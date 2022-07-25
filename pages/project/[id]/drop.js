@@ -67,6 +67,7 @@ class ClubDropSetting extends React.Component {
 
     @autobind
     onPublicChange(value) {
+        console.log('onPublicChange',value);
         this.setState({
             'is_public' :  value
         })
@@ -126,7 +127,8 @@ class ClubDropSetting extends React.Component {
                 <title>{'Drop details'}</title>
             </Head>
             <div>
-                <ClubHeader club_id={club_id}  title={t('mint page')} active_id={3}/>
+                <ClubHeader club={club}  title={t('mint page')} active_id={3} intro={null}/>
+
                 <div className="max-w-screen-xl mx-auto pb-32">
 
 
@@ -148,7 +150,7 @@ class ClubDropSetting extends React.Component {
                         <div className='max-w-screen-xl mx-auto flex justify-between items-center'>
                             <div className='flex items-center'>
                                 {
-                                    (club.get('is_public'))
+                                    (is_public)
                                     ? <div>
                                         <a class="btn btn-ghost text-red-500 ml-2" onClick={this.onPublicChange.bind({},false)} >{t('hide in ManeSpace')}</a>
                                     </div>
@@ -164,7 +166,7 @@ class ClubDropSetting extends React.Component {
                                 : <a className='btn btn-default' href={preview_link} target="_blank">{t('preview')}</a>
                             }
                             {
-                                (!club.get('is_public')) 
+                                (!is_public) 
                                 ? <a class="btn btn-primary ml-2" onClick={this.onPublicChange.bind({},true)}>{t('publish to ManeSpace')}</a>
                                 : null
                             }

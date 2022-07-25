@@ -170,7 +170,7 @@ class TimeSelect extends React.Component {
             { from: new Date(1970, 1, 1), to: yesterday }
         ];
 
-        return <div className="w-96">
+        return <div className="w-96 dropdown-inner">
             <div className='d-bg-c-1 p-4 shadow-xl border d-border-c-2'>
                 <div className='flex justify-center'>
                 <DayPicker 

@@ -328,7 +328,10 @@ html,body {
 }
 
 .mask-bg {
-    @apply fixed bg-white top-0 left-0 right-0 bottom-0 w-full h-full opacity-10;
+    @apply fixed bg-white top-0 left-0 right-0 bottom-0 w-full h-full opacity-10 z-50;
+}
+.dropdown-inner {
+    @apply z-100;
 }
 
 .animate-forwards {

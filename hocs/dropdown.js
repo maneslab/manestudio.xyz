@@ -28,10 +28,14 @@ export default function withDropdown(WrappedComponent) {
 
         render() {
 
+            // const {dropdown_visible} = this.state;
+
             return <WrappedComponent 
-                dropdown_visible={this.state.dropdown_visible} 
-                toggleDropdown={this.toggleDropdown}
-                {...this.props}/>;
+                    dropdown_visible={this.state.dropdown_visible} 
+                    toggleDropdown={this.toggleDropdown}
+                    {...this.props}/>
+
+                
         }
 
     }

@@ -10,7 +10,9 @@ import ErrorMessage from 'components/form/error_message'
 
 import TimeSelect from 'components/common/time_select';
 import { CalendarIcon } from '@heroicons/react/outline';
-import DropdownComponent from 'components/common/dropdown';
+// import DropdownComponent from 'components/common/dropdown';
+
+import Dropdown from 'rc-dropdown';
 
 @withDropdown
 @withTranslate
@@ -33,6 +35,8 @@ class ExpiretimeSelect extends React.Component {
         const {label,name,dropdown_visible} = this.props;
         const {t} = this.props.i18n;
 
+       
+
         return  <div className="form-control">
         {
             (label)
@@ -50,10 +54,14 @@ class ExpiretimeSelect extends React.Component {
                 let show_error = meta.touched && meta.error;
                 const select_date = fromUnixTime(value);
 
-                let menu = <TimeSelect value={value} onChange={setFieldValue.bind({},name)} toggleDropdown={this.props.toggleDropdown}/>
+                let menu = <div>
+                    <TimeSelect value={value} onChange={setFieldValue.bind({},name)} toggleDropdown={this.props.toggleDropdown}/>
+                </div>
                 return <div>
-                    <DropdownComponent menu={menu}>
-                        <div className={classNames("input-with-prefix cursor-pointer",{"has-error":show_error})}>
+                    <Dropdown
+                        overlay={menu} visible={dropdown_visible}
+                    >
+                        <div className={classNames("input-with-prefix cursor-pointer w-72",{"has-error":show_error})} onClick={this.props.toggleDropdown}>
                             {
                                 (value)
                                 ? <span className="input-inner">
@@ -66,8 +74,13 @@ class ExpiretimeSelect extends React.Component {
                             }
                             <span className='prefix end h-9 flex items-center'><CalendarIcon className='icon-xs'/></span>
                         </div>
-                    </DropdownComponent>
+                    </Dropdown>
                     <ErrorMessage name={name}/>
+                    {
+                        (dropdown_visible)
+                        ? <div className='mask-bg' onClick={this.props.toggleDropdown}></div>
+                        : null
+                    }
                 </div>
             }}
         </Field>
