@@ -147,20 +147,28 @@ class ClubDropSetting extends React.Component {
                     <div className='fixed bottom-0 left-0 w-full py-4 d-bg-c-1 border-t d-border-c-1' style={{'zIndex':9999}}>
                         <div className='max-w-screen-xl mx-auto flex justify-between items-center'>
                             <div className='flex items-center'>
-                                <Switch onChange={this.onPublicChange} checked={is_public} />
-                                <div className='ml-4'>
-                                    <div className="capitalize">{t('set public')}</div>
-                                    <div className='text-sm text-gray-400'>{t('set-public-intro')}</div>
-                                </div>
+                                {
+                                    (club.get('is_public'))
+                                    ? <div>
+                                        <a class="btn btn-ghost text-red-500 ml-2" onClick={this.onPublicChange.bind({},false)} >{t('hide in ManeSpace')}</a>
+                                    </div>
+                                    : null
+                                }
                             </div>
+                            <div>
                             {
                                 (!club.get('contract'))
                                 ? <div class="tooltip" data-tip={t('you need setting contract first before preview drop page')}>
                                     <button class="btn btn-default" disabled>{t('preview')}</button>
                                 </div>
-                                : <a className='btn btn-primary' href={preview_link} target="_blank">{t('preview')}</a>
+                                : <a className='btn btn-default' href={preview_link} target="_blank">{t('preview')}</a>
                             }
-                            
+                            {
+                                (!club.get('is_public')) 
+                                ? <a class="btn btn-primary ml-2" onClick={this.onPublicChange.bind({},true)}>{t('publish to ManeSpace')}</a>
+                                : null
+                            }
+                            </div>
                         </div>
                     </div>
                 </div> 
