@@ -486,7 +486,7 @@ class ContractView extends React.Component {
                                                 <Input name="name" label={t("contract name")} onlyEnglish={true} placeholder={"E.g. weirdo ghost gang"} />
                                                 <Input name="symbol" label={"symbol"} onlyEnglish={true} placeholder={"E.g. WGG"} />
                                                 <div className='grid grid-cols-2 gap-4'>
-                                                    <Input name="type" label={t("type")} value={"ERC-721A"} readOnly={true} placeholder={"E.g. weirdo ghost gang"} />
+                                                    <Input name="type" label={t("type")} value={"ERC-721A"} readOnly={true} disabled placeholder={"E.g. weirdo ghost gang"} />
                                                     <Input name="max_supply" label={t("max token supply")} readOnly={true} disabled />
                                                 </div>
                                             </div>

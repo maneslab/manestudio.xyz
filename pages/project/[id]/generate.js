@@ -196,7 +196,7 @@ class GenerateGroupView extends React.Component {
                     <div className="col-span-1">
 
                     <div class="d-bg-c-1 flex justify-between items-center p-4 mb-4 text-sm">
-                        <div class="">{t('unique ratio')}</div>
+                        <div class="">{t('repetition rate')}</div>
                         <UniqueRatio value={uniqueness}/>
                     </div>
 

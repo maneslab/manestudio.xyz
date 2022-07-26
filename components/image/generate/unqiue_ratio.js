@@ -9,7 +9,7 @@ export default function UniqueRatio({
     value
 }) {
     const [isShown, setIsShown] = useState(false);
-    // const { t } = useTranslation('common');
+    const { t } = useTranslation('common');
 
     return <div className='flex justify-start items-center'>
 
@@ -26,20 +26,20 @@ export default function UniqueRatio({
             {
                 (isShown)
                 ? <div className='absolute w-96 h-48 d-bg-c-1 border d-border-c-1 p-4 bottom-5 shadow-lg z-100'>
-                    <h3 className='font-bold mb-2'>what is unique ratio?</h3>
+                    <h3 className='font-bold mb-2'>{t('what is repetition rate?')}</h3>
                     <div className='text-sm'>
-                        <div className='font-bold mb-2'>unique ratio = collection size / max generatable;</div>
+                        <div className='font-bold mb-2'>{t('repetition rate')} = {t('collection size')} / {t('max generatable')};</div>
                         <div>
-                            <span className='text-green-500 mr-4'>{"ratio < 10%"}</span>
-                            <span>{t('Not too much repetition rate Nice project')}</span>
+                            <span className='text-green-500 mr-4'>{"rate < 10%"}</span>
+                            <span>{t('Not too much repetition rate, nice project')}</span>
                         </div>
                         <div>
-                            <span className='text-yellow-500 mr-4'>{"10% < ratio< 30%"}</span>
-                            <span>{t('Repetition rate average Ordinary items')}</span>
+                            <span className='text-yellow-500 mr-4'>{"10% < rate < 30%"}</span>
+                            <span>{t('Repetition rate average ordinary items')}</span>
                         </div>
                         <div>
-                            <span className='text-red-500 mr-4'>{"ratio > 30%"}</span>
-                            <span>{t('Repetition rate is poor Not very good')}</span>
+                            <span className='text-red-500 mr-4'>{"rate > 30%"}</span>
+                            <span>{t('Repetition rate is too high')}</span>
                         </div>
                     </div>
                 </div>

@@ -17,6 +17,8 @@ import Editor from 'components/form/editor'
 import message from 'components/common/message'
 import config from 'helper/config'
 
+import { removeValueEmpty } from 'helper/common';
+
 @withTranslate
 @withMustLogin
 class ClubUpdate extends React.Component {
@@ -58,6 +60,7 @@ class ClubUpdate extends React.Component {
             'unique_name' :  (club && club.get('unique_name')) ? club.get('unique_name') : ''
         })
 
+
         if (club && club.get('introduction')) {
             this.setEditor(club.get('introduction'))
         }
@@ -79,13 +82,16 @@ class ClubUpdate extends React.Component {
     @autobind
     async save(values) {
 
-        
+        values = removeValueEmpty(values);
+
         console.log('values',values);
         if (!this.editorRef.current) {
             message.error('editor is not init yet');
             return;
         }
+
         console.log('this.editorRef.current',this.editorRef.current);
+
         let introduction = this.editorRef.current.getContent();
         values['introduction'] = JSON.stringify(introduction);
 
@@ -114,7 +120,7 @@ class ClubUpdate extends React.Component {
 
         const formSchema = Yup.object().shape({
             name      : Yup.string().required(),
-            unique_name : Yup.string(),
+            unique_name : Yup.string().required(),
         });
 
         return  <Formik

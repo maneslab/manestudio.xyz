@@ -571,6 +571,9 @@ input{outline:none;}
 .input-box.input-error {
     @apply border-red-500;
 }
+.input-box:read-only {
+    @apply bg-gray-100 dark:bg-[#121518]
+}
 
 .input-error-msg {
     @apply text-red-500 text-sm px-0 py-1;

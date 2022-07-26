@@ -16,5 +16,12 @@ export default class manenft extends contract{
         this.contract = new ethers.Contract(contract_address, manenft_abi, this.provider.getSigner());
     }
 
-  
+    async isDeployed() {
+        let result = await this.provider.getCode(this.contract.address)
+        if (result == '0x') {
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

@@ -94,11 +94,11 @@ class GenerateFrom extends React.Component {
 
 
         let init_data ={
-            'collection_size' : 5000,
+            'collection_size' : '',
         }
 
         let formSchema = Yup.object().shape({
-            collection_size      : Yup.number().required(),
+            collection_size      : Yup.number().max(max_generate_number).required(),
         });
 
         return <div>

@@ -94,8 +94,10 @@ class TraitList extends React.Component {
 
             {
                 (is_empty)
-                ? <div className='py-12 max-w-screen-md mx-auto my-0 text-center'>
-                    <Empty text={t('no trait yet')} icon={<PuzzleIcon className='icon-base'/>}/>
+                ? <div className='max-w-screen-md mx-auto my-0 text-center'>
+                    <Upload uploadProps={uploadProps} afterSuccess={this.handleUpload}>  
+                        <Empty text={t('no trait yet')} icon={<PuzzleIcon className='icon-base'/>} className="py-12"/>
+                    </Upload>
                 </div>
                 : <div className="p-4 pb-0 h-60 w-full overflow-x-auto overflow-y-hidden"><div className=' flex justify-start gap-4' style={{width:max_width}}>
 

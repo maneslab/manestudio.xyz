@@ -19,6 +19,7 @@ class TraitOne extends React.Component {
             'edit_mode' : false,
             'name'      : ''
         }
+        this.inputRef = React.createRef();
         this.deleteTrait = ::this.deleteTrait;
     }
 
@@ -36,14 +37,20 @@ class TraitOne extends React.Component {
     }
 
     @autobind
-    selectItem() {
-
-    }
-
-    @autobind
     toggleEditMode() {
+
+        const {edit_mode} = this.state;
+
+        if (!edit_mode) {
+            // console.log('this.inputRef',this.inputRef.current);
+            // this.inputRef.current.focus();
+            setTimeout(()=>{
+                this.inputRef.current.select();
+            },200)
+        }
+
         this.setState({
-            'edit_mode' : !this.state.edit_mode
+            'edit_mode' : !edit_mode
         })
     }
 
@@ -130,10 +137,11 @@ class TraitOne extends React.Component {
                 </div>
                 <div className="flex-grow flex justify-between p-2">
                     <div className='flex justify-center flex-col'>
+                        
                         {
                             (edit_mode) 
-                            ? <div className='h-8 flex items-center'>
-                                <input className='input input-bordered input-xs w-full max-w-xs mr-2' value={this.state.name} onChange={this.handleNameChange} onKeyDown={(e)=>this.onkeydown(e)}/>
+                            ? <div className={classNames('h-8 flex items-center',{"hidden":!edit_mode})}>
+                                <input ref={this.inputRef} className='input input-bordered input-xs w-full max-w-xs mr-2' value={this.state.name} onChange={this.handleNameChange} autoFocus onKeyDown={(e)=>this.onkeydown(e)}/>
                                 <a onClick={this.saveTrait} className="cursor-pointer mr-1"><CheckIcon className='icon-xs'/></a>
                                 <a onClick={this.toggleEditMode} className="cursor-pointer"><XIcon className='icon-xs'/></a>
                             </div>

@@ -227,7 +227,7 @@ class UploadComponent extends React.Component {
         <Upload ref={this.uploadRef} {...newUploadProps}>
             {this.props.children}
         </Upload>
-        <div className='fixed left-0 top-0 p-4 z-100'>
+        <div className='fixed right-0 bottom-0 p-4 z-100'>
             {
                 Object.keys(file_list).map(k=>{
                     const one = file_list[k];

@@ -70,7 +70,10 @@ class ExpiretimeSelect extends React.Component {
                                         <span className='text-gray-400 ml-4'>{format(select_date,'zzzz')}</span>
                                     </div>
                                 </span>
-                                : <span className="input-inner">{t('please select date')}</span>
+                                : <span className="input-inner">
+                                    {t('please select date')}
+                                    <span className='text-gray-400 ml-4'>{format(select_date,'zzzz')}</span>
+                                </span>
                             }
                             <span className='prefix end h-9 flex items-center'><CalendarIcon className='icon-xs'/></span>
                         </div>
