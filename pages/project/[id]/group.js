@@ -152,14 +152,14 @@ class GenerateGroupView extends React.Component {
                     <div className='col-span-5'>
 
                         <div className='flex justify-between items-center mb-8 text-black dark:text-white'>
-                            <h2 className='h2'>{t('spcail NFT')}</h2>
+                            <h2 className='h2'>{'1/1 NFTs'}</h2>
 
                             {
                                 (!is_lock)
                                 ?  <Upload uploadProps={uploadProps} afterSuccess={this.handleUpload}>  
                                     <button className='btn btn-default'>
                                         <PlusIcon className='icon-xs mr-2'/>
-                                        {t('add spcail NFT')}
+                                        {t('add')}
                                     </button>
                                 </Upload>
                                 : null
