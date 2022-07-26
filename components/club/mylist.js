@@ -55,7 +55,9 @@ class MyClubList extends React.Component {
                 (is_empty)
                 ? <div className='py-12 d-bg-c-1 my-12 text-center'>
                     <Empty text={t('I have not created any project yet')} icon={<UserGroupIcon className='icon-base'/>}/>
-                    <button className={"btn btn-primary"} onClick={this.props.toggleCreateModal}>{t('create project')}</button>
+                    <div className='mt-4'>
+                        <button className={"btn btn-primary"} onClick={this.props.toggleCreateModal}>{t('add project')}</button>
+                    </div>
                 </div>
                 : <div className={""}>
 
