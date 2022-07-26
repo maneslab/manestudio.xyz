@@ -99,7 +99,14 @@ class ClubUpdate extends React.Component {
             'is_updating' : true
         })
         
-        await this.props.updateClub(this.props.club.get('id'),values);
+        let result = await this.props.updateClub(this.props.club.get('id'),values);
+
+        if (result.status =='error') {
+            Object.keys(result.messages).forEach(key=>{
+                message.error(result.messages[key])
+                this.formRef.current.setFieldError(key,result.messages[key]);
+            });
+        }
 
         this.setState({
             'is_updating' : false
