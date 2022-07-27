@@ -324,10 +324,10 @@ class GenerateGroupView extends React.Component {
                             <p>{t('You can choose to set aside a portion of the NFT, or of course, you can choose to skip this step')}</p>
                             <p>{t('The reserved NFTs will be automatically deposited to the address of the published contract after the official version of the contract is released')}</p>
                         </div>
-                        <div>
-                            <div><button className='btn btn-primary' onClick={this.toggleShowSkipPage}>{t('reserve NFT')}</button></div>
-                            <div className='py-4'>{t('or')}</div>
+                        <div className='flex justify-center items-center'>
                             <div><button className='btn btn-outline' onClick={this.toggleSuccessModal}>{t('skip')}</button></div>
+                            <div className='py-4 mx-4'>{t('or')}</div>
+                            <div><button className='btn btn-primary' onClick={this.toggleShowSkipPage}>{t('reserve NFT')}</button></div>
                         </div>
                     </div>
                     :   <div className="max-w-screen-xl mx-auto">

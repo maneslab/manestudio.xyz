@@ -32,6 +32,7 @@ import PublicEndTimeSelect from 'components/form/mane/public_endtime_select';
 
 import ContractSide from 'components/contract/side'
 import withClubView from 'hocs/clubview'
+import withNotice from 'hocs/notice'
 
 import {  PlusIcon,   } from '@heroicons/react/outline'
 import {removeSuffixZero} from 'helper/number'
@@ -49,6 +50,7 @@ import {contractSchema} from 'redux/schema/index'
 @withClubView
 @withActiveClub
 @withSetActiveClub
+@withNotice
 class ContractView extends React.Component {
 
     constructor(props) {
@@ -81,7 +83,9 @@ class ContractView extends React.Component {
         if (this.props.contract) {
             this.setForm(this.props.contract)
         }
-        // 
+        //
+        const {setDefaultNotice} = this.props;
+        setDefaultNotice(1,<div>测试代码default</div>)
     }
 
     componentDidUpdate(prevProps,prevState) {
@@ -315,7 +319,7 @@ class ContractView extends React.Component {
     render() {
         const {t} = this.props.i18n;
         const {form_data} = this.state;
-        const {club_id,club,contract} = this.props;
+        const {club_id,club,contract,getNotice,setNotice} = this.props;
 
         let init_data = {
             asc2mark: "",
@@ -483,7 +487,7 @@ class ContractView extends React.Component {
                                     <div className='grid grid-cols-9 gap-8'>
                                         <div className="col-span-6">
                                             <div className='ct'>
-                                                <Input name="name" label={t("contract name")} onlyEnglish={true} placeholder={"E.g. weirdo ghost gang"} />
+                                                <Input name="name" label={t("contract name")} onlyEnglish={true} placeholder={"E.g. weirdo ghost gang"} setNotice={setNotice.bind({},1)} side_notice={<div>测试代码</div>}/>
                                                 <Input name="symbol" label={"symbol"} onlyEnglish={true} placeholder={"E.g. WGG"} />
                                                 <div className='grid grid-cols-2 gap-4'>
                                                     <Input name="type" label={t("type")} value={"ERC-721A"} readOnly={true} disabled placeholder={"E.g. weirdo ghost gang"} />
@@ -492,10 +496,10 @@ class ContractView extends React.Component {
                                             </div>
                                         </div>
                                         <div className="col-span-3 intro">
-                                            <p>{t('ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.')}</p>
-                                            <p>{t('You can define your details of your contract here, as well as many customizable function below.')}</p>
-                                            <p>{t('DON’T PANIC! You can deploy your contract to Kovan testnet for free, check if everythings is correct, then deploy to Ethereum mainnet.')}</p>
-                                        </div>
+                                            {
+                                                getNotice(1)
+                                            }
+                                       </div>
                                     </div>
                                 </div>
 

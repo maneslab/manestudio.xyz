@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import Input from 'components/form/input'
 import ErrorMessage from 'components/form/error_message'
 
-const CommonField = ({ name, label, placeholder,notice, className , onlyEnglish, onlyLayer, ...props }) => {
+const CommonField = ({ name, label, placeholder,notice, className , onlyEnglish, onlyLayer, setNotice,side_notice, ...props }) => {
 
     return <div className={classnames("form-control",className)} >
         {
@@ -31,7 +31,20 @@ const CommonField = ({ name, label, placeholder,notice, className , onlyEnglish,
                         value = value.toUpperCase();
                     }
                     setFieldValue(name,value)
-                }} onBlur={(e)=>setFieldTouched(name,true)} {...props}/>
+                }} 
+                onFocus={(e)=>{
+                    console.log('debug:检查到onFouc事件',typeof setNotice,side_notice)
+                    if (typeof setNotice === 'function' && side_notice) {
+                        setNotice(side_notice)
+                    } 
+                }}
+                onBlur={(e)=>{
+                    if (typeof setNotice === 'function') {
+                        setNotice(null)
+                    } 
+                    setFieldTouched(name,true)
+                }}
+                {...props}/>
                 <ErrorMessage name={name} />
                 {
                     (notice)

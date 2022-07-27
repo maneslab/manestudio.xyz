@@ -84,6 +84,15 @@ class SpecialOne extends React.Component {
             'name' : e.target.value
         })
     }
+
+
+    @autobind
+    onkeydown(e) {
+        if (e.keyCode === 13) {
+			this.saveSpecial()
+		}
+    }
+
     render() {
 
         const { special,is_lock } = this.props;
@@ -123,7 +132,7 @@ class SpecialOne extends React.Component {
                             (edit_mode) 
                             ? <div>
                             <div className='h-8 flex items-center'>
-                                <input ref={this.inputRef} autoFocus className='input input-bordered input-xs w-full max-w-xs mr-2' value={this.state.name} onChange={this.handleNameChange}/>
+                                <input ref={this.inputRef} autoFocus className='input input-bordered input-xs w-full max-w-xs mr-2' value={this.state.name} onChange={this.handleNameChange} onKeyDown={(e)=>this.onkeydown(e)}/>
                                 <a onClick={this.saveSpecial} className="cursor-pointer mr-1"><CheckIcon className='icon-xs'/></a>
                                 <a onClick={this.toggleEditMode} className="cursor-pointer"><XIcon className='icon-xs'/></a>
                             </div>

@@ -1,8 +1,6 @@
 import React from 'react';
-import Link from 'next/link'
 
 import { connect } from "react-redux";
-import autobind from 'autobind-decorator'
 import { denormalize } from 'normalizr';
 
 import Loading from 'components/common/loading'
@@ -14,7 +12,7 @@ import {removeValueEmpty} from 'helper/common'
 
 import {withPageList} from 'hocs/index'
 
-import {loadClubList} from 'redux/reducer/club'
+import {loadClubList,updateClub} from 'redux/reducer/club'
 import {clubListSchema} from 'redux/schema/index'
 import {withTranslate} from 'hocs/index'
 import {UserGroupIcon} from '@heroicons/react/outline'
@@ -66,7 +64,7 @@ class MyClubList extends React.Component {
                         ? <>
                             {
                                 list_rows.map((one)=>{
-                                    return <ClubOne t={t} club={one} key={one.get('id')} />
+                                    return <ClubOne t={t} club={one} key={one.get('id')} updateClub={this.props.updateClub}/>
                                 })
                             }
                         </>
@@ -104,6 +102,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         loadList   : (cond) => {
             return dispatch(loadClubList(cond))
+        },
+        updateClub : (id,data) => {
+            return dispatch(updateClub(id,data))
         },
     }
 }

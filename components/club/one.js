@@ -1,8 +1,28 @@
 import React from 'react';
 import Link from 'next/link'
+import {PencilIcon,CheckIcon,XIcon} from '@heroicons/react/outline'
 import BigNumber from "bignumber.js";
+import autobind from 'autobind-decorator';
 
 class ClubOne extends React.Component {
+
+    constructor(props) {
+        super();
+        this.state = {
+            edit_mode : false,
+            name : (props.club) ? props.club.get('name') : ''
+        }
+    }
+
+    @autobind
+    toggleEditMode(e) {
+        const {edit_mode} = this.state;
+        this.setState({
+            'edit_mode' : !edit_mode
+        })
+        e.stopPropagation();
+        return;
+    }
 
     getTotalBalance(info) {
         let balance = new BigNumber(info.get('collectorBalance'));
@@ -16,10 +36,33 @@ class ClubOne extends React.Component {
         return minted.dividedBy(total).multipliedBy(100).toFixed(2);
     }
 
+    @autobind
+    handleNameChange(e) {
+        this.setState({
+            'name' : e.target.value
+        })
+    }
+
+
+    @autobind
+    onkeydown(e) {
+        if (e.keyCode === 13) {
+			this.saveClub()
+		}
+    }
+
+    @autobind
+    saveClub() {
+        this.setState({
+            'edit_mode' : !this.state.edit_mode
+        })
+        this.props.updateClub(this.props.club.get('id'),{'name':this.state.name});
+    }
 
     render() {
 
         const { club,t } = this.props;
+        const {edit_mode} = this.state;
 
         let tag = null;
         if (club.getIn(['contract_address_list_map','kovan'])) {
@@ -62,7 +105,19 @@ class ClubOne extends React.Component {
                         }
                         {tag}
                     </div>
-                    <h2 className='font-bold text-xl capitalize'>{club.get('name')}</h2>
+                    {
+                        (edit_mode)
+                        ? <div className='h-8 flex items-center' onClick={e=>e.stopPropagation()}>
+                                <input autoFocus className='input input-bordered input-xs w-full max-w-xs mr-2' value={this.state.name} onChange={this.handleNameChange} onKeyDown={(e)=>this.onkeydown(e)}/>
+                                <a onClick={this.saveClub} className="cursor-pointer mr-1"><CheckIcon className='icon-xs'/></a>
+                                <a onClick={this.toggleEditMode} className="cursor-pointer"><XIcon className='icon-xs'/></a>
+                        </div>
+                        : <h2 className='font-bold text-xl capitalize flex justify-start items-center trait-name' onClick={this.toggleEditMode}>
+                            {club.get('name')}
+                            <PencilIcon className='icon-xs ml-2 text-gray-400 edit-icon'/>
+                        </h2>
+                    }
+                    
                     <div className='border-t d-border-c-1 my-2' />
                     {
                         (club.getIn(['financial_info','collectorBalance']))
