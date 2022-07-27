@@ -108,10 +108,10 @@ class TraitOne extends React.Component {
             return null;
         }
 
-        return <div className={classNames("w-36 bg-white dark:bg-[#121518] dark:border-[#121518] border-2",{"border-black dark:border-white":is_selected})}>
+        return <div className={classNames("w-36 overflow-hidden bg-white dark:bg-[#121518] dark:border-[#121518] border-2",{"border-black dark:border-white":is_selected})}>
             <div className="">
                 <div className='relative trait-image asset-bg'>
-                    <img src={trait.getIn(['img','image_urls','url'])} className="cursor-pointer" onClick={this.props.setActiveTraitId.bind({},{
+                    <img src={trait.getIn(['img','image_urls','url'])} className="cursor-pointer w-full aspect-square" onClick={this.props.setActiveTraitId.bind({},{
                         'group_id' : group_id,
                         'layer_id' : layer_id,
                         'trait_id' : (is_selected) ? null : trait.get('id')
@@ -136,7 +136,7 @@ class TraitOne extends React.Component {
                     }
                 </div>
                 <div className="flex-grow flex justify-between p-2">
-                    <div className='flex justify-center flex-col'>
+                    <div className='w-full'>
                         
                         {
                             (edit_mode) 
@@ -145,11 +145,13 @@ class TraitOne extends React.Component {
                                 <a onClick={this.saveTrait} className="cursor-pointer mr-1"><CheckIcon className='icon-xs'/></a>
                                 <a onClick={this.toggleEditMode} className="cursor-pointer"><XIcon className='icon-xs'/></a>
                             </div>
-                            : <div className='text-sm h-8  flex justify-start items-center cursor-pointer trait-name' onClick={this.toggleEditMode}>
+                            : <div className='text-sm flex justify-between items-center cursor-pointer trait-name ' onClick={this.toggleEditMode}>
+                                <div className='flex-shrink h-8 truncate break-all flex items-center'>
                                 {
                                     (trait.get('name')) ? trait.get('name') : '(no name)'
                                 }
-                                <PencilIcon className='icon-xs ml-2 text-gray-400 edit-icon'/>
+                                </div>
+                                <PencilIcon className='icon-xs ml-2 text-gray-400 edit-icon flex-shrink-0'/>
                             </div>
                         }
                         <div className='text-xs text-blue-400'>
