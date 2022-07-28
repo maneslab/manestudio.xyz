@@ -32,7 +32,9 @@ class GenerateFrom extends React.Component {
         const {t} = this.props.i18n;
         if (await confirm({
             title : t('Generate NFT'),
-            confirmation: t('are you sure you want to regenerate NFT images?')
+            confirmation: t('are you sure you want to regenerate NFT images?'),
+            confirm_text : t('confirm'),
+            cancel_text : t('cancel')
         })) {
             this.generateNFT(values.collection_size)
         }
@@ -134,7 +136,7 @@ class GenerateFrom extends React.Component {
                             </div>
                             
                             <div className='flex justify-start items-center'>
-                                {t('preficted unique ratio')}
+                                {t('repetition rate')}
                                 <span className='mx-2'>:</span>
                                 <UniqueRatio value={preficted_unique_ratio}/>
 

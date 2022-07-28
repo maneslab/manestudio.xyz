@@ -32,16 +32,18 @@ const CommonField = ({ name, label, placeholder,notice, className , onlyEnglish,
                     }
                     setFieldValue(name,value)
                 }} 
-                onFocus={(e)=>{
+                onMouseEnter={(e)=>{
                     console.log('debug:检查到onFouc事件',typeof setNotice,side_notice)
                     if (typeof setNotice === 'function' && side_notice) {
                         setNotice(side_notice)
                     } 
                 }}
-                onBlur={(e)=>{
+                onMouseLeave={(e)=> {
                     if (typeof setNotice === 'function') {
                         setNotice(null)
                     } 
+                }} 
+                onBlur={(e)=>{
                     setFieldTouched(name,true)
                 }}
                 {...props}/>

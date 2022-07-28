@@ -49,10 +49,10 @@ class ClubStepUseGenerator extends React.Component {
         return <div className='bg-white dark:bg-[#22252b] pt-0 pb-6 -mt-8 mb-8 '>
             <div className="max-w-screen-xl mx-auto flex justify-between h-10">
                 <Steps active={active}>
-                    <Step href={this.getUrl(club_id,1)} key={1}>{t('setting')}</Step>
-                    <Step href={this.getUrl(club_id,2)} key={2}>{t('generate NFT')}</Step>
+                    <Step href={this.getUrl(club_id,1)} key={1}>{t('settings')}</Step>
+                    <Step href={this.getUrl(club_id,2)} key={2}>{t('artworks')}</Step>
                     <Step href={this.getUrl(club_id,3)} key={3}>metadata</Step>
-                    <Step key={4}>{t('reserve')}</Step>
+                    <Step key={4}>{t('reserve NFTs')}</Step>
                 </Steps>
                    
                 <div>

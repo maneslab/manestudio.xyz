@@ -44,6 +44,7 @@ import Upload from 'components/common/upload'
 import {httpRequest, uploadRequest} from 'helper/http'
 import { denormalize } from 'normalizr';
 import {contractSchema} from 'redux/schema/index'
+import { t } from 'helper/translate';
 
 @withTranslate
 @withMustLogin
@@ -83,10 +84,11 @@ class ContractView extends React.Component {
         if (this.props.contract) {
             this.setForm(this.props.contract)
         }
-        //
-        const {setDefaultNotice} = this.props;
-        setDefaultNotice(1,<div>测试代码default</div>)
+        
+        this.setNotice();
+
     }
+    
 
     componentDidUpdate(prevProps,prevState) {
         if (this.props.club_id && this.props.club_id != prevProps.club_id) {
@@ -95,6 +97,10 @@ class ContractView extends React.Component {
 
         if (this.props.contract && !this.props.contract.equals(prevProps.contract)) {
             this.setForm(this.props.contract)
+        }
+
+        if (this.props.i18n.lang != prevProps.i18n.lang) {
+            this.setNotice();
         }
     }
 
@@ -139,6 +145,22 @@ class ContractView extends React.Component {
         });
 
         return contract_data;
+    }
+
+    @autobind
+    setNotice() {
+        const {t} = this.props.i18n;
+        const {setDefaultNotice} = this.props;
+        setDefaultNotice(1,<div>{t('Contract-side-1-1')}</div>)
+        setDefaultNotice(2,<div>
+            <p>{t('Allowlist-intro-1-1')}</p>
+            <p>{t('Allowlist-intro-1-2')}</p>
+            <p>{t('Allowlist-intro-1-3')}</p>
+            <p>{t('Allowlist-intro-1-4')}</p>
+        </div>)
+        setDefaultNotice(3,<div>
+            <p>{t('Publicsale-intro-1-1')}</p>
+        </div>)
     }
 
     @autobind
@@ -442,7 +464,7 @@ class ContractView extends React.Component {
                 <title>{t('contract')}</title>
             </Head>
             <div>
-                <ClubHeader club={club} title={t('smart contract')} active_id={2} intro={null}/>
+                <ClubHeader club={club} title={t('smart contract')} active_id={2} intro={t('smart-contract-intro')}/>
            
                 <ContractStep club_id={club_id} active_name={'setting'} contract={contract} next_step={(contract)?true:false} />
 
@@ -451,7 +473,7 @@ class ContractView extends React.Component {
 
                     <div className="col-span-12 pb-24">
                         
-                        <h1 className='h1'>{t('contract setting')}</h1>
+                        <h1 className='h1'>{t('contract settings')}</h1>
 
                         <div className='divider'></div>
 
@@ -487,11 +509,11 @@ class ContractView extends React.Component {
                                     <div className='grid grid-cols-9 gap-8'>
                                         <div className="col-span-6">
                                             <div className='ct'>
-                                                <Input name="name" label={t("contract name")} onlyEnglish={true} placeholder={"E.g. weirdo ghost gang"} setNotice={setNotice.bind({},1)} side_notice={<div>测试代码</div>}/>
-                                                <Input name="symbol" label={"symbol"} onlyEnglish={true} placeholder={"E.g. WGG"} />
+                                                <Input name="name" label={t("contract name")} onlyEnglish={true} placeholder={"E.g. weirdo ghost gang"} setNotice={setNotice.bind({},1)} side_notice={<div>{t('Contract-side-1-2')}</div>}/>
+                                                <Input name="symbol" label={t("token symbol")} onlyEnglish={true} placeholder={"E.g. WGG"} setNotice={setNotice.bind({},1)} side_notice={<div>{t('Contract-side-1-3')}</div>}/>
                                                 <div className='grid grid-cols-2 gap-4'>
-                                                    <Input name="type" label={t("type")} value={"ERC-721A"} readOnly={true} disabled placeholder={"E.g. weirdo ghost gang"} />
-                                                    <Input name="max_supply" label={t("max token supply")} readOnly={true} disabled />
+                                                    <Input name="type" label={t("contract type")} value={"ERC-721A"} readOnly={true} disabled placeholder={"E.g. weirdo ghost gang"}  setNotice={setNotice.bind({},1)} side_notice={<div>{t('Contract-side-1-4')}</div>}/>
+                                                    <Input name="max_supply" label={t("max. token supply")} readOnly={true} disabled  setNotice={setNotice.bind({},1)} side_notice={<div>{t('Contract-side-1-5')}</div>} />
                                                 </div>
                                             </div>
                                         </div>
@@ -632,7 +654,9 @@ class ContractView extends React.Component {
 
                                                     </div>
                                                     <div className="col-span-3 intro">
-                                                        <p>{t('ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.')}</p>
+                                                        <h3 className='h3'>{t('about refund')}</h3>
+                                                        <p>{t('Refund-intro-1')}</p>
+                                                        <p>{t('Refund-intro-2')}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -647,7 +671,7 @@ class ContractView extends React.Component {
                                     <div className='col-span-6 mb-4'>
                                         <div className='flex justify-between items-center w-full'>
                                             <div className='flex justify-start items-center title'>
-                                                <h2 className='mb-0'>{t('whitelist')}</h2>
+                                                <h2 className='mb-0'>{t('allowlist presale')}</h2>
                                                 <div class="form-control ml-4">
                                                     <label class="label cursor-pointer">
                                                         <FormSwitch name={"wl_enable"} className="toggle toggle-primary"/>
@@ -665,18 +689,18 @@ class ContractView extends React.Component {
                                                 (values.wl_enable && values.wl_enable > 0)
                                                 ? <div className='ct'>
 
-                                                    <ExpiretimeSelect label={t('whitelist presale start time')} name={'wl_start_time'}  />
-                                                    <ExpiretimeSelect label={t('whitelist presale end time')} name={'wl_end_time'}  />
+                                                    <ExpiretimeSelect label={t('whitelist presale start time')} name={'wl_start_time'}  setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-2-1')}</div>}/>
+                                                    <ExpiretimeSelect label={t('whitelist presale end time')} name={'wl_end_time'}  setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-3-1')}</div>}/>
 
-                                                    <Input name="wl_max_supply" label={t("whitelist max supply")} placeholder={"cannot exceed total supply"} />
-                                                    <Input name="wl_per_address" label={t("whitelist token limit per wallet")} placeholder={"limit how many token pre wallet can mint"} />
-                                                    <Input name="wl_price" label={t("whitelist mint price")} placeholder={"e.g 0.05"} />
+                                                    <Input name="wl_max_supply" label={t("whitelist max supply")} placeholder={"cannot exceed total supply"}   setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-4-1')}</div>}/>
+                                                    <Input name="wl_per_address" label={t("whitelist token limit per wallet")} placeholder={"limit how many token pre wallet can mint"}   setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-5-1')}</div>}/>
+                                                    <Input name="wl_price" label={t("whitelist mint price")} placeholder={"e.g 0.05"}  setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-6-1')}</div>} />
 
                                                     <div className='divider' />
 
-                                                    <BluechipSelect name={"wl_bluechip_list"} label={t("whitelist for selected bluechip")} />
+                                                    <BluechipSelect name={"wl_bluechip_list"} label={t("whitelist for selected bluechip")}   setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-7-1')}</div>} />
 
-                                                    <WhitelistUpload label={t("upload whitelist csv file")} club_id={club_id} value={values.whitelist_count} setFieldValue={setFieldValue}/>
+                                                    <WhitelistUpload label={t("upload whitelist csv file")} club_id={club_id} value={values.whitelist_count} setFieldValue={setFieldValue}   setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-8-1')}</div>}/>
 
                                                 </div>
                                                 : <div className='ct text-gray-400 capitalize'>
@@ -686,7 +710,9 @@ class ContractView extends React.Component {
                                             
                                         </div>
                                         <div className="col-span-3 intro">
-                                            <p>{t('ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.')}</p>
+                                            {
+                                                getNotice(2)
+                                            }    
                                         </div>
                                     </div>
                                 </div>
@@ -714,13 +740,13 @@ class ContractView extends React.Component {
                                                 (values.pb_enable && values.pb_enable > 0)
                                                 ? <div className='ct'>
 
-                                                    <ExpiretimeSelect label={t('public sale start time')} name={'pb_start_time'}  />
+                                                    <ExpiretimeSelect label={t('public sale start time')} name={'pb_start_time'}  setNotice={setNotice.bind({},3)} side_notice={<div>{t('Allowlist-intro-2-1')}</div>}/>
                                                     
-                                                    <PublicEndTimeSelect label={t('public sale end time')} name={'pb_end_time'} pb_enable={values.pb_end_time_enable}/>
+                                                    <PublicEndTimeSelect label={t('public sale end time')} name={'pb_end_time'} pb_enable={values.pb_end_time_enable} setNotice={setNotice.bind({},3)} side_notice={<div><p>{t('Allowlist-intro-3-1')}</p><p>{t('Allowlist-intro-3-2')}</p></div>}/>
 
 
-                                                    <Input name="pb_per_address" label={t("public sale token limit per wallet")} placeholder={"limit how many token pre wallet can mint"} />
-                                                    <Input name="pb_price" label={t("public sale mint price")} placeholder={"e.g 0.05"} />
+                                                    <Input name="pb_per_address" label={t("public sale token limit per wallet")} placeholder={"limit how many token pre wallet can mint"}  setNotice={setNotice.bind({},3)} side_notice={<div>{t('Allowlist-intro-4-1')}</div>} />
+                                                    <Input name="pb_price" label={t("public sale mint price")} placeholder={"e.g 0.05"}  setNotice={setNotice.bind({},3)} side_notice={<div>{t('Allowlist-intro-5-1')}</div>}/>
 
                                                 </div>
                                                 : <div className='ct text-gray-400 capitalize'>
@@ -730,7 +756,9 @@ class ContractView extends React.Component {
                                             
                                         </div>
                                         <div className="col-span-3 intro">
-                                            <p>{t('ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.')}</p>
+                                            {
+                                                getNotice(3)
+                                            }    
                                         </div>
                                     </div>
                                 </div>
@@ -795,7 +823,9 @@ class ContractView extends React.Component {
                                         </div>
                                         
                                         <div className="col-span-3 intro">
-                                            <p>{t('ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.')}</p>
+                                            <p>{t('Reveal-intro-1')}</p>
+                                            <p>{t('Reveal-intro-2')}</p>
+                                            <p>{t('Reveal-intro-3')}</p>
                                         </div>
                                     </div>
 

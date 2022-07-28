@@ -85,7 +85,7 @@ class GroupCreateModal extends React.Component {
                     footer={null}
                     onClose={this.props.closeModal}>
 
-                    <h2 className='modal-title'>{t('create group')}</h2>
+                    <h2 className='modal-title'>{t('new group')}</h2>
                   
                     <div>
 

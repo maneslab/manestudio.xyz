@@ -42,7 +42,7 @@ class ClubStep extends React.Component {
         return <div className='bg-white dark:bg-[#22252b] pt-0 pb-6 -mt-8 mb-8 '>
             <div className="max-w-screen-xl mx-auto flex justify-between h-10">
                 <Steps active={active}>
-                    <Step href={this.getUrl(club_id,1)} key={1}>{t('setting')}</Step>
+                    <Step href={this.getUrl(club_id,1)} key={1}>{t('settings')}</Step>
                     <Step href={this.getUrl(club_id,2)} key={2}>{t('deploy contract')}</Step>
                 </Steps>
                 <div>

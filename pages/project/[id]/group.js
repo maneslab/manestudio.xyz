@@ -135,10 +135,13 @@ class GenerateGroupView extends React.Component {
                                 <h3>{t('about group')}</h3>
                                 <div className='ct'>
                                 <p>
-                                    {t('By adding groups, you are able to create sub-collections that use their own designed traits. For example, for a PFP collection, if the character are shaped differently, the position of their eyes and mouths must be designed accordingly with different scales and positions. Therefore, you can create groups for each of the base characters.')}
+                                    {t('Group-intro-1')}
                                 </p>
                                 <p>
-                                    {t('If you want to bring some 1/1s to your collection, you can add them in step “Metadata” later.')}
+                                    {t('Group-intro-2')}
+                                </p>
+                                <p>
+                                    {t('Group-intro-3')}
                                 </p>
                                 </div>
                             </div>
@@ -159,7 +162,7 @@ class GenerateGroupView extends React.Component {
                                 ?  <Upload uploadProps={uploadProps} afterSuccess={this.handleUpload}>  
                                     <button className='btn btn-default'>
                                         <PlusIcon className='icon-xs mr-2'/>
-                                        {t('add')}
+                                        {t('ADD 1/1 NFTs')}
                                     </button>
                                 </Upload>
                                 : null
@@ -173,11 +176,14 @@ class GenerateGroupView extends React.Component {
 
                     <div className='col-span-3'>
                         <div className='block-intro'>
-                            <h3>{t('about spcail NFT')}</h3>
+                            <h3>{t('about 1/1 NFTs')}</h3>
                             <div className='ct'>
-                            <p>
-                                {t('Special NFT is a hidden section of the NFT series, each with a special a picture, and will only appear once')}
-                            </p>
+                                <p>
+                                    {t('about-1-1-intro-1')}
+                                </p>
+                                <p>
+                                    {t('about-1-1-intro-2')}
+                                </p>
                             </div>
                         </div>
                     </div>

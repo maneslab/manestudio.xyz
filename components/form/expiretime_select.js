@@ -32,7 +32,7 @@ class ExpiretimeSelect extends React.Component {
     }
 
     render() {
-        const {label,name,dropdown_visible} = this.props;
+        const {label,name,dropdown_visible,setNotice,side_notice} = this.props;
         const {t} = this.props.i18n;
 
        
@@ -61,7 +61,19 @@ class ExpiretimeSelect extends React.Component {
                     <Dropdown
                         overlay={menu} visible={dropdown_visible}
                     >
-                        <div className={classNames("input-with-prefix cursor-pointer w-72",{"has-error":show_error})} onClick={this.props.toggleDropdown}>
+                        <div className={classNames("input-with-prefix cursor-pointer w-72",{"has-error":show_error})} 
+                            onClick={this.props.toggleDropdown}
+                            onMouseEnter={(e)=>{
+                                if (typeof setNotice === 'function' && side_notice) {
+                                    setNotice(side_notice)
+                                } 
+                            }}
+                            onMouseLeave={(e)=> {
+                                if (typeof setNotice === 'function') {
+                                    setNotice(null)
+                                } 
+                            }} 
+                        >
                             {
                                 (value)
                                 ? <span className="input-inner">

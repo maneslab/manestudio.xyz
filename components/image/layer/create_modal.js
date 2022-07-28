@@ -90,7 +90,7 @@ class LayerCreateModal extends React.Component {
                     footer={null}
                     onClose={this.props.closeModal}>
 
-                    <h2 className='modal-title'>{t('create layer')}</h2>
+                    <h2 className='modal-title'>{t('new layer')}</h2>
                   
                     <div>
 
@@ -106,12 +106,12 @@ class LayerCreateModal extends React.Component {
 
                             <div className="p-0">
 
-                                <Input name="name" onlyLayer={true} label={t("layer name")} placeholder={t("must be english")} notice={notice}/>
+                                <Input name="name" onlyLayer={true} label={t("layer name")} placeholder={t("Must be capital letters in English")} notice={notice}/>
 
                                 <div className='border-t d-border-c-1 my-4' />
 
                                 <div className="form-submit flex justify-end mt-4">
-                                    <Button loading={is_adding} className="btn btn-primary" type="submit">{t('create')}</Button>
+                                    <Button loading={is_adding} className="btn btn-primary" type="submit">{t('create layer')}</Button>
                                 </div>
 
                             </div>

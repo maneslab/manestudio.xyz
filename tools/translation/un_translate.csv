@@ -1,7 +1,39 @@
 key,en
-whitelist mint price,whitelist mint price
-delayed reveal,delayed reveal
-revenue share,revenue share
-whitelist token limit per wallet,whitelist token limit per wallet
-public sale token limit per wallet,public sale token limit per wallet
-public sale mint price,public sale mint price
+abort,abort
+success,success
+"Please type  ""destroy""  to confirm","Please type  ""destroy""  to confirm"
+share rate,share rate
+"Once your contract is deployed on the blockchain, your fund will be locked for 7 days","Once your contract is deployed on the blockchain, your fund will be locked for 7 days"
+ManeSTUDIO will get a commission of 10%  from your collection sales,ManeSTUDIO will get a commission of 10%  from your collection sales
+"please note that once the resolution is set, it can no longer be changed","please note that once the resolution is set, it can no longer be changed"
+terms & condition,terms & condition
+I’ve read and agreed to,I’ve read and agreed to
+no description,no description
+Connect Wallet,Connect Wallet
+collection size,collection size
+max generatable,max generatable
+preficted unique ratio,preficted unique ratio
+regenerate,regenerate
+what is repetition rate?,what is repetition rate?
+repetition rate,repetition rate
+"Not too much repetition rate, nice project","Not too much repetition rate, nice project"
+Repetition rate average ordinary items,Repetition rate average ordinary items
+Repetition rate is too high,Repetition rate is too high
+choose network,choose network
+Manage Deployed Contracts,Manage Deployed Contracts
+manage,manage
+No contract deployed,No contract deployed
+Manastudio Contract is not deployed on this network yet,Manastudio Contract is not deployed on this network yet
+"After deployment, the project will be locked, you can no longer add, delete NFTtrait, images, can not modify the contract settings, etc.","After deployment, the project will be locked, you can no longer add, delete NFTtrait, images, can not modify the contract settings, etc."
+get Kovan Testnet ETH,get Kovan Testnet ETH
+Get,Get
+deploy to ETH mainnet,deploy to ETH mainnet
+deploy to ETH testnet,deploy to ETH testnet
+deploy contract warning,deploy contract warning
+hide in ManeSpace,hide in ManeSpace
+you need setting contract first before preview drop page,you need setting contract first before preview drop page
+publish to ManeSpace,publish to ManeSpace
+manage contract on ETH mainnet,manage contract on ETH mainnet
+manage contract on ETH testnet,manage contract on ETH testnet
+add,add
+save & back,save & back

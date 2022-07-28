@@ -37,7 +37,11 @@ class Home extends React.Component {
                     <div className='mt-48 mb-12'>
                         <Logo className="h-12" />
                     </div>
-                    <div className="max-w-prose mb-12" >{t('landing-page-intro')}</div>
+                    <div className="max-w-prose mb-12" >
+                        <div className='mb-4'>{t('landing-page-intro-1')}</div>
+                        <div className='mb-4'>{t('landing-page-intro-2')}</div>
+                        <div className=''>{t('landing-page-intro-3')}</div>
+                    </div>
                     <div>
                         <button className="btn btn-secondary mr-2 capitalize text-base">{t('learn more')}</button>
                         <Link href="/project/list">

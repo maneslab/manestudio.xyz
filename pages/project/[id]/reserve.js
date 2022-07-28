@@ -288,10 +288,10 @@ class GenerateGroupView extends React.Component {
 
         return <PageWrapper>
             <Head>
-                <title>{t('reserve NFT')}</title>
+                <title>{t('reserve NFTs')}</title>
             </Head>
             <div>
-                <ClubHeader club={club}  title={t('generate nft')} active_id={1} intro={t('generate-nft-header-intro')}/>
+                <ClubHeader club={club}  title={t('generate nft')} active_id={1} intro={t('generate-nft-header-intro-4')}/>
 
                 <ClubStep 
                     club_id={club_id} 
@@ -301,11 +301,11 @@ class GenerateGroupView extends React.Component {
                     />
 
                 <div className='flex justify-between items-center mb-8  max-w-screen-xl mx-auto border-b d-border-c-1 pb-4'>
-                    <h1 className='h1'>{t('reserve NFT')}</h1>
+                    <h1 className='h1'>{t('reserve NFTs')}</h1>
                     {
                         (!show_skip_page)
                         ?   <div>
-                            <span className='mr-4 text-sm font-bold'>Only Show Selected</span>
+                            <span className='mr-4 text-sm font-bold'>{t('Show Only Selected')}</span>
                             <Switch
                             onChange={this.handleChangeOnlySelected}
                             disabled={false}
@@ -321,13 +321,14 @@ class GenerateGroupView extends React.Component {
                     (show_skip_page) 
                     ? <div className='text-center my-12'>
                         <div className='text-center mb-8'>
-                            <p>{t('You can choose to set aside a portion of the NFT, or of course, you can choose to skip this step')}</p>
-                            <p>{t('The reserved NFTs will be automatically deposited to the address of the published contract after the official version of the contract is released')}</p>
+                            <p className='mb-2'>{t('Reserve-intro-1')}</p>
+                            <p className='mb-2'>{t('Reserve-intro-2')}</p>
+                            <p>{t('Reserve-intro-3')}</p>
                         </div>
                         <div className='flex justify-center items-center'>
                             <div><button className='btn btn-outline' onClick={this.toggleSuccessModal}>{t('skip')}</button></div>
                             <div className='py-4 mx-4'>{t('or')}</div>
-                            <div><button className='btn btn-primary' onClick={this.toggleShowSkipPage}>{t('reserve NFT')}</button></div>
+                            <div><button className='btn btn-primary' onClick={this.toggleShowSkipPage}>{t('reserve NFTs')}</button></div>
                         </div>
                     </div>
                     :   <div className="max-w-screen-xl mx-auto">
@@ -336,13 +337,13 @@ class GenerateGroupView extends React.Component {
 
                             <div className="col-span-1">
 
-                                <h3 className='h3 mb-2'>{t('special nft')}</h3>
+                                <h3 className='h3 mb-2'>{'1/1 NFTs'}</h3>
                                 <div className='mb-4 d-bg-c-1'>
                                     <div className='px-4 py-2 max-h-36'>
                                         <div className='flex justify-between items-center text-ubuntu my-2 font-sm items-center'>
                                             <div className='flex justify-start items-center text-xs'>
                                                 <input type="checkbox" onChange={this.showSpecialNft} checked={show_special_nft} class="checkbox-input mr-2" />
-                                                special NFTs
+                                                1/1 NFTs
                                             </div>
                                             <div className='text-xs text-gray-500'>
                                                 {special_nft_count}
@@ -431,8 +432,8 @@ class GenerateGroupView extends React.Component {
                         <div className='fixed bottom-0 left-0 w-full py-4 d-bg-c-1 border-t d-border-c-1' style={{'zIndex':9999}}>
                             <div className='max-w-screen-xl mx-auto flex justify-between items-center'>
                                 <div className='text-sm'>
-                                    <div>{select_nft_ids.count()} {t('generated NFT selected')}</div>
-                                    <div>{select_special_nft_ids.count()} {t('sepecial NFT selected')}</div>
+                                    <div>{select_nft_ids.count()} {t('generated NFTs selected')}</div>
+                                    <div>{select_special_nft_ids.count()} {t('1-1-nft-selected')}</div>
                                 </div>
                                 <div className='flex justify-end items-center'>
                                     <Button onClick={this.saveReserve} loading={this.state.is_saveing} className='btn btn-primary -ml-1'>{t('confirm reserve')}</Button>

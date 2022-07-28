@@ -117,18 +117,28 @@ class ClubCreateModal extends React.Component {
                     footer={null}
                     onClose={this.props.closeModal}>
 
-                    <h2 className='modal-title'>{t('create project')}</h2>
+                    <h2 className='modal-title'>{t('new project')}</h2>
                   
                     <div>
 
-                    <div className='py-4 border-t border-b d-border-c-1'>
-                        <div className='flex justify-start mb-4'>
-                            <span className='bg-black w-6 h-6 aspect-square text-white flex justify-center mr-2 rounded-full dark:bg-white dark:text-black'>1</span>
-                            {t('Once your contract is deployed on the blockchain, your fund will be locked for 7 days')}
+                    <div className='py-4 border-t border-b d-border-c-1 text-sm'>
+                        <div className='flex justify-start items-center mb-4'>
+                            <span className='bg-black w-6 h-6 aspect-square text-white flex justify-center items-center mr-2 rounded-full dark:bg-white dark:text-black'>1</span>
+                            <div>
+                                {t('create-project-notice-1')}
+                                <a className='a inline'>{t('learn more')}</a>
+                            </div>
                         </div>
-                        <div className='flex justify-start'>
-                        <span className='bg-black w-6 h-6 aspect-square text-white flex justify-center mr-2 rounded-full dark:bg-white dark:text-black'>2</span>
-                            {t('ManeSTUDIO will get a commission of 10%  from your collection sales')}
+                        <div className='flex justify-start items-center mb-4'>
+                            <span className='bg-black w-6 h-6 aspect-square text-white flex justify-center items-center mr-2 rounded-full dark:bg-white dark:text-black'>2</span>
+                            <div>
+                            {t('create-project-notice-2')}
+                            <a className='a inline'>{t('learn more')}</a>
+                            </div>
+                        </div>
+                        <div className='flex justify-start items-center '>
+                            <span className='bg-black w-6 h-6 aspect-square text-white flex justify-center items-center mr-2 rounded-full dark:bg-white dark:text-black'>3</span>
+                            {t('create-project-notice-3')}
                         </div>
                     </div>
 
@@ -145,7 +155,7 @@ class ClubCreateModal extends React.Component {
 
                             <div className="p-0">
 
-                                <Input name="name" label={t("project name")} placeholder={t("any name you want")} />
+                                <Input name="name" label={t("project name")} placeholder={t("Name it whatever you like, it can be changed at anytime")} />
 
                                 <ProjectTypeSelect name="project_type" label={t("project type")} />
 
@@ -153,10 +163,10 @@ class ClubCreateModal extends React.Component {
                                     (this.state.project_type == 'use_generator')
                                     ? <div>
                                         <div className='grid grid-cols-2 gap-4'>
-                                            <PrefixInput name="width" label={t("width")} placeholder={t("width")} endfix={'px'} />
-                                            <PrefixInput name="height" label={t("height")} placeholder={t("height")} endfix={'px'} />
+                                            <PrefixInput name="width" label={t("width")} placeholder={t("width")} endfix={t('px')} />
+                                            <PrefixInput name="height" label={t("height")} placeholder={t("height")} endfix={t('px')} />
                                         </div>
-                                        <div className='text-gray-500'>{t('please note that once the resolution is set, it can no longer be changed')}</div>
+                                        <div className='text-gray-500 text-sm'>{t('Careful! Once the resolution of your collection is set, it can no longer be changed')}</div>
                                     </div>
                                     : null
                                 }
@@ -164,7 +174,7 @@ class ClubCreateModal extends React.Component {
                                 <div className='border-t d-border-c-1 my-4' />
 
                                 <div className="form-submit flex justify-between mt-4">
-                                    <p className='flex justify-start items-center'>
+                                    <p className='flex justify-start items-center text-sm'>
                                         <input type="checkbox" checked={is_checked} class="checkbox mr-2" onChange={(e)=>{
                                             this.setState({
                                                 'is_checked' : e.target.checked

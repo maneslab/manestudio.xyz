@@ -166,7 +166,7 @@ html,body {
     @apply px-0;
 }
 .label-text {
-    @apply font-bold text-base dark:text-white;
+    @apply font-bold text-base dark:text-white capitalize;
 }
 
 /*message*/
@@ -187,6 +187,10 @@ html,body {
 .block-notification {
     @apply flex justify-between items-center dark:text-white;
     min-width: 240px;
+}
+
+.intro .h3 {
+    @apply mb-2
 }
 
 

@@ -59,7 +59,7 @@ class BluechipSelect extends React.Component {
 
     render() {
 
-        const {name,dropdown_visible,toggleDropdown} = this.props;
+        const {name,dropdown_visible,toggleDropdown,setNotice,side_notice} = this.props;
         const {bluechip_list} = this.state;
         const {t} = this.props.i18n;
         
@@ -130,7 +130,18 @@ class BluechipSelect extends React.Component {
                             <Dropdown
                                 overlay={menu} visible={dropdown_visible}
                             >
-                                <div onClick={toggleDropdown} className="input-box input-select-box cursor-pointer ">
+                                <div onClick={toggleDropdown} className="input-box input-select-box cursor-pointer"
+                                onMouseEnter={(e)=>{
+                                    if (typeof setNotice === 'function' && side_notice) {
+                                        setNotice(side_notice)
+                                    } 
+                                }}
+                                onMouseLeave={(e)=> {
+                                    if (typeof setNotice === 'function') {
+                                        setNotice(null)
+                                    } 
+                                }} 
+                                >
                                 {
                                     (select_names.length > 0)
                                     ? <div className="text-clip text-ellipsis">

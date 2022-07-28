@@ -83,7 +83,7 @@ class GenerateGroupView extends React.Component {
                 <title>{t('metadata')}</title>
             </Head>
             <div>
-                <ClubHeader club={club}  title={t('generate nft')} active_id={1} intro={t('generate-nft-header-intro')}/>
+                <ClubHeader club={club}  title={t('generate nft')} active_id={1} intro={t('generate-nft-header-intro-3')}/>
 
                 <ClubStep 
                     club_id={club_id} 

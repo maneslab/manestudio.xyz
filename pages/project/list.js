@@ -10,6 +10,7 @@ import MyClubList from 'components/club/mylist'
 import withMustLogin from 'hocs/mustlogin';
 import withTranslate from 'hocs/translate';
 import CreateModal from 'components/club/create_modal'
+import {PlusIcon} from '@heroicons/react/outline'
 
 @withTranslate
 @withMustLogin
@@ -42,7 +43,8 @@ class ClubList extends React.Component {
                     <div className='flex justify-between items-center mb-8'>
                         <h1 className="h1">{t('my projects')}</h1>
                         <button className='btn btn-primary' onClick={this.toggleCreateModal}>
-                            {t('add project')}
+                            <PlusIcon className='icon-xs mr-2'/> 
+                            {t('new project')}
                         </button>
                     </div>
                     <MyClubList toggleCreateModal={this.toggleCreateModal}/>

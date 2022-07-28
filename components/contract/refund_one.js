@@ -17,7 +17,7 @@ export default function RefundableOne({refund,id,index,remove,errors}) {
         <div className={'mb-2 bg-white dark:bg-[#22252b]  p-6 pt-4 refund-one'}>
             <div className='border-gray-300'>
                 <div className='flex justify-between'>
-                    <ExpiretimeSelect label={t('time')} name={`refund[${index}].end_time`}  />
+                    <ExpiretimeSelect label={t('refund period ending time')} name={`refund[${index}].end_time`}  />
                     <PercentInput label={t('refund rate')} name={`refund.${index}.refund_rate`} />
                     <div className='flex  justify-end items-end'>
                         <button type="button" className='btn btn-error btn-outline'  onClick={() => remove(index)}>

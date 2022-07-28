@@ -1,6 +1,8 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import useTranslation from 'next-translate/useTranslation'
 
 const ConnectWalletButton = () => {
+  let {t} = useTranslation('common');
   return (
     <ConnectButton.Custom>
       {({
@@ -26,7 +28,7 @@ const ConnectWalletButton = () => {
               if (!mounted || !account || !chain) {
                 return (
                   <button onClick={openConnectModal} className="btn btn-outline" type="button">
-                    Connect Wallet
+                    {t('Connect Wallet')}
                   </button>
                 );
               }

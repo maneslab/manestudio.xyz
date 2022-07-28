@@ -172,8 +172,7 @@ class GenerateGroupView extends React.Component {
                 <title>{t('generate nft')}</title>
             </Head>
             <div>
-                <ClubHeader club={club}  title={t('generate nft')} active_id={1} intro={t('generate-nft-header-intro')}/>
-
+                <ClubHeader club={club}  title={t('generate NFTs')} active_id={1} intro={t('Generate-nft-header-intro-2')}/>
 
                 <ClubStep 
                     club_id={club_id} 
@@ -183,7 +182,7 @@ class GenerateGroupView extends React.Component {
                     />
 
                 <div className='flex justify-between items-center mb-8 max-w-screen-xl mx-auto'>
-                    <h1 className='h1'>{t('generate NFT')}</h1>
+                    <h1 className='h1'>{t('artworks')}</h1>
                     {
                         (generates.length > 0)
                         ? <GenerateFrom club_id={club_id} afterGenerate={this.afterGenerate} max_generate_number={max_generate_number} is_generated={true}/>
@@ -237,7 +236,7 @@ class GenerateGroupView extends React.Component {
                         {
                             (is_fetched && generates.length == 0)
                             ? <div className='py-24'>
-                                <div className='flex justify-center capitalize font-bold text-xl mb-8'>{t('no item')}</div>
+                                <div className='flex justify-center capitalize font-bold text-xl mb-8'>{t('no NFT yet')}</div>
                                 <div className='flex justify-center'>
                                     <GenerateFrom club_id={club_id} afterGenerate={this.afterGenerate} max_generate_number={max_generate_number} is_generated={false}/>
                                 </div>

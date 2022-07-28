@@ -18,6 +18,7 @@ import {withTranslate} from 'hocs/index'
 import {UserGroupIcon} from '@heroicons/react/outline'
 
 import {defaultListData} from 'helper/common'
+import {PlusIcon} from '@heroicons/react/outline'
 
 
 @withTranslate
@@ -54,7 +55,7 @@ class MyClubList extends React.Component {
                 ? <div className='py-12 d-bg-c-1 my-12 text-center'>
                     <Empty text={t('I have not created any project yet')} icon={<UserGroupIcon className='icon-base'/>}/>
                     <div className='mt-4'>
-                        <button className={"btn btn-primary"} onClick={this.props.toggleCreateModal}>{t('add project')}</button>
+                        <button className={"btn btn-primary"} onClick={this.props.toggleCreateModal}><PlusIcon className='icon-xs mr-2'/> {t('new project')}</button>
                     </div>
                 </div>
                 : <div className={""}>

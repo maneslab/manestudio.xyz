@@ -3,15 +3,16 @@ import PropTypes from 'prop-types';
 import { confirmable } from 'react-confirm';
 import Modal from 'components/common/modal'; 
 import CloseIcon from 'public/img/icons/close.svg'
+// import useTranslation from 'next-translate/useTranslation'
 
-const YourDialog = ({show, proceed, confirmation, title, closeIcon, options}) => {
+const YourDialog = ({show, proceed, confirmation, title, closeIcon, confirm_text, cancel_text, options}) => {
     let closeIconComponent;
     if (closeIcon === false) {
         closeIconComponent = null
     }else {
         closeIconComponent = <CloseIcon className="w-4 h-4" />
     }        
-  
+
     return <Modal title={null} 
         visible={show} 
         maskClosable={false}
@@ -33,8 +34,8 @@ const YourDialog = ({show, proceed, confirmation, title, closeIcon, options}) =>
         }
         
         <div className="flex justify-end items-center space-x-2">
-            <button className="btn btn-outline" onClick={() => proceed(false)}>cancel</button>
-            <button className="btn btn-primary" onClick={() => proceed(true)}>OK</button>
+            <button className="btn btn-outline" onClick={() => proceed(false)}>{cancel_text?cancel_text:"cancel"}</button>
+            <button className="btn btn-primary" onClick={() => proceed(true)}>{confirm_text?confirm_text:"confirm"}</button>
         </div>
     </Modal>
 

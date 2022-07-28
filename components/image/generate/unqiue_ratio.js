@@ -25,21 +25,21 @@ export default function UniqueRatio({
             <InformationCircleIcon className="w-5 h-5" />
             {
                 (isShown)
-                ? <div className='absolute w-96 h-48 d-bg-c-1 border d-border-c-1 p-4 bottom-5 shadow-lg z-100'>
+                ? <div className='absolute w-96 d-bg-c-1 border d-border-c-1 p-4 bottom-5 shadow-lg z-100'>
                     <h3 className='font-bold mb-2'>{t('what is repetition rate?')}</h3>
                     <div className='text-sm'>
-                        <div className='font-bold mb-2'>{t('repetition rate')} = {t('collection size')} / {t('max generatable')};</div>
+                        <div className='font-bold mb-2'>{t('repetition-rate-intro')}</div>
                         <div>
                             <span className='text-green-500 mr-4'>{"rate < 10%"}</span>
-                            <span>{t('Not too much repetition rate, nice project')}</span>
+                            <span>{t('Repetition-rate-cond-1')}</span>
                         </div>
                         <div>
                             <span className='text-yellow-500 mr-4'>{"10% < rate < 30%"}</span>
-                            <span>{t('Repetition rate average ordinary items')}</span>
+                            <span>{t('Repetition-rate-cond-2')}</span>
                         </div>
                         <div>
                             <span className='text-red-500 mr-4'>{"rate > 30%"}</span>
-                            <span>{t('Repetition rate is too high')}</span>
+                            <span>{t('Repetition-rate-cond-3')}</span>
                         </div>
                     </div>
                 </div>

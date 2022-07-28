@@ -38,7 +38,7 @@ class UploadWhiteListCsv extends React.Component {
 
         const {t} = this.props.i18n;
         const {upload_count} = this.state;
-        const {value} = this.props;
+        const {value,setNotice,side_notice} = this.props;
 
 
         const uploadProps = uploadRequest({
@@ -51,7 +51,18 @@ class UploadWhiteListCsv extends React.Component {
         })
         return  <div className='flex justify-start items-center'>
             <Upload uploadProps={uploadProps} afterSuccess={this.handleUpload}>  
-                <button type="button" className='btn btn-default'>
+                <button type="button" className='btn btn-default'
+                onMouseEnter={(e)=>{
+                    if (typeof setNotice === 'function' && side_notice) {
+                        setNotice(side_notice)
+                    } 
+                }}
+                onMouseLeave={(e)=> {
+                    if (typeof setNotice === 'function') {
+                        setNotice(null)
+                    } 
+                }}
+                >
                     <UploadIcon className='w-4 mr-2' /> {t('upload csv file')}
                 </button>
             </Upload>

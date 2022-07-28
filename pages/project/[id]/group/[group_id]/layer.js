@@ -117,7 +117,7 @@ class GenerateGroupView extends React.Component {
                         <GenerateImage group_id={group_id} />
 
                         <div className='block-intro'>
-                            <h3>{t('about group')}</h3>
+                            <h3>{t('about layer and trait')}</h3>
                             <div className='ct'>
                             <p>
                                 {t('By adding groups, you are able to create sub-collections that use their own designed traits. For example, for a PFP collection, if the character are shaped differently, the position of their eyes and mouths must be designed accordingly with different scales and positions. Therefore, you can create groups for each of the base characters.')}

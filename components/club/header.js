@@ -55,7 +55,7 @@ export default function ClubHeader({
                             <Link href={base_url+'/group'} className={"tab-active"}>
                                 <a className={classNames("tab  capitalize",{"tab-active":(active_id == 1)})}>
                                     {step_1_finished_icon}
-                                    1.{t('generate NFT')}
+                                    1.{t('generate NFTs')}
                                 </a>
                             </Link>
                             {

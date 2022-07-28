@@ -15,9 +15,6 @@ choose image file,choose image file,选择图像文件
 choose video file,choose video file,选择视频文件
 address,address,地址
 setting,setting,设置
-test deploy,test deploy,测试部署
-kovan,kovan,Kovan
-ropsten,ropsten,Ropsten
 deploy,deploy,部署
 ETH mainnet,ETH mainnet,ETH主网
 whitelist is disabled,whitelist is disabled,白名单被禁用
@@ -223,10 +220,10 @@ public sale,public sale,公开销售
 public sale mint time,public sale mint time,公开销售铸造时间
 mint price,mint price,mint价格
 special tools,special tools,特殊工具
-"Emergency suspension will suspend Mint for the entire contract, which is used to suspend Mint in an emergency","Emergency suspension will suspend Mint for the entire contract, which is used to suspend Mint in an emergency",紧急暂停将暂停
+"Emergency suspension will suspend Mint for the entire contract, which is used to suspend Mint in an emergency","Emergency suspension will suspend Mint for the entire contract, which is used to suspend Mint in an emergency",紧急暂停将暂停Mint功能
 resume,resume,恢复
 pause,pause,暂停
-"If you are not satisfied with some configuration, such as account splitting, refund, name, etc., you can destroy the contract and republish it","If you are not satisfied with some configuration, such as account splitting, refund, name, etc., you can destroy the contract and republish it",如果你对某些配置不满意，如账户拆分、退款、名称等，你可以销毁合约并重新发布它
+destory-info,"If you are not satisfied with some configuration, such as account splitting, refund, name, etc., you can destroy the contract and republish it, (contract need has not any mint and reserve NFT yet)","如果你对某些配置不满意，如账户拆分、退款、名称等，你可以销毁合约并重新发布它(合约需要无预留NFT,无mint)"
 destroy,destroy,销毁
 "the following settings, which do not require contract modification, will take effect in real time","the following settings, which do not require contract modification, will take effect in real time",以下设置不需要修改合约，将实时生效
 paused contract,paused contract,暂停的合约
@@ -243,18 +240,13 @@ deploy contract tx sent,deploy contract tx sent,部署合约TX发送
 deploy contract successful,deploy contract successful,部署合约成功
 withdraw tx sent,withdraw tx sent,撤回合约 已发送
 withdraw successful,withdraw successful,提取成功
-set public,set public,设置公开
-set-public-intro,set-public-intro,设置公共介绍
 generate nft,generate nft,生成nft
-unique ratio,unique ratio,不重复率
 no item,no item,没有项目
 group,group,组
 add group,add group,添加组
 about group,about group,关于组
 "By adding groups, you are able to create sub-collections that use their own designed traits. For example, for a PFP collection, if the character are shaped differently, the position of their eyes and mouths must be designed accordingly with different scales and positions. Therefore, you can create groups for each of the base characters.","By adding groups, you are able to create sub-collections that use their own designed traits. For example, for a PFP collection, if the character are shaped differently, the position of their eyes and mouths must be designed accordingly with different scales and positions. Therefore, you can create groups for each of the base characters.",通过添加组，你能够创建使用他们自己设计的特征的子集合。例如，对于一个PFP系列，如果角色的形状不同，他们的眼睛和嘴巴的位置必须相应地设计不同的尺度和位置。因此，你可以为每个基础人物创建组。
 "If you want to bring some 1/1s to your collection, you can add them in step “Metadata” later.","If you want to bring some 1/1s to your collection, you can add them in step “Metadata” later.","如果你想给你的收藏带来一些1/1，你可以在后面的 ""元数据 ""步骤中添加它们。"
-spcail NFT,spcail NFT,spcail NFT
-add spcail NFT,add spcail NFT,添加spcail NFT
 about spcail NFT,about spcail NFT,关于spcail NFT
 "Special NFT is a hidden section of the NFT series, each with a special a picture, and will only appear once","Special NFT is a hidden section of the NFT series, each with a special a picture, and will only appear once",特殊NFT是NFT系列的一个隐藏部分，每个都有特殊的一张图片，并且只会出现一次
 metadata,metadata,元数据
@@ -267,8 +259,8 @@ special nft,special nft,特殊NFT
 filters,filters,过滤
 confirm reserve,confirm reserve,确认保留
 Congratulations!,Congratulations!,祝贺您！您已经完成了NFT的生成，现在您可以进入合约页面建立您的NFT合约。
-"you have finished generate NFT ,now you can goto contract page for build your NFT contract now!","you have finished generate NFT ,now you can goto contract page for build your NFT contract now!",您已经完成了NFT的生成，现在您可以进入合约页面来建立您的NFT合约了。
-goto contract page,goto contract page,进入合约页面
+"you have finished generate NFT ,now you can go to contract page for build your NFT contract now!","you have finished generate NFT ,now you can go to contract page for build your NFT contract now!",您已经完成了NFT的生成，现在您可以进入合约页面来建立您的NFT合约了。
+go to contract page,go to contract page,进入合约页面
 reserve success,reserve success,储备成功
 contract setting,contract setting,合约设置
 lock-info,"The contract has been locked, if you need to change it, please destroy the ETH mainnet contract before you can change it.",该合约已被锁定，如果您需要修改，请在修改前销毁ETH主网合约。
@@ -284,9 +276,9 @@ whitelist presale end time,whitelist presale end time,白名单预售结束时�
 public sale start time,public sale start time,公开销售开始时间
 public sale end time,public sale end time,公开销售结束时间
 public sale is disabled,public sale is disabled,公开销售被禁用
-add share account,add share account,添加股票账户
-click add to add a share account,click add to add a share account,点击添加以添加一个股票账户
-"revenue sharing is disabled , all income only could withdraw by owner","revenue sharing is disabled , all income only could withdraw by owner",收益分享已被禁用，所有收入只能由业主提取。
+add share account,add share account,添加钱包地址
+click add to add a share account,click add to add a share account,点击添加以添加一个钱包地址
+"revenue sharing is disabled , all income only could withdraw by owner","revenue sharing is disabled , all income only could withdraw by owner",收入分账已被禁用，所有收入只能由owner提取。
 contract name,contract name,合约名称
 ASCII art text generator,ASCII art text generator,ASCII艺术文本生成器
 generate groups,generate groups,生成组
@@ -295,3 +287,10 @@ add layer,add layer,添加图层
 warning,warning,注意
 generated NFT selected,generated NFT selected,合成的NFT已选择
 sepecial NFT selected,sepecial NFT selected,特殊的NFT已选择
+whitelist mint price,whitelist mint price,白名单mint价格
+delayed reveal,delayed reveal,延迟开图
+revenue share,revenue share,收入分账
+whitelist token limit per wallet,whitelist token limit per wallet,白名单单个钱包mint数量限制
+public sale token limit per wallet,public sale token limit per wallet,公开销售单个钱包mint数量限制
+public sale mint price,public sale mint price,公开销售mint价格
+max token supply,max token supply,NFT发行总量
