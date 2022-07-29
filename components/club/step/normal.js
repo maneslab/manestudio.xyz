@@ -47,7 +47,7 @@ class ClubStepNormal extends React.Component {
             <div className="max-w-screen-xl mx-auto flex justify-between h-10">
                 <Steps active={active}>
                     <Step href={this.getNormalUrl(club_id,1)} key={1}>{t('settings')}</Step>
-                    <Step href={this.getNormalUrl(club_id,2)} key={2}>metadata</Step>
+                    <Step href={this.getNormalUrl(club_id,2)} key={2}>{t('metadata')}</Step>
                     <Step key={3}>{t('reserve NFTs')}</Step>
                 </Steps>
                 <div>

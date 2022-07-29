@@ -55,7 +55,7 @@ export default function ClubHeader({
                             <Link href={base_url+'/group'} className={"tab-active"}>
                                 <a className={classNames("tab  capitalize",{"tab-active":(active_id == 1)})}>
                                     {step_1_finished_icon}
-                                    1.{t('generate NFTs')}
+                                    1. {t('artworks')}
                                 </a>
                             </Link>
                             {
@@ -63,12 +63,12 @@ export default function ClubHeader({
                                 ? <Link href={base_url+'/contract'} activeClassName={"tab-active"}>
                                     <a className={classNames("tab  capitalize",{"tab-active":(active_id == 2)})}>
                                         {step_2_finished_icon}
-                                        2.{t('smart contract')}
+                                        2. {t('smart contract')}
                                     </a>
                                 </Link>
                                 : <a className={classNames("tab  capitalize",{"tab-active":(active_id == 2)})}>
                                     {step_2_finished_icon}
-                                    2.{t('smart contract')}
+                                    2. {t('smart contract')}
                                 </a>
                             }
                             {
@@ -76,11 +76,11 @@ export default function ClubHeader({
                                 ? <Link href={base_url+'/drop'} activeClassName={"tab-active"}>
                                     <a className={classNames("tab  capitalize",{"tab-active":(active_id == 3)})}>
                                         {step_3_finished_icon}
-                                        3.{t('mint page')}
+                                        3. {t('minting page')}
                                     </a>
                                 </Link>
                                 : <a className={classNames("tab  capitalize",{"tab-active":(active_id == 3)})}>
-                                    3.{t('mint page')}
+                                    3. {t('minting page')}
                                 </a>
                             }
                         </div>

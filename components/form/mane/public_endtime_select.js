@@ -1,11 +1,13 @@
 import React from 'react';
 import { Field } from 'formik';
 import Dropdown from 'rc-dropdown';
+import classNames from 'classnames';
 
 import 'react-day-picker/dist/style.css';
 import withDropdown  from 'hocs/dropdown';
 import {withTranslate} from 'hocs/index'
 import { format,getUnixTime,fromUnixTime } from 'date-fns';
+import ErrorMessage from 'components/form/error_message'
 
 import TimeSelect from 'components/common/time_select';
 import { CalendarIcon } from '@heroicons/react/outline';
@@ -25,7 +27,7 @@ class PublicEndTimeSelect extends React.Component {
     }   
 
     render() {
-        const {label,name,dropdown_visible,pb_enable} = this.props;
+        const {label,name,dropdown_visible,pb_enable,setNotice,side_notice} = this.props;
         const {t} = this.props.i18n;
 
         return  <div className="form-control">
@@ -51,28 +53,42 @@ class PublicEndTimeSelect extends React.Component {
 
                         let menu = <TimeSelect value={value} onChange={setFieldValue.bind({},name)} toggleDropdown={this.props.toggleDropdown}/>
                         return <div>
-                            <div>
-                                <Dropdown
-                                    overlay={menu} visible={dropdown_visible}
+                            <Dropdown
+                                overlay={menu} visible={dropdown_visible}
+                            >
+                                <div className={classNames("input-with-prefix cursor-pointer w-72",{"has-error":show_error})} 
+                                    onClick={this.props.toggleDropdown}
+                                    onMouseEnter={(e)=>{
+                                        if (typeof setNotice === 'function' && side_notice) {
+                                            setNotice(side_notice)
+                                        } 
+                                    }}
+                                    onMouseLeave={(e)=> {
+                                        if (typeof setNotice === 'function') {
+                                            setNotice(null)
+                                        } 
+                                    }} 
                                 >
-                                    <div onClick={this.props.toggleDropdown} className="flex justify-start cursor-pointer">
                                     {
-                                        (select_date)
-                                        ? <span className="text-sm flex items-center px-4 py-2 border-2 border-black dark:border-[#797d86]">
+                                        (value)
+                                        ? <span className="input-inner">
                                             <div className="">
                                                 {format(select_date,'yyyy-MM-dd HH:mm')}
                                                 <span className='text-gray-400 ml-4'>{format(select_date,'zzzz')}</span>
                                             </div>
                                         </span>
-                                        : <span className="text-sm text-gray-400">{t('please select date')}</span>
+                                        : <span className="input-inner">
+                                            {t('please select date')}
+                                            <span className='text-gray-400 ml-4'>{format(select_date,'zzzz')}</span>
+                                        </span>
                                     }
-                                    <span className='bg-black dark:bg-[#797d86] text-white p-2 px-4'><CalendarIcon className='icon-sm'/></span>
-                                    </div>
-                                </Dropdown>
-                            </div>
+                                    <span className='prefix end h-9 flex items-center'><CalendarIcon className='icon-xs'/></span>
+                                </div>
+                            </Dropdown>
+                            <ErrorMessage name={name}/>
                             {
-                                (show_error)
-                                ? <div className="input-error-msg">{meta.error}</div>
+                                (dropdown_visible)
+                                ? <div className='mask-bg' onClick={this.props.toggleDropdown}></div>
                                 : null
                             }
                         </div>

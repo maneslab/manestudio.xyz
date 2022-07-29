@@ -401,7 +401,7 @@ class ContractView extends React.Component {
             }),
             wl_price : Yup.number().when('wl_enable', {
                 is: true,
-                then : Yup.number().moreThan(0).required()
+                then : Yup.number().min(0).required()
             }),
 
             pb_enable : Yup.boolean(),
@@ -420,7 +420,7 @@ class ContractView extends React.Component {
             }),
             pb_price : Yup.number().when('pb_enable', {
                 is: true,
-                then : Yup.number().moreThan(0).required()
+                then : Yup.number().min(0).required()
             }),
 
 
@@ -512,8 +512,8 @@ class ContractView extends React.Component {
                                                 <Input name="name" label={t("contract name")} onlyEnglish={true} placeholder={"E.g. weirdo ghost gang"} setNotice={setNotice.bind({},1)} side_notice={<div>{t('Contract-side-1-2')}</div>}/>
                                                 <Input name="symbol" label={t("token symbol")} onlyEnglish={true} placeholder={"E.g. WGG"} setNotice={setNotice.bind({},1)} side_notice={<div>{t('Contract-side-1-3')}</div>}/>
                                                 <div className='grid grid-cols-2 gap-4'>
-                                                    <Input name="type" label={t("contract type")} value={"ERC-721A"} readOnly={true} disabled placeholder={"E.g. weirdo ghost gang"}  setNotice={setNotice.bind({},1)} side_notice={<div>{t('Contract-side-1-4')}</div>}/>
-                                                    <Input name="max_supply" label={t("max. token supply")} readOnly={true} disabled  setNotice={setNotice.bind({},1)} side_notice={<div>{t('Contract-side-1-5')}</div>} />
+                                                    <Input name="type" label={t("contract type")} value={"ERC-721A"} readOnly={true}  placeholder={"E.g. weirdo ghost gang"}  setNotice={setNotice.bind({},1)} side_notice={<div>{t('Contract-side-1-4')}</div>}/>
+                                                    <Input name="max_supply" label={t("max. token supply")} readOnly={true}   setNotice={setNotice.bind({},1)} side_notice={<div>{t('Contract-side-1-5')}</div>} />
                                                 </div>
                                             </div>
                                         </div>
@@ -740,13 +740,13 @@ class ContractView extends React.Component {
                                                 (values.pb_enable && values.pb_enable > 0)
                                                 ? <div className='ct'>
 
-                                                    <ExpiretimeSelect label={t('public sale start time')} name={'pb_start_time'}  setNotice={setNotice.bind({},3)} side_notice={<div>{t('Allowlist-intro-2-1')}</div>}/>
+                                                    <ExpiretimeSelect label={t('public sale start time')} name={'pb_start_time'}  setNotice={setNotice.bind({},3)} side_notice={<div>{t('Publicsale-intro-2-1')}</div>}/>
                                                     
-                                                    <PublicEndTimeSelect label={t('public sale end time')} name={'pb_end_time'} pb_enable={values.pb_end_time_enable} setNotice={setNotice.bind({},3)} side_notice={<div><p>{t('Allowlist-intro-3-1')}</p><p>{t('Allowlist-intro-3-2')}</p></div>}/>
+                                                    <PublicEndTimeSelect label={t('public sale end time')} name={'pb_end_time'} pb_enable={values.pb_end_time_enable} setNotice={setNotice.bind({},3)} side_notice={<div><p>{t('Publicsale-intro-3-1')}</p><p>{t('Publicsale-intro-3-2')}</p></div>}/>
 
 
-                                                    <Input name="pb_per_address" label={t("public sale token limit per wallet")} placeholder={"limit how many token pre wallet can mint"}  setNotice={setNotice.bind({},3)} side_notice={<div>{t('Allowlist-intro-4-1')}</div>} />
-                                                    <Input name="pb_price" label={t("public sale mint price")} placeholder={"e.g 0.05"}  setNotice={setNotice.bind({},3)} side_notice={<div>{t('Allowlist-intro-5-1')}</div>}/>
+                                                    <Input name="pb_per_address" label={t("public sale token limit per wallet")} placeholder={"limit how many token pre wallet can mint"}  setNotice={setNotice.bind({},3)} side_notice={<div>{t('Publicsale-intro-4-1')}</div>} />
+                                                    <Input name="pb_price" label={t("public sale mint price")} placeholder={"e.g 0.05"}  setNotice={setNotice.bind({},3)} side_notice={<div>{t('Publicsale-intro-5-1')}</div>}/>
 
                                                 </div>
                                                 : <div className='ct text-gray-400 capitalize'>

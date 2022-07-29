@@ -76,7 +76,7 @@ class GenerateGroupView extends React.Component {
                 <title>{t('generate groups')}</title>
             </Head>
             <div>
-                <ClubHeader club={club}  title={t('generate nft')} active_id={1} intro={t('generate-nft-header-intro')}/>
+                <ClubHeader club={club}  title={t('artworks')} active_id={1} intro={t('generate-nft-header-intro')}/>
                 <ClubStep club_id={club_id} active_name={'setting'} project_type={(club)?club.get('project_type'):'use_generator'} next_step={false} is_lock={is_lock} />
 
                 <div className="max-w-screen-xl mx-auto grid grid-cols-8 gap-16">
@@ -120,10 +120,13 @@ class GenerateGroupView extends React.Component {
                             <h3>{t('about layer and trait')}</h3>
                             <div className='ct'>
                             <p>
-                                {t('By adding groups, you are able to create sub-collections that use their own designed traits. For example, for a PFP collection, if the character are shaped differently, the position of their eyes and mouths must be designed accordingly with different scales and positions. Therefore, you can create groups for each of the base characters.')}
+                                {t('Layer-intro-1')}
                             </p>
                             <p>
-                                {t('If you want to bring some 1/1s to your collection, you can add them in step “Metadata” later.')}
+                                {t('Layer-intro-2')}
+                            </p>
+                            <p>
+                                {t('Layer-intro-3')}
                             </p>
                             </div>
                         </div>

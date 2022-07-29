@@ -29,17 +29,17 @@ export default function UniqueRatio({
                     <h3 className='font-bold mb-2'>{t('what is repetition rate?')}</h3>
                     <div className='text-sm'>
                         <div className='font-bold mb-2'>{t('repetition-rate-intro')}</div>
-                        <div>
-                            <span className='text-green-500 mr-4'>{"rate < 10%"}</span>
-                            <span>{t('Repetition-rate-cond-1')}</span>
+                        <div className='flex justify-start mb-2'>
+                            <span className='text-green-500 mr-4 w-1/3 block'>{"rate < 10%"}</span>
+                            <span className='w-2/3 block'>{t('Repetition-rate-cond-1')}</span>
                         </div>
-                        <div>
-                            <span className='text-yellow-500 mr-4'>{"10% < rate < 30%"}</span>
-                            <span>{t('Repetition-rate-cond-2')}</span>
+                        <div className='flex justify-start mb-2'>
+                            <span className='text-yellow-500 mr-4 w-1/3 block'>{"10%< rate <30%"}</span>
+                            <span className='w-2/3 block'>{t('Repetition-rate-cond-2')}</span>
                         </div>
-                        <div>
-                            <span className='text-red-500 mr-4'>{"rate > 30%"}</span>
-                            <span>{t('Repetition-rate-cond-3')}</span>
+                        <div className='flex justify-start'>
+                            <span className='text-red-500 mr-4 w-1/3 block'>{"rate > 30%"}</span>
+                            <span className='w-2/3 block'>{t('Repetition-rate-cond-3')}</span>
                         </div>
                     </div>
                 </div>

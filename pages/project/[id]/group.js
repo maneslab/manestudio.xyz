@@ -97,7 +97,7 @@ class GenerateGroupView extends React.Component {
                 <title>{t('generate nft')}</title>
             </Head>
             <div>
-                <ClubHeader club={club} title={t('generate nft')} active_id={1} intro={t('generate-nft-header-intro')}/>
+                <ClubHeader club={club} title={t('artworks')} active_id={1} intro={t('generate-nft-header-intro')}/>
 
                 <ClubStep 
                     club_id={club_id} 
@@ -160,7 +160,7 @@ class GenerateGroupView extends React.Component {
                             {
                                 (!is_lock)
                                 ?  <Upload uploadProps={uploadProps} afterSuccess={this.handleUpload}>  
-                                    <button className='btn btn-default'>
+                                    <button className='btn btn-default capitalize'>
                                         <PlusIcon className='icon-xs mr-2'/>
                                         {t('ADD 1/1 NFTs')}
                                     </button>

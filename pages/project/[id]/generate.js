@@ -189,63 +189,73 @@ class GenerateGroupView extends React.Component {
                         : null
                     }
                 </div>
-                
-                <div className="max-w-screen-xl mx-auto grid grid-cols-4 gap-8">
 
-                    <div className="col-span-1">
-
-                    <div class="d-bg-c-1 flex justify-between items-center p-4 mb-4 text-sm">
-                        <div class="">{t('repetition rate')}</div>
-                        <UniqueRatio value={uniqueness}/>
+                {
+                    (is_fetching && !is_fetched)
+                    ? <div className='py-24 flex justify-center'>
+                        <Loading />
                     </div>
+                    : null
+                }
 
-                    {
-                        Object.keys(merged_traits).map(k=>{
-                            return <div className=' mb-4 d-bg-c-1'>
-                                <div className='d-bg-c-1 py-2 px-4 font-bold border-b d-border-c-1'>{k}</div>
-                                <div className='px-4 py-2 max-h-36 overflow-y-scroll'>
-                                    {
-                                        Object.keys(merged_traits[k]).map(k2=>{
-                                            return <div className='flex justify-between items-center text-ubuntu my-2 font-sm items-center'>
-                                                <div className='flex justify-start items-center text-xs'>
-                                                    <input type="checkbox" onChange={this.filterOnChange} value={merged_traits[k][k2]['trait_ids']} class="checkbox-input mr-2" />
-                                                    {k2}
-                                                </div>
-                                                <div className='text-xs text-gray-500'>
-                                                    {merged_traits[k][k2]['count']}
-                                                </div>
-                                            </div>
-                                        })
-                                    }
-                                </div>
-                            </div>
-                        })
-                    }
+                {
+                    (is_fetched && generates.length == 0)
+                    ? <div className='py-24'>
+                        <div className='flex justify-center capitalize font-bold text-xl mb-8'>{t('no NFT yet')}</div>
+                        <div className='flex justify-center'>
+                            <GenerateFrom club_id={club_id} afterGenerate={this.afterGenerate} max_generate_number={max_generate_number} is_generated={false}/>
+                        </div>
                     </div>
+                    : null
+                }
 
-                    <div className="col-span-3">
+                {
+                    (is_fetched && generates.length > 0)
+                    ? <div className="max-w-screen-xl mx-auto grid grid-cols-4 gap-8">
+
+                        <div className="col-span-1">
+
+                        <div class="d-bg-c-1 flex justify-between items-center p-4 mb-4 text-sm">
+                            <div class="">{t('repetition rate')}</div>
+                            <UniqueRatio value={uniqueness}/>
+                        </div>
 
                         {
-                            (is_fetching)
-                            ? <div className='py-24 flex justify-center'>
-                                <Loading />
-                            </div>
-                            : null
-                        }
-
-                        {
-                            (is_fetched && generates.length == 0)
-                            ? <div className='py-24'>
-                                <div className='flex justify-center capitalize font-bold text-xl mb-8'>{t('no NFT yet')}</div>
-                                <div className='flex justify-center'>
-                                    <GenerateFrom club_id={club_id} afterGenerate={this.afterGenerate} max_generate_number={max_generate_number} is_generated={false}/>
+                            Object.keys(merged_traits).map(k=>{
+                                return <div className=' mb-4 d-bg-c-1'>
+                                    <div className='d-bg-c-1 py-2 px-4 font-bold border-b d-border-c-1'>{k}</div>
+                                    <div className='px-4 py-2 max-h-36 overflow-y-scroll'>
+                                        {
+                                            Object.keys(merged_traits[k]).map(k2=>{
+                                                return <div className='flex justify-between items-center text-ubuntu my-2 font-sm items-center'>
+                                                    <div className='flex justify-start items-center text-xs'>
+                                                        <input type="checkbox" onChange={this.filterOnChange} value={merged_traits[k][k2]['trait_ids']} class="checkbox-input mr-2" />
+                                                        {k2}
+                                                    </div>
+                                                    <div className='text-xs text-gray-500'>
+                                                        {merged_traits[k][k2]['count']}
+                                                    </div>
+                                                </div>
+                                            })
+                                        }
+                                    </div>
                                 </div>
-                            </div>
-                            : null
+                            })
                         }
-                        {
-                            (is_fetched && generates.length > 0)
-                            ? <div className="grid grid-cols-6 gap-4">
+                        </div>
+
+                        <div className="col-span-3">
+
+                            {
+                                (is_fetching)
+                                ? <div className='py-24 flex justify-center'>
+                                    <Loading />
+                                </div>
+                                : null
+                            }
+
+                            
+                            <div className="grid grid-cols-6 gap-4">
                                 {
                                     (generates.map((one,index)=>{
                                         let traits = denormalize(one.trait_ids_array,imageTraitListSchema,entities);
@@ -256,15 +266,16 @@ class GenerateGroupView extends React.Component {
                                     }))
                                 }
                             </div>
-                            : null
-                        }
-
-                        <div className='grid grid-cols-8 gap-16'>
+                            
+                            <div className='grid grid-cols-8 gap-16'>
 
 
+                            </div>
                         </div>
-                    </div>
-                </div> 
+                    </div> 
+                    : null
+                }
+                
                 <ImageModal visible={(preview_id)?true:false} id={preview_id} index={preview_index} closeModal={this.setPreview.bind({},null)} handleChangeImage={this.handleChangeImage}/>
             </div>
     </PageWrapper>

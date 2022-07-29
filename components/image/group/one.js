@@ -106,7 +106,7 @@ class GroupOne extends React.Component {
                                     </>
                                     : null
                                 }
-                                <li><a onClick={this.props.handleEdit.bind({},group)}><PencilIcon className='icon-sm'/>edit</a></li>
+                                <li><a onClick={this.props.handleEdit.bind({},group)}><PencilIcon className='icon-sm'/>{t('edit')}</a></li>
 
                             </ul>
                         </div>

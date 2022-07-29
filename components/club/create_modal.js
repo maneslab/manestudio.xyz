@@ -121,26 +121,7 @@ class ClubCreateModal extends React.Component {
                   
                     <div>
 
-                    <div className='py-4 border-t border-b d-border-c-1 text-sm'>
-                        <div className='flex justify-start items-center mb-4'>
-                            <span className='bg-black w-6 h-6 aspect-square text-white flex justify-center items-center mr-2 rounded-full dark:bg-white dark:text-black'>1</span>
-                            <div>
-                                {t('create-project-notice-1')}
-                                <a className='a inline'>{t('learn more')}</a>
-                            </div>
-                        </div>
-                        <div className='flex justify-start items-center mb-4'>
-                            <span className='bg-black w-6 h-6 aspect-square text-white flex justify-center items-center mr-2 rounded-full dark:bg-white dark:text-black'>2</span>
-                            <div>
-                            {t('create-project-notice-2')}
-                            <a className='a inline'>{t('learn more')}</a>
-                            </div>
-                        </div>
-                        <div className='flex justify-start items-center '>
-                            <span className='bg-black w-6 h-6 aspect-square text-white flex justify-center items-center mr-2 rounded-full dark:bg-white dark:text-black'>3</span>
-                            {t('create-project-notice-3')}
-                        </div>
-                    </div>
+
 
                     <Formik
                         innerRef={this.formRef}
@@ -171,7 +152,26 @@ class ClubCreateModal extends React.Component {
                                     : null
                                 }
 
-                                <div className='border-t d-border-c-1 my-4' />
+                                <div className='py-4 border-t border-b d-border-c-1 text-sm mt-4'>
+                                    <div className='flex justify-start items-center mb-4'>
+                                        <span className='bg-black w-6 h-6 aspect-square text-white flex justify-center items-center mr-2 rounded-full dark:bg-white dark:text-black'>1</span>
+                                        <div>
+                                            {t('create-project-notice-1')}
+                                            <a className='a inline'>{t('learn more')}</a>
+                                        </div>
+                                    </div>
+                                    <div className='flex justify-start items-center mb-4'>
+                                        <span className='bg-black w-6 h-6 aspect-square text-white flex justify-center items-center mr-2 rounded-full dark:bg-white dark:text-black'>2</span>
+                                        <div>
+                                        {t('create-project-notice-2')}
+                                        <a className='a inline'>{t('learn more')}</a>
+                                        </div>
+                                    </div>
+                                    <div className='flex justify-start items-center '>
+                                        <span className='bg-black w-6 h-6 aspect-square text-white flex justify-center items-center mr-2 rounded-full dark:bg-white dark:text-black'>3</span>
+                                        {t('create-project-notice-3')}
+                                    </div>
+                                </div>
 
                                 <div className="form-submit flex justify-between mt-4">
                                     <p className='flex justify-start items-center text-sm'>
@@ -193,6 +193,7 @@ class ClubCreateModal extends React.Component {
                         </Form>
                         )}
                     </Formik>
+
 
 
                     </div>

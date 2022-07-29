@@ -43,7 +43,7 @@ class ClubLockStep extends React.Component {
             <div className="max-w-screen-xl mx-auto flex justify-between h-10">
                 <Steps active={active}>
                     <Step href={this.getUrl(club_id,1)} key={1}>{t('settings')}</Step>
-                    <Step href={this.getUrl(club_id,2)} key={2}>metadata</Step>
+                    <Step href={this.getUrl(club_id,2)} key={2}>{t('metadata')}</Step>
                 </Steps>
                 <div>
                     {
