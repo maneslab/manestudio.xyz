@@ -232,6 +232,7 @@ class translateHelper  {
             'components',
             'pages',
             'helper',
+            'hocs',
         ];
 
         console.log('this.base_path',this.base_path);

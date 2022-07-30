@@ -31,7 +31,7 @@ class WalletLogin extends React.Component {
 
         let show_type = 'connect';
 
-        console.log('debug03->this.props.wallet',wallet);
+        // console.log('debug03->this.props.wallet',wallet);
         if (login_user) {
             console.log('debug03->this.props.login_user',login_user.toJS());
         }else {
@@ -84,7 +84,7 @@ class WalletLogin extends React.Component {
     }
 
     componentDidUpdate(prevProps,prevState) {
-        console.log('debug03->componentDidUpdate',this.props.is_inited);
+        // console.log('debug03->componentDidUpdate',this.props.is_inited);
 
         if (this.props.is_inited) {
             
@@ -105,7 +105,7 @@ class WalletLogin extends React.Component {
     }
 
     componentDidMount() {
-        console.log('debug03->componentDidMount',this.props.is_inited);
+        // console.log('debug03->componentDidMount',this.props.is_inited);
         if (this.props.is_inited) {
             
             const {login_user,wallet} = this.props;
@@ -163,7 +163,7 @@ class WalletLogin extends React.Component {
         const {wallet,is_inited} = this.props;
         const {show_type} = this.state;
 
-        console.log('debug03->render,is_inited',is_inited)
+        // console.log('debug03->render,is_inited',is_inited)
 
         if (!is_inited) {
             return null;

@@ -18,14 +18,13 @@ export default function withActiveClub(WrappedComponent) {
 
     }
 
-
-
     const mapDispatchToProps = (dispatch) => {
         return {
         }
     }
     function mapStateToProps(state,ownProps) {
-   
+
+
         let entities = state.get('entities');
         let active_club_id = state.getIn(['setting','active_club_id'])
        
@@ -34,8 +33,8 @@ export default function withActiveClub(WrappedComponent) {
         if (active_club_id) {
             active_club = denormalize(active_club_id,clubSchema,entities)
         }
-   
-   
+        
+
         return {
            'active_club'    : active_club,
            'active_club_id' : active_club_id,

@@ -131,7 +131,7 @@ class LayerUpdateModal extends React.Component {
 
 
 function mapStateToProps(state,ownProps) {
-    
+    return {}
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -143,7 +143,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 LayerUpdateModal.propTypes = {
-    item     : PropTypes.object.isRequired,
+    item        : PropTypes.object,
     closeModal  : PropTypes.func.isRequired,
 };
   

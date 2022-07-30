@@ -34,7 +34,7 @@ class Home extends React.Component {
             <div className="">
 
                 <div className='max-w-screen-xl mx-auto text-white'>
-                    <div className='mt-48 mb-12'>
+                    <div className='mt-24 mb-12'>
                         <Logo className="h-12" />
                     </div>
                     <div className="max-w-prose mb-12" >

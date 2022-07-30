@@ -120,7 +120,6 @@ class SpecialOne extends React.Component {
                                     : null
                                 }
                                 <li><a onClick={this.props.handleEdit.bind({},special)}><PencilIcon className='icon-sm'/>{t('edit')}</a></li>
-
                             </ul>
                         </div>
                     </div>

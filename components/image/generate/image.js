@@ -35,7 +35,7 @@ class GenerateImage extends React.Component {
 
         const {select_traits,group_id} = this.props;
         
-        console.log('debug01,group_id',group_id);
+        // console.log('debug01,group_id',group_id);
 
         this.setState({
             'is_fetching' : true
@@ -54,7 +54,7 @@ class GenerateImage extends React.Component {
                 'select_traits' : select_traits_str
             }
         })
-        console.log('debug01,result',result);
+        // console.log('debug01,result',result);
 
         this.setState({
             'is_fetching' : false,
@@ -81,7 +81,7 @@ class GenerateImage extends React.Component {
             </div>
             <div className='relative aspect-square mt-4'>
                 {trait_list.map(one=>{
-                    return <img src={one['img']['image_urls']['url']} className="absolute left-0 top-0"/>
+                    return <img src={one['img']['image_urls']['url']} key={one.id} className="absolute left-0 top-0"/>
                 })}
                 {
                     (is_fetching)

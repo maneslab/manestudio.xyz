@@ -61,7 +61,7 @@ class LayerCreateModal extends React.Component {
 
     render() {
         const {is_adding} = this.state;
-        const {visible,list_count} = this.props;
+        const {visible} = this.props;
         const {t} = this.props.i18n;
 
         if (!visible) {
@@ -132,7 +132,7 @@ class LayerCreateModal extends React.Component {
 
 
 function mapStateToProps(state,ownProps) {
-    
+    return {};
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -147,8 +147,7 @@ LayerCreateModal.propTypes = {
     visible     : PropTypes.bool.isRequired,
     closeModal  : PropTypes.func.isRequired,
     refreshList : PropTypes.func.isRequired,
-    group_id    : PropTypes.number.isRequired,
-    list_count  : PropTypes.number.isRequired
+    group_id    : PropTypes.string.isRequired,
 };
   
 

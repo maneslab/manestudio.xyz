@@ -17,7 +17,6 @@ export function loadTraitList(condition) {
     delete condition.login_user_id;
     var hash = getHashByData(condition)
 
-    console.log('debug03,hash',hash)
     return {
         // 要在之前和之后发送的 action types
         types: ['BEFORE_LOAD_TRAIT_LIST', 'LOAD_TRAIT_LIST_SUCCESS', 'LOAD_TRAIT_LIST_FAILURE'],

@@ -98,7 +98,7 @@ class GenerateGroupView extends React.Component {
             'is_fetched'  : true,
             'generates'   : result.data.generates,
             'merged_traits' : result.data.merged_traits,
-            'uniqueness'  : result.data.uniqueness,
+            'uniqueness'  : result.data.generates.length / result.data.max_generate_number,
             'max_generate_number' : result.data.max_generate_number
         })
     }

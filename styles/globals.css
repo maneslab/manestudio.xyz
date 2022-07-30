@@ -763,7 +763,7 @@ input{outline:none;}
     @apply bg-white;
 }
 .fullpage-container.blue {
-    @apply bg-[#2e2c9b];
+    @apply bg-[#2e2c9b] overflow-y-auto;
 }
 .fullpage-container.blue .footer {
     color :#fff !important;
@@ -987,4 +987,12 @@ select {
 
 .active .dot-circle {
     @apply bg-black dark:bg-white;
+}
+
+.checkbox {
+    @apply dark:border-gray-600;
+}
+
+.footer {
+    @apply mt-24;
 }

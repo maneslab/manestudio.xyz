@@ -62,8 +62,7 @@ class GenerateGroupView extends React.Component {
 
     render() {
         const {t} = this.props.i18n;
-        const {list_count,group_id,club_id,club} = this.props;
-        console.log('this.listRef',this.listRef)
+        const {group_id,club_id,club} = this.props;
 
         let is_lock = false;
         if (club) {
@@ -135,7 +134,6 @@ class GenerateGroupView extends React.Component {
 
                     <CreateLayerModal refreshList={this.refreshList} 
                         group_id={group_id} 
-                        list_count={list_count} 
                         visible={this.state.show_create_modal} 
                         closeModal={this.toggleCreateModal}/>
 

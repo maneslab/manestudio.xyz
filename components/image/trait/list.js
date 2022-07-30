@@ -57,12 +57,22 @@ class TraitList extends React.Component {
         })
     }
 
-    async handleUpload(data) {
-        await this.props.addTrait({
+    @autobind
+    async handleUpload(layer_id,data) {
+
+        // console.log('debug-upload-fished-handleUpload',layer_id,data);
+        
+        let result = await this.props.addTrait({
             img_id : data.data.img_id,
-            layer_id : this.props.layer_id
+            layer_id : layer_id
         })
+        // console.log('debug-upload-add-trait-finished',result);
         this.props.refresh();
+        this.props.setActiveTraitId({
+            'group_id' : result.data.group_id,
+            'layer_id' : result.data.layer_id,
+            'trait_id' : result.data.id
+        });
     }
 
     render() {
@@ -81,9 +91,13 @@ class TraitList extends React.Component {
             accept : '.jpg,.jpeg,.png,.gif',
         })
 
-
         let count = (list_rows) ? list_rows.count() : 0;
         let max_width  = count * 150;
+
+        let uploadFinished = (upload_data)=>{
+            // console.log('after-upload-success',layer_id,upload_data);
+            this.handleUpload(layer_id,upload_data)
+        }
 
         return <div>
             {
@@ -91,15 +105,14 @@ class TraitList extends React.Component {
                 ? <div className="my-16"><Loading /></div>
                 : null
             }
-
             {
                 (is_empty)
                 ? <div className='max-w-screen-md mx-auto my-0 text-center'>
-                    <Upload uploadProps={uploadProps} afterSuccess={this.handleUpload}>  
+                    <Upload uploadProps={uploadProps} afterSuccess={uploadFinished} >  
                         <Empty text={t('no trait yet')} icon={<PuzzleIcon className='icon-base'/>} className="py-12"/>
                     </Upload>
                 </div>
-                : <div className="p-4 pb-0 h-60 w-full overflow-x-auto overflow-y-hidden"><div className=' flex justify-start gap-4' style={{width:max_width}}>
+                : <div className="p-4 pb-0 h-60 w-full overflow-x-auto overflow-y-hidden"><div className='flex justify-start gap-4' style={{width:max_width}}>
 
                     {
                         (list_rows.count() > 0)
@@ -110,7 +123,6 @@ class TraitList extends React.Component {
                                         trait={one} 
                                         is_lock={is_lock}
                                         is_selected={(active_trait_id == one.get('id'))}
-                                        handleSelectTrait={this.props.handleSelectTrait}
                                         refreshList={this.props.refresh}
                                         handleDelete={this.props.deleteTrait}
                                         handleUpdate={this.props.updateTrait}
@@ -134,11 +146,11 @@ class TraitList extends React.Component {
                 </div>
                 {
                     (!is_lock)
-                    ? <Upload uploadProps={uploadProps} afterSuccess={this.handleUpload}>  
-                    <button className='btn btn-default capitalize'>
-                        <PlusIcon className='icon-xs mr-2'/>
-                        {t('add trait')}
-                    </button>
+                    ? <Upload uploadProps={uploadProps} afterSuccess={uploadFinished}>  
+                        <button className='btn btn-default capitalize'>
+                            <PlusIcon className='icon-xs mr-2'/>
+                            {t('add trait')}
+                        </button>
                     </Upload>
                     : null
                 }

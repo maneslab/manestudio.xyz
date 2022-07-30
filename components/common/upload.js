@@ -178,6 +178,8 @@ class UploadComponent extends React.Component {
         const {file_list} = this.state;
         const {t} = this.props.i18n;
 
+        // console.log('uploadProps',uploadProps)
+
         const {setBeginUpload,setProgress,uploadSuccess,uploadError} = this;
 
         const newUploadProps = Object.assign(uploadProps,{
@@ -201,28 +203,7 @@ class UploadComponent extends React.Component {
             },
         })
 
-        /*<div className='flex justify-between items-center'>
-                    <div className='flex-grow mr-4'>
-                        <div className="flex justify-between mb-1 items-center">
-                            <span className="text-base font-medium text-blue-700 dark:text-white text-xs h-4 w-24 text-ellipsis overflow-hidden">{file?file.name:"uploading"}</span>
-                            <span className="text-sm font-medium text-blue-700 dark:text-white">{upload_progress}%</span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                            <div className="bg-blue-600 h-2.5 rounded-full" style={{'width':upload_progress+"%"}}></div>
-                        </div>
-                    </div>
-                    <div><a className="cursor-pointer a" onClick={(event)=>{
-                        this.abort();
-                        event.stopPropagation();
-                        return false;
-                    }}><XCircleIcon className="w-6 h-6"/></a></div>
-                </div> */
 
-                /*
-                    <div>is_uploaded:{one.is_uploaded}</div>
-                    <div>is_error:{one.is_error}</div>
-                    <div>is_begin_upload:{one.is_begin_upload}</div>
-                 */
         return <div>
         <Upload ref={this.uploadRef} {...newUploadProps}>
             {this.props.children}

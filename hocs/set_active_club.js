@@ -42,7 +42,7 @@ export default function withSetActiveClub(WrappedComponent) {
         }
     }
     function mapStateToProps(state,ownProps) {
-   
+        return {}
     }
    
    return connect(mapStateToProps,mapDispatchToProps)(WithSetActiveClubComponent)

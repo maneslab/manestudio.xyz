@@ -92,7 +92,7 @@ class GenerateGroupView extends React.Component {
                     is_lock={is_lock}
                     />
 
-                <div className="max-w-screen-xl mx-auto">
+                <div className="max-w-screen-sm mx-auto">
                     {
                         is_fetching ? <Loading/> : null
                     }
@@ -151,8 +151,8 @@ class MetadataOne extends React.Component {
                             return <div className='flex justify-between py-2 px-4 hover:bg-gray-100 dark:hover:bg-[#333]'>
                                 <div>{k2}</div>
                                 <div className='flex justify-end items-center text-sm'>
-                                    <div className='mr-4'>({one[k2]['count']})</div>
-                                    <div>{percentDecimal(one[k2]['ratio'])}%</div>
+                                    <div className='mr-4 w-16'>({one[k2]['count']})</div>
+                                    <div className='w-16'>{percentDecimal(one[k2]['ratio'])}%</div>
                                 </div>
                             </div>
                         })

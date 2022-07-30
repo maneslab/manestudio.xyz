@@ -196,7 +196,7 @@ const formatData = (props) => {
 }
 
 LayerList.propTypes = {
-    group_id     : PropTypes.number
+    group_id     : PropTypes.string.isRequired
 };
   
 module.exports = connect(mapStateToProps,mapDispatchToProps,null,{forwardRef:true})(withPageList(LayerList,{'formatData':formatData}))
