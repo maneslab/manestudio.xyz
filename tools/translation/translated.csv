@@ -252,7 +252,7 @@ or,or,或
 skip,skip,跳过
 filters,filters,过滤
 confirm reserve,confirm reserve,确认预留
-Congratulations!,Congratulations!,祝贺您！您已经完成了NFT的生成，现在您可以进入合约页面建立您的NFT合约。
+Congratulations!,Congratulations!,恭喜!
 "you have finished generate NFT ,now you can go to contract page for build your NFT contract now!","you have finished generate NFT ,now you can go to contract page for build your NFT contract now!",您已经完成了NFT的生成，现在您可以进入合约页面来建立您的NFT合约了。
 go to contract page,go to contract page,进入合约页面
 reserve success,reserve success,储备成功
@@ -388,3 +388,7 @@ Reveal-intro-3,"If delayed reveal is disabled, the NFTs are revealed at the same
 minting page,minting page,发售网页建站
 max. token supply,max. token supply,最大供应量
 connect web3 wallet,connect web3 wallet,连接web3钱包
+contract-success-desc,"you have finished deploy smart contract ,now you can go to build your NFT minting page now!",你已经完成了智能合约的部署，现在你可以去建立你的NFT铸币页面了。
+go to minting page,go to minting page,去创建Mint NFT页面
+mint-page-success-desc,"You have finished publishing the mint page, you can now go to the manespace to view it","你已经完成了mint页面的发布,你现在可以去manespace查看它"
+go to manespace mint page,go to manespace mint page,在manespace查看

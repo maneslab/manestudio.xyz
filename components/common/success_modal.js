@@ -16,11 +16,13 @@ class SuccessModal extends React.Component {
     }
 
     render() {
-        const {visible,title,desc,link_text,link_href} = this.props;
+        const {visible,title,desc,link_text,link_href,link_target} = this.props;
 
         if (!visible) {
             return null;
         }
+
+        console.log('success-title',title,this.props);
 
         return  <Modal
                     width={650}
@@ -48,7 +50,7 @@ class SuccessModal extends React.Component {
                         {
                             (link_text)
                             ?   <div>
-                                <a className='btn btn-outline btn-block capitalize' href={link_href}>
+                                <a className='btn btn-outline btn-block capitalize' href={link_href} target={link_target}>
                                     {link_text}
                                 </a>
                             </div>
@@ -70,7 +72,12 @@ SuccessModal.propTypes = {
     desc        : PropTypes.string,
     link_text   : PropTypes.string,
     link_href   : PropTypes.string,
+    link_target : PropTypes.string,
+
 };
+SuccessModal.defaultProps = {
+    link_target: "_self",
+}
   
 
 module.exports = SuccessModal

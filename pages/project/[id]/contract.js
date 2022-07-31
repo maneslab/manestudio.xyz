@@ -30,7 +30,7 @@ import UploadPlaceholderModal from 'components/contract/placeholder_modal';
 import EmptyPlaceholder from 'components/common/empty_placeholder'
 import PublicEndTimeSelect from 'components/form/mane/public_endtime_select';
 
-import ContractSide from 'components/contract/side'
+// import ContractSide from 'components/contract/side'
 import withClubView from 'hocs/clubview'
 import withNotice from 'hocs/notice'
 
@@ -44,8 +44,9 @@ import Upload from 'components/common/upload'
 import {httpRequest, uploadRequest} from 'helper/http'
 import { denormalize } from 'normalizr';
 import {contractSchema} from 'redux/schema/index'
-import { t } from 'helper/translate';
+import { withRouter } from 'next/router';
 
+@withRouter
 @withTranslate
 @withMustLogin
 @withClubView
@@ -84,6 +85,10 @@ class ContractView extends React.Component {
         if (this.props.contract) {
             this.setForm(this.props.contract)
         }
+
+        if (this.props.club && this.props.club.get('is_lock')) {
+            this.redirectToManagePage();
+        }
         
         this.setNotice();
 
@@ -102,6 +107,15 @@ class ContractView extends React.Component {
         if (this.props.i18n.lang != prevProps.i18n.lang) {
             this.setNotice();
         }
+
+        if (this.props.club && !this.props.club.equals(prevProps.club)) {
+            this.redirectToManagePage();
+        }
+    }
+
+    @autobind
+    redirectToManagePage() {
+        this.props.router.push('/project/'+this.props.club_id+'/choose_network');
     }
 
     componentWillUnmount() {
@@ -906,7 +920,7 @@ class ContractView extends React.Component {
 
 
                        
-                        <div className='fixed bottom-0 left-0 w-full py-4 d-bg-c-1 border-t d-border-c-1' style={{'zIndex':9999}}>
+                        <div className='fixed bottom-0 left-0 w-full py-4 d-bg-c-1 border-t d-border-c-1 z-50' >
                             <div className='max-w-screen-xl mx-auto grid grid-cols-9 gap-8'>
                                 <div className='col-span-6 flex justify-end'>
                                     <Button type="submit" loading={this.state.is_saveing} className='btn btn-primary -ml-1'>{t('save')}</Button>

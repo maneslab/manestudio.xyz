@@ -5,13 +5,14 @@ import Head from 'next/head'
 import autobind from 'autobind-decorator'
 import {connect} from 'react-redux'
 
-import {confirm} from 'components/common/confirm/index'
+// import {confirm} from 'components/common/confirm/index'
+import CopyText from 'components/common/copy'
 
 import PageWrapper from 'components/pagewrapper'
 import ClubHeader from 'components/club/header'
 import ContractStep from 'components/contract/step'
 import Button from 'components/common/button'
-import GasButton from 'components/common/gas/button'
+import EtherscanLink from 'components/common/etherscan/link';
 import Loading from 'components/common/loading'
 import Link from 'next/link'
 
@@ -34,7 +35,7 @@ import DestroyModal from 'components/contract/destroy_modal'
 
 import {loadContract,saveContract} from 'redux/reducer/contract'
 import {updateClub} from 'redux/reducer/club'
-import ContractSide from 'components/contract/side';
+// import ContractSide from 'components/contract/side';
 import {ethers} from 'ethers'
 
 import manestudio from 'helper/web3/manestudio';
@@ -44,7 +45,7 @@ import config from 'helper/config'
 
 import withClubView from 'hocs/clubview'
 
-import {  InformationCircleIcon,ExternalLinkIcon,ChevronLeftIcon  } from '@heroicons/react/outline'
+import {  InformationCircleIcon,ClipboardIcon,ChevronLeftIcon  } from '@heroicons/react/outline'
 // import {strFormat} from 'helper/translate'
 
 
@@ -517,7 +518,14 @@ class DeployView extends React.Component {
             is_allow_withdraw = (this.isAllowWithdraw(contract_data['refund']) && !contract_data['is_force_refundable'])
         } 
 
-        club = club.setIn(['is_step_done','step_2'],true);
+        if (address) {
+            if (network == 'mainnet') {
+                club = club.setIn(['is_step_done','step_2'],true);
+            }else {
+                club = club.setIn(['is_step_done','is_deploy_testnet'],true);
+            }
+        }
+
 
         return <PageWrapper>
             <Head>
@@ -537,13 +545,22 @@ class DeployView extends React.Component {
 
                         <div className="col-span-12 pb-24">
 
-                            <div className='pb-4 mb-4 border-b border-gray-300 dark:border-gray-800'>
+                            <div className='pb-4 mb-4 border-b border-gray-300 dark:border-gray-800 flex justify-between'>
                                 <Link href={"/project/"+club_id+"/choose_network"}>
                                 <a className='btn btn-primary'>
                                     <ChevronLeftIcon className='icon-sm'/>
                                     {t('back')}
                                 </a>
                                 </Link>
+                                {
+                                    (network != 'mainnet' && club && club.getIn(['is_step_done','step_2']) == false)
+                                    ?  <Link href={"/project/"+club_id+"/deploy?network=mainnet"}>
+                                        <a className='btn btn-secondary'>
+                                            {t('deploy on mainnet')}
+                                        </a>
+                                    </Link>
+                                    : null
+                                }
                             </div>
 
 
@@ -582,8 +599,11 @@ class DeployView extends React.Component {
                                                             <div className='flex justify-between'>
                                                                 <div className='info-dl'>
                                                                     <label>{t('contract address')}</label>
-                                                                    <div>
-                                                                    {address}
+                                                                    <div className='flex justify-start items-center'>
+                                                                        <EtherscanLink address={address} network={network}/>
+                                                                        <CopyText text={address} onSuccessText={t('copy success')}>
+                                                                            <ClipboardIcon className="icon-sm ml-2 cursor-pointer" />
+                                                                        </CopyText>
                                                                     </div>
                                                                 </div>
                                                                 <div className='info-dl'>

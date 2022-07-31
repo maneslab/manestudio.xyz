@@ -1,10 +1,26 @@
 import PropTypes from 'prop-types'
-import React, { Children } from 'react'
+import React from 'react'
 import {getShortAddress} from 'helper/common'
 
-const EtherscanLink = ({children,address,short}) => {
+const EtherscanLink = ({address,short,network}) => {
 
-    let link = 'https://www.etherscan.io/address/' + address;
+    let base_url = '';
+    switch(network) {
+        case 'mainnet':
+            base_url = 'https://www.etherscan.io/address/';
+            break;
+        case 'rinkeby':
+            base_url = 'https://rinkeby.etherscan.io/address/';
+            break;
+        case 'kovan':
+            base_url = 'https://kovan.etherscan.io/address/';
+            break;
+        default:
+            base_url = 'https://www.etherscan.io/address/';
+            break;
+    }
+
+    let link = base_url + '/address/' + address;
     let text = (short) ? getShortAddress(address) : address;
     return (
         <a href={link} target="_blank" className="a">

@@ -26,6 +26,10 @@ export default function ClubHeader({
             step_1_finished = true;
             step_1_finished_icon = <CheckCircleIcon className='icon-sm text-green-500 mr-2'/>
         }
+        if (club.getIn(['is_step_done','is_deploy_testnet'])) {
+            step_2_finished = false;
+            step_2_finished_icon = <CheckCircleIcon className='icon-sm text-yellow-500 mr-2'/>
+        }
         if (club.getIn(['is_step_done','step_2'])) {
             step_2_finished = true;
             step_2_finished_icon = <CheckCircleIcon className='icon-sm text-green-500 mr-2'/>

@@ -46,8 +46,8 @@ class ClubStepNormal extends React.Component {
         return <div className='bg-white dark:bg-[#22252b] pt-0 pb-6 -mt-8 mb-8 '>
             <div className="max-w-screen-xl mx-auto flex justify-between h-10">
                 <Steps active={active}>
-                    <Step href={this.getNormalUrl(club_id,1)} key={1}>{t('settings')}</Step>
-                    <Step href={this.getNormalUrl(club_id,2)} key={2}>{t('metadata')}</Step>
+                    <Step href={this.getUrl(club_id,1)} key={1}>{t('settings')}</Step>
+                    <Step href={this.getUrl(club_id,2)} key={2}>{t('metadata')}</Step>
                     <Step key={3}>{t('reserve NFTs')}</Step>
                 </Steps>
                 <div>
@@ -56,7 +56,7 @@ class ClubStepNormal extends React.Component {
                         ?  <button className='btn btn-primary' disabled>{t('next')}</button>
                         : <>
                         {
-                            (active < 3 && project_type == 'normal')
+                            (active < 3)
                             ?   <Link href={this.getUrl(club_id,active+1)}>
                                 <button className='btn btn-primary'>{t('next')}</button>
                             </Link>

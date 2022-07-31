@@ -25,13 +25,11 @@ import {initTraitList} from 'redux/reducer/image/trait'
 import withClubView from 'hocs/clubview'
 import UniqueRatio from 'components/image/generate/unqiue_ratio';
 
-// import { list } from 'react-immutable-proptypes';
 import { denormalize } from 'normalizr';
 import {imageTraitListSchema} from 'redux/schema/index'
 //normalize
 import Image2 from 'components/image/generate/image2'
 import {percentDecimal} from 'helper/number'
-// import {imageGenerateListSchema} from 'redux/schema/index'
 
 @withTranslate
 @withMustLogin

@@ -14,8 +14,8 @@
     
     "GA_TRACKING_ID"    : "G-5C0R9CD5QL",
 
-    "ETHERSCAN_BASE"    : "https://www.etherscan.com",
+    "NEXTID_ENV"        : "production",
 
-    "NEXTID_ENV"        : "production"
+    "ETH_NETWORK"       : "kovan"
 
 }

@@ -29,6 +29,7 @@ import manestudio from 'helper/web3/manestudio';
 import config from 'helper/config'
 
 import withClubView from 'hocs/clubview'
+import SuccessModal from 'components/common/success_modal'
 
 import {  ExternalLinkIcon,ChevronLeftIcon  } from '@heroicons/react/outline'
 
@@ -49,11 +50,7 @@ class DeployView extends React.Component {
     constructor(props) {
         super(props)
     
-        let env = config.get('ENV');
-        let lock_env = 'kovan';
-        if (env == 'production') {
-            lock_env = 'mainnet';
-        }
+        let lock_env = config.get('ETH_NETWORK');
 
         this.state = {
 
@@ -113,9 +110,16 @@ class DeployView extends React.Component {
             contract_data               : {},
             is_fetched_contract_data    : false,
             is_fetching_contract_data   : false,
+            show_success_modal          : false
         })
     }
 
+    @autobind
+    toggleSuccessModal() {
+        this.setState({
+            show_success_modal : !this.state.show_success_modal
+        })
+    }
 
     @autobind
     async getDeployedAddress() {
@@ -330,12 +334,11 @@ class DeployView extends React.Component {
                     console.log('当前的网络环境是:'+network+',需要锁定的网络环境是:'+lock_env);
                     if (network == lock_env) {
                         this.lockClub();
+                        this.toggleSuccessModal();
+                    }else {
+                        //跳转到新的合约地址
+                        this.redirectToNewContract();
                     }
-
-                    //跳转到新的合约地址
-                    this.redirectToNewContract();
-                    // this.fetchPageData();
-                    ///刷新数据
                 }
             } 
         })
@@ -463,9 +466,9 @@ class DeployView extends React.Component {
                     ? <div>
                         <Loading /> 
                     </div>
-                    :   <div className="max-w-screen-xl mx-auto grid grid-cols-12 gap-8">
+                    :   <div className="max-w-screen-sm mx-auto pb-32">
 
-                        <div className="col-span-8 pb-24">
+                        <div className="">
 
                             <div className='pb-4 mb-4 border-b border-gray-300 dark:border-gray-800'>
                                 <Link href={"/project/"+club_id+"/choose_network"}>
@@ -572,11 +575,16 @@ class DeployView extends React.Component {
                              
                         </div>
 
-                        <div className="col-span-4">
-                        </div>
-
                     </div> 
                 }
+
+                <SuccessModal 
+                    visible={this.state.show_success_modal} 
+                    closeModal={this.toggleSuccessModal} 
+                    title={t('Congratulations!')} 
+                    desc={t('contract-success-desc')} 
+                    link_text={t('go to minting page')} 
+                    link_href={'/project/'+club_id+'/drop'} />
 
             </div>
     </PageWrapper>
