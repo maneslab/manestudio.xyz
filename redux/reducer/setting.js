@@ -162,7 +162,7 @@ export function reducer(state = Immutable.fromJS({
             .setIn(['gas_data','last_update_time'],getUnixtime());
 
         case SET_ACTIVE_TRAIT_ID:
-            return state.setIn(['active_trait',action.payload.group_id,action.payload.layer_id],action.payload.trait_id);
+            return state.setIn(['active_trait',action.payload.group_id,Number(action.payload.layer_id)],action.payload.trait_id);
 
         case SET_ACTIVE_CLUB_ID:
             return state.setIn(['active_club_id'],action.payload);

@@ -100,7 +100,7 @@ class TraitOne extends React.Component {
 
     render() {
 
-        const { trait,is_selected,group_id,layer_id,trait_id,is_lock } = this.props;
+        const { trait,is_selected,group_id,layer_id,trait_id,is_lock,is_last } = this.props;
         const { edit_mode } = this.state;
         const {t} = this.props.i18n;
 
@@ -118,11 +118,11 @@ class TraitOne extends React.Component {
                     })} />
                     {
                         (!is_lock)
-                        ? <div class="dropdown dropdown-right absolute right-1 top-1">
+                        ? <div class={classNames("dropdown absolute right-1 top-1",{"dropdown-right":!is_last,'dropdown-left':is_last})}>
                             <label tabindex="0" class="btn m-1 px-2  border-none text-gray-600  bg-gray-50 hover:bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 dark:text-white">
                                 <DotsVerticalIcon className='icon-sm'/>
                             </label>
-                            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white dark:bg-[#191c20] rounded-box w-52 capitalize">
+                            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white dark:bg-[#191c20] rounded-box w-36 capitalize">
                                 <li><a onClick={this.deleteTrait}><TrashIcon className='icon-sm'/>{t('delete')}</a></li>
                                 <li><a onClick={this.props.handleEditProbability}><AdjustmentsIcon className='icon-sm'/>{t('rarity')}</a></li>
                             </ul>

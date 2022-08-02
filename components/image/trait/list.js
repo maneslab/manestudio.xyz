@@ -66,7 +66,7 @@ class TraitList extends React.Component {
             img_id : data.data.img_id,
             layer_id : layer_id
         })
-        // console.log('debug-upload-add-trait-finished',result);
+        console.log('debug-upload-add-trait-finished',result);
         this.props.refresh();
         this.props.setActiveTraitId({
             'group_id' : result.data.group_id,
@@ -118,7 +118,8 @@ class TraitList extends React.Component {
                         (list_rows.count() > 0)
                         ? <>
                             {
-                                list_rows.map((one)=>{
+                                list_rows.map((one,i)=>{
+                                    let is_last = (i == list_rows.count() - 1)
                                     return <TraitOne 
                                         trait={one} 
                                         is_lock={is_lock}
@@ -130,6 +131,7 @@ class TraitList extends React.Component {
                                         handleEdit={this.edit}
                                         group_id={group_id}
                                         layer_id={layer_id}
+                                        is_last={is_last}
                                         setActiveTraitId={this.props.setActiveTraitId}
                                         key={one.get('id')} />
                                 })
@@ -176,6 +178,9 @@ function mapStateToProps(state,ownProps) {
 
     let layer = denormalize(layer_id,imageLayerSchema,state.get('entities'));
     let active_trait_id = state.getIn(['setting','active_trait',layer.get('group_id'),layer_id]);
+
+    console.log('debug-set-active-trait-get',layer.get('group_id'),layer_id,active_trait_id);
+
 
     return {
         entities        : state.getIn(['entities']),
