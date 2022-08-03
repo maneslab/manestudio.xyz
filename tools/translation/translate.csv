@@ -205,7 +205,7 @@ refundable ratio,refundable ratio,退款比例
 revenue sharing,revenue sharing,分享收入
 share ratio,share ratio,分成比例
 "You can define your details of your contract here, as well as many customizable function below.","You can define your details of your contract here, as well as many customizable function below.",你可以在这里定义你的合约细节，以及下面许多可定制的功能。
-"DON’T PANIC! You can deploy your contract to Kovan testnet for free, check if everythings is correct, then deploy to Ethereum mainnet.","DON’T PANIC! You can deploy your contract to Kovan testnet for free, check if everythings is correct, then deploy to Ethereum mainnet.",不要惊慌! 您可以将您的合约免费部署到Kovan testnet，检查是否一切正常，然后部署到Ethereum mainnet。
+"DON’T PANIC! You can deploy your contract to Rinkeby testnet for free, check if everythings is correct, then deploy to Ethereum mainnet.","DON’T PANIC! You can deploy your contract to Rinkeby testnet for free, check if everythings is correct, then deploy to Ethereum mainnet.",不要惊慌! 您可以将您的合约免费部署到Rinkeby testnet，检查是否一切正常，然后部署到Ethereum mainnet。
 withdraw,withdraw,提款
 total balance,total balance,总余额
 available balance,available balance,可用余额
@@ -304,7 +304,7 @@ manage,manage,管理
 No contract deployed,No contract deployed,没有部署合同
 Manastudio Contract is not deployed on this network yet,Manastudio Contract is not deployed on this network yet,Manastudio合约还没有部署在这个网络上
 "After deployment, the project will be locked, you can no longer add, delete NFTtrait, images, can not modify the contract settings, etc.","After deployment, the project will be locked, you can no longer add, delete NFTtrait, images, can not modify the contract settings, etc.",部署后，项目将被锁定，你不能再添加、删除NFTtrait、图像，不能修改合同设置等。
-get Kovan Testnet ETH,get Kovan Testnet ETH,获取科万特网ETH
+get Rinkeby Testnet ETH,get Rinkeby Testnet ETH,获取科万特网ETH
 Get,Get,获取
 deploy to ETH mainnet,deploy to ETH mainnet,部署到ETH主网
 deploy to ETH testnet,deploy to ETH testnet,部署到ETH测试网

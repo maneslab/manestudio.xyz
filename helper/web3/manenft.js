@@ -4,7 +4,7 @@ import manenft_abi from 'helper/web3/abi/manenft'
 
 export default class manenft extends contract{
 
-    constructor(t = null,network = 'kovan',contract_address) {
+    constructor(t = null,network = 'rinkeby',contract_address) {
 
         // console.log('constructor-network',network);
 

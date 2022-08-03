@@ -393,9 +393,6 @@ class DeployView extends React.Component {
     @autobind
     lockClub() {
         const {club_id} = this.props;
-
-
-
         this.props.updateClub(club_id,{'is_lock':1});
     }
 
@@ -421,12 +418,13 @@ class DeployView extends React.Component {
 
     isNetworkCurrect(network,chain) {
         let wish_net_id = 0;
+
         switch(network) {
             case 'mainnet':
                 wish_net_id = 1;
                 break;
-            case 'ropsten':
-                wish_net_id = 3;
+            case 'rinkeby':
+                wish_net_id = 4;
                 break;
             case 'kovan':
                 wish_net_id = 42;
@@ -559,12 +557,12 @@ class DeployView extends React.Component {
 
                             <div>
                                 {
-                                    (network == 'kovan')
+                                    (network == 'rinkeby')
                                     ? <div className='d-bg-c-1 p-4 pl-6'>
-                                        <h2 className='font-bold capitalize border-b pb-4 mb-4 d-border-c-1'>Kovan Testnet Faucet</h2>
+                                        <h2 className='font-bold capitalize border-b pb-4 mb-4 d-border-c-1'>Rinkeby Testnet Faucet</h2>
                                         <div className='flex justify-between items-center'>
-                                            <div className="capitalize">{t('get Kovan Testnet ETH')}</div>
-                                            <a href="https://faucets.chain.link/" target="_blank" className='btn btn-default'>
+                                            <div className="capitalize">{t('get Rinkeby Testnet ETH')}</div>
+                                            <a href="https://faucets.chain.link/rinkeby" target="_blank" className='btn btn-default'>
                                                 <ExternalLinkIcon className='icon-sm mr-2' />{t('Get')}
                                             </a>
                                         </div>

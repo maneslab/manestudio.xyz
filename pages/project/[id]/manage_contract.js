@@ -67,7 +67,7 @@ class DeployView extends React.Component {
         super(props)
     
         let env = config.get('ENV');
-        let lock_env = 'kovan';
+        let lock_env = 'rinkeby';
         if (env == 'production') {
             lock_env = 'mainnet';
         }
@@ -456,11 +456,8 @@ class DeployView extends React.Component {
             case 'mainnet':
                 wish_net_id = 1;
                 break;
-            case 'ropsten':
-                wish_net_id = 3;
-                break;
-            case 'kovan':
-                wish_net_id = 42;
+            case 'rinkeby':
+                wish_net_id = 4;
                 break;
             default:
                 wish_net_id = 1;
@@ -525,7 +522,6 @@ class DeployView extends React.Component {
                 club = club.setIn(['is_step_done','is_deploy_testnet'],true);
             }
         }
-
 
         return <PageWrapper>
             <Head>
@@ -721,7 +717,7 @@ class DeployView extends React.Component {
                                             <div className="col-span-3 intro">
                                                 <p>{t('ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.')}</p>
                                                 <p>{t('You can define your details of your contract here, as well as many customizable function below.')}</p>
-                                                <p>{t('DON’T PANIC! You can deploy your contract to Kovan testnet for free, check if everythings is correct, then deploy to Ethereum mainnet.')}</p>
+                                                <p>{t('DON’T PANIC! You can deploy your contract to Rinkeby testnet for free, check if everythings is correct, then deploy to Ethereum mainnet.')}</p>
                                             </div>
                                         </div>
                                     </div>

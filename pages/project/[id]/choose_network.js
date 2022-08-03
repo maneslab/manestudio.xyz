@@ -178,8 +178,8 @@ let ChooseNetworkOne = ({network,state,club_id}) => {
     let {t} = useTranslation('common');
     let network_name;
     switch(network) {
-        case 'kovan':
-            network_name = 'Kovan Testnet'
+        case 'rinkeby':
+            network_name = 'Rinkeby Testnet'
             break;
         case 'homestead':
             network_name = 'Eth Mainnet'

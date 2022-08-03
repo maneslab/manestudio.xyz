@@ -48,34 +48,6 @@ const wagmiClient = createClient({
 })
 
 import merge from 'lodash.merge';
-// const env = config.get('ENV')
-
-// let allow_nets = [];
-// if (env == 'production') {
-//     allow_nets = [chain.polygonMumbai]
-// }else {
-//     allow_nets = [chain.kovan]
-
-// }
-
-// const { chains, provider } = configureChains(
-//     allow_nets,
-//     [
-//       apiProvider.alchemy(process.env.ALCHEMY_ID),
-//       apiProvider.fallback()
-//     ]
-// );
-  
-// const { connectors } = getDefaultWallets({
-//     appName: 'My RainbowKit App',
-//     chains
-// });
-  
-// const wagmiClient = createClient({
-//     autoConnect: true,
-//     connectors,
-//     provider
-// })
 
 const myLightTheme = merge(lightTheme(),{
     colors: {

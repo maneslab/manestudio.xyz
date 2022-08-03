@@ -79,7 +79,7 @@ export default function ClubHeader({
                                 </a>
                             }
                             {
-                                (step_3_finished)
+                                (step_2_finished)
                                 ? <Link href={base_url+'/drop'} activeClassName={"tab-active"}>
                                     <a className={classNames("tab  capitalize",{"tab-active":(active_id == 3)})}>
                                         {step_3_finished_icon}
