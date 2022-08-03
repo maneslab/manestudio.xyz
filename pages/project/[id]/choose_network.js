@@ -37,7 +37,7 @@ class ChooseNetwork extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            'kovan' : {
+            'rinkeby' : {
                 'is_fetching'       : false,
                 'is_fetched'        : false,
                 'contract_address'  : null
@@ -66,7 +66,7 @@ class ChooseNetwork extends React.Component {
     async fetchContractAddress(club_id,network) {
         
         const {t} = this.props.i18n;
-        let state = this.state[network];
+        let network_state = this.state[network];
 
         let contract_list = config.get('MANE_CONTRACT');
         if (!contract_list[network]) {
@@ -77,8 +77,8 @@ class ChooseNetwork extends React.Component {
         let mane = new manestudio(t,network);
 
         ///获得对应的合约地址
-        state['is_fetching'] = true;
-        this.setState(state);
+        network_state['is_fetching'] = true;
+        this.setState({[network]:network_state});
 
         ///
         let addr = '0x0';
@@ -98,16 +98,16 @@ class ChooseNetwork extends React.Component {
      
         }
 
-        state['is_fetching'] = false;
-        state['is_fetched'] = true;
+        network_state['is_fetching'] = false;
+        network_state['is_fetched'] = true;
         if (hex2Number(addr) != 0) {
-            state['contract_address'] = addr;
+            network_state['contract_address'] = addr;
         }else {
-            state['contract_address'] = null;
+            network_state['contract_address'] = null;
         }
 
 
-        this.setState(state)
+        this.setState({[network]:network_state});
     }
 
 
@@ -135,11 +135,11 @@ class ChooseNetwork extends React.Component {
 
 
                         <div className='mb-8'>
-                            <h3 className='font-bold mb-2'>Kovan Testnet</h3>
+                            <h3 className='font-bold mb-2'>Rinkeby Testnet</h3>
                             <div className='d-bg-c-1'>
                                 {
-                                    (this.props.chain.network == 'kovan')
-                                    ? <ChooseNetworkOne network={'kovan'} state={this.state['kovan']} club_id={club_id}/>
+                                    (this.props.chain.network == 'rinkeby')
+                                    ? <ChooseNetworkOne network={'rinkeby'} state={this.state['rinkeby']} club_id={club_id}/>
                                     : <div className='flex justify-between p-4 pl-6 border-b d-border-c-2 h-20 items-center cursor-pointer'>
                                         <div>{'wrong network'}</div>
                                         <div><SwitchChainButton /></div>

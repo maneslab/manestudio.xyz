@@ -118,7 +118,6 @@ class GenerateGroupView extends React.Component {
                             refreshRandomImage={this.refreshRandomImage}
                             />
 
-                        <button onClick={this.refreshRandomImage} className="btn btn-primary">测试</button>
 
                     </div>
 
