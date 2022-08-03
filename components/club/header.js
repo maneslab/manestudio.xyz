@@ -19,6 +19,7 @@ export default function ClubHeader({
 
     let step_1_finished = false;
     let step_2_finished = false;
+    let step_3_finished = false;
 
     if (club) {
         club_id = club.get('id');
@@ -34,7 +35,9 @@ export default function ClubHeader({
             step_2_finished = true;
             step_2_finished_icon = <CheckCircleIcon className='icon-sm text-green-500 mr-2'/>
         }
-        if (club.getIn(['is_step_done','step_3'])) {
+        console.log('club',club.toJS())
+        if (club.getIn(['is_public']) == 1) {
+            step_3_finished = true;
             step_3_finished_icon = <CheckCircleIcon className='icon-sm text-green-500 mr-2'/>
         }
     }
@@ -76,7 +79,7 @@ export default function ClubHeader({
                                 </a>
                             }
                             {
-                                (step_2_finished)
+                                (step_3_finished)
                                 ? <Link href={base_url+'/drop'} activeClassName={"tab-active"}>
                                     <a className={classNames("tab  capitalize",{"tab-active":(active_id == 3)})}>
                                         {step_3_finished_icon}

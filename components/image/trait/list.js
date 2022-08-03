@@ -66,13 +66,15 @@ class TraitList extends React.Component {
             img_id : data.data.img_id,
             layer_id : layer_id
         })
-        console.log('debug-upload-add-trait-finished',result);
+
+        this.props.refreshRandomImage();
+        // console.log('debug-upload-add-trait-finished',result);
         this.props.refresh();
-        this.props.setActiveTraitId({
-            'group_id' : result.data.group_id,
-            'layer_id' : result.data.layer_id,
-            'trait_id' : result.data.id
-        });
+        // this.props.setActiveTraitId({
+        //     'group_id' : result.data.group_id,
+        //     'layer_id' : result.data.layer_id,
+        //     'trait_id' : result.data.id
+        // });
     }
 
     render() {

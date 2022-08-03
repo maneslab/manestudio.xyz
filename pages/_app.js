@@ -29,7 +29,7 @@ import { publicProvider } from 'wagmi/providers/public';
 //rainbowkit导入结束
 
 const { chains, provider } = configureChains(
-    [chain.mainnet,  chain.kovan ],
+    [chain.mainnet,  chain.rinkeby ],
     [
         alchemyProvider({ alchemyId: config.get('ALCHEMY_ID') }),
         publicProvider()

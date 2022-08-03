@@ -130,6 +130,7 @@ class LayerList extends React.Component {
                                         handleDelete={this.props.deleteLayer}
                                         handleUpdate={this.props.updateLayer}
                                         handleEditProbability={this.toggleProbabilityModal}
+                                        refreshRandomImage={this.props.refreshRandomImage}
                                         handleEdit={this.edit}
                                         key={one.get('id')} />
                                 })

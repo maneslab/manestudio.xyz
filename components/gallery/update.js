@@ -171,7 +171,8 @@ class GalleryUpdate extends React.Component {
             this.formRef.current.setValues({
                 'gallery' : values
             })
-    
+            this.autoSave();
+
         }
 
         this.setState({
@@ -190,9 +191,19 @@ class GalleryUpdate extends React.Component {
             img_id : image.data.img_id,
             id     : uid
         });
+
         this.setState({
             'open_index' : rl
         })
+
+        this.autoSave();
+    }
+
+    @autobind
+    autoSave() {
+        if (this.formRef.current) {
+            this.formRef.current.submitForm();
+        }
     }
 
     render() {
@@ -253,6 +264,7 @@ class GalleryUpdate extends React.Component {
                                             <SortableContext items={Object.keys(values.gallery)}>
                                                 {values.gallery.map((one,index) => <GalleryOne 
                                                     remove={arrayHelpers.remove}
+                                                    autoSave={this.autoSave}
                                                     key={one.id} 
                                                     id={index}
                                                     errors={errors['gallery'] ? errors['gallery'][index] : null}

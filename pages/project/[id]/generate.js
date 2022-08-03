@@ -43,7 +43,7 @@ class GenerateGroupView extends React.Component {
         this.state = {
             is_fetching : false,
             is_fetched  : false,
-            merged_traits : [],
+            // merged_traits : [],
             generates : [],
             merged_traits: {},
             filter : [],
@@ -156,7 +156,7 @@ class GenerateGroupView extends React.Component {
 
     render() {
         const {t} = this.props.i18n;
-        const {is_fetching,is_fetched,generates,merged_traits,preview_id,preview_index,uniqueness, max_generate_number} = this.state;
+        const {is_fetching,is_fetched,generates,merged_traits,preview_id,preview_index,uniqueness, max_generate_number, filter_trait_ids} = this.state;
         const {club_id,entities,club} = this.props;
 
         
@@ -197,7 +197,7 @@ class GenerateGroupView extends React.Component {
                 }
 
                 {
-                    (is_fetched && generates.length == 0)
+                    (is_fetched && generates.length == 0 && filter_trait_ids.count() == 0)
                     ? <div className='py-24'>
                         <div className='flex justify-center capitalize font-bold text-xl mb-8'>{t('no NFT yet')}</div>
                         <div className='flex justify-center'>
@@ -208,7 +208,7 @@ class GenerateGroupView extends React.Component {
                 }
 
                 {
-                    (is_fetched && generates.length > 0)
+                    (is_fetched && (generates.length > 0 || filter_trait_ids.count() > 0))
                     ? <div className="max-w-screen-xl mx-auto grid grid-cols-4 gap-8">
 
                         <div className="col-span-1">
@@ -262,6 +262,13 @@ class GenerateGroupView extends React.Component {
                                             <div className='p-2'>#{one.temp_id}</div>
                                         </div>
                                     }))
+                                }
+                                {
+                                    (generates.length == 0 && is_fetched)
+                                    ? <div className='py-8 text-center col-span-6 font-bold'>
+                                        {t('no matched NFT')}
+                                    </div>
+                                    : null
                                 }
                             </div>
                             

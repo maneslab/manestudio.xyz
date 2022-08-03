@@ -68,8 +68,8 @@ class ClubOne extends React.Component {
         if (club.getIn(['contract_address_list_map','kovan'])) {
             tag = <div class="badge badge-info capitalize">kovan testnet</div>
         }
-        if (club.getIn(['contract_address_list_map','ropsten'])) {
-            tag = <div class="badge badge-info capitalize">ropsten testnet</div>
+        if (club.getIn(['contract_address_list_map','rinkeby'])) {
+            tag = <div class="badge badge-info capitalize">rinkeby testnet</div>
         }
         if (club.getIn(['contract_address_list_map','mainnet'])) {
             tag = <div class="badge badge-primary capitalize">mainnet</div>

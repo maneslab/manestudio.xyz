@@ -9,7 +9,7 @@ import {confirm} from 'components/common/confirm/index'
 import { TrashIcon } from '@heroicons/react/outline';
 import DragIcon from 'public/img/icons/drag.svg'
 
-export default function SortableItem({img,open_index,id,toggleOpen,remove,draging_index,errors}) {
+export default function SortableItem({img,open_index,id,toggleOpen,remove,draging_index,autoSave}) {
 
     const {
         attributes,
@@ -41,6 +41,7 @@ export default function SortableItem({img,open_index,id,toggleOpen,remove,dragin
         })) {
             e.stopPropagation();
             remove(id)
+            autoSave();
         }
     }
     /* onClick={()=>{

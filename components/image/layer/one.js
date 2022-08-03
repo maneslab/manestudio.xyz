@@ -14,7 +14,7 @@ import TraitList from 'components/image/trait/list'
 import ProbabilityModal from 'components/image/trait/probability_modal'
 
 
-export default function LayerOne({handleDelete,handleEdit,layer,draging_index,refreshList,id,is_lock}) {
+export default function LayerOne({handleDelete,handleEdit,layer,draging_index,refreshList,id,is_lock,refreshRandomImage}) {
 
     const {
         attributes,
@@ -102,7 +102,10 @@ export default function LayerOne({handleDelete,handleEdit,layer,draging_index,re
         {
             (open)
             ? <div className={classNames('bg-[#e6ebf4] dark:bg-[#22252b]',{'animate-fade-in':open},{'animate-fade-out':!open})}>
-                <TraitList ref={listRef} is_lock={is_lock} layer_id={layer.get('id')} toggleProbabilityModal={toggleProbabilityModal}/>
+                <TraitList ref={listRef} is_lock={is_lock} layer_id={layer.get('id')} 
+                    toggleProbabilityModal={toggleProbabilityModal}
+                    refreshRandomImage={refreshRandomImage}
+                    />
             </div>
             : null
         }

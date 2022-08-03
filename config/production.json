@@ -16,6 +16,6 @@
 
     "NEXTID_ENV"        : "production",
 
-    "ETH_NETWORK"       : "kovan"
+    "ETH_NETWORK"       : "rinkeby"
 
 }

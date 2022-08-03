@@ -6,9 +6,7 @@ import { httpRequest } from 'helper/http';
 import Loading from 'components/common/loading'
 
 import {PhotographIcon} from '@heroicons/react/outline'
-import withTranslate from 'hocs/translate';
 
-@withTranslate
 class GenerateImage extends React.Component {
 
     constructor(props) {
@@ -67,7 +65,7 @@ class GenerateImage extends React.Component {
     render() {
 
         const {trait_list,is_fetching,is_fetched} = this.state;
-        const {t} = this.props.i18n;
+        const {t} = this.props;
 
         // console.log('trait_list',trait_list)
 
@@ -124,4 +122,4 @@ const mapDispatchToProps = (dispatch) => {
       
     }
 }
-module.exports = connect(mapStateToProps,mapDispatchToProps)(GenerateImage)
+module.exports = connect(mapStateToProps,mapDispatchToProps,null,{forwardRef:true})(GenerateImage)

@@ -35,6 +35,14 @@ class GenerateGroupView extends React.Component {
             select_traits       : {}
         }
         this.listRef = React.createRef();
+        this.generateImageRef = React.createRef();
+    }
+
+    @autobind
+    refreshRandomImage() {
+        if (this.generateImageRef.current) {
+            this.generateImageRef.current.fetchTraits();
+        }
     }
 
     @autobind
@@ -107,13 +115,16 @@ class GenerateGroupView extends React.Component {
                             group_id={this.props.group_id} 
                             is_lock={is_lock}
                             ref={this.listRef} 
+                            refreshRandomImage={this.refreshRandomImage}
                             />
+
+                        <button onClick={this.refreshRandomImage} className="btn btn-primary">测试</button>
 
                     </div>
 
                     <div className='col-span-3'>
 
-                        <GenerateImage group_id={group_id} />
+                        <GenerateImage group_id={group_id} ref={this.generateImageRef} t={t}/>
 
                         <div className='block-intro'>
                             <h3>{t('about layer and trait')}</h3>
