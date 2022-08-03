@@ -75,6 +75,8 @@ class GenerateGroupView extends React.Component {
 
     
     async loadGenerateList(club_id,filter_trait_ids) {
+        console.log('filter_trait_ids',filter_trait_ids.toJS())
+
         this.setState({
             'is_fetching' :  true
         })
@@ -84,7 +86,7 @@ class GenerateGroupView extends React.Component {
             'method' : 'GET',
             'data'  : {
                 'club_id'      : club_id,
-                'trait_ids'    : filter_trait_ids.toJS().join('_')
+                'trait_ids'    : filter_trait_ids.toJS().join(',')
             }
         })
         // console.log('debug08,result',result);
@@ -121,12 +123,19 @@ class GenerateGroupView extends React.Component {
         // console.log('filter-change',e.target.checked)
         let {filter_trait_ids} = this.state;
         let {value,checked} = e.target;
+
+        let value_arr = value.split(',');
+        
         if (checked) {
-            if (!filter_trait_ids.includes(value)) {
-                filter_trait_ids = filter_trait_ids.push(value)
-            }
+            value_arr.forEach(v => {
+                if (!filter_trait_ids.includes(v)) {
+                    filter_trait_ids = filter_trait_ids.push(v)
+                }
+            })
         }else {
-            filter_trait_ids = filter_trait_ids.filter(one=>one!=value);
+            value_arr.forEach(v => {
+                filter_trait_ids = filter_trait_ids.filter(one=>one!=v);
+            })
         }
         this.setState({
             'filter_trait_ids' : filter_trait_ids
