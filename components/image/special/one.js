@@ -99,7 +99,6 @@ class SpecialOne extends React.Component {
         const {edit_mode} = this.state;
         const {t} = this.props.i18n;
 
-
         return <div>
             <div className="border border-gray-300 dark:border-[#292C31] ">
                 <div className="w-full border-b border-gray-200 dark:border-[#292C31] cursor-pointer">
@@ -113,7 +112,7 @@ class SpecialOne extends React.Component {
                             </label>
                             <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white dark:bg-[#191c20] dark:text-white rounded-box w-52 capitalize">
                                 {
-                                    (is_lock)
+                                    (!is_lock)
                                     ? <>
                                         <li><a onClick={this.deleteSpecial}><TrashIcon className='icon-sm'/>{t('delete')}</a></li>
                                     </>

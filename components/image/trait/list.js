@@ -121,7 +121,7 @@ class TraitList extends React.Component {
                         ? <>
                             {
                                 list_rows.map((one,i)=>{
-                                    let is_last = (i == list_rows.count() - 1)
+                                    let is_last = (i == list_rows.count() - 1 && i != 0)
                                     return <TraitOne 
                                         trait={one} 
                                         is_lock={is_lock}

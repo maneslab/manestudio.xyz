@@ -35,7 +35,6 @@ export default function ClubHeader({
             step_2_finished = true;
             step_2_finished_icon = <CheckCircleIcon className='icon-sm text-green-500 mr-2'/>
         }
-        console.log('club',club.toJS())
         if (club.getIn(['is_public']) == 1) {
             step_3_finished = true;
             step_3_finished_icon = <CheckCircleIcon className='icon-sm text-green-500 mr-2'/>
