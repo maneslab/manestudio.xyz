@@ -58,6 +58,11 @@ class PbTime extends React.Component {
     submit() {
 
         const {data_value,value} = this.props
+        const {show_endtime} = this.state;
+
+        if (!show_endtime) {
+            data_value[1] = 0;
+        }
 
         console.log('validate-equals',data_value,value);
 
