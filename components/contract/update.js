@@ -173,7 +173,7 @@ class ContractUpdate extends React.Component {
                         <div className='col-span-6 mb-4'>
                             <div className='flex justify-between items-center w-full'>
                                 <div className='flex justify-start items-center title'>
-                                    <h2 className='mb-0'>{'whitelist'}</h2>
+                                    <h2 className='mb-0'>{t('allowlist presale')}</h2>
                                 </div>
                                 <div>
                                 </div>
@@ -192,7 +192,7 @@ class ContractUpdate extends React.Component {
 
                                         <BluechipSelect name={"wl_bluechip_list"} label={t("whitelist for selected bluechip")} />
 
-                                        <WhitelistUpload label={t("upload whitelist csv file")} club_id={club_id} value={values.whitelist_count} setFieldValue={setFieldValue}/>
+                                        <WhitelistUpload label={<span className='normal-case'>{t("upload whitelist csv file")}</span>} club_id={club_id} value={values.whitelist_count} setFieldValue={setFieldValue}/>
 
                                     </div>
                                     : <div className='ct text-gray-400 capitalize'>
@@ -204,7 +204,7 @@ class ContractUpdate extends React.Component {
                                 </div>
                             </div>
                             <div className="col-span-3 intro">
-                                <p>{t('ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.')}</p>
+                                <p>{t('manage-whitelist-intro')}</p>
                             </div>
                         </div>
                     </div>
@@ -215,7 +215,7 @@ class ContractUpdate extends React.Component {
                         <div className='col-span-6 mb-4'>
                             <div className='flex justify-between items-center w-full'>
                                 <div className='flex justify-start items-center title'>
-                                    <h2 className='mb-0'>{'delayed reveal'}</h2>
+                                    <h2 className='mb-0'>{t('delayed reveal')}</h2>
                                     <div class="form-control ml-4">
                                         <label class="label cursor-pointer">
                                             <FormSwitch name={"delay_reveal_enable"} className="toggle toggle-primary"/>
@@ -272,7 +272,7 @@ class ContractUpdate extends React.Component {
                             </div>
                             
                             <div className="col-span-3 intro">
-                                <p>{t('ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.')}</p>
+                                <p>{t('manage-reveal-intro')}</p>
                             </div>
                         </div>
                         

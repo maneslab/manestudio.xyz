@@ -56,6 +56,8 @@ import { httpRequest } from 'helper/http';
 import { getUnixtime } from 'helper/time';
 import { withRouter } from 'next/router';
 
+import {strFormat} from 'helper/translate'
+
 @withMustLogin
 @withClubView
 @withActiveClub
@@ -528,7 +530,10 @@ class DeployView extends React.Component {
                 <title>{t('contract')}</title>
             </Head>
             <div>
-                <ClubHeader club={club} title={t('smart contract')} active_id={2} intro={null} />
+                <ClubHeader club={club} title={t('smart contract')} active_id={2}  intro={<>
+                    <p>{t('smartcontract-header-intro1')}</p>
+                    <p>{t('smartcontract-header-intro2')}</p>
+                </>} />
 
                 <ContractStep club_id={club_id} active_name={'deploy'} contract={contract} next_step={(contract)?true:false} />
 
@@ -563,7 +568,7 @@ class DeployView extends React.Component {
                             <h1 className='h1 mb-8'>{
                                 (network == 'mainnet')
                                 ?   <>{t("manage contract on ETH mainnet")}</>
-                                :   <>{t("manage contract on ETH testnet") + " : " + network}</>
+                                :   <>{strFormat(t("manage contract on {network_name} testnet"),{'network_name':network})}</>
                             }</h1>
                             
                             {
@@ -715,15 +720,16 @@ class DeployView extends React.Component {
                                                 </div>
                                             </div>
                                             <div className="col-span-3 intro">
-                                                <p>{t('ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.')}</p>
-                                                <p>{t('You can define your details of your contract here, as well as many customizable function below.')}</p>
-                                                <p>{t('DON’T PANIC! You can deploy your contract to Rinkeby testnet for free, check if everythings is correct, then deploy to Ethereum mainnet.')}</p>
+                                                <p>{t('manage-contract-intro-1')}</p>
+                                                <p>{t('manage-contract-intro-2')}</p>
+                                                <p>{t('manage-contract-intro-3')}</p>
                                             </div>
                                         </div>
                                     </div>
 
+                                                    
                                     <div className='contract-form'>
-                                        <h2 className='mb-2'>{t('withdraw')}</h2>
+                                        <h2 className='mb-2'>{t('withdraw funds')}</h2>
                                         <div className='grid grid-cols-9 gap-8'>
                                             <div className="col-span-6">
                                                 <div className='ct'>
@@ -757,6 +763,10 @@ class DeployView extends React.Component {
                                                     }
                                                 </div>
                                             </div>
+                                            <div className='col-span-3 intro'>
+                                                <p>{t('Withdraw-intro-1')}</p>
+                                                <p>{t('Withdraw-intro-2')}</p>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -768,7 +778,7 @@ class DeployView extends React.Component {
                                                 <div class="alert alert-info shadow-sm mb-8">
                                                     <div>
                                                         <InformationCircleIcon className='icon-sm'/>
-                                                        <span>{t('the following settings need to be modified in the contract by paying GAS')}</span>
+                                                        <span>{t('The following settings in the contract can be updated by paying gas fee')}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -777,16 +787,16 @@ class DeployView extends React.Component {
                                             {
                                                 (has_presale_stage)
                                                 ?   <div className='contract-form'>
-                                                    <h2 className='mb-2'>{t('whitelist')}</h2>
+                                                    <h2 className='mb-2'>{t('presale')}</h2>
                                                     <div className='grid grid-cols-9 gap-8'>
                                                         <div className='col-span-6'>
                                                             <div className='ct'>
                                                                 <div className='info-dl'>
-                                                                    <label>{t('whitelist max supply')}</label>
+                                                                    <label>{t('presale max supply')}</label>
                                                                     <WlMaxSupplyUpdate value={contract_data['presale_max_supply']} manenft={this.manenft} onUpdate={this.onUpdate}/>
                                                                 </div>
                                                                 <div className='info-dl'>
-                                                                    <label>{t('whitelist mint time')}</label>
+                                                                    <label>{t('presale mint time')}</label>
                                                                     <div className=''>
                                                                         <WlTime value={[contract_data['presale_start_time'],contract_data['presale_end_time']]} manenft={this.manenft} onUpdate={this.onUpdate}/>
                                                                     </div>
@@ -799,7 +809,8 @@ class DeployView extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className='col-span-3'>
+                                                        <div className='col-span-3 intro'>
+                                                            <p>{t('manage-presale-intro')}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -833,7 +844,8 @@ class DeployView extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className='col-span-3'>
+                                                        <div className='col-span-3 intro'>
+                                                            <p>{t('manage-presale-intro')}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -841,18 +853,18 @@ class DeployView extends React.Component {
                                             }
 
                                             <div className='contract-form'>
-                                                <h2 className='mb-2'>{t('special tools')}</h2>
+                                                <h2 className='mb-2'>{t('panic buttons')}</h2>
                                                 <div className='grid grid-cols-9 gap-8'>
                                                     <div className='col-span-6'>
                                                         <div className='ct'>
                                                             <div className='flex justify-between items-center'>
                                                                 <div className='text-sm'>
-                                                                    {t('Emergency suspension will suspend Mint for the entire contract, which is used to suspend Mint in an emergency')}
+                                                                    {t('emergency-pause-intro')}
                                                                 </div>
                                                                 {
                                                                     (contract_data['paused'])
-                                                                    ? <a className='btn btn-success' onClick={this.paused.bind({},false)}>{t('resume')}</a>
-                                                                    : <a className='btn btn-error' onClick={this.paused.bind({},true)}>{t('pause')}</a>
+                                                                    ? <a className='btn btn-success' onClick={this.paused.bind({},false)}>{t('resume contract')}</a>
+                                                                    : <a className='btn btn-error' onClick={this.paused.bind({},true)}>{t('pause contract')}</a>
                                                                 }
                                                                 
                                                             </div>
@@ -864,7 +876,7 @@ class DeployView extends React.Component {
                                                                         <div className='text-sm'>
                                                                             {t('destory-info')}
                                                                         </div>
-                                                                        <Button className='btn btn-error' onClick={this.toggleDestroyModal}>{t('destroy')}</Button>
+                                                                        <Button className='btn btn-error' onClick={this.toggleDestroyModal}>{t('destroy contract')}</Button>
                                                                     </div>
                                                                     <DestroyModal is_destroy_contract={this.state.is_destroy_contract} visible={this.state.show_destroy_modal} handleDestroy={this.destroy} closeModal={this.toggleDestroyModal} />
                                                                 </>
@@ -884,7 +896,7 @@ class DeployView extends React.Component {
                                         <div class="alert alert-info shadow-sm mb-8">
                                             <div>
                                                 <InformationCircleIcon className='icon-sm'/>
-                                                <span>{t('the following settings, which do not require contract modification, will take effect in real time')}</span>
+                                                <span>{t('manage-contract-warning2')}</span>
                                             </div>
                                         </div>
                                     </div>

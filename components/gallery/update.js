@@ -234,7 +234,7 @@ class GalleryUpdate extends React.Component {
         })
 
         return  <div>
-            <div className='block-title'>{t('gallery')}</div>
+            <div className='block-title capitalize'>{t('gallery')}</div>
             <Formik
                 innerRef={this.formRef}
                 initialValues={init_data}
@@ -300,9 +300,8 @@ class GalleryUpdate extends React.Component {
                         </div>
                         <div className='r'>
                             <div className='block-intro'>
-                                <h3>{t('drop details')}</h3>
                                 <div className='ct'>
-                                    <p>{t('Add the general title of the your collection drop, write some description and tell us the story behind your artworks.')}</p>
+                                    <p>{t('gallery-intro')}</p>
                                 </div>
                             </div>
                         </div>

@@ -14,12 +14,12 @@ choose image file,choose image file,选择图像文件
 choose video file,choose video file,选择视频文件
 address,address,地址
 setting,setting,设置
-deploy,deploy,部署
-ETH mainnet,ETH mainnet,ETH主网
+deploy,deploy,部署合约
+ETH mainnet,ETH mainnet,以太坊主网
 whitelist is disabled,whitelist is disabled,白名单被禁用
 "ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.","ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.",ERC-721a是铸造1/1 NFT的合约标准，从经典的ERC-721标准中优化，以降低气体使用量。
 pre-reveal placeholder,pre-reveal placeholder,开图前盲盒封面图
-add pre-reveal placeholder,add pre-reveal placeholder,上传开图前占位文件
+add pre-reveal placeholder,add pre-reveal placeholder,添加盲盒封面图
 auto reveal at,auto-reveal time,自动开图时间
 delayed reveal is disabled,delayed reveal is disabled,延迟开图被禁用
 whitelist for selected bluechip,Allowlist for Bluechip NFT Holders,蓝筹NFT持有者白名单发放
@@ -63,7 +63,7 @@ discord,discord,discord
 action log,action log,行动日志
 member,member,会员
 next,next,下一步
-description,description,描述
+description,description,项目描述
 link to the drop page,link to the drop page,链接到投放页面
 save,save,保存
 are you sure you want to delete this image?,are you sure you want to delete this image?,你确定要删除这张图片吗？
@@ -175,7 +175,7 @@ are you sure you want to regenerate NFT images?,Start the generation/regeneratio
 download,download,下载
 properties,properties,属性
 regenarate,regenarate,重新生成
-no trait yet,no trait yet,尚无特征
+no trait yet,Click or drag & drop traits here. Support .png file.,单击或拖拽添加特征。支持.png文件。
 add trait,add trait,添加特征
 delete,delete,删除
 are you sure you want to delete this trait?,are you sure you want to delete this trait?,你确定要删除这个特征吗？
@@ -208,7 +208,7 @@ share ratio,share ratio,分成比例
 "DON’T PANIC! You can deploy your contract to Rinkeby testnet for free, check if everythings is correct, then deploy to Ethereum mainnet.","DON’T PANIC! You can deploy your contract to Rinkeby testnet for free, check if everythings is correct, then deploy to Ethereum mainnet.",不要惊慌! 您可以将您的合约免费部署到Rinkeby testnet，检查是否一切正常，然后部署到Ethereum mainnet。
 withdraw,withdraw,提款
 total balance,total balance,总余额
-available balance,available balance,可用余额
+available balance,available balance,可提取余额
 withdrawals can only be made after all refund periods have expired and at least 7 days after mint.,withdrawals can only be made after all refund periods have expired and at least 7 days after mint.,只有在所有退款期过后，并且在铸币后至少7天，才能提款。
 the following settings need to be modified in the contract by paying GAS,the following settings need to be modified in the contract by paying GAS,以下设置需要通过支付GAS在合约中进行修改
 whitelist,whitelist,白名单
@@ -222,8 +222,8 @@ special tools,special tools,特殊工具
 "Emergency suspension will suspend Mint for the entire contract, which is used to suspend Mint in an emergency","Emergency suspension will suspend Mint for the entire contract, which is used to suspend Mint in an emergency",紧急暂停将暂停Mint功能
 resume,resume,恢复
 pause,pause,暂停
-destory-info,"If you are not satisfied with some configuration, such as account splitting, refund, name, etc., you can destroy the contract and republish it, (contract need has not any mint and reserve NFT yet)","如果你对某些配置不满意，如账户拆分、退款、名称等，你可以销毁合约并重新发布它(合约需要无预留NFT,无mint)"
-destroy,destroy,销毁
+destory-info,"[ONLY FOR TESTNET] To change parameters like contract name, symbols, and functions like refund, you may destroy this testnet contract and deploy it again with correct settings, if you have not minted any NFTs yet. Otherwise we would suggest you to start a new project instead.",【仅限测试网】如果你需要修改合约名称、符号，或修改退款设置，你可以销毁测试网合约，并在调整设置后重新部署。该功能仅在未有NFT被铸造时可用，其他情况下，我们则建议你重新创建项目。
+destroy contract,destroy contract,销毁合约
 "the following settings, which do not require contract modification, will take effect in real time","the following settings, which do not require contract modification, will take effect in real time",以下设置不需要修改合约，将实时生效
 paused contract,paused contract,暂停的合约
 resume contract,resume contract,恢复合约
@@ -233,7 +233,7 @@ paused contract successful,paused contract successful,暂停的合约成功
 resume contract tx successful,resume contract tx successful,恢复合约转发成功
 destroy contract,destroy contract,销毁合约
 destroy contract tx sent,destroy contract tx sent,销毁合约Tx已发送
-destroy contract tx successful,destroy contract tx successful,销毁合约转发成功
+de tx successful,destroy contract tx successful,销毁合约转发成功
 deploy contract,deploy contract,部署合约
 deploy contract tx sent,deploy contract tx sent,部署合约TX发送
 deploy contract successful,deploy contract successful,部署合约成功
@@ -299,27 +299,26 @@ regenerate,regenerate,重新生成
 what is repetition rate?,About Repetition Rate,关于重复率
 repetition rate,repetition rate,重复率
 choose network,choose network,选择网络
-Manage Deployed Contracts,Manage Deployed Contracts,管理已部署的合同
+Manage Deployed Contracts,Manage Deployed Contracts,管理已部署的合约
 manage,manage,管理
-No contract deployed,No contract deployed,没有部署合同
+No contract deployed,No contract deployed,未部署合约
 Manastudio Contract is not deployed on this network yet,Manastudio Contract is not deployed on this network yet,Manastudio合约还没有部署在这个网络上
-"After deployment, the project will be locked, you can no longer add, delete NFTtrait, images, can not modify the contract settings, etc.","After deployment, the project will be locked, you can no longer add, delete NFTtrait, images, can not modify the contract settings, etc.",部署后，项目将被锁定，你不能再添加、删除NFTtrait、图像，不能修改合同设置等。
+"After deployment, the project will be locked, you can no longer add, delete NFTtrait, images, can not modify the contract settings, etc.","After deployment, the project will be locked, you can no longer add, delete NFTtrait, images, can not modify the contract settings, etc.",部署后，项目将被锁定，你不能再添加、删除NFTtrait、图像，不能修改合约设置等。
 get Rinkeby Testnet ETH,get Rinkeby Testnet ETH,获取科万特网ETH
 Get,Get,获取
 deploy to ETH mainnet,deploy to ETH mainnet,部署到ETH主网
 deploy to ETH testnet,deploy to ETH testnet,部署到ETH测试网
 deploy contract warning,deploy contract warning,部署合约警告
-hide in ManeSpace,hide in ManeSpace,隐藏在ManeSpace中
-you need setting contract first before preview drop page,you need setting contract first before preview drop page,您需要在预览下降页面之前先设置合同
+hide in ManeSPACE,hide in ManeSPACE,隐藏在ManeSpace中
+you need setting contract first before preview drop page,you need setting contract first before preview drop page,您需要在预览下降页面之前先设置合约
 publish to ManeSpace,publish to ManeSpace,发布到ManeSpace
-manage contract on ETH mainnet,manage contract on ETH mainnet,在ETH主网上管理合同
-manage contract on ETH testnet,manage contract on ETH testnet,在ETH测试网络上管理合同
+manage contract on ETH mainnet,manage contract on ETH mainnet,在ETH主网上管理合约
+manage contract on ETH testnet,manage contract on ETH testnet,在ETH测试网络上管理合约
 save & back,save & back,保存并返回
 footer-left-text,"© 2022 ManeSTUDIO by Weirdo Ghost Gang, powered by ManesLAB.",© 2022 ManeSTUDIO by Weirdo Ghost Gang，由ManesLAB出品。
 support,support,用户支持
 landing-page-intro-1,"ManeSTUDIO is an all-in-one solution for Web3 creators. It includes NFT generation, 1/1 NFT injection, metadata management, IPFS decentralized storage upload, smart contract custom deployment, blind box minting website building, etc., dedicated to solving all the coding parts in the workflow so that creators can simply focus on the creation itself.",ManeSTUDIO是为Web3创作者打造的NFT创作一站式解决方案，工具提供包括NFT随机生成、特殊款NFT注入、元数据注入、IPFS去中心化存储上传、智能合约定制部署、盲盒发售网页建站等，为创作者解决工作流中所有涉及技术、代码的部分，使得创作者回归创作本身，是一款无需编程基础，无准入门槛的Web3创作者工具。
-landing-page-intro-2,"Ultimately, ManeSTUDIO is a Web3 creator tool that requires no coding knowledge and no entry barriers. NFT projects created by ManeSTUDIO will automatically generate the minting website on ManeSPACE. The smart contract conforms to the mainstream NFT secondary market protocol standards such as OpenSea, LooksRare, and will be automatically synchronized after the primary sale.",由ManeSTUDIO创建的NFT项目会在ManeSPACE自动生成一级市场盲盒发售页面，智能合约符合OpenSea，LooksRare等主流NFT二级市场协议标准，会在项目发售后进行自动同步。
-landing-page-intro-3,"ManeSTUDIO is free to use for project creation, it charges only a 10% service fee from the primary sale earnings.",ManeSTUDIO的使用过程完全免费，仅在一级市场发售当中抽取10%作为服务费用。
+landing-page-intro-2,"ManeSTUDIO is free to use for project creation, it charges only a 10% service fee from the primary sale earnings.",ManeSTUDIO的使用过程完全免费，仅在一级市场发售当中抽取10%作为服务费用。
 sign message,sign message,签名
 new project,new project,新建项目
 "Name it whatever you like, it can be changed at anytime","Name it whatever you like, it can be changed at anytime",请在此输入项目名称，可随时修改
@@ -392,3 +391,48 @@ contract-success-desc,"you have finished deploy smart contract ,now you can go t
 go to minting page,go to minting page,去创建Mint NFT页面
 mint-page-success-desc,"You have finished publishing the mint page, you can now go to the manespace to view it","你已经完成了mint页面的发布,你现在可以去manespace查看它"
 go to manespace mint page,go to manespace mint page,在manespace查看
+spilt earnings,spilt earnings,资金分配
+add recipients,add recipients,添加资金分配地址
+currently all funds can only be withdrawn by you,currently all funds can only be withdrawn by you,目前所有资金仅能被你提取
+split-earnings-intro,"You can optionally enable the spilt earnings function to distribute funds seamlessly with collaborators or project partners. The spilt happens automatically when you withdraw the funds after escrow period, and your decision will be displayed publicly on your ManeSPACE minting page.",你可以选择使用资金分配功能与项目共创者进行收入资金分配。资金将按照设置比例在提款时进行自动分配。资金分配地址以及分配比例将在ManeSPACE项目页面进行公开展示。
+smartcontract-header-intro1,You will now deploy your smart contract to blockchain. ManeSTUDIO suggests creators to deploy on testnet before making changes on ETH mainnet to avoid mistakes and waste gas.,在此步骤中，智能合约将被部署至区块链。ManeSTUDIO建议所有创作者在部署至以太坊主网前先在部署至测试网进行调试，已避免合约中出现的错误，和对gas的浪费。 
+smartcontract-header-intro2,"After contract deployment, you can manage and edit your deployed contracts here.",在部署完成后，你可在此处对已部署合约进行管理与编辑。
+wrong network,wrong network,错误的网络
+switch network,switch network,切换网络
+network-intro-1,"Testnet simulates the real-world Ethereum blockchain environment, you can make changes and play around with test ETH tokens which you could claim for free. You may even test minting and see your NFT collections on Opensea.",测试网是对以太坊主网环境的模拟，免费领取测试币后可以在测试网环境中对合约的参数进行检查、调试，也可以测试NFT铸造环节，并在Opensea测试网中查看你的NFT合集。
+About Network,About Network,关于网络
+deploy to {network_name} testnet,deploy to {network_name} testnet,部署至{network_name}测试网
+{network_name} testnet connected,{network_name} testnet connected,已连接至{network_name}测试网
+rinkeby testnet faucet,rinkeby testnet faucet,rinkeby测试网水龙头
+Claim Rinkeby Testnet ETH,Claim Rinkeby Testnet ETH,领取Rinkeby测试币
+Claim,Claim,领取
+About Rinkeby Testnet,About Rinkeby Testnet,关于Rinkeby测试网
+rinkeby-network-intro-1,"Rinkeby Testnet is one of the most popular testnet. Opensea and Rarible have their marketplaces on Rinkeby testnet too, so that you can also check your NFTs on secondary marketplaces before deploying your smart contract to mainnet.",Rinkeby测试网是最常用的以太坊测试网之一。Opensea，Rarible等二级交易市场均在Rinkeby部署了测试版本，你可以在测试网络环境下查看你NFT合集在二级市场的展示是否正常。
+manage contract on {network_name} testnet,manage contract on {network_name} testnet,管理{network_name}测试网合约
+manage-contract-intro-1,"You can manage your deployed contract here. Parameters like time, price and allowlist addresses can always be edited even afyer . ",你可在此处对已部署的合约进行管理。如发售时间，价格，白名单地址可在此进行更新。
+manage-contract-intro-2,"However, some functions like contract name ,symbol and refund are exceptions, if you want to change those, you will have to destroy the testnet contract with panic buttons, go back to editor and deploy again.",合约名称、符号、退款等部分功能无法直接修改更新，如果需要修改，你必须使用紧急功能销毁此测试网合约，返回至合约编辑页面并重新部署。
+manage-contract-intro-3,Please make sure everything is correct before deploying on mainnet.,请确保在部署至主网前，参数设置正确。
+withdraw funds,withdraw funds,提取资金
+Withdraw-intro-1,Funds from primary sale can be withdrawn after the 7-days funds escrow period. Part of your funds may stay escrowed until all refund periods end. ,一级市场发售的资金可在7天资金托管期结束后在此提取。如果你为项目开启了可退款功能，部分资金仍将被锁定，直到所有退款周期结束。
+Withdraw-intro-2,10% service fee of ManeSTUDIO has already been deducted from the total balance.,ManeSTUDIO收取的10%服务费已从总余额中自动扣除。
+The following settings in the contract can be updated by paying gas fee,The following settings in the contract can be updated by paying gas fee,合约中的以下设置需在更新时支付gas fee。
+manage-presale-intro,Change the time and sale rules only when it is necessary.,非必要情况下请谨慎调整销售时间及销售规则。
+panic buttons,panic buttons,紧急功能
+emergency-pause-intro,"In case of emergency, you may pause the minting and lock the contract temporally.",如遇突发情况，可紧急暂停NFT铸造并暂时锁定合约。
+pause contract,pause contract,暂时锁定合约
+resume contract,resume contract,解除合约锁定
+destroy-info-2,Please type “DESTROY” in capital letters to confirm,请用大写字母输入“DESTROY”以确认销毁
+Destroy-btn-text,DESTROY,销毁合约
+manage-contract-warning2,"The following settings can be updated without paying gas fee, and changes will take effect in real time.",合约中的以下设置需在更新时无需支付gas fee，并实时生效。
+manage-whitelist-intro,"If you want to update allowlist, simply upload a new .csv file or add/change checked bluechip NFTs.",如需更新白名单地址，请上传新的.csv文档，添加或修改已选中的蓝筹NFT项目。
+manage-reveal-intro,You may update the pre-reveal placeholder. ,你可在此更新盲盒封面图
+minting-page-intro,Build a website for people to mint your NFTs and check project information.,创建项目发售网站，提供NFT发售铸造功能并了解详细项目信息。
+custom URL,custom URL,自定义链接
+drop-detail-intro,"You may use the minting page as the official website for your project, put some information and background story so people can know more about your project.",你可以将发售页面作为项目官网使用，在此添加一些信息，让社区更好地了解你的项目。
+gallery-intro,Add some visuals and sneak-peaks of your project. Aspect ratio of 1:1 recommended. ,添加项目的视觉及预览图，推荐1:1比例的正方形图片。
+creator-intro,Add creator infos here. You may add multiple creators.,添加创作者信息，可添加多位创作者。
+roadmap-intro,"Roadmap tells the milestones of your project. Set up your goals, and BUILD!",路线图展示了项目的预期目标与成就。给自己定个小目标，然后努力BUILD！
+Embed Mint Button,Embed Mint Button,嵌入式NFT铸造按钮
+Iframe Code,Iframe Code,Iframe嵌入代码
+embed-mint-intro,"If you wish to use your own website, select button type, then copy the iframe code of the mint button.",如果你想自行建站，可选择按钮类型后复制iframe代码。
+open in manaSPACE,open in manaSPACE,在maneSPACE查看

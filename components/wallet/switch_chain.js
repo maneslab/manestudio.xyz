@@ -1,6 +1,9 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import useTranslation from 'next-translate/useTranslation'
 
 const SwitchChainButton = () => {
+  let {t} = useTranslation('common');
+
   return (
     <ConnectButton.Custom>
       {({
@@ -26,7 +29,7 @@ const SwitchChainButton = () => {
               if (!mounted || !account || !chain) {
                 return (
                   <button onClick={openConnectModal} className="btn btn-outline" type="button">
-                    Connect Wallet
+                    {t('connect wallet')}
                   </button>
                 );
               }
@@ -34,7 +37,7 @@ const SwitchChainButton = () => {
               if (chain.unsupported) {
                 return (
                   <button onClick={openChainModal} className="btn btn-warning" type="button">
-                    Wrong network
+                    {t('wrong network')}
                   </button>
                 );
               }
@@ -46,7 +49,7 @@ const SwitchChainButton = () => {
                     type="button"
                     className='btn btn-primary capitalize text-base'
                   >
-                    switch network
+                    {t('switch network')}
                   </button>
                 </div>
               );

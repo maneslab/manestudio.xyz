@@ -147,16 +147,16 @@ class ClubDropSetting extends React.Component {
 
         return <PageWrapper>
             <Head>
-                <title>{'Drop details'}</title>
+                <title>{t('minting page')}</title>
             </Head>
             <div>
-                <ClubHeader club={club}  title={t('mint page')} active_id={3} intro={null}/>
+                <ClubHeader club={club}  title={t('minting page')} active_id={3} intro={t('minting-page-intro')}/>
 
                 <div className="max-w-screen-xl mx-auto pb-32">
 
 
                     <div className='flex justify-between items-center mb-4 '>
-                        <h2 className='h2'>{t('setting')}</h2>
+                        <h2 className='h2'>{t('settings')}</h2>
                     </div>
                     
                     <ClubUpdate club={club} updateClub={this.props.updateClub}/>
@@ -175,7 +175,9 @@ class ClubDropSetting extends React.Component {
                                 {
                                     (is_public)
                                     ? <div>
-                                        <a class="btn btn-ghost text-red-500 ml-2" onClick={this.onPublicChange.bind({},false)} >{t('hide in ManeSpace')}</a>
+                                        <a class="btn btn-ghost text-red-500 ml-2" onClick={this.onPublicChange.bind({},false)}>
+                                        <span className='normal-case'>{t('hide in ManeSPACE')}</span>
+                                        </a>
                                     </div>
                                     : null
                                 }
@@ -186,11 +188,15 @@ class ClubDropSetting extends React.Component {
                                 ? <div class="tooltip" data-tip={t('you need setting contract first before preview drop page')}>
                                     <button class="btn btn-default" disabled>{t('preview')}</button>
                                 </div>
-                                : <a className='btn btn-default' href={preview_link} target="_blank">{(is_public)?t('open in manaSPACE'):t('preview')}</a>
+                                : <a className='btn btn-default' href={preview_link} target="_blank">
+                                   <span className='normal-case'>{(is_public)?t('open in manaSPACE'):t('preview')}</span> 
+                                </a>
                             }
                             {
                                 (!is_public) 
-                                ? <a class="btn btn-primary ml-2" onClick={this.onPublicChange.bind({},true)}>{t('publish to ManeSpace')}</a>
+                                ? <a class="btn btn-primary ml-2" onClick={this.onPublicChange.bind({},true)}>
+                                    <span className='normal-case'>{t('publish to ManeSpace')}</span>
+                                </a>
                                 : null
                             }
                             </div>

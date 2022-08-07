@@ -478,7 +478,10 @@ class ContractView extends React.Component {
                 <title>{t('contract')}</title>
             </Head>
             <div>
-                <ClubHeader club={club} title={t('smart contract')} active_id={2} intro={t('smart-contract-intro')}/>
+                <ClubHeader club={club} title={t('smart contract')} active_id={2} intro={<>
+                    <p>{t('smartcontract-header-intro1')}</p>
+                    <p>{t('smartcontract-header-intro2')}</p>
+                </>}/>
            
                 <ContractStep club_id={club_id} active_name={'setting'} contract={contract} next_step={(contract)?true:false} />
 
@@ -714,7 +717,7 @@ class ContractView extends React.Component {
 
                                                     <BluechipSelect name={"wl_bluechip_list"} label={t("whitelist for selected bluechip")}   setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-7-1')}</div>} />
 
-                                                    <WhitelistUpload label={t("upload whitelist csv file")} club_id={club_id} value={values.whitelist_count} setFieldValue={setFieldValue}   setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-8-1')}</div>}/>
+                                                    <WhitelistUpload label={<span className='normal-case'>{t("upload whitelist csv file")}</span>} club_id={club_id} value={values.whitelist_count} setFieldValue={setFieldValue}   setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-8-1')}</div>}/>
 
                                                 </div>
                                                 : <div className='ct text-gray-400 capitalize'>
@@ -855,7 +858,7 @@ class ContractView extends React.Component {
                                             <div className='col-span-6 mb-4'>
                                                 <div className='flex justify-between items-center w-full'>
                                                     <div className='flex justify-start items-center title'>
-                                                        <h2 className='mb-0'>{t('revenue share')}</h2>
+                                                        <h2 className='mb-0'>{t('spilt earnings')}</h2>
                                                         <div class="form-control ml-4">
                                                             <label class="label cursor-pointer">
                                                                 <FormSwitch name={"revenue_share_enable"} className="toggle toggle-primary"/>
@@ -870,7 +873,7 @@ class ContractView extends React.Component {
                                                                 className='btn btn-default'
                                                                 onClick={this.addShareOne.bind({},arrayHelpers)}
                                                                 >
-                                                                    <PlusIcon className='w-4 mr-2' /> {t('add share account')}
+                                                                    <PlusIcon className='w-4 mr-2' /> {t('add recipients')}
                                                                 </button>
                                                             : null
                                                         }
@@ -894,7 +897,7 @@ class ContractView extends React.Component {
                                                             {
                                                                 (values.revenue_share.length == 0)
                                                                 ? <div className='ct text-center '>
-                                                                    {t('click add to add a share account')}
+                                                                    {t('currently all funds can only be withdrawn by you')}
                                                                 </div>
                                                                 : null
                                                             }
@@ -907,7 +910,7 @@ class ContractView extends React.Component {
 
                                                 </div>
                                                 <div className="col-span-3 intro">
-                                                    <p>{t('ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.')}</p>
+                                                    <p>{t('split-earnings-intro')}</p>
                                                 </div>
                                             </div>
                                         </div>

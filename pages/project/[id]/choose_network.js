@@ -115,7 +115,6 @@ class ChooseNetwork extends React.Component {
         const {t} = this.props.i18n;
         const {club_id,club} = this.props;
 
-        console.log('debug01,this.props',this.props);
 
         return <PageWrapper>
             <Head>
@@ -123,15 +122,21 @@ class ChooseNetwork extends React.Component {
             </Head>
             <div>
                 
-                <ClubHeader club={club} title={t('smart contract')} active_id={2} intro={null} />
+                <ClubHeader club={club} title={t('smart contract')} active_id={2}  intro={<>
+                    <p>{t('smartcontract-header-intro1')}</p>
+                    <p>{t('smartcontract-header-intro2')}</p>
+                </>}/>
 
                 <ContractStep club_id={club_id} active_name={'deploy'} next_step={false} />
 
-                <div className="max-w-screen-sm mx-auto pb-32">
+                <div className="max-w-screen-xl mx-auto grid grid-cols-12 gap-8">
+                    
+                    <div className='col-span-12'>
+                        <h2 className='h2'>{t('choose network')}</h2>
+                    </div>
 
-                    <div>
+                    <div className='col-span-9'>
 
-                        <h2 className='h2 mb-4'>{t('choose network')}</h2>
 
 
                         <div className='mb-8'>
@@ -141,7 +146,7 @@ class ChooseNetwork extends React.Component {
                                     (this.props.chain.network == 'rinkeby')
                                     ? <ChooseNetworkOne network={'rinkeby'} state={this.state['rinkeby']} club_id={club_id}/>
                                     : <div className='flex justify-between p-4 pl-6 border-b d-border-c-2 h-20 items-center cursor-pointer'>
-                                        <div>{'wrong network'}</div>
+                                        <div>{t('wrong network')}</div>
                                         <div><SwitchChainButton /></div>
                                     </div>
                                 }
@@ -149,19 +154,30 @@ class ChooseNetwork extends React.Component {
                         </div>
 
                         <div className='mb-8'>
-                            <h3 className='font-bold mb-2'>Eth Mainnet</h3>
+                            <h3 className='font-bold mb-2'>{t('ETH mainnet')}</h3>
                             <div className='d-bg-c-1'>
                                 {
                                     (this.props.chain.network == 'homestead')
                                     ? <ChooseNetworkOne network={'homestead'} state={this.state['homestead']} club_id={club_id}/>
                                     : <div className='flex justify-between p-4 pl-6 border-b d-border-c-2 h-20 items-center cursor-pointer'>
-                                        <div>{'wrong network'}</div>
+                                        <div>{t('wrong network')}</div>
                                         <div><SwitchChainButton /></div>
                                     </div>
                                 }
                             </div>
                         </div>
 
+                    </div>
+                    
+                    <div className='col-span-3'>
+                        <div className='block-intro'>
+                            <h3>{t('About Network')}</h3>
+                            <div className='ct'>
+                                <p>
+                                    {t('network-intro-1')}
+                                </p>
+                            </div>
+                        </div>
                     </div>
                    
                 </div> 
@@ -207,7 +223,7 @@ let ChooseNetworkOne = ({network,state,club_id}) => {
     }
 
     if (state.contract_address == null && state.is_fetched) {
-        return <div className='flex justify-between p-4 pl-6 border-b d-border-c-2 h-20 items-center'>
+        return <div className='flex justify-between p-4 pl-6 border-b d-border-c-2 h-20 items-center capitalize'>
             {t('No contract deployed')}
             <Link href={"/project/"+club_id+'/deploy?network='+network}>
             <a className='btn btn-primary'>

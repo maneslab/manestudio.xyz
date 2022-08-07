@@ -144,7 +144,7 @@ class ClubUpdate extends React.Component {
                         <div className='form-box-one'>
                             <Input name="name" label={t("project name")} placeholder={t("any name you want")} />
                             <Editor label={t("description")} ref={this.editorRef}/>
-                            <PrefixInput name="unique_name" label={t("link to the drop page")} placeholder={"customize-your-link-here"} prefix={config.get('SPACE_WEBSITE')+'/project/'} />
+                            <PrefixInput name="unique_name" label={t("custom URL")} placeholder={"customize-your-link-here"} prefix={config.get('SPACE_WEBSITE')+'/project/'} />
                             <div className='border-t d-border-c-1 my-4'></div>
                             <div className='flex justify-end'>
                             <Button loading={is_updating} className="btn btn-default" type="submit">{t("save")}</Button>
@@ -155,7 +155,7 @@ class ClubUpdate extends React.Component {
                         <div className='block-intro'>
                             <h3>{t('drop details')}</h3>
                             <div className='ct'>
-                                <p>{t('Add the general title of the your collection drop, write some description and tell us the story behind your artworks.')}</p>
+                                <p>{t('drop-detail-intro')}</p>
                             </div>
                         </div>
                     </div>

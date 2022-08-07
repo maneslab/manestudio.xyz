@@ -39,6 +39,7 @@ import {contractSchema} from 'redux/schema/index'
 import {autoDecimal,fromPercentToPPM,hex2Number} from 'helper/number'
 import { httpRequest } from 'helper/http';
 import { withRouter } from 'next/router';
+import {strFormat} from 'helper/translate'
 
 @withMustLogin
 @withClubView
@@ -455,7 +456,10 @@ class DeployView extends React.Component {
                 <title>{t('contract')}</title>
             </Head>
             <div>
-                <ClubHeader club={club} title={t('smart contract')} active_id={2} intro={null} />
+                <ClubHeader club={club} title={t('smart contract')} active_id={2}  intro={<>
+                    <p>{t('smartcontract-header-intro1')}</p>
+                    <p>{t('smartcontract-header-intro2')}</p>
+                </>} />
 
                 <ContractStep club_id={club_id} active_name={'deploy'} contract={contract} next_step={(contract)?true:false} />
 
@@ -464,9 +468,10 @@ class DeployView extends React.Component {
                     ? <div>
                         <Loading /> 
                     </div>
-                    :   <div className="max-w-screen-sm mx-auto pb-32">
+                    :  <div className="max-w-screen-xl mx-auto grid grid-cols-12 gap-8">
 
-                        <div className="">
+                        <div className='col-span-12'>
+
 
                             <div className='pb-4 mb-4 border-b border-gray-300 dark:border-gray-800'>
                                 <Link href={"/project/"+club_id+"/choose_network"}>
@@ -478,11 +483,15 @@ class DeployView extends React.Component {
                             </div>
 
 
-                            <h1 className='h1 mb-8'>{
+                            <h1 className='h1'>{
                                 (network == 'mainnet')
                                 ?   <>{t("deploy to ETH mainnet")}</>
-                                :   <>{t("deploy to ETH testnet") + " : " + network}</>
+                                :   <>{strFormat(t("deploy to {network_name} testnet"),{'network_name':'rinkeby'})}</>
                             }</h1>
+
+                        </div>
+
+                        <div className='col-span-9'>
                             
                             {
                                 (!is_network_correct && chain.id)
@@ -492,7 +501,7 @@ class DeployView extends React.Component {
                                 </div>
                                 : <div className='d-bg-c-1 p-4 pl-6 mb-8 '>
                                     <div className='flex justify-between items-center'>
-                                        <span className="capitalize">{t('you are connecting to the ETH testnet')} {chain.name}</span>
+                                        <span className="capitalize">{strFormat(t('{network_name} testnet connected'),{'network_name':chain.name})}</span>
                                         <div className='flex justify-end items-center'>
                                             {
                                                 (network == 'mainnet')
@@ -559,11 +568,11 @@ class DeployView extends React.Component {
                                 {
                                     (network == 'rinkeby')
                                     ? <div className='d-bg-c-1 p-4 pl-6'>
-                                        <h2 className='font-bold capitalize border-b pb-4 mb-4 d-border-c-1'>Rinkeby Testnet Faucet</h2>
+                                        <h2 className='font-bold capitalize border-b pb-4 mb-4 d-border-c-1'>{t('rinkeby testnet faucet')}</h2>
                                         <div className='flex justify-between items-center'>
-                                            <div className="capitalize">{t('get Rinkeby Testnet ETH')}</div>
+                                            <div className="capitalize">{t('Claim Rinkeby Testnet ETH')}</div>
                                             <a href="https://faucets.chain.link/rinkeby" target="_blank" className='btn btn-default'>
-                                                <ExternalLinkIcon className='icon-sm mr-2' />{t('Get')}
+                                                <ExternalLinkIcon className='icon-sm mr-2' />{t('Claim')}
                                             </a>
                                         </div>
                                     </div>
@@ -571,6 +580,17 @@ class DeployView extends React.Component {
                                 }
                             </div>
                              
+                        </div>
+
+                        <div className='col-span-3'>
+                            <div className='block-intro'>
+                                <h3>{t('About Rinkeby Testnet')}</h3>
+                                <div className='ct'>
+                                    <p>
+                                        {t('rinkeby-network-intro-1')}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
 
                     </div> 

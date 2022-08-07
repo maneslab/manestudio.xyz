@@ -183,7 +183,7 @@ class RoadmapUpdate extends React.Component {
 
 
         return  <div>
-            <div className='block-title'>{t('roadmap')}</div>
+            <div className='block-title capitalize'>{t('roadmap')}</div>
             <Formik
                 innerRef={this.formRef}
                 initialValues={init_data}
@@ -248,9 +248,8 @@ class RoadmapUpdate extends React.Component {
                         </div>
                         <div className='r'>
                             <div className='block-intro'>
-                                <h3>{t('drop details')}</h3>
                                 <div className='ct'>
-                                    <p>{t('Add the general title of the your collection drop, write some description and tell us the story behind your artworks.')}</p>
+                                    <p>{t('roadmap-intro')}</p>
                                 </div>
                             </div>
                         </div>

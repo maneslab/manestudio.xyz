@@ -21,10 +21,12 @@ class DestroyModal extends React.Component {
 
     @autobind
     destroy() {
-        if (this.state.value == 'destroy') {
+        const {t} = this.props.i18n;
+
+        if (this.state.value == 'DESTROY') {
             this.props.handleDestroy();
         }else {
-            message.error('please input destroy to confirm destroy');
+            message.error(t('destroy-info-2'));
         }
     }
 
@@ -45,7 +47,7 @@ class DestroyModal extends React.Component {
             footer={null}
             onClose={this.props.closeModal}>
 
-            <h2 className='modal-title'>{t('destroy')}</h2>
+            <h2 className='modal-title'>{t('destroy contract')}</h2>
 
             <div className='border-t border-gray-100 my-4' />
             <div className='mb-4'>
@@ -54,7 +56,7 @@ class DestroyModal extends React.Component {
 
 
             <div className='mb-4'>
-                {t('Please type  "destroy"  to confirm')}
+                {t('destroy-info-2')}
             </div>
 
             <div className='mb-4'>
@@ -62,11 +64,11 @@ class DestroyModal extends React.Component {
                     this.setState({
                         'value' : e.target.value
                     })
-                }} className='input-box' placeholder={t('Please type  "destroy"  to confirm')}/>
+                }} className='input-box' placeholder={t('destroy-info-2')}/>
             </div>
 
             <div className='flex justify-end'>
-                <Button loading={this.props.is_destroy_contract} className='btn btn-error' onClick={this.destroy}>{t('destroy')}</Button>
+                <Button loading={this.props.is_destroy_contract} className='btn btn-error' onClick={this.destroy}>{t('Destroy-btn-text')}</Button>
             </div>
 
         </Modal>

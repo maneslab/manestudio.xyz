@@ -55,7 +55,7 @@ class ClubIntergration extends React.Component {
 
         return  <div>
             <div className='flex flex-start items-center mb-2' >
-                <h2 className='h2 mr-4'>{t('integration mint button')}</h2>
+                <h2 className='h2 mr-4'>{t('Embed Mint Button')}</h2>
                 <Switch
                     onChange={this.switchOnChange}
                     disabled={false}
@@ -84,7 +84,7 @@ class ClubIntergration extends React.Component {
                                 </div>
                             </div>
                             <div className=''>
-                                <label className="label"><span className="label-text">{t('button code')}</span></label>
+                                <label className="label"><span className="label-text">{t('Iframe Code')}</span></label>
                                 <div className=''>
                                     <TextareaAutosize className='input-box' value={str}>
                                     </TextareaAutosize>
@@ -102,9 +102,8 @@ class ClubIntergration extends React.Component {
                     </div>
                     <div className='r'>
                         <div className='block-intro'>
-                            <h3>{t('drop details')}</h3>
                             <div className='ct'>
-                                <p>{t('Add the general title of the your collection drop, write some description and tell us the story behind your artworks.')}</p>
+                                <p>{t('embed-mint-intro')}</p>
                             </div>
                         </div>
                     </div>

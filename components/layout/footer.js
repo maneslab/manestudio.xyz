@@ -11,7 +11,7 @@ export default function Footer(props) {
 			<div className="gap-4 flex justify-end">
 				<a href={"/"} className="hover:text-gray-400">ManeSTUDIO</a>
 				<a href={space_url} target="_blank" className="hover:text-gray-400">ManeSPACE</a>
-				<a href="/" className="hover:text-gray-400">{t('support')}</a>
+				<a href="/" className="hover:text-gray-400 capitalize">{t('support')}</a>
 			</div>
 		</div>
     )
