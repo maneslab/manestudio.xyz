@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import Input from 'components/form/input'
 import ErrorMessage from 'components/form/error_message'
 
-const CommonField = ({ name, label, placeholder,notice, className , onlyEnglish, onlyLayer, setNotice,side_notice, ...props }) => {
+const CommonField = ({ name, label, placeholder,notice, className , onlyEnglish, onlyLayer,onlySymbol, setNotice,side_notice, ...props }) => {
 
     return <div className={classnames("form-control",className)} >
         {
@@ -29,6 +29,9 @@ const CommonField = ({ name, label, placeholder,notice, className , onlyEnglish,
                     }else if (onlyLayer) {
                         value = value.replace(/[^0-9a-z ]/ig, '')
                         value = value.replace( /\s+/g, ' ')
+                        value = value.toUpperCase();
+                    }else if (onlySymbol) {
+                        value = value.replace(/[^A-Za-z0-9]/ig, '')
                         value = value.toUpperCase();
                     }
                     setFieldValue(name,value)

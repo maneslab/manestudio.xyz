@@ -856,14 +856,20 @@ class DeployView extends React.Component {
                                                                 }
                                                                 
                                                             </div>
-                                                            <div className='divider' />
-                                                            <div className='flex justify-between items-center'>
-                                                                <div className='text-sm'>
-                                                                    {t('destory-info')}
-                                                                </div>
-                                                                <Button className='btn btn-error' onClick={this.toggleDestroyModal}>{t('destroy')}</Button>
-                                                            </div>
-                                                            <DestroyModal is_destroy_contract={this.state.is_destroy_contract} visible={this.state.show_destroy_modal} handleDestroy={this.destroy} closeModal={this.toggleDestroyModal} />
+                                                            {
+                                                                (network != 'mainnet')
+                                                                ? <>
+                                                                <div className='divider' />
+                                                                    <div className='flex justify-between items-center'>
+                                                                        <div className='text-sm'>
+                                                                            {t('destory-info')}
+                                                                        </div>
+                                                                        <Button className='btn btn-error' onClick={this.toggleDestroyModal}>{t('destroy')}</Button>
+                                                                    </div>
+                                                                    <DestroyModal is_destroy_contract={this.state.is_destroy_contract} visible={this.state.show_destroy_modal} handleDestroy={this.destroy} closeModal={this.toggleDestroyModal} />
+                                                                </>
+                                                                : null
+                                                            }
                                                         </div>
                                                     </div>
                                                     <div className='col-span-3'>

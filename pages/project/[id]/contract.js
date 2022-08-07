@@ -524,7 +524,7 @@ class ContractView extends React.Component {
                                         <div className="col-span-6">
                                             <div className='ct'>
                                                 <Input name="name" label={t("contract name")} onlyEnglish={true} placeholder={"E.g. weirdo ghost gang"} setNotice={setNotice.bind({},1)} side_notice={<div>{t('Contract-side-1-2')}</div>}/>
-                                                <Input name="symbol" label={t("token symbol")} onlyEnglish={true} placeholder={"E.g. WGG"} setNotice={setNotice.bind({},1)} side_notice={<div>{t('Contract-side-1-3')}</div>}/>
+                                                <Input name="symbol" label={t("token symbol")} onlySymbol={true} placeholder={"E.g. WGG"} setNotice={setNotice.bind({},1)} side_notice={<div>{t('Contract-side-1-3')}</div>}/>
                                                 <div className='grid grid-cols-2 gap-4'>
                                                     <Input name="type" label={t("contract type")} value={"ERC-721A"} readOnly={true}  placeholder={"E.g. weirdo ghost gang"}  setNotice={setNotice.bind({},1)} side_notice={<div>{t('Contract-side-1-4')}</div>}/>
                                                     <Input name="max_supply" label={t("max. token supply")} readOnly={true}   setNotice={setNotice.bind({},1)} side_notice={<div>{t('Contract-side-1-5')}</div>} />
