@@ -189,13 +189,13 @@ class ClubDropSetting extends React.Component {
                                     <button class="btn btn-default" disabled>{t('preview')}</button>
                                 </div>
                                 : <a className='btn btn-default' href={preview_link} target="_blank">
-                                   <span className='normal-case'>{(is_public)?t('open in manaSPACE'):t('preview')}</span> 
+                                   <span className='normal-case'>{(is_public)?t('open in ManeSPACE'):t('preview')}</span> 
                                 </a>
                             }
                             {
                                 (!is_public) 
                                 ? <a class="btn btn-primary ml-2" onClick={this.onPublicChange.bind({},true)}>
-                                    <span className='normal-case'>{t('publish to ManeSpace')}</span>
+                                    <span className='normal-case'>{t('publish to ManeSPACE')}</span>
                                 </a>
                                 : null
                             }
@@ -210,7 +210,7 @@ class ClubDropSetting extends React.Component {
                     title={t('Congratulations!')} 
                     desc={t('mint-page-success-desc')} 
                     link_target="_blank"
-                    link_text={t('go to manespace mint page')} 
+                    link_text={t('go to ManeSPACE mint page')} 
                     link_href={mane_space_url} />
 
             </div>

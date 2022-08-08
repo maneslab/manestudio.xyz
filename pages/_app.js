@@ -37,7 +37,7 @@ const { chains, provider } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-    appName: 'ManeStudio',
+    appName: 'ManeSTUDIO',
     chains
 });
 

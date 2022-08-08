@@ -29,7 +29,7 @@ class Home extends React.Component {
 
         return <PageWrapper theme={'blue'} wapperClassName="landingpage">
             <Head>
-                <title>ManeStudio</title>
+                <title>ManeSTUDIO</title>
             </Head>
             <div className="">
 

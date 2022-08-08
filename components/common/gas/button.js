@@ -41,7 +41,7 @@ class GasButton extends React.Component {
     @autobind
     estimateGasDeploy(network = 'rinkeby') {
         const {t} = this.props.i18n;
-        let mane = new manestudio(t,network,'tst');
+        let mane = new manestudio(t,network);
         let gas_data = mane.estimateGasDeploy();
         console.log('gas_data',gas_data)
     }
