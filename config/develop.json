@@ -16,6 +16,11 @@
 
     "NEXTID_ENV"        : "develop",
 
-    "ETH_NETWORK"       : "rinkeby"
+    "ETH_NETWORK"       : "rinkeby",
+
+    "MANE_CONTRACT"     : {
+        "rinkeby"   :   "0x2b87F7B6CA3664Efa9a96930B2A5DcF1a22489DA",
+        "mainnet"   :   ""
+    }
 
 }

@@ -2,10 +2,5 @@
 
     "FORBIDDEN_CHINA"   : true,
     "NAME"              : "ManeSTUDIO",
-    "ALCHEMY_ID"        : "JPWQi3ZfcRsCPerhWtcVYtJeWmYfUC-a",
-
-    "MANE_CONTRACT"     : {
-        "rinkeby"   :   "0x2b87F7B6CA3664Efa9a96930B2A5DcF1a22489DA",
-        "mainnet"   :   ""
-    }
+    "ALCHEMY_ID"        : "JPWQi3ZfcRsCPerhWtcVYtJeWmYfUC-a"
 }
