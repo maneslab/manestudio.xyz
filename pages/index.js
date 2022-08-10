@@ -7,7 +7,7 @@ import PageWrapper from 'components/pagewrapper'
 import Head from 'next/head'
 import Link from 'next/link'
 import {withTranslate} from 'hocs/index'
-import Logo from 'public/img/logo.svg'
+import Logo from 'public/img/logo/manestudio.svg'
 
 import withWallet from 'hocs/wallet';
 import MustLoginWrapper from 'components/must_login';
@@ -35,7 +35,7 @@ class Home extends React.Component {
 
                 <div className='max-w-screen-xl mx-auto text-white'>
                     <div className='mt-24 mb-12'>
-                        <Logo className="h-12" />
+                        <Logo className="h-10" />
                     </div>
                     <div className="max-w-prose mb-12" >
                         <div className='mb-4'>{t('landing-page-intro-1')}</div>
