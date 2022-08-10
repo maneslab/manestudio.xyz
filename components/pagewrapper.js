@@ -8,7 +8,7 @@ import Footer from 'components/layout/footer'
 
 import Head from 'next/head'
 import Link from 'next/link'
-import Logo from 'public/img/logo.svg'
+import Logo from 'public/img/logo/manestudio.svg'
 import ConnectWalletButton from 'components/wallet/connect_button'
 
 import { denormalize } from 'normalizr';
