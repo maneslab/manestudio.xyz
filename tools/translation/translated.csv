@@ -311,7 +311,7 @@ deploy to ETH testnet,deploy to ETH testnet,部署到ETH测试网
 deploy contract warning,deploy contract warning,部署合约警告
 hide in ManeSPACE,hide in ManeSPACE,隐藏在ManeSpace中
 you need setting contract first before preview drop page,you need setting contract first before preview drop page,您需要在预览下降页面之前先设置合约
-publish to ManeSpace,publish to ManeSpace,发布到ManeSpace
+publish to ManeSPACE,publish to ManeSPACE,发布到ManeSPACE
 manage contract on ETH mainnet,manage contract on ETH mainnet,在ETH主网上管理合约
 manage contract on ETH testnet,manage contract on ETH testnet,在ETH测试网络上管理合约
 save & back,save & back,保存并返回
@@ -385,18 +385,17 @@ Reveal-intro-1,"Delayed reveal is an optional function that we recommend you to 
 Reveal-intro-2,"When it’s time, the reveal will happen automatically, and the rarities will then be calculated by 3rd party services like trait snipers.",到达预设时间后将会进行自动开图并更新元数据，之后第三方稀有度工具如rarity sniper等便会采集元数据进行稀有度计算并得出排名。
 Reveal-intro-3,"If delayed reveal is disabled, the NFTs are revealed at the same time when they are minted.",如果你选择禁用延迟开图这个功能，NFT将在它们被铸造的同时直接开图并完整展示所有元数据。
 minting page,minting page,发售网页建站
-max. token supply,max. token supply,最大供应量
+max-token-supply,max. token supply,最大供应量
 connect web3 wallet,connect web3 wallet,连接web3钱包
-contract-success-desc,"you have finished deploy smart contract ,now you can go to build your NFT minting page now!",你已经完成了智能合约的部署，现在你可以去建立你的NFT铸币页面了。
+contract-success-desc,"You have now deployed your smart contract. In the next step, you will build a minting website for people to mint your NFTs.",你已成功部署智能合约。在下一步中，你将创建项目网页，供藏家前往铸造你的NFT。
 go to minting page,go to minting page,去创建Mint NFT页面
-mint-page-success-desc,"You have finished publishing the mint page, you can now go to the ManeSPACE to view it","你已经完成了mint页面的发布,你现在可以去ManeSPACE查看它"
+mint-page-success-desc,"The project is now ready, you can go check your project website on ManeSPACE.",NFT项目已经准备就绪，你可前往ManeSPACE查看项目发售页面。
 go to ManeSPACE mint page,go to ManeSPACE mint page,在ManeSPACE查看
 spilt earnings,spilt earnings,资金分配
 add recipients,add recipients,添加资金分配地址
 currently all funds can only be withdrawn by you,currently all funds can only be withdrawn by you,目前所有资金仅能被你提取
 split-earnings-intro,"You can optionally enable the spilt earnings function to distribute funds seamlessly with collaborators or project partners. The spilt happens automatically when you withdraw the funds after escrow period, and your decision will be displayed publicly on your ManeSPACE minting page.",你可以选择使用资金分配功能与项目共创者进行收入资金分配。资金将按照设置比例在提款时进行自动分配。资金分配地址以及分配比例将在ManeSPACE项目页面进行公开展示。
-smartcontract-header-intro1,You will now deploy your smart contract to blockchain. ManeSTUDIO suggests creators to deploy on testnet before making changes on ETH mainnet to avoid mistakes and waste gas.,在此步骤中，智能合约将被部署至区块链。ManeSTUDIO建议所有创作者在部署至以太坊主网前先在部署至测试网进行调试，已避免合约中出现的错误，和对gas的浪费。 
-smartcontract-header-intro2,"After contract deployment, you can manage and edit your deployed contracts here.",在部署完成后，你可在此处对已部署合约进行管理与编辑。
+smartcontract-header-intro1,"Smart contract is what turns digital artworks into NFT tokens, NFTs are minted through smart contracts that assign ownership and manage the transferability of the NFT. With ManeSTUDIO, you can edit the parameters by a few clicks to fully customize a unique smart contract for your projects.",智能合约可将数字艺术作品转换为NFT tokens，NFT 是通过分配所有权和管理 NFT 可转让性的智能合约铸造而成。使用 ManeSTUDIO，只需简单编辑参数，便可以生成属于你项目独一无二的智能合约。
 wrong network,wrong network,错误的网络
 switch network,switch network,切换网络
 network-intro-1,"Testnet simulates the real-world Ethereum blockchain environment, you can make changes and play around with test ETH tokens which you could claim for free. You may even test minting and see your NFT collections on Opensea.",测试网是对以太坊主网环境的模拟，免费领取测试币后可以在测试网环境中对合约的参数进行检查、调试，也可以测试NFT铸造环节，并在Opensea测试网中查看你的NFT合集。
@@ -418,7 +417,7 @@ Withdraw-intro-2,10% service fee of ManeSTUDIO has already been deducted from th
 The following settings in the contract can be updated by paying gas fee,The following settings in the contract can be updated by paying gas fee,合约中的以下设置需在更新时支付gas fee。
 manage-presale-intro,Change the time and sale rules only when it is necessary.,非必要情况下请谨慎调整销售时间及销售规则。
 panic buttons,panic buttons,紧急功能
-emergency-pause-intro,"In case of emergency, you may pause the minting and lock the contract temporally.",如遇突发情况，可紧急暂停NFT铸造并暂时锁定合约。
+emergency-pause-intro,"In case of emergency, you may pause the minting and lock the contract temporarily.",如遇突发情况，可紧急暂停NFT铸造并暂时锁定合约。
 pause contract,pause contract,暂时锁定合约
 resume contract,resume contract,解除合约锁定
 destroy-info-2,Please type “DESTROY” in capital letters to confirm,请用大写字母输入“DESTROY”以确认销毁
@@ -436,3 +435,8 @@ Embed Mint Button,Embed Mint Button,嵌入式NFT铸造按钮
 Iframe Code,Iframe Code,Iframe嵌入代码
 embed-mint-intro,"If you wish to use your own website, select button type, then copy the iframe code of the mint button.",如果你想自行建站，可选择按钮类型后复制iframe代码。
 open in ManeSPACE,open in ManeSPACE,在ManeSPACE查看
+Doc,Doc,文档
+success-generate-nft-intro,"You have now completed artwork creation. In the next step, you will create and deploy your own smart contract.",你已经完成了作品创作部分，在下一步中，你将创建并部署自己的智能合约。
+Continue to Smart Contract,Continue to Smart Contract,开始设置智能合约
+whitelist presale time window,whitelist presale time window,白名单预售时间窗口
+public sale time window,public sale time window,公售时间窗口

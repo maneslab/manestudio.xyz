@@ -135,7 +135,7 @@ class GenerateFrom extends React.Component {
                                 <span>{max_generate_number}</span>
                             </div>
                             
-                            <div className='flex justify-start items-center'>
+                            <div className='flex justify-start items-center capitalize'>
                                 {t('repetition rate')}
                                 <span className='mx-2'>:</span>
                                 <UniqueRatio value={preficted_unique_ratio}/>

@@ -532,7 +532,6 @@ class DeployView extends React.Component {
             <div>
                 <ClubHeader club={club} title={t('smart contract')} active_id={2}  intro={<>
                     <p>{t('smartcontract-header-intro1')}</p>
-                    <p>{t('smartcontract-header-intro2')}</p>
                 </>} />
 
                 <ContractStep club_id={club_id} active_name={'deploy'} contract={contract} next_step={(contract)?true:false} />
@@ -757,7 +756,6 @@ class DeployView extends React.Component {
                                                     {
                                                         (!is_allow_withdraw)
                                                         ? <div className='border-t d-border-c-1 pt-4 mt-4'>
-                                                            {t('withdrawals can only be made after all refund periods have expired and at least 7 days after mint.')}
                                                         </div>
                                                         : null
                                                     }
@@ -787,22 +785,22 @@ class DeployView extends React.Component {
                                             {
                                                 (has_presale_stage)
                                                 ?   <div className='contract-form'>
-                                                    <h2 className='mb-2'>{t('presale')}</h2>
+                                                    <h2 className='mb-2'>{t('allowlist presale')}</h2>
                                                     <div className='grid grid-cols-9 gap-8'>
                                                         <div className='col-span-6'>
                                                             <div className='ct'>
                                                                 <div className='info-dl'>
-                                                                    <label>{t('presale max supply')}</label>
+                                                                    <label>{t('whitelist max supply')}</label>
                                                                     <WlMaxSupplyUpdate value={contract_data['presale_max_supply']} manenft={this.manenft} onUpdate={this.onUpdate}/>
                                                                 </div>
                                                                 <div className='info-dl'>
-                                                                    <label>{t('presale mint time')}</label>
+                                                                    <label>{t('whitelist presale time window')}</label>
                                                                     <div className=''>
                                                                         <WlTime value={[contract_data['presale_start_time'],contract_data['presale_end_time']]} manenft={this.manenft} onUpdate={this.onUpdate}/>
                                                                     </div>
                                                                 </div>
                                                                 <div className='info-dl'>
-                                                                    <label>{t('mint limit per wallet')}</label>
+                                                                    <label>{t('whitelist token limit per wallet')}</label>
                                                                     <div className=''>
                                                                         <WlLimitPerWallet value={contract_data['presale_per_wallet_count']}  manenft={this.manenft} onUpdate={this.onUpdate}/>
                                                                     </div>
@@ -825,19 +823,19 @@ class DeployView extends React.Component {
                                                         <div className='col-span-6'>
                                                             <div className='ct'>
                                                                 <div className='info-dl'>
-                                                                    <label>{t('public sale mint time')}</label>
+                                                                    <label>{t('public sale time window')}</label>
                                                                     <div className=''>
                                                                         <PbTime value={[contract_data['sale_start_time'],contract_data['sale_end_time']]} manenft={this.manenft} onUpdate={this.onUpdate}/>
                                                                     </div>
                                                                 </div>
                                                                 <div className='info-dl'>
-                                                                    <label>{t('mint limit per wallet')}</label>
+                                                                    <label>{t('public sale token limit per wallet')}</label>
                                                                     <div className=''>
                                                                         <PbLimitPerWallet  value={contract_data['sale_per_wallet_count']}  manenft={this.manenft} onUpdate={this.onUpdate}/>
                                                                     </div>
                                                                 </div>
                                                                 <div className='info-dl'>
-                                                                    <label>{t('mint price')}</label>
+                                                                    <label>{t('public sale mint price')}</label>
                                                                     <div className=''>
                                                                         <PbPrice value={contract_data['sale_price']}  manenft={this.manenft} onUpdate={this.onUpdate}/>
                                                                     </div>

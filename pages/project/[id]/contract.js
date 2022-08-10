@@ -480,7 +480,6 @@ class ContractView extends React.Component {
             <div>
                 <ClubHeader club={club} title={t('smart contract')} active_id={2} intro={<>
                     <p>{t('smartcontract-header-intro1')}</p>
-                    <p>{t('smartcontract-header-intro2')}</p>
                 </>}/>
            
                 <ContractStep club_id={club_id} active_name={'setting'} contract={contract} next_step={(contract)?true:false} />
@@ -530,7 +529,7 @@ class ContractView extends React.Component {
                                                 <Input name="symbol" label={t("token symbol")} onlySymbol={true} placeholder={"E.g. WGG"} setNotice={setNotice.bind({},1)} side_notice={<div>{t('Contract-side-1-3')}</div>}/>
                                                 <div className='grid grid-cols-2 gap-4'>
                                                     <Input name="type" label={t("contract type")} value={"ERC-721A"} readOnly={true}  placeholder={"E.g. weirdo ghost gang"}  setNotice={setNotice.bind({},1)} side_notice={<div>{t('Contract-side-1-4')}</div>}/>
-                                                    <Input name="max_supply" label={t("max. token supply")} readOnly={true}   setNotice={setNotice.bind({},1)} side_notice={<div>{t('Contract-side-1-5')}</div>} />
+                                                    <Input name="max_supply" label={t("max-token-supply")} readOnly={true}   setNotice={setNotice.bind({},1)} side_notice={<div>{t('Contract-side-1-5')}</div>} />
                                                 </div>
                                             </div>
                                         </div>
