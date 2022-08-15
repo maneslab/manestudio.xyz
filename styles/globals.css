@@ -763,7 +763,15 @@ input{outline:none;}
     @apply bg-white;
 }
 .fullpage-container.blue {
-    @apply bg-[#2e2c9b] overflow-y-auto;
+    @apply bg-[#2e2c9b] overflow-hidden; 
+    height: 200vh;
+
+}
+.fullpage-container.blue > div {
+    position: fixed;
+    top: 0;
+    overflow: hidden;
+    height: 100vh;
 }
 .fullpage-container.blue .footer {
     color :#fff !important;
@@ -786,9 +794,6 @@ input{outline:none;}
 }
 .landingpage {
     @apply h-full;
-    background: url('/img/landingpage/banner2.png') no-repeat;
-    background-position: bottom -240px right -240px;
-    background-size: auto 90%;
 }
 
 
