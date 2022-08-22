@@ -902,7 +902,7 @@ class ContractView extends React.Component {
                                                             }
                                                         </div>
                                                         : <div className='p-6 d-bg-c-1 text-gray-400 capitalize'>
-                                                            {t('revenue sharing is disabled , all income only could withdraw by owner')}
+                                                            {t('Spilt-intro')}
                                                         </div>
                                                     }
                                                     

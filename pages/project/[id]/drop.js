@@ -137,11 +137,12 @@ class ClubDropSetting extends React.Component {
 
 
     render() {
-        const {t} = this.props.i18n;
+        const {t,lang} = this.props.i18n;
         const {is_public,preview_link} = this.state;
         const {club,club_id} = this.props;
 
         let mane_space_url = this.getManespacePageUrl();
+        let ropalties_url = (lang=='zh')?'https://docs.manestudio.xyz/v/jian-ti-zhong-wen/gong-neng-shou-ce/she-zhi-ban-shui' : 'https://docs.manestudio.xyz/functions-explained/setting-up-royalties';
 
         console.log('mane_space_url',mane_space_url)
 
@@ -207,11 +208,16 @@ class ClubDropSetting extends React.Component {
                 <SuccessModal 
                     visible={this.state.show_success_modal} 
                     closeModal={this.toggleSuccessModal} 
-                    title={t('Congratulations!')} 
+                    title={t('All set')} 
                     desc={t('mint-page-success-desc')} 
+                    desc2={t('mint-page-success-desc2')}
                     link_target="_blank"
                     link_text={t('go to ManeSPACE mint page')} 
-                    link_href={mane_space_url} />
+                    link_href={mane_space_url}
+                    link_target2="_blank"
+                    link_text2={t('Set Up Royalties')} 
+                    link_href2={ropalties_url}
+                     />
 
             </div>
     </PageWrapper>

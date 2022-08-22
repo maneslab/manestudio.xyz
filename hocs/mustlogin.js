@@ -39,7 +39,7 @@ export default function withMustLogin(WrappedComponent) {
             }else {
                 return <PageWrapper>
                     <div className='my-12'>
-                        <div className='font-bold text-xl text-center mb-4'>{t('connect web3 wallet')}</div>
+                        <div className='font-bold text-xl text-center mb-4 capitalize'>{t('connect web3 wallet')}</div>
                         <div className='flex justify-center my-8'>
                             <WalletLogin />
                         </div>

@@ -256,7 +256,7 @@ class GenerateGroupView extends React.Component {
                 }
             })
 
-            message.success(t('reserve success'));
+            message.success(t('Reserve NFTs Confirmed'));
 
             this.toggleSuccessModal();
 

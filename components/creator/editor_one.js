@@ -110,7 +110,7 @@ export default function SortableItem({creator,club,open_index,id,toggleOpen,remo
 
                         <div className='grid grid-cols-2 gap-4'>
                             <Input label={t('name')} name={`creators[${id}].name`} />
-                            <Input label={t('title')} name={`creators[${id}].title`} />
+                            <Input label={t('title-2')} name={`creators[${id}].title`} />
                         </div>
                     </div>
                     <div className='w-3/5'>

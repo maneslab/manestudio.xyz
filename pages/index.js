@@ -80,7 +80,7 @@ export default function Home() {
               <div className=''>{t('landing-page-intro-2')}</div>
           </div>
           <div>
-              <button className="btn btn-secondary mr-2 capitalize text-base">{t('learn more')}</button>
+              <a className="btn btn-secondary mr-2 capitalize text-base" href="https://docs.manestudio.xyz/" target={"_blank"}>{t('learn more')}</a>
               <Link href="/project/list">
                   <button className='btn btn-primary capitalize text-base'>{t('launch app')}</button>
               </Link>

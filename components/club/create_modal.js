@@ -78,7 +78,7 @@ class ClubCreateModal extends React.Component {
     render() {
         const {project_type,is_adding,is_checked} = this.state;
         const {visible,deposit_data} = this.props;
-        const {t} = this.props.i18n;
+        const {t,lang} = this.props.i18n;
 
         if (!visible) {
             return null;
@@ -106,6 +106,17 @@ class ClubCreateModal extends React.Component {
                 name      : Yup.string().required(),
                 project_type : Yup.string().required(),
             });
+        }
+
+        let link1,link2,link3;
+        if (lang == 'zh') {
+            link1 = 'https://docs.manestudio.xyz/functions-explained/before-start/1-safety-first';
+            link2 = 'https://app.gitbook.com/s/89plSfA3vNUVCRBU0XeH/gong-neng-shou-ce/ti-qu-zi-jin';
+            link3 = 'https://docs.manestudio.xyz/legal/terms-of-service';
+        }else {
+            link1 = 'https://docs.manestudio.xyz/v/jian-ti-zhong-wen/gong-neng-shou-ce/zai-kai-shi-zhi-qian/1-an-quan-di-yi';
+            link2 = 'https://docs.manestudio.xyz/v/jian-ti-zhong-wen/gong-neng-shou-ce/ti-qu-zi-jin';
+            link3 = 'https://docs.manestudio.xyz/v/jian-ti-zhong-wen/fa-lv-yu-tiao-kuan/terms-of-service '
         }
 
         
@@ -157,14 +168,14 @@ class ClubCreateModal extends React.Component {
                                         <span className='bg-black w-6 h-6 aspect-square text-white flex justify-center items-center mr-2 rounded-full dark:bg-white dark:text-black'>1</span>
                                         <div>
                                             {t('create-project-notice-1')}
-                                            <a className='a inline'>{t('learn more')}</a>
+                                            <a className='a inline capitalize' href={link1} target="_blank" >{t('learn more')}</a>
                                         </div>
                                     </div>
                                     <div className='flex justify-start items-center mb-4'>
                                         <span className='bg-black w-6 h-6 aspect-square text-white flex justify-center items-center mr-2 rounded-full dark:bg-white dark:text-black'>2</span>
                                         <div>
                                         {t('create-project-notice-2')}
-                                        <a className='a inline'>{t('learn more')}</a>
+                                        <a className='a inline capitalize' href={link2} target="_blank" >{t('learn more')}</a>
                                         </div>
                                     </div>
                                     <div className='flex justify-start items-center '>
@@ -183,7 +194,7 @@ class ClubCreateModal extends React.Component {
                                         {
                                             t('I’ve read and agreed to')
                                         }
-                                        <a className='ml-2 text-blue-500'>{t('terms & condition')}</a>
+                                        <a className='ml-2 text-blue-500' href={link3} target="_blank" >{t('terms & condition')}</a>
                                     </p>
                                     <Button loading={is_adding} className="btn btn-primary" type="submit" disabled={!is_checked}>{t("create project")}</Button>
                                 </div>

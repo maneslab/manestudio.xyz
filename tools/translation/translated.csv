@@ -91,8 +91,8 @@ title,title,标题
 bio,bio,个人简介
 link,link,链接
 time_point and title cannot be empty,time_point and title cannot be empty,时间点和标题不能为空
-creator,creator,创建者
-add creator,add creator,添加创建者
+creator,creator,创作者
+add creator,add creator,添加创作者
 management,management,管理
 binded,binded,绑定的
 if you wanna unbind twitter account please click unbind,if you wanna unbind twitter account please click unbind,如果你想解除与twitter账户的绑定，请点击解除绑定
@@ -199,7 +199,7 @@ status,status,状态
 paused,paused,暂停的
 live,live,活跃
 reserve count,reserve count,预留数量
-whitelist supply,whitelist supply,白名单供应
+allowlist supply,allowlist supply,白名单供应
 refundable,refundable,可退款
 refundable ratio,refundable ratio,退款比例
 revenue sharing,revenue sharing,分享收入
@@ -353,6 +353,7 @@ generated NFTs selected,generated NFTs selected,个已选中的随机生成NFT
 1-1-nft-selected,1/1 NFTs Selected,个已选中的1/1 NFT
 smart-contract-intro,"Smart contract is what turns JPEGs into NFT tokens, NFTs are minted through smart contracts that assign ownership and manage the transferability of the NFT. With ManeSTUDIO, you can edit the parameters by a few clicks to fully customize an unique smart contract for your projects.",智能合约可将小图片转换为NFT tokens，NFT 是通过分配所有权和管理 NFT 可转让性的智能合约铸造而成。使用 ManeSTUDIO，只需简单编辑参数，便可以生成属于你项目独一无二的智能合约。
 token symbol,token symbol,代币符号
+symbol,symbol,代币符号
 contract type,contract type,合约类型
 Contract-side-1-1,"The basic information about your smart contract include contract name, token symbol, contract type and maximal token supply.",智能合约基本设置包括合约名称、代币符号、合约类型以及最大发行量。
 Contract-side-1-2,Contract name is the main identifier for your smart contract and will appear anywhere your contract is mentioned. Usually the same as your project name.,合约名称是智能合约的主要标识符，将出现在提及你智能合约的任何地方。通常与你的项目名称相同。
@@ -396,6 +397,8 @@ add recipients,add recipients,添加资金分配地址
 currently all funds can only be withdrawn by you,currently all funds can only be withdrawn by you,目前所有资金仅能被你提取
 split-earnings-intro,"You can optionally enable the spilt earnings function to distribute funds seamlessly with collaborators or project partners. The spilt happens automatically when you withdraw the funds after escrow period, and your decision will be displayed publicly on your ManeSPACE minting page.",你可以选择使用资金分配功能与项目共创者进行收入资金分配。资金将按照设置比例在提款时进行自动分配。资金分配地址以及分配比例将在ManeSPACE项目页面进行公开展示。
 smartcontract-header-intro1,"Smart contract is what turns digital artworks into NFT tokens, NFTs are minted through smart contracts that assign ownership and manage the transferability of the NFT. With ManeSTUDIO, you can edit the parameters by a few clicks to fully customize a unique smart contract for your projects.",智能合约可将数字艺术作品转换为NFT tokens，NFT 是通过分配所有权和管理 NFT 可转让性的智能合约铸造而成。使用 ManeSTUDIO，只需简单编辑参数，便可以生成属于你项目独一无二的智能合约。
+Smartcontract-header-intro2,You will now deploy your smart contract to blockchain. ManeSTUDIO suggests creators to deploy on testnet before making changes on ETH mainnet to avoid mistakes and waste gas.,在此步骤中，智能合约将被部署至区块链。ManeSTUDIO建议所有创作者在部署至以太坊主网前先在部署至测试网进行调试，已避免合约中出现的错误，和对gas的浪费。
+Smartcontract-header-intro3,"After contract deployment, you can manage and edit your deployed contracts here.",在部署完成后，你可在此处对已部署合约进行管理与编辑。
 wrong network,wrong network,错误的网络
 switch network,switch network,切换网络
 network-intro-1,"Testnet simulates the real-world Ethereum blockchain environment, you can make changes and play around with test ETH tokens which you could claim for free. You may even test minting and see your NFT collections on Opensea.",测试网是对以太坊主网环境的模拟，免费领取测试币后可以在测试网环境中对合约的参数进行检查、调试，也可以测试NFT铸造环节，并在Opensea测试网中查看你的NFT合集。
@@ -440,3 +443,12 @@ success-generate-nft-intro,"You have now completed artwork creation. In the next
 Continue to Smart Contract,Continue to Smart Contract,开始设置智能合约
 whitelist presale time window,whitelist presale time window,白名单预售时间窗口
 public sale time window,public sale time window,公售时间窗口
+Reserve NFTs Confirmed,Reserve NFTs Confirmed,NFT预留确认
+Spilt-intro,"Spilt Earnings is disabled, funds can only be withdrawn by you.",资金分配功能被禁用，目前所有资金仅能被你提取。
+recipient address,recipient address,钱包地址
+spilt rate,spilt rate,分配比例
+title-2,title,职务
+name-2,name,合约名字
+All set,All set!,大功告成!
+mint-page-success-desc2,Please don’t forget to set up royalties on secondary marketplaces.,请务必前往NFT二级交易平台设置项目版税。
+Set Up Royalties,Set Up Royalties,设置版税

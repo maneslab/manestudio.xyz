@@ -457,7 +457,8 @@ class DeployView extends React.Component {
             </Head>
             <div>
                 <ClubHeader club={club} title={t('smart contract')} active_id={2}  intro={<>
-                    <p>{t('smartcontract-header-intro1')}</p>
+                    <p>{t('Smartcontract-header-intro2')}</p>
+                    <p>{t('Smartcontract-header-intro3')}</p>
                 </>} />
 
                 <ContractStep club_id={club_id} active_name={'deploy'} contract={contract} next_step={(contract)?true:false} />

@@ -531,7 +531,8 @@ class DeployView extends React.Component {
             </Head>
             <div>
                 <ClubHeader club={club} title={t('smart contract')} active_id={2}  intro={<>
-                    <p>{t('smartcontract-header-intro1')}</p>
+                    <p>{t('Smartcontract-header-intro2')}</p>
+                    <p>{t('Smartcontract-header-intro3')}</p>
                 </>} />
 
                 <ContractStep club_id={club_id} active_name={'deploy'} contract={contract} next_step={(contract)?true:false} />
@@ -623,13 +624,13 @@ class DeployView extends React.Component {
                                                                     </div>
                                                                 </div>
                                                                 <div className='info-dl w-1/3'>
-                                                                    <label>Name</label>
+                                                                    <label>{t('name-2')}</label>
                                                                     <div>
                                                                     {contract_data['name']}
                                                                     </div>
                                                                 </div>
                                                                 <div className='info-dl w-1/3'>
-                                                                    <label>Symbol</label>
+                                                                    <label>{t('symbol')}</label>
                                                                     <div>
                                                                         {contract_data['symbol']}
                                                                     </div>
@@ -637,7 +638,7 @@ class DeployView extends React.Component {
                                                             </div>
                                                             <div className='flex justify-between'>
                                                                 <div className='info-dl w-1/3'>
-                                                                    <label>collection size</label>
+                                                                    <label>{t('collection size')}</label>
                                                                     <div>
                                                                         {contract_data['max_supply']}
                                                                     </div>
@@ -649,7 +650,7 @@ class DeployView extends React.Component {
                                                                     </div>
                                                                 </div>
                                                                 <div className='info-dl w-1/3'>
-                                                                    <label>{t('whitelist supply')}</label>
+                                                                    <label>{t('allowlist supply')}</label>
                                                                     <div>
                                                                         {contract_data['presale_max_supply']}
                                                                     </div>
@@ -856,7 +857,7 @@ class DeployView extends React.Component {
                                                     <div className='col-span-6'>
                                                         <div className='ct'>
                                                             <div className='flex justify-between items-center'>
-                                                                <div className='text-sm'>
+                                                                <div className='text-sm max-w-prose'>
                                                                     {t('emergency-pause-intro')}
                                                                 </div>
                                                                 {
@@ -871,7 +872,7 @@ class DeployView extends React.Component {
                                                                 ? <>
                                                                 <div className='divider' />
                                                                     <div className='flex justify-between items-center'>
-                                                                        <div className='text-sm'>
+                                                                        <div className='text-sm max-w-prose'>
                                                                             {t('destory-info')}
                                                                         </div>
                                                                         <Button className='btn btn-error' onClick={this.toggleDestroyModal}>{t('destroy contract')}</Button>

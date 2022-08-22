@@ -16,7 +16,7 @@ class SuccessModal extends React.Component {
     }
 
     render() {
-        const {visible,title,desc,link_text,link_href,link_target} = this.props;
+        const {visible,title,desc,link_text,link_href,link_target,link_text2,link_href2,link_target2} = this.props;
 
         if (!visible) {
             return null;
@@ -46,12 +46,30 @@ class SuccessModal extends React.Component {
                         <div className='text-base text-center mb-14'>
                             {desc}
                         </div>
+
+                        {
+                            (this.props.desc2)
+                            ?  <div className='text-base text-center -mt-8 mb-14'>
+                                {this.props.desc2}
+                            </div>
+                            : null
+                        }
                         
                         {
                             (link_text)
                             ?   <div>
                                 <a className='btn btn-outline btn-block capitalize' href={link_href} target={link_target}>
                                     {link_text}
+                                </a>
+                            </div>
+                            : null
+                        }
+
+                        {
+                            (link_text2)
+                            ?   <div className='mt-4'>
+                                <a className='btn btn-outline btn-block capitalize' href={link_href2} target={link_target2}>
+                                    {link_text2}
                                 </a>
                             </div>
                             : null
