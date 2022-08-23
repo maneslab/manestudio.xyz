@@ -76,12 +76,8 @@ class SuccessModal extends React.Component {
                         }
 
                     </div>
-
-                    
-                </Modal>
+        </Modal>
     }
-
-    
 }
 SuccessModal.propTypes = {
     visible     : PropTypes.bool.isRequired,
