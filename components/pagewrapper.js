@@ -42,7 +42,7 @@ class PageWrapper extends React.Component {
 
     render() {
 
-        const {t} = this.props.i18n;
+        const {t,lang} = this.props.i18n;
         const {theme,wapperClassName} = this.props;
 
         /*<div onClick={this.toggleSider} className="md:hidden py-4 mr-2">
@@ -74,7 +74,10 @@ class PageWrapper extends React.Component {
 
                                 <div className='main-menu ml-4'>
                                     <Link href="/project/list"><a className='font-bold capitalize ml-2'>{t('projects')}</a></Link>
+                                    <a className="capitalize font-bold ml-2" target={"_blank"} href={(lang=='zh')?"https://docs.manestudio.xyz/v/jian-ti-zhong-wen/yong-hu-fa-zhan-ji-hua/maneslab-chuang-zuo-zhe-fu-hua-ji-hua":"https://docs.manestudio.xyz/programs/project-incubation"}>{t('incubator')}</a>
                                 </div>
+
+                                
 
                             </div>
                             
