@@ -91,8 +91,8 @@ title,title,标题
 bio,bio,个人简介
 link,link,链接
 time_point and title cannot be empty,time_point and title cannot be empty,时间点和标题不能为空
-creator,creator,创建者
-add creator,add creator,添加创建者
+creator,creator,创作者
+add creator,add creator,添加创作者
 management,management,管理
 binded,binded,绑定的
 if you wanna unbind twitter account please click unbind,if you wanna unbind twitter account please click unbind,如果你想解除与twitter账户的绑定，请点击解除绑定
@@ -199,7 +199,7 @@ status,status,状态
 paused,paused,暂停的
 live,live,活跃
 reserve count,reserve count,预留数量
-whitelist supply,whitelist supply,白名单供应
+allowlist supply,allowlist supply,白名单供应
 refundable,refundable,可退款
 refundable ratio,refundable ratio,退款比例
 revenue sharing,revenue sharing,分享收入
@@ -311,7 +311,7 @@ deploy to ETH testnet,deploy to ETH testnet,部署到ETH测试网
 deploy contract warning,deploy contract warning,部署合约警告
 hide in ManeSPACE,hide in ManeSPACE,隐藏在ManeSpace中
 you need setting contract first before preview drop page,you need setting contract first before preview drop page,您需要在预览下降页面之前先设置合约
-publish to ManeSpace,publish to ManeSpace,发布到ManeSpace
+publish to ManeSPACE,publish to ManeSPACE,发布到ManeSPACE
 manage contract on ETH mainnet,manage contract on ETH mainnet,在ETH主网上管理合约
 manage contract on ETH testnet,manage contract on ETH testnet,在ETH测试网络上管理合约
 save & back,save & back,保存并返回
@@ -353,6 +353,7 @@ generated NFTs selected,generated NFTs selected,个已选中的随机生成NFT
 1-1-nft-selected,1/1 NFTs Selected,个已选中的1/1 NFT
 smart-contract-intro,"Smart contract is what turns JPEGs into NFT tokens, NFTs are minted through smart contracts that assign ownership and manage the transferability of the NFT. With ManeSTUDIO, you can edit the parameters by a few clicks to fully customize an unique smart contract for your projects.",智能合约可将小图片转换为NFT tokens，NFT 是通过分配所有权和管理 NFT 可转让性的智能合约铸造而成。使用 ManeSTUDIO，只需简单编辑参数，便可以生成属于你项目独一无二的智能合约。
 token symbol,token symbol,代币符号
+symbol,symbol,代币符号
 contract type,contract type,合约类型
 Contract-side-1-1,"The basic information about your smart contract include contract name, token symbol, contract type and maximal token supply.",智能合约基本设置包括合约名称、代币符号、合约类型以及最大发行量。
 Contract-side-1-2,Contract name is the main identifier for your smart contract and will appear anywhere your contract is mentioned. Usually the same as your project name.,合约名称是智能合约的主要标识符，将出现在提及你智能合约的任何地方。通常与你的项目名称相同。
@@ -385,18 +386,19 @@ Reveal-intro-1,"Delayed reveal is an optional function that we recommend you to 
 Reveal-intro-2,"When it’s time, the reveal will happen automatically, and the rarities will then be calculated by 3rd party services like trait snipers.",到达预设时间后将会进行自动开图并更新元数据，之后第三方稀有度工具如rarity sniper等便会采集元数据进行稀有度计算并得出排名。
 Reveal-intro-3,"If delayed reveal is disabled, the NFTs are revealed at the same time when they are minted.",如果你选择禁用延迟开图这个功能，NFT将在它们被铸造的同时直接开图并完整展示所有元数据。
 minting page,minting page,发售网页建站
-max. token supply,max. token supply,最大供应量
+max-token-supply,max. token supply,最大供应量
 connect web3 wallet,connect web3 wallet,连接web3钱包
-contract-success-desc,"you have finished deploy smart contract ,now you can go to build your NFT minting page now!",你已经完成了智能合约的部署，现在你可以去建立你的NFT铸币页面了。
+contract-success-desc,"You have now deployed your smart contract. In the next step, you will build a minting website for people to mint your NFTs.",你已成功部署智能合约。在下一步中，你将创建项目网页，供藏家前往铸造你的NFT。
 go to minting page,go to minting page,去创建Mint NFT页面
-mint-page-success-desc,"You have finished publishing the mint page, you can now go to the manespace to view it","你已经完成了mint页面的发布,你现在可以去manespace查看它"
-go to manespace mint page,go to manespace mint page,在manespace查看
+mint-page-success-desc,"The project is now ready, you can go check your project website on ManeSPACE.",NFT项目已经准备就绪，你可前往ManeSPACE查看项目发售页面。
+go to ManeSPACE mint page,go to ManeSPACE mint page,在ManeSPACE查看
 spilt earnings,spilt earnings,资金分配
 add recipients,add recipients,添加资金分配地址
 currently all funds can only be withdrawn by you,currently all funds can only be withdrawn by you,目前所有资金仅能被你提取
 split-earnings-intro,"You can optionally enable the spilt earnings function to distribute funds seamlessly with collaborators or project partners. The spilt happens automatically when you withdraw the funds after escrow period, and your decision will be displayed publicly on your ManeSPACE minting page.",你可以选择使用资金分配功能与项目共创者进行收入资金分配。资金将按照设置比例在提款时进行自动分配。资金分配地址以及分配比例将在ManeSPACE项目页面进行公开展示。
-smartcontract-header-intro1,You will now deploy your smart contract to blockchain. ManeSTUDIO suggests creators to deploy on testnet before making changes on ETH mainnet to avoid mistakes and waste gas.,在此步骤中，智能合约将被部署至区块链。ManeSTUDIO建议所有创作者在部署至以太坊主网前先在部署至测试网进行调试，已避免合约中出现的错误，和对gas的浪费。 
-smartcontract-header-intro2,"After contract deployment, you can manage and edit your deployed contracts here.",在部署完成后，你可在此处对已部署合约进行管理与编辑。
+smartcontract-header-intro1,"Smart contract is what turns digital artworks into NFT tokens, NFTs are minted through smart contracts that assign ownership and manage the transferability of the NFT. With ManeSTUDIO, you can edit the parameters by a few clicks to fully customize a unique smart contract for your projects.",智能合约可将数字艺术作品转换为NFT tokens，NFT 是通过分配所有权和管理 NFT 可转让性的智能合约铸造而成。使用 ManeSTUDIO，只需简单编辑参数，便可以生成属于你项目独一无二的智能合约。
+Smartcontract-header-intro2,You will now deploy your smart contract to blockchain. ManeSTUDIO suggests creators to deploy on testnet before making changes on ETH mainnet to avoid mistakes and waste gas.,在此步骤中，智能合约将被部署至区块链。ManeSTUDIO建议所有创作者在部署至以太坊主网前先在部署至测试网进行调试，已避免合约中出现的错误，和对gas的浪费。
+Smartcontract-header-intro3,"After contract deployment, you can manage and edit your deployed contracts here.",在部署完成后，你可在此处对已部署合约进行管理与编辑。
 wrong network,wrong network,错误的网络
 switch network,switch network,切换网络
 network-intro-1,"Testnet simulates the real-world Ethereum blockchain environment, you can make changes and play around with test ETH tokens which you could claim for free. You may even test minting and see your NFT collections on Opensea.",测试网是对以太坊主网环境的模拟，免费领取测试币后可以在测试网环境中对合约的参数进行检查、调试，也可以测试NFT铸造环节，并在Opensea测试网中查看你的NFT合集。
@@ -413,12 +415,12 @@ manage-contract-intro-1,"You can manage your deployed contract here. Parameters 
 manage-contract-intro-2,"However, some functions like contract name ,symbol and refund are exceptions, if you want to change those, you will have to destroy the testnet contract with panic buttons, go back to editor and deploy again.",合约名称、符号、退款等部分功能无法直接修改更新，如果需要修改，你必须使用紧急功能销毁此测试网合约，返回至合约编辑页面并重新部署。
 manage-contract-intro-3,Please make sure everything is correct before deploying on mainnet.,请确保在部署至主网前，参数设置正确。
 withdraw funds,withdraw funds,提取资金
-Withdraw-intro-1,Funds from primary sale can be withdrawn after the 7-days funds escrow period. Part of your funds may stay escrowed until all refund periods end. ,一级市场发售的资金可在7天资金托管期结束后在此提取。如果你为项目开启了可退款功能，部分资金仍将被锁定，直到所有退款周期结束。
-Withdraw-intro-2,10% service fee of ManeSTUDIO has already been deducted from the total balance.,ManeSTUDIO收取的10%服务费已从总余额中自动扣除。
+Withdraw-intro-1,Funds from primary sale can be withdrawn after the 7-days funds escrow period. Part of your funds may stay escrowed until all refund periods end.,一级市场发售的资金可在7天资金托管期结束后在此提取。如果你为项目开启了可退款功能，部分资金仍将被锁定，直到所有退款周期结束。
+Withdraw-intro-2,3.3% service fee of ManeSTUDIO has already been deducted from the total balance.,ManeSTUDIO收取的3.3%服务费已从总余额中自动扣除。
 The following settings in the contract can be updated by paying gas fee,The following settings in the contract can be updated by paying gas fee,合约中的以下设置需在更新时支付gas fee。
 manage-presale-intro,Change the time and sale rules only when it is necessary.,非必要情况下请谨慎调整销售时间及销售规则。
 panic buttons,panic buttons,紧急功能
-emergency-pause-intro,"In case of emergency, you may pause the minting and lock the contract temporally.",如遇突发情况，可紧急暂停NFT铸造并暂时锁定合约。
+emergency-pause-intro,"In case of emergency, you may pause the minting and lock the contract temporarily.",如遇突发情况，可紧急暂停NFT铸造并暂时锁定合约。
 pause contract,pause contract,暂时锁定合约
 resume contract,resume contract,解除合约锁定
 destroy-info-2,Please type “DESTROY” in capital letters to confirm,请用大写字母输入“DESTROY”以确认销毁
@@ -429,17 +431,12 @@ manage-reveal-intro,You may update the pre-reveal placeholder. ,你可在此更�
 minting-page-intro,Build a website for people to mint your NFTs and check project information.,创建项目发售网站，提供NFT发售铸造功能并了解详细项目信息。
 custom URL,custom URL,自定义链接
 drop-detail-intro,"You may use the minting page as the official website for your project, put some information and background story so people can know more about your project.",你可以将发售页面作为项目官网使用，在此添加一些信息，让社区更好地了解你的项目。
-gallery-intro,Add some visuals and sneak-peaks of your project. Aspect ratio of 1:1 recommended. ,添加项目的视觉及预览图，推荐1:1比例的正方形图片。
+gallery-intro,Add some visuals and sneak-peaks of your project. Aspect ratio of 1:1 recommended.,添加项目的视觉及预览图，推荐1:1比例的正方形图片。
 creator-intro,Add creator infos here. You may add multiple creators.,添加创作者信息，可添加多位创作者。
 roadmap-intro,"Roadmap tells the milestones of your project. Set up your goals, and BUILD!",路线图展示了项目的预期目标与成就。给自己定个小目标，然后努力BUILD！
 Embed Mint Button,Embed Mint Button,嵌入式NFT铸造按钮
 Iframe Code,Iframe Code,Iframe嵌入代码
 embed-mint-intro,"If you wish to use your own website, select button type, then copy the iframe code of the mint button.",如果你想自行建站，可选择按钮类型后复制iframe代码。
-open in manaSPACE,open in manaSPACE,在maneSPACE查看
-landing-page-intro-3,Got Big Plans？,正构思一个大计划?
-landing-page-intro-4,Introducing ManesLAB’s Creator Incubation Program. Complete consultancy and support through our your project launch and post-launch. Let’s build the next big thing together.,为你介绍ManesLAB的创作者孵化计划，为创作者们提供从立项到项目后续运营的完整咨询服务以及支持。让我们一起打造the next big thing。
-CONTACT US,CONTACT US,联系我们
-incubator,incubator,孵化器
 open in ManeSPACE,open in ManeSPACE,在ManeSPACE查看
 Doc,Doc,文档
 success-generate-nft-intro,"You have now completed artwork creation. In the next step, you will create and deploy your own smart contract.",你已经完成了作品创作部分，在下一步中，你将创建并部署自己的智能合约。
@@ -455,3 +452,8 @@ name-2,name,合约名字
 All set,All set!,大功告成!
 mint-page-success-desc2,Please don’t forget to set up royalties on secondary marketplaces.,请务必前往NFT二级交易平台设置项目版税。
 Set Up Royalties,Set Up Royalties,设置版税
+open in manaSPACE,open in manaSPACE,在maneSPACE查看
+landing-page-intro-3,Got Big Plans？,正构思一个大计划?
+landing-page-intro-4,Introducing ManesLAB’s Creator Incubation Program. Complete consultancy and support through our your project launch and post-launch. Let’s build the next big thing together.,为你介绍ManesLAB的创作者孵化计划，为创作者们提供从立项到项目后续运营的完整咨询服务以及支持。让我们一起打造the next big thing。
+CONTACT US,CONTACT US,联系我们
+incubator,incubator,孵化器
