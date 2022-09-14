@@ -110,11 +110,11 @@ class ClubCreateModal extends React.Component {
 
         let link1,link2,link3;
         if (lang == 'zh') {
-            link1 = 'https://docs.manestudio.xyz/functions-explained/before-start/1-safety-first';
+            link1 = 'https://docs.manestudio.xyz/v/jian-ti-zhong-wen/gong-neng-shou-ce/zai-kai-shi-zhi-qian/1-an-quan-di-yi';
             link2 = 'https://app.gitbook.com/s/89plSfA3vNUVCRBU0XeH/gong-neng-shou-ce/ti-qu-zi-jin';
             link3 = 'https://docs.manestudio.xyz/v/jian-ti-zhong-wen/fa-lv-yu-tiao-kuan/terms-of-service';
         }else {
-            link1 = 'https://docs.manestudio.xyz/v/jian-ti-zhong-wen/gong-neng-shou-ce/zai-kai-shi-zhi-qian/1-an-quan-di-yi';
+            link1 = 'https://docs.manestudio.xyz/functions-explained/before-start/1-safety-first';
             link2 = 'https://docs.manestudio.xyz/v/jian-ti-zhong-wen/gong-neng-shou-ce/ti-qu-zi-jin';
             link3 = 'https://docs.manestudio.xyz/legal/terms-of-service'
         }

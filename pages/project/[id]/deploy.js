@@ -405,11 +405,16 @@ class DeployView extends React.Component {
 
     @autobind
     async deployWithWarning(e) {
-        const {t} = this.props.i18n;
+        const {t, lang} = this.props.i18n;
         if (await confirm({
             title : t('deploy contract warning'),
             confirmation: <div>
-                <div>{t('After deployment, the project will be locked, you can no longer add, delete NFTtrait, images, can not modify the contract settings, etc.')}</div>
+                <div>{t('Deploy-mainnet-warning')}</div>
+                <div className='border-t border-dashed border-gray-700 mt-4 pt-4'>
+                    <h3 className='h3'>{t('deploy-mainnet-p1')}</h3>
+                    <div className='my-4'>{t('deploy-mainnet-p2')}</div>
+                    <div><a href={(lang=='zh')?"https://docs.manestudio.xyz/v/jian-ti-zhong-wen/yong-hu-fa-zhan-ji-hua/maneslab-chuang-zuo-zhe-fu-hua-ji-hua":"https://docs.manestudio.xyz/programs/project-incubation"} target="_blank" className='btn btn-secondary'>{t('deploy-mainnet-bt1')}</a></div>
+                </div>
             </div>
         })) {
             e.stopPropagation();

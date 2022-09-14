@@ -18,7 +18,8 @@ class BluechipSelect extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            "bluechip_list" : {}
+            "bluechip_list" : {},
+            "kw"            : ''
         }
         this.getBluechipList = ::this.getBluechipList
     }   
@@ -60,7 +61,7 @@ class BluechipSelect extends React.Component {
     render() {
 
         const {name,dropdown_visible,toggleDropdown,setNotice,side_notice} = this.props;
-        const {bluechip_list} = this.state;
+        const {bluechip_list,kw} = this.state;
         const {t} = this.props.i18n;
         
         return <Field name={name}>
@@ -82,13 +83,25 @@ class BluechipSelect extends React.Component {
                 {/* console.log('debugvs,',vs,select_names) */}
 
                 let menu = <div className="block-menu border-2 border-black">
-                    <ul className="overflow-y-scroll">
+                    <div className='p-2'>
+                        <input placeholder={'kw for filter'} className='input-box' value={kw} onChange={(e)=>{
+                            this.setState({
+                                kw : e.target.value
+                             })
+                        }}/>
+                    </div>
+                    <ul className="overflow-y-scroll max-h-96">
                         {
                             Object.keys(bluechip_list).map((key)=>{
                                 let v = bluechip_list[key];
                                 let checked = false;
                                 if (this.ifValueIncludeInList(key,vs)) {
                                     checked = true;
+                                }
+                                if (kw) {
+                                    if (v.toLowerCase().indexOf(kw) == -1) {
+                                        return null;
+                                    }
                                 }
                                 return <li key={key} >
                                     <a className="flex justify-between items-center p-2 text-sm capitalize font-ubuntu hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer" 

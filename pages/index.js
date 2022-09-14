@@ -109,7 +109,7 @@ export default function Home() {
               </div>
           </div>
 
-          <div className='absolute' style={{width:'800px',height:'400px','right':'-150px','bottom':'-50px'}}>
+          <div className='absolute' style={{width:'800px',height:'400px','right':'-150px','bottom':'100px'}}>
             <a href="https://linktr.ee/weirdoghost" target="_blank">
             <div id="wrap" ref={root} />
             </a>

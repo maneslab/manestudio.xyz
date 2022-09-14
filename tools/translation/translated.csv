@@ -22,7 +22,7 @@ pre-reveal placeholder,pre-reveal placeholder,开图前盲盒封面图
 add pre-reveal placeholder,add pre-reveal placeholder,添加盲盒封面图
 auto reveal at,auto-reveal time,自动开图时间
 delayed reveal is disabled,delayed reveal is disabled,延迟开图被禁用
-whitelist for selected bluechip,Allowlist for Bluechip NFT Holders,蓝筹NFT持有者白名单发放
+whitelist for selected bluechip,Allowlist for Trendy NFT Holders,热门NFT持有者白名单发放
 upload whitelist csv file,Upload .csv File of Allowlist Addresses,上传白名单地址.csv文件
 save success,save success,保存成功
 create project,create project,创建项目
@@ -303,7 +303,7 @@ Manage Deployed Contracts,Manage Deployed Contracts,管理已部署的合约
 manage,manage,管理
 No contract deployed,No contract deployed,未部署合约
 Manastudio Contract is not deployed on this network yet,Manastudio Contract is not deployed on this network yet,Manastudio合约还没有部署在这个网络上
-"After deployment, the project will be locked, you can no longer add, delete NFTtrait, images, can not modify the contract settings, etc.","After deployment, the project will be locked, you can no longer add, delete NFTtrait, images, can not modify the contract settings, etc.",部署后，项目将被锁定，你不能再添加、删除NFTtrait、图像，不能修改合约设置等。
+Deploy-mainnet-warning,"Once your smart contract is deployed on ETH Mainnet, some settings will no longer be editable. Please confirm you have made everything correct in the testnet contract.",一旦你的智能合约部署至以太坊主网，某些设置将无法再改变。请再次确认已将测试网合约调试至完美状态。
 get Rinkeby Testnet ETH,get Rinkeby Testnet ETH,获取科万特网ETH
 Get,Get,获取
 deploy to ETH mainnet,deploy to ETH mainnet,部署到ETH主网
@@ -457,3 +457,7 @@ landing-page-intro-3,Got Big Plans？,正构思一个大计划?
 landing-page-intro-4,Introducing ManesLAB’s Creator Incubation Program. Complete consultancy and support through our your project launch and post-launch. Let’s build the next big thing together.,为你介绍ManesLAB的创作者孵化计划，为创作者们提供从立项到项目后续运营的完整咨询服务以及支持。让我们一起打造the next big thing。
 CONTACT US,CONTACT US,联系我们
 incubator,incubator,孵化器
+deploy-mainnet-p1,Got Big Plans？,正构思一个大计划？
+deploy-mainnet-p2,"Instead of launching your project directly, you may also apply and join ManesLAB’s Creator Incubation Program, getting a complete consultancy and support through our your project launch and post-launch. Let’s build the next big thing together.",除了直接发售项目之外，你还可以申请并加入ManesLAB创作者孵化计划，获得从立项到项目后续运营的完整咨询服务以及支持。让我们一起打造the next big thing。
+deploy-mainnet-bt1,GO TO INCUBATOR,前往孵化器
+deploy-mainnet-bt2,CONFIRM DEPLOYMENT,我已知晓，确认部署至主网
