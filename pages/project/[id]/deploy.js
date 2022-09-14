@@ -33,6 +33,7 @@ import SuccessModal from 'components/common/success_modal'
 
 import {  ExternalLinkIcon,ChevronLeftIcon  } from '@heroicons/react/outline'
 
+import {LightBulbIcon,ArrowRightIcon} from '@heroicons/react/outline'
 
 import { denormalize } from 'normalizr';
 import {contractSchema} from 'redux/schema/index'
@@ -411,11 +412,12 @@ class DeployView extends React.Component {
             confirmation: <div>
                 <div>{t('Deploy-mainnet-warning')}</div>
                 <div className='border-t border-dashed border-gray-700 mt-4 pt-4'>
-                    <h3 className='h3'>{t('deploy-mainnet-p1')}</h3>
-                    <div className='my-4'>{t('deploy-mainnet-p2')}</div>
-                    <div><a href={(lang=='zh')?"https://docs.manestudio.xyz/v/jian-ti-zhong-wen/yong-hu-fa-zhan-ji-hua/maneslab-chuang-zuo-zhe-fu-hua-ji-hua":"https://docs.manestudio.xyz/programs/project-incubation"} target="_blank" className='btn btn-secondary'>{t('deploy-mainnet-bt1')}</a></div>
+                    <h3 className='h3 flex justify-start items-center font-bold text-lg mb-4'><LightBulbIcon className='icon-sm mr-2' /> {t('deploy-mainnet-p1')}</h3>
+                    <div className='my-4 opacity-60 text-sm'>{t('deploy-mainnet-p2')}</div>
+                    <div><a className='flex justify-start items-center opacity-60 text-sm' href={(lang=='zh')?"https://docs.manestudio.xyz/v/jian-ti-zhong-wen/yong-hu-fa-zhan-ji-hua/maneslab-chuang-zuo-zhe-fu-hua-ji-hua":"https://docs.manestudio.xyz/programs/project-incubation"} target="_blank"><ArrowRightIcon className='icon-xs mr-2'/>{t('deploy-mainnet-bt3')}</a></div>
                 </div>
-            </div>
+            </div>,
+            confirm_text : t('deploy-mainnet-bt2'),
         })) {
             e.stopPropagation();
             this.deploy();
@@ -424,7 +426,6 @@ class DeployView extends React.Component {
 
     isNetworkCurrect(network,chain) {
         let wish_net_id = 0;
-
         switch(network) {
             case 'mainnet':
                 wish_net_id = 1;

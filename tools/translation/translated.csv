@@ -136,7 +136,7 @@ update whitelist mint time successful,update whitelist mint time successful,更�
 update presale max supply,update presale max supply,更新预售的最大供应量
 update presale max supply tx sent,update presale max supply tx sent,更新预售的最大供应量已发送
 update presale max supply successful,update presale max supply successful,更新预售最大供应量成功
-select bluechip,select bluechip,选择蓝筹NFT
+select bluechip,select trendy NFT,选择热门NFT
 Create Generative Collection,Create Generative Collection,创建随机生成类NFT集合
 Project-type-1,ManeSTUDIO editor allows creators to randomly generate 10000+ NFTs by simply uploading layers of traits.,创作者可使用ManeSTUDIO轻松创建10000+的随机组合生成类NFT，仅需上传包含不同特征的图层即可。
 Project-type-2,You can easily tweak the rarity and manage the metadata with our built-in editor.,你可使用内置工具轻易调整每个特征的稀有度，并对元数据进行管理。
@@ -308,7 +308,7 @@ get Rinkeby Testnet ETH,get Rinkeby Testnet ETH,获取科万特网ETH
 Get,Get,获取
 deploy to ETH mainnet,deploy to ETH mainnet,部署到ETH主网
 deploy to ETH testnet,deploy to ETH testnet,部署到ETH测试网
-deploy contract warning,deploy contract warning,部署合约警告
+deploy contract warning,Deploy to Mainnet,即将部署至主网
 hide in ManeSPACE,hide in ManeSPACE,隐藏在ManeSpace中
 you need setting contract first before preview drop page,you need setting contract first before preview drop page,您需要在预览下降页面之前先设置合约
 publish to ManeSPACE,publish to ManeSPACE,发布到ManeSPACE
@@ -461,3 +461,4 @@ deploy-mainnet-p1,Got Big Plans？,正构思一个大计划？
 deploy-mainnet-p2,"Instead of launching your project directly, you may also apply and join ManesLAB’s Creator Incubation Program, getting a complete consultancy and support through our your project launch and post-launch. Let’s build the next big thing together.",除了直接发售项目之外，你还可以申请并加入ManesLAB创作者孵化计划，获得从立项到项目后续运营的完整咨询服务以及支持。让我们一起打造the next big thing。
 deploy-mainnet-bt1,GO TO INCUBATOR,前往孵化器
 deploy-mainnet-bt2,CONFIRM DEPLOYMENT,我已知晓，确认部署至主网
+deploy-mainnet-bt3,CREATOR INCUBATOR PROGRAM,创作者孵化器
