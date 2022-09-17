@@ -1,7 +1,7 @@
 module.exports = function(api) {
 
     let env = api.cache(() => process.env.NODE_ENV);
-    let config_env = api.cache(() => process.env.ENV);
+    let config_env = api.cache(() => process.env.NEXT_PUBLIC_ENV);
 
     let plugins = [
         'inline-json-import',
