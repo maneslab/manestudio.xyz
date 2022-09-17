@@ -71,6 +71,7 @@ class DeployView extends React.Component {
         }
     }
 
+
     componentDidMount() {
         if (this.props.club_id) {
             this.fetchPageData();
@@ -258,11 +259,14 @@ class DeployView extends React.Component {
     @autobind
     async estimateGas() {
         const data = await this.getDeployData();
-        const {contract} = this.props;
+        const {contract,network} = this.props;
 
         this.setState({
             is_estimate_ing : true
         })
+        const {t} = this.props.i18n; 
+
+        this.mane = new manestudio(t,network);
 
         ///预估gas费用
         let gas_data = await this.mane.estimateGasDeploy(...data);
@@ -414,7 +418,7 @@ class DeployView extends React.Component {
                 <div className='border-t border-dashed border-gray-700 mt-4 pt-4'>
                     <h3 className='h3 flex justify-start items-center font-bold text-lg mb-4'><LightBulbIcon className='icon-sm mr-2' /> {t('deploy-mainnet-p1')}</h3>
                     <div className='my-4 opacity-60 text-sm'>{t('deploy-mainnet-p2')}</div>
-                    <div><a className='flex justify-start items-center opacity-60 text-sm' href={(lang=='zh')?"https://docs.manestudio.xyz/v/jian-ti-zhong-wen/yong-hu-fa-zhan-ji-hua/maneslab-chuang-zuo-zhe-fu-hua-ji-hua":"https://docs.manestudio.xyz/programs/project-incubation"} target="_blank"><ArrowRightIcon className='icon-xs mr-2'/>{t('deploy-mainnet-bt3')}</a></div>
+                    <div><a className='flex justify-start items-center opacity-60 text-sm underline' href={(lang=='zh')?"https://docs.manestudio.xyz/v/jian-ti-zhong-wen/yong-hu-fa-zhan-ji-hua/maneslab-chuang-zuo-zhe-fu-hua-ji-hua":"https://docs.manestudio.xyz/programs/project-incubation"} target="_blank"><ArrowRightIcon className='icon-xs mr-2'/>{t('deploy-mainnet-bt3')}</a></div>
                 </div>
             </div>,
             confirm_text : t('deploy-mainnet-bt2'),
@@ -490,7 +494,7 @@ class DeployView extends React.Component {
 
 
                             <h1 className='h1'>{
-                                (network == 'mainnet')
+                                (network == 'homestead')
                                 ?   <>{t("deploy to ETH mainnet")}</>
                                 :   <>{strFormat(t("deploy to {network_name} testnet"),{'network_name':'rinkeby'})}</>
                             }</h1>
@@ -510,14 +514,14 @@ class DeployView extends React.Component {
                                         <span className="capitalize">{strFormat(t('{network_name} testnet connected'),{'network_name':chain.name})}</span>
                                         <div className='flex justify-end items-center'>
                                             {
-                                                (network == 'mainnet')
+                                                (network == 'homestead')
                                                 ? <>
                                                     <GasButton />
                                                     <Button loading={this.state.is_estimate_ing} className='btn btn-default mr-2' onClick={this.estimateGas}>estimate gas fee</Button>
                                                 </>
                                                 : null
                                             }
-                                            <Button loading={this.state.is_deploy_contract} className='btn btn-primary' onClick={(network=='mainnet')?this.deployWithWarning:this.deploy}>deploy</Button>
+                                            <Button loading={this.state.is_deploy_contract} className='btn btn-primary' onClick={(network=='homestead')?this.deployWithWarning:this.deploy}>deploy</Button>
                                         </div>
                                     </div>
                                     {
