@@ -4,9 +4,9 @@
     
     "DEBUG"             : false,
 
-    "WEBSITE"           : "https://test.manestudio.xyz",
+    "WEBSITE"           : "https://www.manestudio.xyz",
 
-    "SPACE_WEBSITE"     : "https://test.manespace.xyz",
+    "SPACE_WEBSITE"     : "https://www.manespace.xyz",
     
     "API"               : "https://api.manestudio.xyz",
 
@@ -16,7 +16,7 @@
 
     "NEXTID_ENV"        : "production",
 
-    "ETH_NETWORK"       : "rinkeby",
+    "ETH_NETWORK"       : "mainnet",
 
     "MANE_CONTRACT"     : {
         "rinkeby"   :   "0x467fd39f7c75F0B21EB35B8A6Fb500ff42AaAd49",
