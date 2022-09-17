@@ -1,7 +1,7 @@
 import default_config from '../config/default.json';
 import develop_config from '../config/develop.json';
 import production_config from '../config/production.json';
-// import testing_config from '../config/testing.json';
+import staging_config from '../config/staging.json';
 
 
 class Config {
@@ -18,9 +18,9 @@ class Config {
                 cfg = Object.assign(default_config,production_config);
                 break;
     
-            // case 'test':
-            //     cfg = Object.assign(default_config,testing_config);
-            //     break;
+            case 'staging':
+                cfg = Object.assign(default_config,staging_config);
+                break;
     
             default:
                 cfg = Object.assign(default_config,develop_config);
