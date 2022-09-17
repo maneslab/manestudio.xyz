@@ -511,7 +511,11 @@ class DeployView extends React.Component {
                                 </div>
                                 : <div className='d-bg-c-1 p-4 pl-6 mb-8 '>
                                     <div className='flex justify-between items-center'>
-                                        <span className="capitalize">{strFormat(t('{network_name} testnet connected'),{'network_name':chain.name})}</span>
+                                        {
+                                            (network_name == 'homestead')
+                                            ?  <span className="capitalize">{'ETH Mainnet connected'}</span>
+                                            :  <span className="capitalize">{strFormat(t('{network_name} testnet connected'),{'network_name':chain.name})}</span>
+                                        }
                                         <div className='flex justify-end items-center'>
                                             {
                                                 (network == 'homestead')

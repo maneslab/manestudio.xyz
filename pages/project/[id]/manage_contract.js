@@ -71,7 +71,7 @@ class DeployView extends React.Component {
         let env = config.get('ENV');
         let lock_env = 'rinkeby';
         if (env == 'production') {
-            lock_env = 'mainnet';
+            lock_env = 'homestead';
         }
 
         this.state = {
@@ -455,7 +455,7 @@ class DeployView extends React.Component {
     isNetworkCurrect(network,chain) {
         let wish_net_id = 0;
         switch(network) {
-            case 'mainnet':
+            case 'homestead':
                 wish_net_id = 1;
                 break;
             case 'rinkeby':
@@ -518,7 +518,7 @@ class DeployView extends React.Component {
         } 
 
         if (address) {
-            if (network == 'mainnet') {
+            if (network == 'homestead') {
                 club = club.setIn(['is_step_done','step_2'],true);
             }else {
                 club = club.setIn(['is_step_done','is_deploy_testnet'],true);
@@ -554,8 +554,8 @@ class DeployView extends React.Component {
                                 </a>
                                 </Link>
                                 {
-                                    (network != 'mainnet' && club && club.getIn(['is_step_done','step_2']) == false)
-                                    ?  <Link href={"/project/"+club_id+"/deploy?network=mainnet"}>
+                                    (network != 'homestead' && club && club.getIn(['is_step_done','step_2']) == false)
+                                    ?  <Link href={"/project/"+club_id+"/deploy?network=homestead"}>
                                         <a className='btn btn-secondary'>
                                             {t('deploy on mainnet')}
                                         </a>
@@ -566,7 +566,7 @@ class DeployView extends React.Component {
 
 
                             <h1 className='h1 mb-8'>{
-                                (network == 'mainnet')
+                                (network == 'homestead')
                                 ?   <>{t("manage contract on ETH mainnet")}</>
                                 :   <>{strFormat(t("manage contract on {network_name} testnet"),{'network_name':network})}</>
                             }</h1>
@@ -868,7 +868,7 @@ class DeployView extends React.Component {
                                                                 
                                                             </div>
                                                             {
-                                                                (network != 'mainnet')
+                                                                (network != 'homestead')
                                                                 ? <>
                                                                 <div className='divider' />
                                                                     <div className='flex justify-between items-center'>
