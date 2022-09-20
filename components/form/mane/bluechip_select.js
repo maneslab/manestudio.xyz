@@ -84,7 +84,7 @@ class BluechipSelect extends React.Component {
 
                 let menu = <div className="block-menu border-2 border-black">
                     <div className='p-2'>
-                        <input placeholder={'kw for filter'} className='input-box' value={kw} onChange={(e)=>{
+                        <input placeholder={t('search NFT project')} className='input-box' value={kw} onChange={(e)=>{
                             this.setState({
                                 kw : e.target.value
                              })

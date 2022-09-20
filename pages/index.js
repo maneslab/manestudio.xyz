@@ -73,7 +73,7 @@ export default function Home() {
   <div className="">
 
       <div className='max-w-screen-xl mx-auto text-white relative'>
-          <div className='mt-24 mb-12'>
+          <div className='2xl:mt-24 mb-12'>
               <Logo className="h-10" />
           </div>
           <div className="max-w-prose mb-12 text-[#b6b7dc]" >
