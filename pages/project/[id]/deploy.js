@@ -459,6 +459,8 @@ class DeployView extends React.Component {
         const {is_fetched_contract_data,is_fetching_contract_data} = this.state;
 
         let is_network_correct = this.isNetworkCurrect(network,chain);
+
+        // console.log('network',network,chain);
         
 
         return <PageWrapper>
@@ -512,7 +514,7 @@ class DeployView extends React.Component {
                                 : <div className='d-bg-c-1 p-4 pl-6 mb-8 '>
                                     <div className='flex justify-between items-center'>
                                         {
-                                            (network_name == 'homestead')
+                                            (network == 'homestead')
                                             ?  <span className="capitalize">{'ETH Mainnet connected'}</span>
                                             :  <span className="capitalize">{strFormat(t('{network_name} testnet connected'),{'network_name':chain.name})}</span>
                                         }
