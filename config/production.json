@@ -19,7 +19,7 @@
     "ETH_NETWORK"       : "mainnet",
 
     "MANE_CONTRACT"     : {
-        "rinkeby"   :   "0x467fd39f7c75F0B21EB35B8A6Fb500ff42AaAd49",
+        "rinkeby"   :   "0x07c1680B87A717AA87C468c80bcB44C4734B4A86",
         "homestead"   :   "0x5Baf93D823328EdDca6C3020B9105363A5b26B1A"
     }
 
