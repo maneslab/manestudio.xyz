@@ -7,6 +7,8 @@ import Router from 'next/router'
 import config from 'helper/config'
 import {getTheme,setThemeInCss} from 'helper/local'
 
+import MobileWggIcon from 'public/img/icons/mobile_wgg.svg'
+
 //rainbowkit开始
 import '@rainbow-me/rainbowkit/styles.css';
 
@@ -26,6 +28,11 @@ import {
 } from 'wagmi';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
+
+import { isMobile } from 'react-device-detect';
+import DiscordIcon from 'public/img/icons/discord.svg'
+import TwitterIcon from 'public/img/icons/twitter.svg'
+import NewwindowIcon from 'public/img/icons/newwindow.svg'
 //rainbowkit导入结束
 
 const { chains, provider } = configureChains(
@@ -91,7 +98,8 @@ class MyApp extends App {
     constructor(props) {
         super(props)
         this.state = {
-            theme : 'default'
+            theme : 'default',
+            is_mobile : false
         }
     }
 
@@ -102,7 +110,8 @@ class MyApp extends App {
         let theme = getTheme();
         setThemeInCss(theme);
         this.setState({
-            'theme' :theme
+            'theme' :theme,
+            'is_mobile' : isMobile 
         })
     }
 
@@ -134,8 +143,21 @@ class MyApp extends App {
 
     render() {
         const {Component, pageProps} = this.props;
-        const {theme} = this.state;
+        const {theme,is_mobile} = this.state;
         // const isServer = (typeof window === 'undefined');
+
+        if (is_mobile) {
+            return <div className='bg-[#2e2c9b] h-screen flex justify-between flex-col'>
+                <div className='py-24'>
+                    <MobileWggIcon className="w-6/12 mx-auto"/>
+                </div>
+                <div className='mb-24 text-white flex justify-center items-center space-x-2'>
+				    <a href="https://twitter.com/manestudioxyz" target="_blank" className="hover:text-gray-400"><TwitterIcon className="icon-xs"/></a>
+				    <a href="https://discord.gg/EnCUugtfVn" target="_blank" className="hover:text-gray-400"><DiscordIcon className="icon-xs"/></a>
+				    <a href="https://docs.manestudio.xyz" target="_blank" className="hover:text-gray-400 capitalize flex justify-start items-center">{'Doc'}<NewwindowIcon className="icon-xs ml-1"/></a>
+                </div>
+            </div>
+        }
 
         return <WagmiConfig client={wagmiClient}>
             <RainbowKitProvider chains={chains} theme={(theme=='dark')?myDarkTheme:myLightTheme}>
