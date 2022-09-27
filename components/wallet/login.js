@@ -163,7 +163,7 @@ class WalletLogin extends React.Component {
         const {wallet,is_inited} = this.props;
         const {show_type} = this.state;
 
-        // console.log('debug03->render,is_inited',is_inited)
+        console.log('debug03->render,is_inited',is_inited)
 
         if (!is_inited) {
             return null;

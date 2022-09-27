@@ -84,7 +84,7 @@ class GasButton extends React.Component {
         this.setState({
             'is_fetching' : true,
         })
-
+//
         let response = await fetch('https://ethgasstation.info/api/ethgasAPI.json')
         let result = await response.json();
 
