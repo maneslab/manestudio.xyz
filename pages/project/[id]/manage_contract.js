@@ -517,7 +517,7 @@ class DeployView extends React.Component {
             is_allow_withdraw = (this.isAllowWithdraw(contract_data['refund']) && !contract_data['is_force_refundable'])
         } 
 
-        if (address) {
+        if (address && club) {
             if (network == 'homestead') {
                 club = club.setIn(['is_step_done','step_2'],true);
             }else {

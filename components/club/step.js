@@ -3,6 +3,9 @@ import ClubStepGenerator from 'components/club/step/generator'
 import ClubStepLock from 'components/club/step/lock'
 import ClubStepNormal from 'components/club/step/normal'
 
+// import {connect} from 'react-redux'
+// import {loadClub} from 'redux/reducer/club'
+
 class ClubStep extends React.Component {
 
 
@@ -25,4 +28,16 @@ class ClubStep extends React.Component {
     }
 }
 
-module.exports = ClubStep
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         loadClub : (data) => {
+//             return dispatch(loadClub(data));
+//         },
+//     }
+// }
+// function mapStateToProps(state,ownProps) {
+//     return {
+
+//     }
+// }
+export default ClubStep;

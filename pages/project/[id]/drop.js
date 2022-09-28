@@ -144,7 +144,11 @@ class ClubDropSetting extends React.Component {
         let mane_space_url = this.getManespacePageUrl();
         let ropalties_url = (lang=='zh')?'https://docs.manestudio.xyz/v/jian-ti-zhong-wen/gong-neng-shou-ce/she-zhi-ban-shui' : 'https://docs.manestudio.xyz/functions-explained/setting-up-royalties';
 
-        console.log('mane_space_url',mane_space_url)
+        // console.log('mane_space_url',mane_space_url)
+
+        if (!club) {
+            return null;
+        }
 
         return <PageWrapper>
             <Head>
@@ -185,7 +189,7 @@ class ClubDropSetting extends React.Component {
                             </div>
                             <div>
                             {
-                                (!club.get('contract'))
+                                (!club || !club.get('contract'))
                                 ? <div class="tooltip" data-tip={t('you need setting contract first before preview drop page')}>
                                     <button class="btn btn-default" disabled>{t('preview')}</button>
                                 </div>

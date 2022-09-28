@@ -91,6 +91,19 @@ class GenerateGroupView extends React.Component {
         if (club) {
             is_lock = club.get('is_lock');
         }
+
+        if (club) {
+            console.log('debug-club',club.toJS());
+        }else {
+            console.log('debug-club-no-exist');
+        }
+
+        if (active_club) {
+            console.log('debug-active_club',active_club.toJS());
+        }else {
+            console.log('debug-active_club-no-exist');
+        }
+        
         
         return <PageWrapper>
             <Head>

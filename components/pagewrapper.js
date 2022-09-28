@@ -121,7 +121,7 @@ const mapDispatchToProps = (dispatch) => {
         },
         initApp : () => {
             return dispatch(initApp());
-        },
+        }
     }
 }
 function mapStateToProps(state,ownProps) {
