@@ -7,7 +7,7 @@ import {getAmountFromValueAndDecimals} from 'helper/web3/number'
 
 export default class manestudio extends contract{
 
-    constructor(t = null,network = 'rinkeby') {
+    constructor(t = null,network = 'goerli') {
 
         console.log('constructor-network',network);
 

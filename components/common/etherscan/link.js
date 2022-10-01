@@ -12,8 +12,8 @@ const EtherscanLink = ({address,short,network}) => {
         case 'rinkeby':
             base_url = 'https://rinkeby.etherscan.io/';
             break;
-        case 'kovan':
-            base_url = 'https://kovan.etherscan.io';
+        case 'goerli':
+            base_url = 'https://goerli.etherscan.io';
             break;
         default:
             base_url = 'https://www.etherscan.io';

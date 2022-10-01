@@ -15,10 +15,10 @@ export default function ContractSide({
         <h3 className='font-bold capitalize mb-4'>{t('deploy')}</h3>
         <ul>
             <li>
-                <NavLink href={base_url+'/deploy?net=rinkeby'}>
+                <NavLink href={base_url+'/deploy?net=goerli'}>
                 <a>
                     <div class="dot-circle"></div>
-                    {'rinkeby testnet'}
+                    {'goerli testnet'}
                 </a>
                 </NavLink>
             </li>

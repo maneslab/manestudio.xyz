@@ -600,7 +600,7 @@ class ContractView extends React.Component {
                                         <div className="col-span-3 intro">
                                             <p>{t('ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.')}</p>
                                             <p>{t('You can define your details of your contract here, as well as many customizable function below.')}</p>
-                                            <p>{t('DON’T PANIC! You can deploy your contract to Rinkeby testnet for free, check if everythings is correct, then deploy to Ethereum mainnet.')}</p>
+                                            <p>{t('DON’T PANIC! You can deploy your contract to Goerli testnet for free, check if everythings is correct, then deploy to Ethereum mainnet.')}</p>
                                         </div>
                                     </div>
                                 </div>

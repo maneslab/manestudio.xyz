@@ -205,7 +205,7 @@ refundable ratio,refundable ratio,退款比例
 revenue sharing,revenue sharing,分享收入
 share ratio,share ratio,分成比例
 "You can define your details of your contract here, as well as many customizable function below.","You can define your details of your contract here, as well as many customizable function below.",你可以在这里定义你的合约细节，以及下面许多可定制的功能。
-"DON’T PANIC! You can deploy your contract to Rinkeby testnet for free, check if everythings is correct, then deploy to Ethereum mainnet.","DON’T PANIC! You can deploy your contract to Rinkeby testnet for free, check if everythings is correct, then deploy to Ethereum mainnet.",不要惊慌! 您可以将您的合约免费部署到Rinkeby testnet，检查是否一切正常，然后部署到Ethereum mainnet。
+"DON’T PANIC! You can deploy your contract to Goerli testnet for free, check if everythings is correct, then deploy to Ethereum mainnet.","DON’T PANIC! You can deploy your contract to Goerli testnet for free, check if everythings is correct, then deploy to Ethereum mainnet.",不要惊慌! 您可以将您的合约免费部署到Goerli testnet，检查是否一切正常，然后部署到Ethereum mainnet。
 withdraw,withdraw,提款
 total balance,total balance,总余额
 available balance,available balance,可提取余额
@@ -303,8 +303,7 @@ Manage Deployed Contracts,Manage Deployed Contracts,管理已部署的合约
 manage,manage,管理
 No contract deployed,No contract deployed,未部署合约
 Manastudio Contract is not deployed on this network yet,Manastudio Contract is not deployed on this network yet,Manastudio合约还没有部署在这个网络上
-Deploy-mainnet-warning,"Once your smart contract is deployed on ETH Mainnet, some settings will no longer be editable. Please confirm you have made everything correct in the testnet contract.",一旦你的智能合约部署至以太坊主网，某些设置将无法再改变。请再次确认已将测试网合约调试至完美状态。
-get Rinkeby Testnet ETH,get Rinkeby Testnet ETH,获取科万特网ETH
+get Goerli Testnet ETH,get Goerli Testnet ETH,获取科万特网ETH
 Get,Get,获取
 deploy to ETH mainnet,deploy to ETH mainnet,部署到ETH主网
 deploy to ETH testnet,deploy to ETH testnet,部署到ETH测试网
@@ -405,11 +404,11 @@ network-intro-1,"Testnet simulates the real-world Ethereum blockchain environmen
 About Network,About Network,关于网络
 deploy to {network_name} testnet,deploy to {network_name} testnet,部署至{network_name}测试网
 {network_name} testnet connected,{network_name} testnet connected,已连接至{network_name}测试网
-rinkeby testnet faucet,rinkeby testnet faucet,rinkeby测试网水龙头
-Claim Rinkeby Testnet ETH,Claim Rinkeby Testnet ETH,领取Rinkeby测试币
+goerli testnet faucet,goerli testnet faucet,goerli测试网水龙头
+Claim Goerli Testnet ETH,Claim Goerli Testnet ETH,领取Goerli测试币
 Claim,Claim,领取
-About Rinkeby Testnet,About Rinkeby Testnet,关于Rinkeby测试网
-rinkeby-network-intro-1,"Rinkeby Testnet is one of the most popular testnet. Opensea and Rarible have their marketplaces on Rinkeby testnet too, so that you can also check your NFTs on secondary marketplaces before deploying your smart contract to mainnet.",Rinkeby测试网是最常用的以太坊测试网之一。Opensea，Rarible等二级交易市场均在Rinkeby部署了测试版本，你可以在测试网络环境下查看你NFT合集在二级市场的展示是否正常。
+About Goerli Testnet,About Goerli Testnet,关于Goerli测试网
+goerli-network-intro-1,"Goerli Testnet is one of the most popular testnet. Opensea and Rarible have their marketplaces on Goerli testnet too, so that you can also check your NFTs on secondary marketplaces before deploying your smart contract to mainnet.",Goerli测试网是最常用的以太坊测试网之一。Opensea，Rarible等二级交易市场均在Goerli部署了测试版本，你可以在测试网络环境下查看你NFT合集在二级市场的展示是否正常。
 manage contract on {network_name} testnet,manage contract on {network_name} testnet,管理{network_name}测试网合约
 manage-contract-intro-1,"You can manage your deployed contract here. Parameters like time, price and allowlist addresses can always be edited even afyer . ",你可在此处对已部署的合约进行管理。如发售时间，价格，白名单地址可在此进行更新。
 manage-contract-intro-2,"However, some functions like contract name ,symbol and refund are exceptions, if you want to change those, you will have to destroy the testnet contract with panic buttons, go back to editor and deploy again.",合约名称、符号、退款等部分功能无法直接修改更新，如果需要修改，你必须使用紧急功能销毁此测试网合约，返回至合约编辑页面并重新部署。
@@ -468,3 +467,6 @@ tweet url,tweet url,Tweet链接
 fast,fast,快速
 average,average,平均
 low,low,慢速
+deploy-mainnet-warning-1,"Warning:","警告:"
+deploy-mainnet-warning-2,"Make sure the settings are correct! If you made updates to your testnet contract, the changes will NOT be synced to mainnet contract, you will have to use DESTROY function, back to the settings, make correction, then deploy to mainnet.","请再次确认已在设置页面调试至正确参数。如果你对已部署的测试网合约做了修改更新，这些变化并不会直接同步至你的主网合约。请务必使用销毁功能销毁测试网合约，再返回设置页面进行设置，然后部署至主网。"
+deploy-mainnet-warning-3,"Once your smart contract is deployed on ETH Mainnet, some settings will no longer be editable. ","一旦你的智能合约部署至以太坊主网，某些设置将无法再改变。"

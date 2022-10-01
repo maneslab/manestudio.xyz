@@ -69,7 +69,7 @@ class DeployView extends React.Component {
         super(props)
     
         let env = config.get('ENV');
-        let lock_env = 'rinkeby';
+        let lock_env = 'goerli';
         if (env == 'production') {
             lock_env = 'homestead';
         }
@@ -460,6 +460,9 @@ class DeployView extends React.Component {
                 break;
             case 'rinkeby':
                 wish_net_id = 4;
+                break;
+            case 'goerli':
+                wish_net_id = 5;
                 break;
             default:
                 wish_net_id = 1;

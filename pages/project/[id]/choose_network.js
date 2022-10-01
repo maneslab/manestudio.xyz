@@ -37,7 +37,7 @@ class ChooseNetwork extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            'rinkeby' : {
+            'goerli' : {
                 'is_fetching'       : false,
                 'is_fetched'        : false,
                 'contract_address'  : null
@@ -140,11 +140,11 @@ class ChooseNetwork extends React.Component {
 
 
                         <div className='mb-8'>
-                            <h3 className='font-bold mb-2'>Rinkeby Testnet</h3>
+                            <h3 className='font-bold mb-2'>Goerli Testnet</h3>
                             <div className='d-bg-c-1'>
                                 {
-                                    (this.props.chain.network == 'rinkeby')
-                                    ? <ChooseNetworkOne network={'rinkeby'} state={this.state['rinkeby']} club_id={club_id}/>
+                                    (this.props.chain.network == 'goerli')
+                                    ? <ChooseNetworkOne network={'goerli'} state={this.state['goerli']} club_id={club_id}/>
                                     : <div className='flex justify-between p-4 pl-6 border-b d-border-c-2 h-20 items-center cursor-pointer'>
                                         <div>{t('wrong network')}</div>
                                         <div><SwitchChainButton /></div>
@@ -196,6 +196,9 @@ let ChooseNetworkOne = ({network,state,club_id}) => {
     switch(network) {
         case 'rinkeby':
             network_name = 'Rinkeby Testnet'
+            break;
+        case 'goerli':
+            network_name = 'Goerli Testnet'
             break;
         case 'homestead':
             network_name = 'Eth Mainnet'

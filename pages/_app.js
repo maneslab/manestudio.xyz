@@ -36,7 +36,7 @@ import NewwindowIcon from 'public/img/icons/newwindow.svg'
 //rainbowkit导入结束
 
 const { chains, provider } = configureChains(
-    [chain.mainnet,  chain.rinkeby ],
+    [chain.mainnet,  chain.goerli ],
     [
         alchemyProvider({ alchemyId: config.get('ALCHEMY_ID') }),
         publicProvider()
