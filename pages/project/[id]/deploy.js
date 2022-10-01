@@ -161,11 +161,13 @@ class DeployView extends React.Component {
     */
     @autobind
     async getSign() {
+        const {club_id,network} = this.props;
 
         let result = await httpRequest({
             'url'   :   '/v1/club/get_deploy_sign',
             'data'  : {
-                id : this.props.club_id
+                id : club_id,
+                network : network
             }
         })
 
