@@ -587,7 +587,7 @@ class DeployView extends React.Component {
                                         <h2 className='font-bold capitalize border-b pb-4 mb-4 d-border-c-1'>{t('rinkeby testnet faucet')}</h2>
                                         <div className='flex justify-between items-center'>
                                             <div className="capitalize">{t('Claim Rinkeby Testnet ETH')}</div>
-                                            <a href="https://faucets.chain.link/rinkeby" target="_blank" className='btn btn-default'>
+                                            <a href="https://faucet.paradigm.xyz/" target="_blank" className='btn btn-default'>
                                                 <ExternalLinkIcon className='icon-sm mr-2' />{t('Claim')}
                                             </a>
                                         </div>
