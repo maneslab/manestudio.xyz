@@ -20,7 +20,8 @@
 
     "MANE_CONTRACT"     : {
         "rinkeby"       :   "0x467fd39f7c75F0B21EB35B8A6Fb500ff42AaAd49",
-        "homestead"     :   "0x5Baf93D823328EdDca6C3020B9105363A5b26B1A"
+        "homestead"     :   "0x5Baf93D823328EdDca6C3020B9105363A5b26B1A",
+        "goerli"        :   "0xD36f1fB678E976D9a8d952b8eA4acb177D99e3c3"
     }
 
 }
