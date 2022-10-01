@@ -141,13 +141,13 @@ class TwitterSelect extends React.Component {
 
 
                 let menu = <div className="block-menu2 shadow-xl">
-                    <ul className="overflow-y-auto max-h-64 w-full bg-white border-gray-200 border">
+                    <ul className="overflow-y-auto max-h-64 w-full bg-white dark:bg-black border-gray-200 dark:border-gray-700 border">
                         {
                             (club_social_list)
                             ? <>{club_social_list.map(social_one=>{
                                 console.log('socail_one',social_one)
                                 return <li key={social_one.get('id')} >
-                                    <a className="py-4 px-4 text-sm block hover:bg-gray-100 cursor-pointer" 
+                                    <a className="py-4 px-4 text-sm block hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer" 
                                         onClick={()=>{
                                             setFieldValue(name,social_one.get('identity'));
                                             this.toggleDropdown();

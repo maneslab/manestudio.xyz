@@ -4,6 +4,8 @@ import autobind from 'autobind-decorator';
 
 import Button from 'components/common/button'
 import PrefixInput from 'components/form/prefix_input'
+import Field from 'components/form/field'
+
 import notification from 'components/common/notification'
 import Success from 'components/common/success'
 
@@ -50,6 +52,7 @@ class TwitterForm extends React.Component {
     }
 
     async bindingTwitter(values) {
+//                tweet_id     : Yup.string().required(),
 
         const {club_id,persona} = this.props;
         //
@@ -97,6 +100,14 @@ class TwitterForm extends React.Component {
 
        
         console.log('validateTwitter:' , values);
+       
+        /*
+        *传入的tweet_url例如为https://twitter.com/0x_blackrabbit/status/1576053239828877312
+        *需要转换tweet_id为1576053239828877312
+        */
+        let index = values.tweet_url.indexOf('/status/');
+        let tweet_id = values.tweet_url.substring(index+8);
+        console.log('tweet_id',tweet_id)
 
         this.setState({
             'is_validating_tweet' : true
@@ -111,7 +122,7 @@ class TwitterForm extends React.Component {
                 'platform'      : 'twitter',
                 'identity'      : identity,
                 'public_key'    : persona.get('public_key'),
-                'proof_location': values.tweet_id,
+                'proof_location': tweet_id,
                 'uuid'          : payload.uuid,
                 'created_at'    : payload.created_at,
             });
@@ -160,14 +171,24 @@ class TwitterForm extends React.Component {
         const {step} = this.props;
         const {payload,person_sign,show_validate_form} = this.state;
 
+        //<PrefixInput prefix={"/status/"} name="tweet_id" label={t("tweet_id")} placeholder={t("tweet number id")} />
+
         if (step == 'validate') {
 
             let formSchema = Yup.object().shape({
-                tweet_id     : Yup.string().required(),
+                tweet_url    : Yup.string().url().required().test("check prefix", function () {
+                    console.log('this.parent',this.parent);
+                    if (this.parent.tweet_url.indexOf('https://twitter.com/') == 0 && 
+                        this.parent.tweet_url.indexOf('/status/') > 0) {
+                        return true;
+                    }else {
+                        return false;
+                    }
+                })
             });
     
             let init_data = {
-                'tweet_id'           : '',
+                'tweet_url'           : '',
             }
 
             let tweet_text = payload.post_content.default.replace("%SIG_BASE64%",person_sign)
@@ -195,10 +216,9 @@ class TwitterForm extends React.Component {
 
                     {
                         (show_validate_form)
-                        ? <div className='mt-4 pt-4 border-t border-gray-200'>
-                            <PrefixInput prefix={"/status/"} name="tweet_id" label={t("tweet_id")} placeholder={t("tweet number id")} />
-
-                            <div className='border-t border-gray-300 my-4' />
+                        ? <div className='mt-4 pt-4 border-t border-gray-200 dark:border-gray-700'>
+                            <Field name={'tweet_url'} label={t("tweet url")} placeholder={t("tweet url")} />
+                            <div className='border-t border-gray-300 my-4 dark:border-gray-600' />
                             <div className="form-submit flex justify-end mt-4">
                                 <Button loading={this.state.is_validating_tweet} className="btn btn-primary" type="submit">{t("submit")}</Button>
                             </div>
@@ -233,7 +253,7 @@ class TwitterForm extends React.Component {
                     <div className="">
                         <PrefixInput prefix={"@"} name="account_name" label={t("twitter account name")} placeholder={t("account name without @")} />
 
-                        <div className='border-t border-gray-300 my-4' />
+                        <div className='border-t border-gray-300 my-4 dark:border-gray-600' />
                         <div className="form-submit flex justify-end mt-4">
                             <Button loading={this.state.is_validating_twitter} className="btn btn-primary" type="submit">{t("submit")}</Button>
                         </div>
