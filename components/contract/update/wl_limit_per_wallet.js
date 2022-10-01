@@ -47,9 +47,9 @@ class WlMaxSupply extends React.Component {
 
         await this.props.manenft.request({
             'text' : {
-                'loading' : t('update whitelist limit'),
-                'sent'    : t('update whitelist limit tx sent'),
-                'success' : t('update whitelist limit successful'),
+                'loading' : t('update allowlist limit'),
+                'sent'    : t('update allowlist limit tx sent'),
+                'success' : t('update allowlist limit successful'),
             },
             'func' : {
                 'send_tx' : async () => {

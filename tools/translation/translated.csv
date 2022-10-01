@@ -16,14 +16,14 @@ address,address,地址
 setting,setting,设置
 deploy,deploy,部署合约
 ETH mainnet,ETH mainnet,以太坊主网
-whitelist is disabled,whitelist is disabled,白名单被禁用
+allowlist is disabled,allowlist is disabled,白名单被禁用
 "ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.","ERC-721a is the contract standard of minting 1 of 1 NFTs, optimized from classic ERC-721 standard to lower the gas usage.",ERC-721a是铸造1/1 NFT的合约标准，从经典的ERC-721标准中优化，以降低气体使用量。
 pre-reveal placeholder,pre-reveal placeholder,开图前盲盒封面图
 add pre-reveal placeholder,add pre-reveal placeholder,添加盲盒封面图
 auto reveal at,auto-reveal time,自动开图时间
 delayed reveal is disabled,delayed reveal is disabled,延迟开图被禁用
-whitelist for selected bluechip,Allowlist for Trendy NFT Holders,热门NFT持有者白名单发放
-upload whitelist csv file,Upload .csv File of Allowlist Addresses,上传白名单地址.csv文件
+allowlist for selected bluechip,Allowlist for Trendy NFT Holders,热门NFT持有者白名单发放
+upload allowlist csv file,Upload .csv File of Allowlist Addresses,上传白名单地址.csv文件
 save success,save success,保存成功
 create project,create project,创建项目
 project name,project name,项目名称
@@ -127,12 +127,12 @@ cancel,cancel,取消
 update public mint time,update public mint time,更新公共铸造时间
 update public mint time tx sent,update public mint time tx sent,更新公共铸造时间，已发送
 update public mint time successful,update public mint time successful,更新公共铸造时间成功
-update whitelist limit,update whitelist limit,更新白名单限额
-update whitelist limit tx sent,update whitelist limit tx sent,更新白名单限额，已发送
-update whitelist limit successful,update whitelist limit successful,更新白名单限制成功
-update whitelist mint time,update whitelist mint time,更新白名单中的铸造时间
-update whitelist mint time tx sent,update whitelist mint time tx sent,更新白名单中的铸造时间，已发送
-update whitelist mint time successful,update whitelist mint time successful,更新白名单铸造时间成功
+update allowlist limit,update allowlist limit,更新白名单限额
+update allowlist limit tx sent,update allowlist limit tx sent,更新白名单限额，已发送
+update allowlist limit successful,update allowlist limit successful,更新白名单限制成功
+update allowlist mint time,update allowlist mint time,更新白名单中的铸造时间
+update allowlist mint time tx sent,update allowlist mint time tx sent,更新白名单中的铸造时间，已发送
+update allowlist mint time successful,update allowlist mint time successful,更新白名单铸造时间成功
 update presale max supply,update presale max supply,更新预售的最大供应量
 update presale max supply tx sent,update presale max supply tx sent,更新预售的最大供应量已发送
 update presale max supply successful,update presale max supply successful,更新预售最大供应量成功
@@ -211,9 +211,9 @@ total balance,total balance,总余额
 available balance,available balance,可提取余额
 withdrawals can only be made after all refund periods have expired and at least 7 days after mint.,withdrawals can only be made after all refund periods have expired and at least 7 days after mint.,只有在所有退款期过后，并且在铸币后至少7天，才能提款。
 the following settings need to be modified in the contract by paying GAS,the following settings need to be modified in the contract by paying GAS,以下设置需要通过支付GAS在合约中进行修改
-whitelist,whitelist,白名单
-whitelist max supply,Allowlist Presale Max. Supply,预售供应量上限
-whitelist mint time,whitelist mint time,白名单铸造时间
+allowlist,allowlist,白名单
+allowlist max supply,Allowlist Presale Max. Supply,预售供应量上限
+allowlist mint time,allowlist mint time,白名单铸造时间
 mint limit per wallet,mint limit per wallet,每个钱包的mint限额
 public sale,public sale,公开发售
 public sale mint time,public sale mint time,公开销售铸造时间
@@ -265,8 +265,8 @@ remove,remove,删除
 add refundable period,add refund period,添加退款期限
 click add to add a refundable period,click add to add a refundable period,点击添加以添加退款期限
 refund is disabled,refund is disabled,退款被禁用
-whitelist presale start time,Allowlist presale starting time,预售开始时间
-whitelist presale end time,Allowlist presale ending time,预售结束时间
+allowlist presale start time,Allowlist presale starting time,预售开始时间
+allowlist presale end time,Allowlist presale ending time,预售结束时间
 public sale start time,Public Sale Starting Time,公售开始时间
 public sale end time,Public Sale Ending Time,公售结束时间
 public sale is disabled,public sale is disabled,公开销售被禁用
@@ -279,10 +279,10 @@ generate groups,generate groups,生成组
 layer,layer,图层
 add layer,add layer,添加图层
 warning,warning,注意
-whitelist mint price,Allowlist Presale Mint Price (in ETH),预售价格(ETH)
+allowlist mint price,Allowlist Presale Mint Price (in ETH),预售价格(ETH)
 delayed reveal,delayed reveal,延迟开图
 revenue share,revenue share,收入分账
-whitelist token limit per wallet,Allowlist Presale Max. Token Mint Per Wallet,预售单个钱包铸造数量上限
+allowlist token limit per wallet,Allowlist Presale Max. Token Mint Per Wallet,预售单个钱包铸造数量上限
 public sale token limit per wallet,Public Sale Max. Token Mint Per Wallet,公售单个钱包铸造数量上限
 public sale mint price,Public Sale Mint Price (in ETH),公售价格（ETH)
 abort,abort,中止
@@ -426,7 +426,7 @@ resume contract,resume contract,解除合约锁定
 destroy-info-2,Please type “DESTROY” in capital letters to confirm,请用大写字母输入“DESTROY”以确认销毁
 Destroy-btn-text,DESTROY,销毁合约
 manage-contract-warning2,"The following settings can be updated without paying gas fee, and changes will take effect in real time.",合约中的以下设置需在更新时无需支付gas fee，并实时生效。
-manage-whitelist-intro,"If you want to update allowlist, simply upload a new .csv file or add/change checked bluechip NFTs.",如需更新白名单地址，请上传新的.csv文档，添加或修改已选中的蓝筹NFT项目。
+manage-allowlist-intro,"If you want to update allowlist, simply upload a new .csv file or add/change checked bluechip NFTs.",如需更新白名单地址，请上传新的.csv文档，添加或修改已选中的蓝筹NFT项目。
 manage-reveal-intro,You may update the pre-reveal placeholder. ,你可在此更新盲盒封面图
 minting-page-intro,Build a website for people to mint your NFTs and check project information.,创建项目发售网站，提供NFT发售铸造功能并了解详细项目信息。
 custom URL,custom URL,自定义链接
@@ -441,7 +441,7 @@ open in ManeSPACE,open in ManeSPACE,在ManeSPACE查看
 Doc,Doc,文档
 success-generate-nft-intro,"You have now completed artwork creation. In the next step, you will create and deploy your own smart contract.",你已经完成了作品创作部分，在下一步中，你将创建并部署自己的智能合约。
 Continue to Smart Contract,Continue to Smart Contract,开始设置智能合约
-whitelist presale time window,whitelist presale time window,白名单预售时间窗口
+allowlist presale time window,allowlist presale time window,白名单预售时间窗口
 public sale time window,public sale time window,公售时间窗口
 Reserve NFTs Confirmed,Reserve NFTs Confirmed,NFT预留确认
 Spilt-intro,"Spilt Earnings is disabled, funds can only be withdrawn by you.",资金分配功能被禁用，目前所有资金仅能被你提取。
@@ -465,3 +465,6 @@ deploy-mainnet-bt3,CREATOR INCUBATOR PROGRAM,创作者孵化器
 search NFT project,search NFT project,搜索NFT项目
 deploy on mainnet,deploy on mainnet,部署至主网
 tweet url,tweet url,Tweet链接
+fast,fast,快速
+average,average,平均
+low,low,慢速

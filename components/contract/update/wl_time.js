@@ -68,9 +68,9 @@ class WlTime extends React.Component {
 
         await this.props.manenft.request({
             'text' : {
-                'loading' : t('update whitelist mint time'),
-                'sent'    : t('update whitelist mint time tx sent'),
-                'success' : t('update whitelist mint time successful'),
+                'loading' : t('update allowlist mint time'),
+                'sent'    : t('update allowlist mint time tx sent'),
+                'success' : t('update allowlist mint time successful'),
             },
             'func' : {
                 'send_tx' : async () => {

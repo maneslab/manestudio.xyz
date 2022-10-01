@@ -186,17 +186,17 @@ class ContractUpdate extends React.Component {
                                     (values.wl_enable && values.wl_enable > 0)
                                     ? <div className='ct'>
 
-                                        <Input name="wl_price" label={t("whitelist mint price")} placeholder={"e.g 0.05"} />
+                                        <Input name="wl_price" label={t("allowlist mint price")} placeholder={"e.g 0.05"} />
 
                                         <div className='divider' />
 
-                                        <BluechipSelect name={"wl_bluechip_list"} label={t("whitelist for selected bluechip")} />
+                                        <BluechipSelect name={"wl_bluechip_list"} label={t("allowlist for selected bluechip")} />
 
-                                        <WhitelistUpload label={<span className='normal-case'>{t("upload whitelist csv file")}</span>} club_id={club_id} value={values.whitelist_count} setFieldValue={setFieldValue}/>
+                                        <WhitelistUpload label={<span className='normal-case'>{t("upload allowlist csv file")}</span>} club_id={club_id} value={values.whitelist_count} setFieldValue={setFieldValue}/>
 
                                     </div>
                                     : <div className='ct text-gray-400 capitalize'>
-                                        {t('whitelist is disabled')}
+                                        {t('allowlist is disabled')}
                                     </div>
                                 }
                                 <div className='py-4 flex justify-end'>
@@ -204,7 +204,7 @@ class ContractUpdate extends React.Component {
                                 </div>
                             </div>
                             <div className="col-span-3 intro">
-                                <p>{t('manage-whitelist-intro')}</p>
+                                <p>{t('manage-allowlist-intro')}</p>
                             </div>
                         </div>
                     </div>

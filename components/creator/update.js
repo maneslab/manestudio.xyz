@@ -209,8 +209,8 @@ class CreatorUpdate extends React.Component {
                 title   :  Yup.string().max(64),
                 bio     :  Yup.string().max(1024),
                 email   :  Yup.string().email().max(1024),
-                link    :  Yup.string().matches(url,'must be url').max(1024),
-                discord :  Yup.string().max(128),
+                link    :  Yup.string().url('must be url').max(1024),
+                discord :  Yup.string().url('must be url').max(1024),
                 twitter_id      :  Yup.string().max(128),
                 instagram_id    :  Yup.string().max(128),
             }))

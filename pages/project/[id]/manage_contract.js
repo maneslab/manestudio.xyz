@@ -791,17 +791,17 @@ class DeployView extends React.Component {
                                                         <div className='col-span-6'>
                                                             <div className='ct'>
                                                                 <div className='info-dl'>
-                                                                    <label>{t('whitelist max supply')}</label>
+                                                                    <label>{t('allowlist max supply')}</label>
                                                                     <WlMaxSupplyUpdate value={contract_data['presale_max_supply']} manenft={this.manenft} onUpdate={this.onUpdate}/>
                                                                 </div>
                                                                 <div className='info-dl'>
-                                                                    <label>{t('whitelist presale time window')}</label>
+                                                                    <label>{t('allowlist presale time window')}</label>
                                                                     <div className=''>
                                                                         <WlTime value={[contract_data['presale_start_time'],contract_data['presale_end_time']]} manenft={this.manenft} onUpdate={this.onUpdate}/>
                                                                     </div>
                                                                 </div>
                                                                 <div className='info-dl'>
-                                                                    <label>{t('whitelist token limit per wallet')}</label>
+                                                                    <label>{t('allowlist token limit per wallet')}</label>
                                                                     <div className=''>
                                                                         <WlLimitPerWallet value={contract_data['presale_per_wallet_count']}  manenft={this.manenft} onUpdate={this.onUpdate}/>
                                                                     </div>

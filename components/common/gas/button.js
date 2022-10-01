@@ -2,14 +2,15 @@ import React from 'react';
 import {connect} from 'react-redux'
 import autobind from 'autobind-decorator';
 
-import {setGasData,setEthPrice} from 'redux/reducer/setting'
+import {setGasData} from 'redux/reducer/setting'
 import GasIcon from 'public/img/icons/gas.svg';
 import {getUnixtime} from 'helper/time'
 import withDropdown from 'hocs/dropdown';
 import Dropdown from 'rc-dropdown';
 import withTranslate from 'hocs/translate';
-import {t} from 'helper/translate'
-import manestudio from 'helper/web3/manestudio';
+import config from 'helper/config'
+import BigNumber from "bignumber.js";
+import {getAmountFromIntAmount} from 'helper/number'
 
 @withTranslate
 @withDropdown
@@ -20,7 +21,9 @@ class GasButton extends React.Component {
         this.state = {
             show_modal  : false,
             is_fetching : false,
-            is_fetched  : false
+            is_fetched  : false,
+            mint_gas_limit  : 200000,
+            deploy_gas_limit : 2500000
         }
         this.getGas = ::this.getGas
         this.timer = null
@@ -29,7 +32,6 @@ class GasButton extends React.Component {
     componentDidMount() {
         // console.log('调用到DidMount')
         this.setGetGas();
-        this.getEthPrice();
     }
 
     componentWillUnmount() {
@@ -38,13 +40,7 @@ class GasButton extends React.Component {
         }
     }
 
-    @autobind
-    estimateGasDeploy(network = 'rinkeby') {
-        const {t} = this.props.i18n;
-        let mane = new manestudio(t,network);
-        let gas_data = mane.estimateGasDeploy();
-        console.log('gas_data',gas_data)
-    }
+
 
     @autobind
     setGetGas() {
@@ -79,41 +75,43 @@ class GasButton extends React.Component {
 
     async getGas() {
 
-        console.log('调用到getGas');
+        // console.log('调用到getGas');
 
         this.setState({
             'is_fetching' : true,
         })
-//
-        let response = await fetch('https://ethgasstation.info/api/ethgasAPI.json')
+
+        let response = await fetch('https://api.manestudio.xyz/v1/misc/gas_price')
         let result = await response.json();
 
         console.log('result',result)
+
+        if (result.status == 'success') {
+            this.props.setGasData(result.data.gas.gasPrice);
+        }
 
         this.setState({
             'is_fetching' : false,
             'is_fetched'  : true
         })
 
-        this.props.setGasData(result);
 
     }
 
-    @autobind
-    async getEthPrice() {
-
-        if (!this.props.eth_price) {
-            let response = await fetch('https://api.etherscan.io/api?module=stats&action=ethprice')
-            let result = await response.json();
-            this.props.setEthPrice(result.result.ethusd);
-        }
-
+    getGasEstimate(gas_price,gas_limit) {
+        let gas_estimate = new BigNumber(gas_price).times(gas_limit);
+        let gas_estimate_eth = getAmountFromIntAmount(gas_estimate,9);
+        return gas_estimate_eth;
     }
 
     render() {
 
         const {gas_data,dropdown_visible} = this.props;
-        // const {t} = this.props.i18n;
+        const {mint_gas_limit,deploy_gas_limit} = this.state;
+        const {t} = this.props.i18n;
+
+        let mint_gas_estimate = this.getGasEstimate(gas_data.getIn(['data','fast']),mint_gas_limit);
+        let deploy_gas_estimate = this.getGasEstimate(gas_data.getIn(['data','fast']),deploy_gas_limit);
 
         if (gas_data) {
             console.log('gas_data',gas_data.toJS())
@@ -124,28 +122,28 @@ class GasButton extends React.Component {
                 (gas_data.getIn(['data','fast']))
                 ? <div className='gas-wrapper'>
                     <div className='gas-one text-green-500'>
-                        <div className='l'>fast</div>
-                        <div className='r'>{gas_data.getIn(['data','fast']) / 10}</div>
+                        <div className='l'>{t('fast')}</div>
+                        <div className='r'>{gas_data.getIn(['data','instant'])}</div>
                     </div>
                     <div className='gas-one text-blue-500' >
-                        <div className='l'>average</div>
-                        <div className='r'>{gas_data.getIn(['data','average']) / 10}</div>
+                        <div className='l'>{t('average')}</div>
+                        <div className='r'>{gas_data.getIn(['data','fast'])}</div>
 
                     </div>
                     <div className='gas-one text-red-500'>
-                        <div className='l'>low</div>
-                        <div className='r'>{gas_data.getIn(['data','safeLow']) / 10}</div>
+                        <div className='l'>{t('low')}</div>
+                        <div className='r'>{gas_data.getIn(['data','standard'])}</div>
                     </div>
                     <div className='border-t d-border-c-2 my-4'/>
                     <div>
                         <div className='font-bold'>{t('Gas estimates')}</div>
                         <div className='gas-one '>
-                            <div className='l'>{t('contract deploy')}</div>
-                            <div className='r'>0.12 ETH</div>
+                            <div className='l'>{t('deploy contract')}</div>
+                            <div className='r'>{parseFloat(deploy_gas_estimate.toFixed(8))} ETH</div>
                         </div>
                         <div className='gas-one '>
                             <div className='l'>{t('mint')}</div>
-                            <div className='r'>0.008 ETH</div>
+                            <div className='r'>{parseFloat(mint_gas_estimate.toFixed(8))} ETH</div>
                         </div>
                     </div>
                 </div>
@@ -157,12 +155,12 @@ class GasButton extends React.Component {
             trigger="click"
             placement="bottomLeft" 
             onVisibleChange={this.props.toggleDropdown} >
-            <button className='btn btn-ghost mr-2 text-blue-500'>
+            <button className='btn btn-ghost text-blue-500'>
                 <GasIcon className="icon-xs"/>
                 {
-                    (gas_data && gas_data.getIn(['data','average'])) 
+                    (gas_data && gas_data.getIn(['data','fast'])) 
                     ? <span className='ml-2 text-base'>
-                        {gas_data.getIn(['data','average']) / 10}
+                        {gas_data.getIn(['data','fast'])}
                     </span>
                     : null
                 }
@@ -180,15 +178,11 @@ const mapDispatchToProps = (dispatch) => {
         setGasData : (data) => {
             return dispatch(setGasData(data))
         },
-        setEthPrice : (data)    => {
-            return dispatch(setEthPrice(data))
-        }
     }
 }
 function mapStateToProps(state,ownProps) {
     return {
         'gas_data'      :  state.getIn(['setting','gas_data']),
-        'eth_price'     :  state.getIn(['setting','eth_price']),
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(GasButton);

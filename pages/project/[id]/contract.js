@@ -705,22 +705,22 @@ class ContractView extends React.Component {
                                                 (values.wl_enable && values.wl_enable > 0)
                                                 ? <div className='ct'>
 
-                                                    <ExpiretimeSelect label={t('whitelist presale start time')} name={'wl_start_time'}  setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-2-1')}</div>}/>
-                                                    <ExpiretimeSelect label={t('whitelist presale end time')} name={'wl_end_time'}  setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-3-1')}</div>}/>
+                                                    <ExpiretimeSelect label={t('allowlist presale start time')} name={'wl_start_time'}  setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-2-1')}</div>}/>
+                                                    <ExpiretimeSelect label={t('allowlist presale end time')} name={'wl_end_time'}  setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-3-1')}</div>}/>
 
-                                                    <Input name="wl_max_supply" label={t("whitelist max supply")} placeholder={"cannot exceed total supply"}   setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-4-1')}</div>}/>
-                                                    <Input name="wl_per_address" label={t("whitelist token limit per wallet")} placeholder={"limit how many token pre wallet can mint"}   setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-5-1')}</div>}/>
-                                                    <Input name="wl_price" label={t("whitelist mint price")} placeholder={"e.g 0.05"}  setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-6-1')}</div>} />
+                                                    <Input name="wl_max_supply" label={t("allowlist max supply")} placeholder={"cannot exceed total supply"}   setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-4-1')}</div>}/>
+                                                    <Input name="wl_per_address" label={t("allowlist token limit per wallet")} placeholder={"limit how many token pre wallet can mint"}   setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-5-1')}</div>}/>
+                                                    <Input name="wl_price" label={t("allowlist mint price")} placeholder={"e.g 0.05"}  setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-6-1')}</div>} />
 
                                                     <div className='divider' />
 
-                                                    <BluechipSelect name={"wl_bluechip_list"} label={t("whitelist for selected bluechip")}   setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-7-1')}</div>} />
+                                                    <BluechipSelect name={"wl_bluechip_list"} label={t("allowlist for selected bluechip")}   setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-7-1')}</div>} />
 
-                                                    <WhitelistUpload label={<span className='normal-case'>{t("upload whitelist csv file")}</span>} club_id={club_id} value={values.whitelist_count} setFieldValue={setFieldValue}   setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-8-1')}</div>}/>
+                                                    <WhitelistUpload label={<span className='normal-case'>{t("upload allowlist csv file")}</span>} club_id={club_id} value={values.whitelist_count} setFieldValue={setFieldValue}   setNotice={setNotice.bind({},2)} side_notice={<div>{t('Allowlist-intro-8-1')}</div>}/>
 
                                                 </div>
                                                 : <div className='ct text-gray-400 capitalize'>
-                                                    {t('whitelist is disabled')}
+                                                    {t('allowlist is disabled')}
                                                 </div>
                                             }
                                             
