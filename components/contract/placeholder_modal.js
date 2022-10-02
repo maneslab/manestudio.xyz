@@ -24,6 +24,7 @@ class PlaceholderModal extends React.Component {
 
         this.props.setFieldValue('placeholder_img',result.data)
         this.props.setFieldValue('placeholder_video',null)
+        this.props.setFieldValue('placeholder_video_id','')
 
         this.props.closeModal();
     }
@@ -32,6 +33,9 @@ class PlaceholderModal extends React.Component {
     handleUploadVideoSuccess(result) {
         console.log('upload-result',result)
         this.props.setFieldValue('placeholder_video',result.data)
+        this.props.setFieldValue('placeholder_img',null)
+        this.props.setFieldValue('placeholder_img_id','')
+
         this.props.closeModal();
     }
 

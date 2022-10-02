@@ -201,7 +201,7 @@ class ContractView extends React.Component {
     @autobind
     formatData(values) {
 
-        // console.log('debug88,values',values)
+        console.log('debug88,values',values)
 
         //添加clubid 
         values.club_id = this.props.club_id;
@@ -266,7 +266,8 @@ class ContractView extends React.Component {
             values.placeholder_video_id = values.placeholder_video.id
         }
 
-        
+        delete values.placeholder_img;
+        delete values.placeholder_video;
 
         return values;
     }
