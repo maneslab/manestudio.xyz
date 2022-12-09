@@ -32,6 +32,7 @@ import withClubView from 'hocs/clubview'
 import SuccessModal from 'components/common/success_modal'
 
 import {  ExternalLinkIcon,ChevronLeftIcon  } from '@heroicons/react/outline'
+import {getParentContractAddress} from 'helper/web3/tools';
 
 import {LightBulbIcon,ArrowRightIcon} from '@heroicons/react/outline'
 
@@ -125,11 +126,18 @@ class DeployView extends React.Component {
     }
 
     @autobind
+    getParentContractAddress() {
+        const {club_id,network} = this.props;
+        return getParentContractAddress(club_id,network);
+    }
+
+    @autobind
     async getDeployedAddress() {
         const {t} = this.props.i18n;
         const {club_id,network} = this.props;
+        const parent_contract_address = this.getParentContractAddress();
 
-        let mane = new manestudio(t,network);
+        let mane = new manestudio(t,network,parent_contract_address);
 
         let addr = '0x0';
         try {
@@ -268,7 +276,8 @@ class DeployView extends React.Component {
         })
         const {t} = this.props.i18n; 
 
-        this.mane = new manestudio(t,network);
+        const parent_contract_address = this.getParentContractAddress();
+        this.mane = new manestudio(t,network,parent_contract_address);
 
         ///预估gas费用
         let gas_data = await this.mane.estimateGasDeploy(...data);
@@ -308,10 +317,12 @@ class DeployView extends React.Component {
         const {network} = this.props;
         const {lock_env} = this.state;
 
+        const parent_contract_address = this.getParentContractAddress();
+
         var that = this;
 
         console.log('准备deploy的数据',data);
-        let mane = new manestudio(t,network);
+        let mane = new manestudio(t,network,parent_contract_address);
 
         await mane.request({
             'text' : {

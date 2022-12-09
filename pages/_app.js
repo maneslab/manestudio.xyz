@@ -34,11 +34,14 @@ import DiscordIcon from 'public/img/icons/discord.svg'
 import TwitterIcon from 'public/img/icons/twitter.svg'
 import NewwindowIcon from 'public/img/icons/newwindow.svg'
 //rainbowkit导入结束
+//config.get('ALCHEMY_ID')
+
+const alchemy_id = config.get('ALCHEMY_ID');
 
 const { chains, provider } = configureChains(
     [chain.mainnet,  chain.goerli ],
     [
-        alchemyProvider({ alchemyId: config.get('ALCHEMY_ID') }),
+        alchemyProvider({ alchemyId: alchemy_id }),
         publicProvider()
     ]
 );

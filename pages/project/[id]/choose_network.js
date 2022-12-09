@@ -26,6 +26,7 @@ import withClubView from 'hocs/clubview'
 import manestudio from 'helper/web3/manestudio'
 import {hex2Number} from 'helper/number'
 // import { t } from 'helper/translate';
+import {getParentContractAddress} from 'helper/web3/tools';
 
 import useTranslation from 'next-translate/useTranslation'
 
@@ -68,13 +69,13 @@ class ChooseNetwork extends React.Component {
         const {t} = this.props.i18n;
         let network_state = this.state[network];
 
-        let contract_list = config.get('MANE_CONTRACT');
-        if (!contract_list[network]) {
-            console.error('准备调用ManeStudio的父合约不存在,network:',network);  
+        let parent_contract_address = getParentContractAddress(club_id,network);
+        if (!parent_contract_address) {
+            console.error('准备调用ManeStudio的父合约不存在,network:',network,club_id);  
             return;
         }
 
-        let mane = new manestudio(t,network);
+        let mane = new manestudio(t,network,parent_contract_address);
 
         ///获得对应的合约地址
         network_state['is_fetching'] = true;

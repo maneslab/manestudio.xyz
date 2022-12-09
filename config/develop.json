@@ -22,6 +22,12 @@
         "rinkeby"       :   "0x2b87F7B6CA3664Efa9a96930B2A5DcF1a22489DA",
         "homestead"     :   "0x5Baf93D823328EdDca6C3020B9105363A5b26B1A",
         "goerli"        :   "0xD36f1fB678E976D9a8d952b8eA4acb177D99e3c3"
+    },
+
+    "MANE_CONTRAÇT_V2"  : {
+        "homestead"     :   "0x5Baf93D823328EdDca6C3020B9105363A5b26B1A",
+        "goerli"        :   "0xD36f1fB678E976D9a8d952b8eA4acb177D99e3c3",
+        "begin_club_id" :   100
     }
 
 }

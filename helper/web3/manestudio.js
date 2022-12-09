@@ -7,17 +7,11 @@ import {getAmountFromValueAndDecimals} from 'helper/web3/number'
 
 export default class manestudio extends contract{
 
-    constructor(t = null,network = 'goerli') {
+    constructor(t = null,network = 'goerli',contract_address = '') {
 
         console.log('constructor-network',network);
 
         super(t);
-        let contract_map = config.get('MANE_CONTRACT');
-        console.log('debug03,manestudio_contract_map',contract_map)
-        console.log('debug03,manestudio_abi',manestudio_abi)
-
-        let contract_address = contract_map[network];
-
         console.log('contract_address',contract_address,network)
 
         this.provider = new ethers.providers.Web3Provider(window.ethereum)
