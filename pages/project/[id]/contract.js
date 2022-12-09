@@ -848,7 +848,7 @@ class ContractView extends React.Component {
 
                                     
                                 </div>
-
+{/* 
                                 <FieldArray
                                     name="revenue_share"
                                     render={arrayHelpers => (
@@ -916,7 +916,7 @@ class ContractView extends React.Component {
                                         </div>
                                         )}
                                 />
-
+ */}
 
                             
                                 <UploadPlaceholderModal club={club} visible={this.state.show_upload_modal} closeModal={this.toggleModal.bind({},'show_upload_modal')} setFieldValue={setFieldValue}/>
