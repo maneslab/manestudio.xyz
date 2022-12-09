@@ -34,6 +34,12 @@ class Config {
         let elems = Array.isArray(property) ? property : property.split('.'),
             name = elems[0],
             value = object[name];
+
+            console.log('elems',elems);
+            console.log('name',name);
+            console.log('object',object);
+            console.log('value',value);
+
         if (elems.length <= 1) {
           return value;
         }
@@ -50,12 +56,14 @@ class Config {
             throw new Error("Calling config.get with null or undefined argument");
         }
 
-        // console.log('this.cfg',this.cfg);
-        // console.log('property',property);
-        // console.log('value',value);
+        console.group('config-get-value');
+        console.log('this.cfg',this.cfg);
+        console.log('property',property);
 
         let value = this.getValue(this.cfg, property);
 
+        console.log('value',value);
+        console.groupEnd();
 
         if (value === undefined) {
             throw new Error('Configuration property "' + property + '" is not defined');
