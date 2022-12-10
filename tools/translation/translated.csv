@@ -470,3 +470,9 @@ low,low,慢速
 deploy-mainnet-warning-1,"Warning:","警告:"
 deploy-mainnet-warning-2,"Make sure the settings are correct! If you made updates to your testnet contract, the changes will NOT be synced to mainnet contract, you will have to use DESTROY function, back to the settings, make correction, then deploy to mainnet.","请再次确认已在设置页面调试至正确参数。如果你对已部署的测试网合约做了修改更新，这些变化并不会直接同步至你的主网合约。请务必使用销毁功能销毁测试网合约，再返回设置页面进行设置，然后部署至主网。"
 deploy-mainnet-warning-3,"Once your smart contract is deployed on ETH Mainnet, some settings will no longer be editable. ","一旦你的智能合约部署至以太坊主网，某些设置将无法再改变。"
+opensea-enforcement-intro,"If you wish to receive royalties from Opensea, you will need to turn this switch on, once it is turned on your NFT will not be allowed to be listed on free royalty markets such as X2Y2 which Opensea does not allow, please see the official Opensea notice for details.","如果你希望从Opensea收到版税，则需要打开这个开关，打开以后你的NFT将不会允许上架到X2Y2等Opensea不允许的免费版税市场上，具体请参见Opensea的官方通知"
+Opensea Creator Fee Enforcement,Opensea Creator Fee Enforcement,Opensea创作者版税支持
+Currently closed,Currently closed,当前已关闭
+Currently open,Currently open,当前已开启
+open,open,打开
+close,close,关闭

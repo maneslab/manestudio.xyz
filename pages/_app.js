@@ -37,6 +37,7 @@ import NewwindowIcon from 'public/img/icons/newwindow.svg'
 //config.get('ALCHEMY_ID')
 
 const alchemy_id = config.get('ALCHEMY_ID');
+console.log('alchemy_id',alchemy_id);
 
 const { chains, provider } = configureChains(
     [chain.mainnet,  chain.goerli ],

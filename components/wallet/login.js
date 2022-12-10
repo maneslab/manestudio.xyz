@@ -32,11 +32,11 @@ class WalletLogin extends React.Component {
         let show_type = 'connect';
 
         // console.log('debug03->this.props.wallet',wallet);
-        if (login_user) {
-            console.log('debug03->this.props.login_user',login_user.toJS());
-        }else {
-            console.log('debug03->this.props.login_user is not exist');
-        }
+        // if (login_user) {
+        //     console.log('debug03->this.props.login_user',login_user.toJS());
+        // }else {
+        //     console.log('debug03->this.props.login_user is not exist');
+        // }
         /*
             分成5种情况
             1. 都登陆，且相同
@@ -163,7 +163,6 @@ class WalletLogin extends React.Component {
         const {wallet,is_inited} = this.props;
         const {show_type} = this.state;
 
-        console.log('debug03->render,is_inited',is_inited)
 
         if (!is_inited) {
             return null;

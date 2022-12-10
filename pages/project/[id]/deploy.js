@@ -32,7 +32,6 @@ import withClubView from 'hocs/clubview'
 import SuccessModal from 'components/common/success_modal'
 
 import {  ExternalLinkIcon,ChevronLeftIcon  } from '@heroicons/react/outline'
-import {getParentContractAddress} from 'helper/web3/tools';
 
 import {LightBulbIcon,ArrowRightIcon} from '@heroicons/react/outline'
 
@@ -70,6 +69,8 @@ class DeployView extends React.Component {
 
             lock_env                    : lock_env,
         }
+    
+        this.mane = null;
     }
 
 
@@ -89,6 +90,17 @@ class DeployView extends React.Component {
         }
     }
 
+    @autobind
+    getManeStudioContractInterface() {
+        if (this.mane) {
+            return this.mane;
+        }else {
+            const {t} = this.props.i18n;
+            const {club_id,network} = this.props;
+            this.mane = new manestudio(t,network,club_id);
+            return this.mane; 
+        }
+    }
 
     @autobind
     fetchPageData() {
@@ -125,19 +137,17 @@ class DeployView extends React.Component {
         })
     }
 
-    @autobind
-    getParentContractAddress() {
-        const {club_id,network} = this.props;
-        return getParentContractAddress(club_id,network);
-    }
+    // @autobind
+    // getParentContractAddress() {
+    //     const {club_id,network} = this.props;
+    //     return getParentContractAddress(club_id,network);
+    // }
 
     @autobind
     async getDeployedAddress() {
-        const {t} = this.props.i18n;
-        const {club_id,network} = this.props;
-        const parent_contract_address = this.getParentContractAddress();
+        const {club_id} = this.props;
 
-        let mane = new manestudio(t,network,parent_contract_address);
+        let mane = this.getManeStudioContractInterface();
 
         let addr = '0x0';
         try {
@@ -269,15 +279,13 @@ class DeployView extends React.Component {
     @autobind
     async estimateGas() {
         const data = await this.getDeployData();
-        const {contract,network} = this.props;
+        const {contract} = this.props;
 
         this.setState({
             is_estimate_ing : true
         })
-        const {t} = this.props.i18n; 
 
-        const parent_contract_address = this.getParentContractAddress();
-        this.mane = new manestudio(t,network,parent_contract_address);
+        this.getManeStudioContractInterface();
 
         ///预估gas费用
         let gas_data = await this.mane.estimateGasDeploy(...data);
@@ -317,12 +325,11 @@ class DeployView extends React.Component {
         const {network} = this.props;
         const {lock_env} = this.state;
 
-        const parent_contract_address = this.getParentContractAddress();
 
         var that = this;
 
         console.log('准备deploy的数据',data);
-        let mane = new manestudio(t,network,parent_contract_address);
+        let mane = this.getManeStudioContractInterface();
 
         await mane.request({
             'text' : {

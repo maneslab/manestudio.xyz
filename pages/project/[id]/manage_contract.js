@@ -38,11 +38,11 @@ import {updateClub} from 'redux/reducer/club'
 // import ContractSide from 'components/contract/side';
 import {ethers} from 'ethers'
 
-import manestudio from 'helper/web3/manestudio';
+// import manestudio from 'helper/web3/manestudio';
 import manenft from 'helper/web3/manenft'
 import misc from 'helper/web3/misc'
 import config from 'helper/config'
-
+import { getParentContractVersion } from 'helper/web3/tools';
 import withClubView from 'hocs/clubview'
 
 import {  InformationCircleIcon,ClipboardIcon,ChevronLeftIcon  } from '@heroicons/react/outline'
@@ -83,6 +83,7 @@ class DeployView extends React.Component {
             show_destroy_modal          : false,
             is_destroyed                : false
         }
+        
     }
 
     componentDidMount() {
@@ -121,6 +122,7 @@ class DeployView extends React.Component {
             is_deploy_contract : false,
             is_estimate_ing : false,
             is_estimated    : false,
+            is_opensea_enforcement : true,
             gas_data_without_reserve : null,
             gas_data : null,
             reserve_count : 0,
@@ -150,6 +152,8 @@ class DeployView extends React.Component {
     @autobind
     async getContractData() {
 
+        console.group('getContractData');
+
         const {t} = this.props.i18n;
         const {address,network,club_id} = this.props;
             
@@ -158,7 +162,8 @@ class DeployView extends React.Component {
             'is_fetched_contract_data'  : false
         })
 
-        this.manenft = new manenft(t,network,address);
+        let contract_version = getParentContractVersion(club_id);
+        this.manenft = new manenft(t,network,address,contract_version);
         let is_destoryed = await this.manenft.isDeployed();
 
         if (is_destoryed) {
@@ -178,7 +183,17 @@ class DeployView extends React.Component {
 
             let contract_data = await this.manenft.contract.getAll();
 
+
+            let is_opensea_enforcement = await this.manenft.contract.openseaEnforcement();
+
+            if (is_opensea_enforcement) {
+                is_opensea_enforcement = is_opensea_enforcement.toNumber();
+            }else {
+                is_opensea_enforcement = 0;
+            }
+
             console.log('debug0x:contract_data_from_contract',contract_data)
+            console.log('debug0x:is_opensea_enforcement',is_opensea_enforcement)
 
             let contract_data_in_server = await this.fetchContractDataFromServer(address,network);
 
@@ -209,6 +224,7 @@ class DeployView extends React.Component {
             formated_data['is_force_refundable'] = (isForceRefundable == 1) ? true : false;
             formated_data['sale_per_wallet_count'] = saleMaxMintCountPerAddress.toString();
             formated_data['presale_per_wallet_count'] = presaleMaxMintCountPerAddress.toString();
+            formated_data['is_opensea_enforcement'] = is_opensea_enforcement;
 
             console.log('debug0x:formated_data',formated_data);
 
@@ -228,6 +244,8 @@ class DeployView extends React.Component {
 
 
         } 
+
+        console.groupEnd();
 
     }
 
@@ -287,6 +305,42 @@ class DeployView extends React.Component {
         return contract_data_formatted
     }
 
+    @autobind
+    async setOpenseaEnforcement(value) {
+        const {t} = this.props.i18n;
+
+        let that = this;
+
+        await this.manenft.request({
+            'text' : {
+                'loading' : (value) ? t('open opensea creator fee enforcement') : t('close opensea creator fee enforcement'),
+                'sent'    : (value) ? t('open opensea creator fee enforcement tx send') : t('close opensea creator fee enforcement tx send'),
+                'success' : (value) ? t('open opensea creator fee enforcement success') : t('close opensea creator fee enforcement success'),
+            },
+            'func' : {
+                'send_tx' : async () => {
+                    let tx_in = await this.manenft.contract.setOpenseaEnforcement(value.toString());
+                    console.log('tx is send',tx_in)
+                    return tx_in;
+                },
+                'before_send_tx' : () => {
+                    that.setState({
+                        is_set_opensea_fee : true,
+                    })
+                },
+                'finish_tx' : () => {
+                    that.setState({
+                        is_set_opensea_fee : false,
+                    })
+                },
+                'after_finish_tx' : () => {
+                    console.log('after_finish_tx');
+                    // this.getUserSafeBox(this.props.login_user.get('wallet_address'));
+                    this.fetchPageData();
+                }
+            } 
+        })
+    }
 
     @autobind
     async paused(value) {
@@ -494,7 +548,7 @@ class DeployView extends React.Component {
         const {t} = this.props.i18n;
         const {club_id,contract,chain,address,network} = this.props;
         let {club} = this.props;
-        const {contract_data,is_fetched_contract_data,is_fetching_contract_data} = this.state;
+        const {contract_data,is_fetched_contract_data,is_fetching_contract_data,is_opensea_enforcement} = this.state;
 
         console.log('debug:is_fetching_contract_data',is_fetching_contract_data)
         console.log('debug:is_fetching_contract_data',is_fetching_contract_data)
@@ -884,6 +938,40 @@ class DeployView extends React.Component {
                                                                 </>
                                                                 : null
                                                             }
+                                                        </div>
+                                                    </div>
+                                                    <div className='col-span-3'>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className='contract-form'>
+                                                <h2 className='mb-2'>{t('Opensea Creator Fee Enforcement')}</h2>
+                                                <div className='grid grid-cols-9 gap-8'>
+                                                    <div className='col-span-6'>
+                                                        <div className='ct'>
+                                                            <div className='flex justify-between items-center'>
+                                                                <div className='text-sm max-w-prose'>
+                                                                    <div>
+                                                                        {
+                                                                            (contract_data['is_opensea_enforcement'] == 1)
+                                                                            ? <div className='text-green-500'>{t('Currently open')}</div>
+                                                                            : <div className='text-yellow-500'>{t('Currently closed')}</div> 
+                                                                        }
+                                                                    </div>
+                                                                    <div>
+                                                                    {t('opensea-enforcement-intro')}
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+
+                                                                    {
+                                                                        (contract_data['is_opensea_enforcement'])
+                                                                        ? <a className='btn btn-default' onClick={this.setOpenseaEnforcement.bind({},0)}>{t('close')}</a>
+                                                                        : <a className='btn btn-default' onClick={this.setOpenseaEnforcement.bind({},1)}>{t('open')}</a>
+                                                                    }
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div className='col-span-3'>
