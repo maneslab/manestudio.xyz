@@ -1,2 +1,13 @@
 key,en
-connect web3 wallet,connect web3 wallet
+connect wallet,connect wallet
+rinkeby testnet faucet,rinkeby testnet faucet
+Claim Rinkeby Testnet ETH,Claim Rinkeby Testnet ETH
+no matched NFT,no matched NFT
+copy success,copy success
+open opensea creator fee enforcement,open opensea creator fee enforcement
+close opensea creator fee enforcement,close opensea creator fee enforcement
+open opensea creator fee enforcement tx send,open opensea creator fee enforcement tx send
+close opensea creator fee enforcement tx send,close opensea creator fee enforcement tx send
+open opensea creator fee enforcement success,open opensea creator fee enforcement success
+close opensea creator fee enforcement success,close opensea creator fee enforcement success
+destroy contract tx successful,destroy contract tx successful

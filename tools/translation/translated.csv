@@ -317,7 +317,7 @@ save & back,save & back,保存并返回
 footer-left-text,"© 2022 ManeSTUDIO by Weirdo Ghost Gang, powered by ManesLAB.",© 2022 ManeSTUDIO by Weirdo Ghost Gang，由ManesLAB出品。
 support,support,用户支持
 landing-page-intro-1,"ManeSTUDIO is an all-in-one solution for Web3 creators. It includes NFT generation, 1/1 NFT injection, metadata management, IPFS decentralized storage upload, smart contract custom deployment, blind box minting website building, etc., dedicated to solving all the coding parts in the workflow so that creators can simply focus on the creation itself.",ManeSTUDIO是为Web3创作者打造的NFT创作一站式解决方案，工具提供包括NFT随机生成、特殊款NFT注入、元数据注入、IPFS去中心化存储上传、智能合约定制部署、盲盒发售网页建站等，为创作者解决工作流中所有涉及技术、代码的部分，使得创作者回归创作本身，是一款无需编程基础，无准入门槛的Web3创作者工具。
-landing-page-intro-2,"ManeSTUDIO is free to use for project creation, it charges only a 3.3% service fee from the primary sale earnings to be used for product update, Weirdo Ghost Gang Season 1 buy back, and brand development.",ManeSTUDIO的使用过程完全免费，仅在一级市场发售当中抽取3.3%作为服务费用，用于产品升级开发，Weirdo Ghost Gang第一季回购，以及品牌拓展。
+landing-page-intro-2,"ManeSTUDIO is free to use for project creation, it charges only a 3.3% service fee from the primary sale earnings to be used for product update and support of projects within ManesLAB ecosystem. ",ManeSTUDIO的使用过程完全免费，仅在一级市场发售当中抽取3.3%作为服务费用，用于产品升级开发以及对ManesLAB生态内应用的支持。
 sign message,sign message,签名
 new project,new project,新建项目
 "Name it whatever you like, it can be changed at anytime","Name it whatever you like, it can be changed at anytime",请在此输入项目名称，可随时修改
@@ -471,8 +471,21 @@ deploy-mainnet-warning-1,"Warning:","警告:"
 deploy-mainnet-warning-2,"Make sure the settings are correct! If you made updates to your testnet contract, the changes will NOT be synced to mainnet contract, you will have to use DESTROY function, back to the settings, make correction, then deploy to mainnet.","请再次确认已在设置页面调试至正确参数。如果你对已部署的测试网合约做了修改更新，这些变化并不会直接同步至你的主网合约。请务必使用销毁功能销毁测试网合约，再返回设置页面进行设置，然后部署至主网。"
 deploy-mainnet-warning-3,"Once your smart contract is deployed on ETH Mainnet, some settings will no longer be editable. ","一旦你的智能合约部署至以太坊主网，某些设置将无法再改变。"
 opensea-enforcement-intro,"If you wish to receive royalties from Opensea, you will need to turn this switch on, once it is turned on your NFT will not be allowed to be listed on free royalty markets such as X2Y2 which Opensea does not allow, please see the official Opensea notice for details.","如果你希望从Opensea收到版税，则需要打开这个开关，打开以后你的NFT将不会允许上架到X2Y2等Opensea不允许的免费版税市场上，具体请参见Opensea的官方通知"
-Opensea Creator Fee Enforcement,Opensea Creator Fee Enforcement,Opensea创作者版税支持
-Currently closed,Currently closed,当前已关闭
-Currently open,Currently open,当前已开启
-open,open,打开
-close,close,关闭
+Opensea Creator Fee Enforcement,Creator Royalty Support on Marketplaces ,二级市场创作者版税支持
+Currently closed,Current Status: Disable,当前状态：已关闭
+Currently open,Current Status: Enabled,当前状态：已开启
+open,Enable,打开
+close,Disable,关闭
+connect wallet,connect wallet,连接钱包
+rinkeby testnet faucet,rinkeby testnet faucet,rinkeby测试网水龙头
+Claim Rinkeby Testnet ETH,Claim Rinkeby Testnet ETH,领取Rinkeby测试网ETH
+no matched NFT,no matched NFT,没有匹配的NFT
+copy success,copy success,复制成功
+open opensea creator fee enforcement,open opensea creator fee enforcement,打开Opensea创作者版税支持
+close opensea creator fee enforcement,close opensea creator fee enforcement,关闭Opensea创作者版税支持
+open opensea creator fee enforcement tx send,open opensea creator fee enforcement tx send,打开Opensea创作者版税支持交易已发送
+close opensea creator fee enforcement tx send,close opensea creator fee enforcement tx send,关闭Opensea创作者版税支持交易已发送
+open opensea creator fee enforcement success,open opensea creator fee enforcement success,打开Opensea创作者版税成功
+close opensea creator fee enforcement success,close opensea creator fee enforcement success,关闭Opensea创作者版税成功
+destroy contract tx successful,destroy contract tx successful,销毁合约交易成功
+Learn More,Learn More,了解更多

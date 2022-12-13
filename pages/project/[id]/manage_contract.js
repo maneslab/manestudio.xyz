@@ -79,6 +79,8 @@ class DeployView extends React.Component {
             is_fetched_contract_data    : false,
             is_fetching_contract_data   : false,
 
+            contract_version            : 'v1',
+
             lock_env                    : lock_env,
             show_destroy_modal          : false,
             is_destroyed                : false
@@ -177,6 +179,10 @@ class DeployView extends React.Component {
 
             return;
         }
+
+        this.setState({
+            contract_version : contract_version
+        })
 
         try {
 
@@ -548,7 +554,7 @@ class DeployView extends React.Component {
         const {t} = this.props.i18n;
         const {club_id,contract,chain,address,network} = this.props;
         let {club} = this.props;
-        const {contract_data,is_fetched_contract_data,is_fetching_contract_data,is_opensea_enforcement} = this.state;
+        const {contract_data,is_fetched_contract_data,is_fetching_contract_data,contract_version} = this.state;
 
         console.log('debug:is_fetching_contract_data',is_fetching_contract_data)
         console.log('debug:is_fetching_contract_data',is_fetching_contract_data)
@@ -944,40 +950,47 @@ class DeployView extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div className='contract-form'>
-                                                <h2 className='mb-2'>{t('Opensea Creator Fee Enforcement')}</h2>
-                                                <div className='grid grid-cols-9 gap-8'>
-                                                    <div className='col-span-6'>
-                                                        <div className='ct'>
-                                                            <div className='flex justify-between items-center'>
-                                                                <div className='text-sm max-w-prose'>
+                                            {
+                                                (contract_version == 'v2')
+                                                ?  <div className='contract-form'>
+                                                    <h2 className='mb-2'>{t('Opensea Creator Fee Enforcement')}</h2>
+                                                    <div className='grid grid-cols-9 gap-8'>
+                                                        <div className='col-span-6'>
+                                                            <div className='ct'>
+                                                                <div className='flex justify-between items-center'>
+                                                                    <div className='text-sm max-w-prose'>
+                                                                        <div>
+                                                                            {
+                                                                                (contract_data['is_opensea_enforcement'] == 1)
+                                                                                ? <div className='text-green-500'>{t('Currently open')}</div>
+                                                                                : <div className='text-yellow-500'>{t('Currently closed')}</div> 
+                                                                            }
+                                                                        </div>
+                                                                        <div>
+                                                                            {t('opensea-enforcement-intro')}
+                                                                        </div>
+                                                                        <div>
+                                                                            <a href="https://github.com/ProjectOpenSea/operator-filter-registry" target="_blank" className='underline text-blue-500'>{t('Learn More')}</a>
+                                                                        </div>
+                                                                    </div>
                                                                     <div>
+
                                                                         {
-                                                                            (contract_data['is_opensea_enforcement'] == 1)
-                                                                            ? <div className='text-green-500'>{t('Currently open')}</div>
-                                                                            : <div className='text-yellow-500'>{t('Currently closed')}</div> 
+                                                                            (contract_data['is_opensea_enforcement'])
+                                                                            ? <a className='btn btn-default' onClick={this.setOpenseaEnforcement.bind({},0)}>{t('close')}</a>
+                                                                            : <a className='btn btn-default' onClick={this.setOpenseaEnforcement.bind({},1)}>{t('open')}</a>
                                                                         }
                                                                     </div>
-                                                                    <div>
-                                                                    {t('opensea-enforcement-intro')}
-                                                                    </div>
-                                                                </div>
-                                                                <div>
-
-                                                                    {
-                                                                        (contract_data['is_opensea_enforcement'])
-                                                                        ? <a className='btn btn-default' onClick={this.setOpenseaEnforcement.bind({},0)}>{t('close')}</a>
-                                                                        : <a className='btn btn-default' onClick={this.setOpenseaEnforcement.bind({},1)}>{t('open')}</a>
-                                                                    }
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div className='col-span-3'>
+                                                        <div className='col-span-3'>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                                : null
+                                            }
+                                           
                                         </>
                                         : null
                                     }
