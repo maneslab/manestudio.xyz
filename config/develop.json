@@ -8,7 +8,7 @@
 
     "SPACE_WEBSITE"     : "http://127.0.0.1:3001",
     
-    "API"               : "http://dev.api.manestudio.com",
+    "API"               : "https://api.manestudio.xyz",
 
     "LOGO"              : "test",
     
