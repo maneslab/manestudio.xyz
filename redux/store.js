@@ -1,49 +1,51 @@
-import { createStore, applyMiddleware, compose } from 'redux'
-import thunkMiddleware from 'redux-thunk'
-import callapiMiddleware from 'redux/middleware/callapi.js'
-import {HYDRATE} from 'next-redux-wrapper';
+import { createStore, applyMiddleware, compose } from "redux";
+import thunkMiddleware from "redux-thunk";
+import callapiMiddleware from "redux/middleware/callapi.js";
+import { HYDRATE } from "next-redux-wrapper";
 
-import {createLogger} from 'redux-logger'
-import {createWrapper} from 'next-redux-wrapper';
-import Immutable from 'immutable';
-import config from 'helper/config'
+import { createLogger } from "redux-logger";
+import { createWrapper } from "next-redux-wrapper";
+import Immutable from "immutable";
+import config from "helper/config";
 
-import reducer from './reducer.js';
+import reducer from "./reducer.js";
 
-function createMiddlewares () { // { isServer }
-    let middlewares = [
-        thunkMiddleware,
-        callapiMiddleware,
-    ]
-    if (process.env.NODE_ENV === 'development' && typeof window !== 'undefined') {
-        middlewares.push(createLogger({
-            level: 'info',
-            collapsed: true,
-            stateTransformer: state => state.toJS(),
-        }))
+function createMiddlewares() {
+    // { isServer }
+    let middlewares = [thunkMiddleware, callapiMiddleware];
+    if (process.env.NEXT_PUBLIC_ENV === "development" && typeof window !== "undefined") {
+        middlewares.push(
+            createLogger({
+                level: "info",
+                collapsed: true,
+                stateTransformer: (state) => state.toJS(),
+            })
+        );
     }
-    return middlewares
+    return middlewares;
 }
 
 export const initStore = (initialState = {}, context) => {
     // const { isServer } = context
-    const middlewares = createMiddlewares()
+    const middlewares = createMiddlewares();
 
     // console.log('debug008,initStore');
 
     // if (typeof window !== 'undefined') {
-      // console.log('debug008,window[__NEXT_REDUX_STORE__]',window,initialState)
+    // console.log('debug008,window[__NEXT_REDUX_STORE__]',window,initialState)
     // }
 
-    let store =  createStore(
+    let store = createStore(
         reducer,
         Immutable.fromJS(initialState),
         compose(
-          applyMiddleware(...middlewares),
-          typeof window !== 'undefined' && window.devToolsExtension ? window.devToolsExtension() : f => f
+            applyMiddleware(...middlewares),
+            typeof window !== "undefined" && window.devToolsExtension
+                ? window.devToolsExtension()
+                : (f) => f
         )
-    )
-    
+    );
+
     // store.subscribe(() => {
     //     if (typeof window !== 'undefined') {
     //         let data_api_url = store.getState().getIn(['setting','data_api_url'])  //这就是你获取到的数据state tree，由于使用了subscribe，当数据更改时会重新获取
@@ -55,23 +57,18 @@ export const initStore = (initialState = {}, context) => {
     //     }
     // });
 
-
     ///初始化
 
     return store;
-}
+};
 
 // create a makeStore function
-export const makeStore = context => initStore();
-
+export const makeStore = (context) => initStore();
 
 // export an assembled wrapper
 // export const wrapper = createWrapper(makeStore, {debug: true});
-export const wrapper = createWrapper(makeStore
-    , {
-        debug: config.get("DEBUG") ,
-        serializeState: state => state.toJS(),
-        deserializeState: state => Immutable.fromJS(state),
-    }
-);
-
+export const wrapper = createWrapper(makeStore, {
+    debug: config.get("DEBUG"),
+    serializeState: (state) => state.toJS(),
+    deserializeState: (state) => Immutable.fromJS(state),
+});
