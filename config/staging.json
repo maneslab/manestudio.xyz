@@ -7,7 +7,7 @@
 
 	"SPACE_WEBSITE": "https://test.manespace.xyz",
 
-	"API": "https://api.test.manestudio.xyz",
+	"API": "https://api-test.manestudio.xyz",
 
 	"LOGO": "production",
 
@@ -15,7 +15,7 @@
 
 	"NEXTID_ENV": "production",
 
-	"ETH_NETWORK": "rinkeby",
+	"ETH_NETWORK": "goerli",
 
 	"MANE_CONTRACT": {
 		"rinkeby": "0x467fd39f7c75F0B21EB35B8A6Fb500ff42AaAd49",
