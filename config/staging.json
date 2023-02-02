@@ -1,27 +1,31 @@
 {
+	"ENV": "production",
 
-    "ENV"               : "production",
-    
-    "DEBUG"             : false,
+	"DEBUG": false,
 
-    "WEBSITE"           : "https://test.manestudio.xyz",
+	"WEBSITE": "https://test.manestudio.xyz",
 
-    "SPACE_WEBSITE"     : "https://test.manespace.xyz",
-    
-    "API"               : "https://api.test.manestudio.xyz",
+	"SPACE_WEBSITE": "https://test.manespace.xyz",
 
-    "LOGO"              : "production",
-    
-    "GA_TRACKING_ID"    : "G-5C0R9CD5QL",
+	"API": "https://api.test.manestudio.xyz",
 
-    "NEXTID_ENV"        : "production",
+	"LOGO": "production",
 
-    "ETH_NETWORK"       : "rinkeby",
+	"GA_TRACKING_ID": "G-5C0R9CD5QL",
 
-    "MANE_CONTRACT"     : {
-        "rinkeby"       :   "0x467fd39f7c75F0B21EB35B8A6Fb500ff42AaAd49",
-        "homestead"     :   "0x5Baf93D823328EdDca6C3020B9105363A5b26B1A",
-        "goerli"        :   "0xD36f1fB678E976D9a8d952b8eA4acb177D99e3c3"
-    }
+	"NEXTID_ENV": "production",
 
+	"ETH_NETWORK": "rinkeby",
+
+	"MANE_CONTRACT": {
+		"rinkeby": "0x467fd39f7c75F0B21EB35B8A6Fb500ff42AaAd49",
+		"homestead": "0x5Baf93D823328EdDca6C3020B9105363A5b26B1A",
+		"goerli": "0xD36f1fB678E976D9a8d952b8eA4acb177D99e3c3"
+	},
+
+	"MANE_CONTRACT_V2": {
+		"homestead": "0x82bde11f8E556C8bBfaff7267B181674F4eFe188",
+		"goerli": "0x9927a443105d01743B1F74f233E16cDf839e282b",
+		"begin_club_id": 269
+	}
 }
