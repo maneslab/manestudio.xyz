@@ -302,7 +302,7 @@ choose network,choose network,选择网络
 Manage Deployed Contracts,Manage Deployed Contracts,管理已部署的合约
 manage,manage,管理
 No contract deployed,No contract deployed,未部署合约
-Manastudio Contract is not deployed on this network yet,Manastudio Contract is not deployed on this network yet,Manastudio合约还没有部署在这个网络上
+Manestudio Contract is not deployed on this network yet,Manestudio Contract is not deployed on this network yet,Manestudio合约还没有部署在这个网络上
 get Goerli Testnet ETH,get Goerli Testnet ETH,获取科万特网ETH
 Get,Get,获取
 deploy to ETH mainnet,deploy to ETH mainnet,部署到ETH主网
