@@ -157,7 +157,6 @@ class MyApp extends App {
                 </div>
                 <div className='mb-24 text-white flex justify-center items-center space-x-2'>
 				    <a href="https://twitter.com/manestudioxyz" target="_blank" className="hover:text-gray-400"><TwitterIcon className="icon-xs"/></a>
-				    <a href="https://discord.gg/EnCUugtfVn" target="_blank" className="hover:text-gray-400"><DiscordIcon className="icon-xs"/></a>
 				    <a href="https://docs.manestudio.xyz" target="_blank" className="hover:text-gray-400 capitalize flex justify-start items-center">{'Doc'}<NewwindowIcon className="icon-xs ml-1"/></a>
                 </div>
             </div>
